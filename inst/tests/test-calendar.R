@@ -1,7 +1,6 @@
 
 source('calendar.R')
 
-# data(holidaysANDIMA)
 holidaysANDIMA <- as.Date(unlist(read.table('ANBIMA.cal')))
 # holidaysANDIMA <- holidaysANDIMA[holidaysANDIMA >= '2013-01-01' & holidaysANDIMA <= '2026-01-01']
 cal <- calendar(holidaysANDIMA)

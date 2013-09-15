@@ -1,6 +1,6 @@
 
 
-calendar <- function (holidays) {
+Calendar <- function (holidays) {
 	that <- list()
 	dates <- seq(from=min(holidays), to=max(holidays), by='day')
 	n.dates <- as.integer(dates)
@@ -37,35 +37,25 @@ calendar <- function (holidays) {
 	that$seq <- function(from, to) {
 		bizdays[which(bizdays >= from & bizdays <= to)]
 	}
-	that$seqi <- function(from, to) {
-		date <- from
-		iter <- list()
-		iter$has.next <- function() that$adjust.next(date) <= to
-		iter$get.next <- function() {
-			if ( ! iter$has.next() ) stop("Stop iteration.")
-			curr.date <- that$adjust.next(date)
-			date <<- curr.date + 1
-			return(curr.date)
-		}
-		return(iter)
-	}
 	
-	class(that) <- 'calendar'
+	class(that) <- 'Calendar'
 	return(that)
 }
 
-adjust.next <- function(cal, date, ...) UseMethod("adjust.next")
-adjust.previous <- function(cal, date, ...) UseMethod("adjust.previous")
-bizdays <- function(cal, from, to, ...) UseMethod("bizdays")
-is.bizday <- function(cal, date, ...) UseMethod("is.bizday")
+adjust.next <- function(object, ...) UseMethod("adjust.next", object)
+adjust.previous <- function(object, ...) UseMethod("adjust.previous", object)
+bizdays <- function(object, ...) UseMethod("bizdays", object)
+is.bizday <- function(object, ...) UseMethod("is.bizday", object)
+offset <- function(object, ...) UseMethod("offset", object)
 
-adjust.next.calendar <- function(cal, date) cal$adjust.next(date)
-adjust.previous.calendar <- function(cal, date) cal$adjust.previous(date)
-bizdays.calendar <- function(cal, from, to) cal$bizdays(from, to)
-is.bizday.calendar <- function(cal, date) cal$is.bizday(date)
-print.calendar <- function(cal) {
-	cat("calendar class", "\n")
+is.Calendar <- function(cal) class(cal) == 'Calendar'
+adjust.next.Calendar <- function(cal, date) cal$adjust.next(date)
+adjust.previous.Calendar <- function(cal, date) cal$adjust.previous(date)
+bizdays.Calendar <- function(cal, from, to) cal$bizdays(from, to)
+is.bizday.Calendar <- function(cal, date) cal$is.bizday(date)
+seq.Calendar <- function(cal, from, to) cal$seq(from, to)
+offset.Calendar <- function(cal, date, n) {
+    '2013-01-01'
 }
-seq.calendar <- function(cal, from, to) cal$seq(from, to)
 
 
