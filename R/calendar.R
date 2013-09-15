@@ -49,13 +49,31 @@ is.bizday <- function(object, ...) UseMethod("is.bizday", object)
 offset <- function(object, ...) UseMethod("offset", object)
 
 is.Calendar <- function(cal) class(cal) == 'Calendar'
+
+#'
 adjust.next.Calendar <- function(cal, date) cal$adjust.next(date)
 adjust.previous.Calendar <- function(cal, date) cal$adjust.previous(date)
 bizdays.Calendar <- function(cal, from, to) cal$bizdays(from, to)
 is.bizday.Calendar <- function(cal, date) cal$is.bizday(date)
 seq.Calendar <- function(cal, from, to) cal$seq(from, to)
 offset.Calendar <- function(cal, date, n) {
-    '2013-01-01'
+    if (n >= 0) {
+        adjust <- function(date) adjust.next(cal, date)
+        date <- adjust(date)
+        inc <- 1
+    } else {
+        adjust <- function(date) adjust.previous(cal, date)
+        date <- adjust(date)
+        inc <- -1
+        n <- abs(n)
+    }
+    i <- 0
+    while (i < n) {
+        date <- date + inc
+        date <- adjust(date)
+        i <- i + 1
+    }
+    date
 }
 
 
