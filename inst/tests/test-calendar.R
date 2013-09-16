@@ -1,5 +1,4 @@
 
-# holidaysANDIMA <- as.Date(unlist(read.table('ANBIMA.cal')))
 data(holidaysANBIMA)
 cal <- Calendar(holidaysANBIMA)
 
