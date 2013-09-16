@@ -1,17 +1,17 @@
 Package: bizdays
 Title: Functions to handle business days calculations
 Description: bizdays is a small set of functions to help with calculations
-    which make use of business days. It works based on a list of holidays 
-    which is passed as an argument. Its interface is simple and flexible  
+    which make use of business days. It works based on a list of holidays
+    which is passed as an argument. Its interface is simple and flexible
     operating on vector of dates.
     bizdays can be fairly used for fixed income calculations.
-    Many countries make intense use of business days to price 
+    Many countries make intense use of business days to price
     financial instruments, like bonds and derivatives.
 Version: 0.1.1
 Author: Wilson Freitas <wilson.freitas@gmail.com>
 Maintainer: Wilson Freitas <wilson.freitas@gmail.com>
 Depends:
-    R (>= 2.15.1)
+    R (>= 2.15)
 License: MIT
 LazyData: true
 Collate:
