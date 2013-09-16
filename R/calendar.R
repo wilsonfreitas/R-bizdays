@@ -28,16 +28,29 @@ Calendar <- function (holidays) {
 	}, integer(1))
 	# class attributes
 	bizdays <- dates[.is.bizday]
-	that$adjust.next <- function(date) {
+	.adjust.next <- function(date) {
 	    date <- as.Date(date)
 	    while ( ! .is.bizday[dates == date] ) date <- date + 1
 	    return( date )
 	}
-	that$adjust.previous <- function(date) {
+	.adjust.previous <- function(date) {
 	    date <- as.Date(date)
 	    while ( ! .is.bizday[dates == date] ) date <- date - 1
 	    return( date )
 	}
+    .adjust <- function(dates, .adjust.FUN) {
+        o.dates <- integer(length(dates))
+        for (i in seq_along(dates)) {
+            o.dates[i] <- .adjust.FUN(dates[i])
+        }
+        return(as.Date(o.dates, origin='1970-01-01'))
+    }
+    that$adjust.next <- function(dates) {
+        .adjust(dates, .adjust.next)
+    }
+    that$adjust.previous <- function(dates) {
+        .adjust(dates, .adjust.previous)
+    }
 	that$bizdays <- function(from, to) {
 		from.idx <- index[dates == that$adjust.next(from)]
 		to.idx <- index[dates == that$adjust.previous(to)]
@@ -116,8 +129,20 @@ bizdays <- function(cal, from, to) cal$bizdays(from, to)
 #' is.bizday(cal, '2013-01-02')
 is.bizday <- function(cal, date) cal$is.bizday(date)
 
-#' @S3method seq Calendar
-seq.Calendar <- function(cal, from, to) cal$seq(from, to)
+#' Create a sequence of business days.
+#'
+#' This function returns a sequence of business days according to the given
+#' calendar.
+#'
+#' @param cal an instance of Calendar
+#' @param from the initial date
+#' @param to the final date. This date must be greater that the initial date
+#' @export
+#' @examples
+#' data(holidaysANBIMA)
+#' cal <- Calendar(holidaysANBIMA)
+#' bizseq(cal, '2013-01-02', '2013-01-31')
+bizseq <- function(cal, from, to) cal$seq(from, to)
 
 #' Offset the date by n business days.
 #'

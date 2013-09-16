@@ -74,7 +74,7 @@ context('sequence of bizdays')
 test_that("sequence of bizdays", {
     s <- c("2013-01-02","2013-01-03","2013-01-04","2013-01-07","2013-01-08",
     "2013-01-09","2013-01-10")
-    expect_true(all( seq(cal, '2013-01-01', '2013-01-10') == s ))
+    expect_true(all( bizseq(cal, '2013-01-01', '2013-01-10') == s ))
 })
 
 context('offset by a number of business days')
@@ -86,3 +86,19 @@ test_that("it should offset the date by n business days", {
     expect_equal(offset(cal, '2013-01-01', 0), as.Date('2013-01-02'))
     expect_equal(offset(cal, '2013-01-01', -1), as.Date('2012-12-28'), label=offset(cal, '2013-01-01', -1))
 })
+
+context('vectorized operations')
+
+test_that('it should adjust.next a vector of dates', {
+    dates <- c(as.Date('2013-01-01'), as.Date('2013-01-02'))
+    adj.dates <- adjust.next(cal, dates)
+    expect_equal(adj.dates, c(as.Date('2013-01-02'), as.Date('2013-01-02')))
+})
+
+test_that('it should adjust.previous a vector of dates', {
+    dates <- c(as.Date('2013-01-01'), as.Date('2013-01-02'))
+    adj.dates <- adjust.previous(cal, dates)
+    expect_equal(adj.dates, c(as.Date('2012-12-31'), as.Date('2013-01-02')))
+})
+
+
