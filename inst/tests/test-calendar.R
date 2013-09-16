@@ -1,7 +1,7 @@
 
 # holidaysANDIMA <- as.Date(unlist(read.table('ANBIMA.cal')))
-data(holidaysANDIMA)
-cal <- Calendar(holidaysANDIMA)
+data(holidaysANBIMA)
+cal <- Calendar(holidaysANBIMA)
 
 context('handle business days')
 
