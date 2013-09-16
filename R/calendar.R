@@ -17,39 +17,39 @@ Calendar <- function (holidays) {
 	n.holidays <- as.integer(holidays)
 	.is.bizday <- vapply(n.dates, function(.) {
 	    wday <- .%%7
-	    return( ! ( wday == 2 || wday == 3 || any(. == n.holidays)) )
+	    ! ( wday == 2 || wday == 3 || any(. == n.holidays))
 	}, logical(1))
 	n.bizdays <- n.dates[.is.bizday]
 	idx <- as.integer(1)
 	index <- vapply(.is.bizday, function(.) {
 	    prev.idx <- idx
 	    idx <<- prev.idx + as.integer(.)
-	    return( prev.idx )
+	    prev.idx
 	}, integer(1))
 	# class attributes
 	bizdays <- dates[.is.bizday]
 	.adjust.next <- function(date) {
 	    date <- as.Date(date)
 	    while ( ! .is.bizday[dates == date] ) date <- date + 1
-	    return( date )
+	    date
 	}
 	.adjust.previous <- function(date) {
 	    date <- as.Date(date)
 	    while ( ! .is.bizday[dates == date] ) date <- date - 1
-	    return( date )
+	    date
 	}
     .adjust <- function(dates, .adjust.FUN) {
         o.dates <- integer(length(dates))
         for (i in seq_along(dates)) {
             o.dates[i] <- .adjust.FUN(dates[i])
         }
-        return(as.Date(o.dates, origin='1970-01-01'))
+        as.Date(o.dates, origin='1970-01-01')
     }
     .bizdays <- function(from, to) {
         from.idx <- index[dates %in% that$adjust.next(from)]
         to.idx <- index[dates %in% that$adjust.previous(to)]
         stopifnot(length(from.idx) == length(to.idx))
-        return( to.idx - from.idx )
+        to.idx - from.idx
     }
     that$adjust.next <- function(dates) {
         .adjust(dates, .adjust.next)
