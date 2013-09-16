@@ -2,12 +2,12 @@
 \alias{offset}
 \title{Offset the date by n business days.}
 \usage{
-  offset(cal, date, n)
+  offset(cal, dates, n)
 }
 \arguments{
   \item{cal}{an instance of Calendar}
 
-  \item{date}{the date to be offset}
+  \item{dates}{a date or a vector of dates to be offset}
 
   \item{n}{the amount of business days to offset}
 }
@@ -19,5 +19,7 @@
 data(holidaysANBIMA)
 cal <- Calendar(holidaysANBIMA)
 offset(cal, '2013-01-02', 5)
+dates <- seq(as.Date('2013-01-01'), as.Date('2013-01-05'), by='day')
+offset(cal, dates, 1)
 }
 

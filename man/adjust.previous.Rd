@@ -2,12 +2,13 @@
 \alias{adjust.previous}
 \title{Adjusts the date to the previous business day}
 \usage{
-  adjust.previous(cal, date)
+  adjust.previous(cal, dates)
 }
 \arguments{
   \item{cal}{an instance of Calendar}
 
-  \item{date}{the date to be adjusted}
+  \item{dates}{the date or a vector of dates to be
+  adjusted}
 }
 \description{
   Moves the given date to the previous business day, once

@@ -9,10 +9,10 @@
 \arguments{
   \item{cal}{an instance of Calendar}
 
-  \item{from}{the initial date}
+  \item{from}{the initial date (or a vector of dates)}
 
-  \item{to}{the final date. This date must be greater that
-  the initial date}
+  \item{to}{the final date (or a vector of dates). All of
+  these dates must be greater than the initial dates.}
 }
 \description{
   In many countries the standard approach to price

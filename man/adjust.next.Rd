@@ -2,12 +2,13 @@
 \alias{adjust.next}
 \title{Adjusts the date to the next business day}
 \usage{
-  adjust.next(cal, date)
+  adjust.next(cal, dates)
 }
 \arguments{
   \item{cal}{an instance of Calendar}
 
-  \item{date}{the date to be adjusted}
+  \item{dates}{the date or a vector of dates to be
+  adjusted}
 }
 \description{
   Moves the given date to the next business day, once it is

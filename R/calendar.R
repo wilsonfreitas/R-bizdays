@@ -58,6 +58,7 @@ Calendar <- function (holidays) {
         .adjust(dates, .adjust.previous)
     }
 	that$bizdays <- function(from, to) {
+        stopifnot(all(from <= to))
         stopifnot(length(from) == length(to))
         bd <- integer(length(from))
         for (i in seq_along(from)) {
@@ -105,7 +106,7 @@ Calendar <- function (holidays) {
 #' non-business day.
 #'
 #' @param cal an instance of Calendar
-#' @param date the date or a vector of dates to be adjusted
+#' @param dates the date or a vector of dates to be adjusted
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
@@ -119,7 +120,7 @@ adjust.next <- function(cal, dates) cal$adjust.next(dates)
 #' non-business day.
 #'
 #' @param cal an instance of Calendar
-#' @param date the date or a vector of dates to be adjusted
+#' @param dates the date or a vector of dates to be adjusted
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
@@ -133,8 +134,9 @@ adjust.previous <- function(cal, dates) cal$adjust.previous(dates)
 #' account the holidays passed to the Calendar function.
 #'
 #' @param cal an instance of Calendar
-#' @param from the initial date
-#' @param to the final date. This date must be greater that the initial date
+#' @param from the initial date (or a vector of dates) @param to the final date
+#' (or a vector of dates). All of these dates must be greater than the initial
+#' dates.
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
@@ -148,7 +150,7 @@ bizdays <- function(cal, from, to) cal$bizdays(from, to)
 #' otherwise.
 #'
 #' @param cal an instance of Calendar
-#' @param date a date or a vector of dates to be tested
+#' @param dates a date or a vector of dates to be tested
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
@@ -179,7 +181,7 @@ bizseq <- function(cal, from, to) cal$seq(from, to)
 #' days.
 #'
 #' @param cal an instance of Calendar
-#' @param date a date or a vector of dates to be offset
+#' @param dates a date or a vector of dates to be offset
 #' @param n the amount of business days to offset
 #' @export
 #' @examples
