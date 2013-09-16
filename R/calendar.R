@@ -45,6 +45,12 @@ Calendar <- function (holidays) {
         }
         return(as.Date(o.dates, origin='1970-01-01'))
     }
+    .bizdays <- function(from, to) {
+        from.idx <- index[dates %in% that$adjust.next(from)]
+        to.idx <- index[dates %in% that$adjust.previous(to)]
+        stopifnot(length(from.idx) == length(to.idx))
+        return( to.idx - from.idx )
+    }
     that$adjust.next <- function(dates) {
         .adjust(dates, .adjust.next)
     }
@@ -52,9 +58,12 @@ Calendar <- function (holidays) {
         .adjust(dates, .adjust.previous)
     }
 	that$bizdays <- function(from, to) {
-		from.idx <- index[dates == that$adjust.next(from)]
-		to.idx <- index[dates == that$adjust.previous(to)]
-		return( to.idx - from.idx )
+        stopifnot(length(from) == length(to))
+        bd <- integer(length(from))
+        for (i in seq_along(from)) {
+            bd[i] <- .bizdays(from[i], to[i])
+        }
+        bd
 	}
 	that$is.bizday <- function(date) .is.bizday[dates %in% date]
 	that$seq <- function(from, to) {

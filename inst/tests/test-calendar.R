@@ -52,6 +52,12 @@ test_that("business days counting", {
     expect_equal(bizdays(cal, '2013-08-13', '2025-01-02'), 2861)
 })
 
+test_that('it should return the business days for a set of dates', {
+    dates.from <- seq(as.Date('2013-01-01'), as.Date('2013-01-05'), by='day')
+    dates.to <- dates.from + 5
+    expect_equal(bizdays(cal, dates.from, dates.to), c(2, 3, 3, 3, 3))
+})
+
 test_that("is business day", {
     expect_false(is.bizday(cal, as.Date('2013-01-01')))
     expect_true(is.bizday(cal, as.Date('2013-01-02')))
