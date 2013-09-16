@@ -55,6 +55,8 @@ test_that("business days counting", {
 test_that("is business day", {
     expect_false(is.bizday(cal, as.Date('2013-01-01')))
     expect_true(is.bizday(cal, as.Date('2013-01-02')))
+    dates <- seq(as.Date('2013-01-01'), as.Date('2013-01-05'), by='day')
+    expect_equal(is.bizday(cal, dates), c(FALSE, TRUE, TRUE, TRUE, FALSE))
 })
 
 context('adjustment of business days')

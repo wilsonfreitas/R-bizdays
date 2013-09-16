@@ -56,7 +56,7 @@ Calendar <- function (holidays) {
 		to.idx <- index[dates == that$adjust.previous(to)]
 		return( to.idx - from.idx )
 	}
-	that$is.bizday <- function(date) .is.bizday[dates == date]
+	that$is.bizday <- function(date) .is.bizday[dates %in% date]
 	that$seq <- function(from, to) {
 		bizdays[which(bizdays >= from & bizdays <= to)]
 	}
