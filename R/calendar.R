@@ -78,13 +78,13 @@ Calendar <- function (holidays) {
 #' non-business day.
 #'
 #' @param cal an instance of Calendar
-#' @param date the date to be adjusted
+#' @param date the date or a vector of dates to be adjusted
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA)
 #' adjust.next(cal, '2013-01-01')
-adjust.next <- function(cal, date) cal$adjust.next(date)
+adjust.next <- function(cal, dates) cal$adjust.next(dates)
 
 #' Adjusts the date to the previous business day
 #'
@@ -92,13 +92,13 @@ adjust.next <- function(cal, date) cal$adjust.next(date)
 #' non-business day.
 #'
 #' @param cal an instance of Calendar
-#' @param date the date to be adjusted
+#' @param date the date or a vector of dates to be adjusted
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA)
 #' adjust.previous(cal, '2013-01-01')
-adjust.previous <- function(cal, date) cal$adjust.previous(date)
+adjust.previous <- function(cal, dates) cal$adjust.previous(dates)
 
 #' Computes business days between two dates.
 #'
@@ -121,13 +121,15 @@ bizdays <- function(cal, from, to) cal$bizdays(from, to)
 #' otherwise.
 #'
 #' @param cal an instance of Calendar
-#' @param date the date to be tested
+#' @param date a date or a vector of dates to be tested
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA)
 #' is.bizday(cal, '2013-01-02')
-is.bizday <- function(cal, date) cal$is.bizday(date)
+#' dates <- seq(as.Date('2013-01-01'), as.Date('2013-01-05'), by='day')
+#' is.bizday(cal, dates)
+is.bizday <- function(cal, dates) cal$is.bizday(dates)
 
 #' Create a sequence of business days.
 #'
