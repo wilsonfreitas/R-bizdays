@@ -1,11 +1,15 @@
 Package: bizdays
 Title: Functions to handle business days calculations
 Description: bizdays is a small set of functions to help with calculations which
-	make use of business days. Fixed income calculations in Brazil make intense
-	use of that. 
+    make use of business days. Fixed income calculations in Brazil make intense
+    use of that.
 Version: 0.1.0
 Author: Wilson Freitas <wilson.freitas@gmail.com>
 Maintainer: Wilson Freitas <wilson.freitas@gmail.com>
-Depends: R (>= 2.15.1)
+Depends:
+    R (>= 2.15.1)
 License: MIT
 LazyData: true
+Collate:
+    'R-bizdays-package.r'
+    'calendar.R'

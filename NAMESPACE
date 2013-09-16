@@ -1,0 +1,7 @@
+S3method(seq,Calendar)
+export(Calendar)
+export(adjust.next)
+export(adjust.previous)
+export(bizdays)
+export(is.bizday)
+export(offset)
