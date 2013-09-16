@@ -60,7 +60,25 @@ Calendar <- function (holidays) {
 	that$seq <- function(from, to) {
 		bizdays[which(bizdays >= from & bizdays <= to)]
 	}
-	
+    that$offset <- function(date, n) {
+        if (n >= 0) {
+            adjust <- function(date) .adjust(date, .adjust.next)
+            date <- adjust(date)
+            inc <- 1
+        } else {
+            adjust <- function(date) .adjust(date, .adjust.previous)
+            date <- adjust(date)
+            inc <- -1
+            n <- abs(n)
+        }
+        i <- 0
+        while (i < n) {
+            date <- date + inc
+            date <- adjust(date)
+            i <- i + 1
+        }
+        date
+    }
 	class(that) <- 'Calendar'
 	return(that)
 }
@@ -152,32 +170,16 @@ bizseq <- function(cal, from, to) cal$seq(from, to)
 #' days.
 #'
 #' @param cal an instance of Calendar
-#' @param date the date to be offset
+#' @param date a date or a vector of dates to be offset
 #' @param n the amount of business days to offset
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA)
 #' offset(cal, '2013-01-02', 5)
-offset <- function(cal, date, n) {
-    if (n >= 0) {
-        adjust <- function(date) adjust.next(cal, date)
-        date <- adjust(date)
-        inc <- 1
-    } else {
-        adjust <- function(date) adjust.previous(cal, date)
-        date <- adjust(date)
-        inc <- -1
-        n <- abs(n)
-    }
-    i <- 0
-    while (i < n) {
-        date <- date + inc
-        date <- adjust(date)
-        i <- i + 1
-    }
-    date
-}
+#' dates <- seq(as.Date('2013-01-01'), as.Date('2013-01-05'), by='day')
+#' offset(cal, dates, 1)
+offset <- function(cal, dates, n) cal$offset(dates, n)
 
 #' ANBIMA's holidays list
 #' 

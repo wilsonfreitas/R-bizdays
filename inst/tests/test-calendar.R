@@ -87,6 +87,8 @@ test_that("it should offset the date by n business days", {
     expect_equal(offset(cal, '2013-01-02', 0), as.Date('2013-01-02'))
     expect_equal(offset(cal, '2013-01-01', 0), as.Date('2013-01-02'))
     expect_equal(offset(cal, '2013-01-01', -1), as.Date('2012-12-28'), label=offset(cal, '2013-01-01', -1))
+    dates <- c(as.Date('2013-01-01'), as.Date('2013-01-02'))
+    expect_equal(offset(cal, dates, 1), c(as.Date('2013-01-03'), as.Date('2013-01-03')))
 })
 
 context('vectorized operations')
