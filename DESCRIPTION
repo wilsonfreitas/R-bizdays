@@ -12,7 +12,7 @@ Author: Wilson Freitas <wilson.freitas@gmail.com>
 Maintainer: Wilson Freitas <wilson.freitas@gmail.com>
 Depends:
     R (>= 2.15)
-License: MIT
+License: MIT + file LICENSE
 LazyData: true
 Collate:
     'R-bizdays-package.r'
