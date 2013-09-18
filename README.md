@@ -1,4 +1,5 @@
 [cran-bizdays]: http://cran.r-project.org/web/packages/bizdays/index.html
+[ANBIMA]: http://portal.anbima.com.br/Pages/home.aspx
 
 # bizdays
 
@@ -12,7 +13,7 @@ It doesn't implement specific holidays guessing algorithms, because I know that 
 Many financial institutions have to handle with nasty contract's rules from many different countries and each market has its own rules for counting the business days.
 
 
-## Install
+## Installing
 
 It is available on [CRAN][cran-bizdays] to be installed through:
 
@@ -26,7 +27,7 @@ or using `devtools`
 devtools::install_github('R-bizdays', username='wilsonfreitas')
 ```
 
-## Simplicity
+## Using
 
 Everything relies on the `Calendar` class, well it is not a strict class as some would argue but in R's domains it is pretty much a class.
 
@@ -46,5 +47,8 @@ Once you have a brand new calendar you are going to have 6 functions at hand:
 
 **All functions, except `bizseq`, accept vector of `Date` objects.**
 
+## Holidays
 
+I've included a dataset called `holidaysANBIMA` containing the list of holidays released by [ANBIMA][ANBIMA], this is quite useful at brazilian financial market.
+So, if you have a specific list of holidays used at any market in the world, please share with me, I will be glad to include it in future releases.
 
