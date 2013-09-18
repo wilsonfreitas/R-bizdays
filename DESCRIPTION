@@ -10,6 +10,7 @@ Description: bizdays is a small set of functions to help with calculations
 Version: 0.1.1
 Author: Wilson Freitas <wilson.freitas@gmail.com>
 Maintainer: Wilson Freitas <wilson.freitas@gmail.com>
+URL: https://github.com/wilsonfreitas/R-bizdays
 Depends:
     R (>= 2.15)
 License: MIT + file LICENSE
