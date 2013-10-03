@@ -5,6 +5,8 @@
 #' business days calculations.
 #'
 #' @param holidays a vector of Dates which contains the holidays
+#' @param start.date the date which calendar starts
+#' @param end.date the date which calendar ends
 #' @export
 #' @examples
 #' # holidays has iso-formated dates
