@@ -2,6 +2,24 @@
 data(holidaysANBIMA)
 cal <- Calendar(holidaysANBIMA)
 
+context('handle empty calendars')
+
+test_that('empty calendars', {
+    cal <- Calendar(start.date='2013-01-01', end.date='2013-12-31')
+    expect_equal(bizdays(cal, '2013-01-02', '2013-01-03'), 1)
+    cal <- Calendar()
+    expect_equal(bizdays(cal, '2013-01-02', '2013-01-03'), 1)
+    expect_equal(bizdays(cal, '2013-01-02', '2013-01-04'), 2)
+    expect_equal(bizdays(cal, '2013-01-02', '2013-01-05'), 2)
+    expect_equal(bizdays(cal, '2013-01-02', '2013-01-06'), 2)
+    expect_equal(bizdays(cal, '2013-01-02', '2013-01-07'), 3)
+})
+
+test_that('invalid dates: dates out of given range', {
+	cal <- Calendar(start.date='2013-01-01', end.date='2013-01-31')
+	expect_error(bizdays(cal, '2013-01-02', '2013-02-01'), 'Given date out of range.')
+})
+
 context('handle business days')
 
 test_that("business days counting", {
@@ -95,6 +113,8 @@ test_that("it should offset the date by n business days", {
     expect_equal(offset(cal, '2013-01-01', -1), as.Date('2012-12-28'), label=offset(cal, '2013-01-01', -1))
     dates <- c(as.Date('2013-01-01'), as.Date('2013-01-02'))
     expect_equal(offset(cal, dates, 1), c(as.Date('2013-01-03'), as.Date('2013-01-03')))
+    cal <- Calendar(start.date='2013-01-01', end.date='2013-01-31')
+    expect_error(offset(cal, '2013-01-10', 30), 'Given date out of range.')
 })
 
 context('vectorized operations')
