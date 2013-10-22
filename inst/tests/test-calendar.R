@@ -74,6 +74,9 @@ test_that('it should return the business days for a set of dates', {
     dates.from <- seq(as.Date('2013-01-01'), as.Date('2013-01-05'), by='day')
     dates.to <- dates.from + 5
     expect_equal(bizdays(cal, dates.from, dates.to), c(2, 3, 3, 3, 3))
+    expect_equal(bizdays(cal, '2013-01-02', dates.to), c(2, 3, 4, 5, 6))
+    expect_equal(bizdays(cal, dates.from, '2013-01-08'), c(4, 4, 3, 2, 1))
+    expect_error(bizdays(cal, c('2013-01-08', '2013-01-08', '2013-01-08'), c('2013-01-08', '2013-01-08')))
 })
 
 test_that("is business day", {

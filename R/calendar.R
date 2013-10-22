@@ -76,8 +76,14 @@ Calendar <- function (holidays=integer(0), start.date='1970-01-01', end.date='20
 			stop('Given date out of range.')
 		if ( ! all(from <= to) )
 			stop('All from dates must be greater than all to dates.')
-		if (length(from) != length(to))
-			stop('from and to must have the same length.')
+		# if (length(from) != length(to))
+		# 	stop('from and to must have the same length.')
+		tryCatch(date_columns <- cbind(as.character(from), as.character(to)),
+			warning=function (w) {
+				stop("from's length must be multiple of to's length")
+			})
+		from <- date_columns[,1]
+		to <- date_columns[,2]
 		bd <- integer(length(from))
 		for (i in seq_along(from)) {
 			bd[i] <- .bizdays(from[i], to[i])
