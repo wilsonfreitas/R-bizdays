@@ -1,7 +1,7 @@
 \name{name}
 \alias{name}
 \alias{name.Calendar}
-\title{Returns calendar's name}
+\title{Calendar's name}
 \usage{
   name(obj)
 

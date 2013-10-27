@@ -281,7 +281,7 @@ offset.Calendar <- function(obj, dates, n, ...) obj$offset(dates, n)
 #' @name holidaysANBIMA
 NULL
 
-#' Returns calendar's name
+#' Calendar's name
 #' 
 #' Returns calendar's name
 #' 
