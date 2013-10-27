@@ -5,10 +5,12 @@
 \usage{
   offset(obj, ...)
 
-  \method{offset}{Calendar} (cal, dates, n)
+  \method{offset}{Calendar} (obj, dates, n, ...)
 }
 \arguments{
-  \item{cal}{an instance of Calendar}
+  \item{...}{isn't used in that implementation}
+
+  \item{obj}{an instance of Calendar}
 
   \item{dates}{a date or a vector of dates to be offset}
 

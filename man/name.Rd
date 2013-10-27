@@ -1,16 +1,20 @@
 \name{name}
 \alias{name}
 \alias{name.Calendar}
-\title{Returns the calendar's name}
+\title{Returns calendar's name}
 \usage{
-  name(obj, ...)
+  name(obj)
 
-  \method{name}{Calendar} (cal)
+  \method{name}{Calendar} (obj)
 }
 \arguments{
-  \item{cal}{an instance of Calendar}
+  \item{obj}{an instance of Calendar}
 }
 \description{
-  Returns the calendar's name
+  Returns calendar's name
+}
+\examples{
+cal <- Calendar(holidaysANBIMA)
+name(cal)
 }
 

@@ -8,17 +8,12 @@
 \usage{
   bizdays(...)
 
-  \method{bizdays}{Calendar} (cal, from, to)
+  \method{bizdays}{Calendar} (cal, from, to, ...)
 
-  \method{bizdays}{default} (from, to)
+  \method{bizdays}{default} (from, to, ...)
 }
 \arguments{
-  \item{cal}{an instance of Calendar}
-
-  \item{from}{the initial date (or a vector of dates)}
-
-  \item{to}{the final date (or a vector of dates). All of
-  these dates must be greater than the initial dates.}
+  \item{...}{function parameters}
 
   \item{cal}{an instance of Calendar}
 

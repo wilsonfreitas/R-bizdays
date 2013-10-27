@@ -13,6 +13,8 @@
   \item{start.date}{the date which calendar starts}
 
   \item{end.date}{the date which calendar ends}
+
+  \item{name}{calendar's name}
 }
 \description{
   Calendar is the main class, it has all attributes
