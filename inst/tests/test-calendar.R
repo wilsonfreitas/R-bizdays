@@ -135,4 +135,34 @@ test_that('it should adjust.previous a vector of dates', {
     expect_equal(adj.dates, c(as.Date('2012-12-31'), as.Date('2013-01-02')))
 })
 
+context('naming calendars')
+
+test_that('it should name a Calendar instance', {
+	cal <- Calendar(name='ANBIMA', holidays=holidaysANBIMA)
+	expect_equal(name(cal), 'ANBIMA')
+	
+	cal <- Calendar()
+	expect_true(is.null(name(cal)))
+})
+
+context('setting options')
+
+test_that('it should set the default calendar', {
+	cal <- Calendar(name='Weekdays')
+	expect_true( is.null(bizdays.options$get('default.calendar')) )
+	bizdays.options$set(default.calendar=cal)
+	expect_equal(name(cal), name(bizdays.options$get('default.calendar')))
+})
+
+context('bizdays.default calls')
+
+test_that('it should call bizdays.default with default calendar', {
+	bizdays.options$set(default.calendar=cal)
+	expect_equal(bizdays('2013-07-12', '2014-07-12'), 251)
+})
+
+test_that('it should call bizdays.default with no default calendar', {
+	bizdays.options$set(default.calendar=NULL)
+	expect_error(bizdays('2013-07-12', '2014-07-12'))
+})
 

@@ -11,17 +11,25 @@
 #' @examples
 #' # holidays has iso-formated dates
 #' data(holidaysANBIMA)
-#' cal <- Calendar(holidaysANBIMA)
+#' cal <- Calendar(name='ANBIMA', holidays=holidaysANBIMA)
 #' # For empty calendar just pass nothing
-#' cal <- Calendar()
-Calendar <- function (holidays=integer(0), start.date='1970-01-01', end.date='2071-01-01') {
+#' cal <- Calendar(name='Weekdays') # from 1970-01-01 to 2071-01-01
+#' # unnamed calendars have NULL names
+#' cal <- Calendar(start.date='1976-07-12', end.date='2013-10-28')
+#' is.null(name(cal)) # TRUE
+Calendar <- function (holidays=integer(0),
+	start.date='1970-01-01', end.date='2071-01-01', name=NULL) {
+	
 	that <- list()
+	that$name <- name
 	start.date <- as.Date(start.date)
 	end.date <- as.Date(end.date)
 	if (length(holidays) != 0) {
 		start.date <- as.Date(min(holidays))
 		end.date <- as.Date(max(holidays))
 	}
+	that$start.date <- start.date
+	that$end.date <- end.date
 	dates <- seq(from=start.date, to=end.date, by='day')
 	n.dates <- as.integer(dates)
 	n.holidays <- as.integer(holidays)
@@ -129,6 +137,13 @@ Calendar <- function (holidays=integer(0), start.date='1970-01-01', end.date='20
 	return(that)
 }
 
+#' @S3method print Calendar
+print.Calendar <- function(cal) {
+	cat('Calendar:', name(cal),
+		'\nRange:', format(as.Date(cal$start.date, origin='1970-01-01'), '%Y-%m-%d'),
+		'to', format(as.Date(cal$end.date, origin='1970-01-01'), '%Y-%m-%d'))
+}
+
 # is.Calendar <- function(cal) class(cal) == 'Calendar'
 # adjust.next <- function(object, ...) UseMethod("adjust.next", object)
 # adjust.previous <- function(object, ...) UseMethod("adjust.previous", object)
@@ -168,17 +183,38 @@ adjust.previous <- function(cal, dates) cal$adjust.previous(dates)
 #'
 #' This function computes the amount of business days between 2 taking into
 #' account the holidays passed to the Calendar function.
-#'
+#' @export
+bizdays <- function(...) UseMethod('bizdays')
+
+#' @rdname bizdays
 #' @param cal an instance of Calendar
 #' @param from the initial date (or a vector of dates) @param to the final date
 #' (or a vector of dates). All of these dates must be greater than the initial
 #' dates.
-#' @export
+#' @method bizdays Calendar
+#' @S3method bizdays Calendar
 #' @examples
 #' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA)
 #' bizdays(cal, '2013-01-02', '2013-01-31')
-bizdays <- function(cal, from, to) cal$bizdays(from, to)
+bizdays.Calendar <- function(cal, from, to) cal$bizdays(from, to)
+
+#' @rdname bizdays
+#' @param cal an instance of Calendar
+#' @param from the initial date (or a vector of dates) @param to the final date
+#' (or a vector of dates). All of these dates must be greater than the initial
+#' dates.
+#' @method bizdays default
+#' @S3method bizdays default
+#' @examples
+#' data(holidaysANBIMA)
+#' cal <- Calendar(holidaysANBIMA)
+#' bizdays.options$set(default.calendar=cal)
+#' bizdays('2013-01-02', '2013-01-31')
+bizdays.default <- function(from, to) {
+	cal <- bizdays.options$get('default.calendar')
+	cal$bizdays(from, to)
+}
 
 #' Checks if the given date is a business day.
 #'
@@ -215,18 +251,22 @@ bizseq <- function(cal, from, to) cal$seq(from, to)
 #'
 #' This function returns the given date offset by the given amount of n business
 #' days.
-#'
+#' @export
+offset <- function(obj, ...) UseMethod('offset', obj)
+
+#' @rdname offset
 #' @param cal an instance of Calendar
 #' @param dates a date or a vector of dates to be offset
 #' @param n the amount of business days to offset
-#' @export
+#' @method offset Calendar
+#' @S3method offset Calendar
 #' @examples
 #' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA)
 #' offset(cal, '2013-01-02', 5)
 #' dates <- seq(as.Date('2013-01-01'), as.Date('2013-01-05'), by='day')
 #' offset(cal, dates, 1)
-offset <- function(cal, dates, n) cal$offset(dates, n)
+offset.Calendar <- function(cal, dates, n) cal$offset(dates, n)
 
 #' ANBIMA's holidays list
 #' 
@@ -238,3 +278,63 @@ offset <- function(cal, dates, n) cal$offset(dates, n)
 #' @format a vector with Date objects
 #' @name holidaysANBIMA
 NULL
+
+#' Returns the calendar's name
+#' 
+#' @export
+name <- function(obj, ...) UseMethod('name', obj)
+
+#' @rdname name
+#' @param cal an instance of Calendar
+#' @method name Calendar
+#' @S3method name Calendar
+name.Calendar <- function(cal) cal$name
+
+# merge elements of y into x with the same names
+merge_list = function(x, y) {
+  x[names(y)] = y
+  x
+}
+
+# new_defaults — creates a settings object
+new_defaults <- function(value=list()) {
+	defaults <- value
+
+	get <- function(name, default=FALSE, drop=TRUE) {
+		if (default)
+			defaults <- value  # this is only a local version
+		if (missing(name))
+			defaults
+		else {
+			if (drop && length(name) == 1)
+				defaults[[name]]
+			else
+				defaults[name]
+			}
+		}
+	set <- function(...) {
+		dots <- list(...)
+		if (length(dots) == 0) return()
+		if (is.null(names(dots)) && length(dots) == 1 && is.list(dots[[1]]))
+		if (length(dots <- dots[[1]]) == 0) return()
+		defaults <<- merge(dots)
+		invisible(NULL)
+	}
+	merge <- function(values) merge_list(defaults, values)
+	restore <- function(target = value) defaults <<- target
+
+	list(get=get, set=set, merge=merge, restore=restore)
+}
+
+#' bizdays' options
+#' 
+#' \code{bizdays.options} defines the default calendar to be used at 
+#' \code{bizdays.default} calls.
+#' 
+#' @export
+#' @examples
+#' cal <- Calendar(name='Weekdays')
+#' bizdays.options$set(default.calendar=cal)
+#' bizdays.options$get('default.calendar')
+bizdays.options <- new_defaults(list())
+
