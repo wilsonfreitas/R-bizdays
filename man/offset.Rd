@@ -1,8 +1,11 @@
 \name{offset}
 \alias{offset}
+\alias{offset.Calendar}
 \title{Offset the date by n business days.}
 \usage{
-  offset(cal, dates, n)
+  offset(obj, ...)
+
+  \method{offset}{Calendar} (cal, dates, n)
 }
 \arguments{
   \item{cal}{an instance of Calendar}

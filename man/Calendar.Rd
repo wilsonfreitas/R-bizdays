@@ -3,7 +3,8 @@
 \title{Creates the calendar based on a list of holidays.}
 \usage{
   Calendar(holidays = integer(0),
-    start.date = "1970-01-01", end.date = "2071-01-01")
+    start.date = "1970-01-01", end.date = "2071-01-01",
+    name = NULL)
 }
 \arguments{
   \item{holidays}{a vector of Dates which contains the
@@ -20,8 +21,11 @@
 \examples{
 # holidays has iso-formated dates
 data(holidaysANBIMA)
-cal <- Calendar(holidaysANBIMA)
+cal <- Calendar(name='ANBIMA', holidays=holidaysANBIMA)
 # For empty calendar just pass nothing
-cal <- Calendar()
+cal <- Calendar(name='Weekdays') # from 1970-01-01 to 2071-01-01
+# unnamed calendars have NULL names
+cal <- Calendar(start.date='1976-07-12', end.date='2013-10-28')
+is.null(name(cal)) # TRUE
 }
 

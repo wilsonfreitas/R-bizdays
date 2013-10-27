@@ -2,11 +2,24 @@
 \name{bizdays}
 \alias{bizdays}
 \alias{bizdays-package}
+\alias{bizdays.Calendar}
+\alias{bizdays.default}
 \title{Tools for business days calculations}
 \usage{
-  bizdays(cal, from, to)
+  bizdays(...)
+
+  \method{bizdays}{Calendar} (cal, from, to)
+
+  \method{bizdays}{default} (from, to)
 }
 \arguments{
+  \item{cal}{an instance of Calendar}
+
+  \item{from}{the initial date (or a vector of dates)}
+
+  \item{to}{the final date (or a vector of dates). All of
+  these dates must be greater than the initial dates.}
+
   \item{cal}{an instance of Calendar}
 
   \item{from}{the initial date (or a vector of dates)}
@@ -33,5 +46,9 @@
 data(holidaysANBIMA)
 cal <- Calendar(holidaysANBIMA)
 bizdays(cal, '2013-01-02', '2013-01-31')
+data(holidaysANBIMA)
+cal <- Calendar(holidaysANBIMA)
+bizdays.options$set(default.calendar=cal)
+bizdays('2013-01-02', '2013-01-31')
 }
 
