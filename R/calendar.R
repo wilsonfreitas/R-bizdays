@@ -19,9 +19,14 @@
 #' cal <- Calendar(start.date='1976-07-12', end.date='2013-10-28')
 #' is.null(name(cal)) # TRUE
 Calendar <- function (holidays=integer(0),
-	start.date='1970-01-01', end.date='2071-01-01', name=NULL) {
+		start.date='1970-01-01', end.date='2071-01-01', name=NULL,
+		weekdays=c('saturday', 'sunday')) {
 	
 	that <- list()
+	weekdays_codes <- list(monday=4, tuesday=5, wednesday=6, thursday=0,
+		friday=1, saturday=2, sunday=3)
+	wdays <- unlist(weekdays_codes[weekdays])
+	that$weekdays <- weekdays
 	that$name <- name
 	start.date <- as.Date(start.date)
 	end.date <- as.Date(end.date)
@@ -36,7 +41,7 @@ Calendar <- function (holidays=integer(0),
 	n.holidays <- as.integer(holidays)
 	.is.bizday <- vapply(n.dates, function(.) {
 		wday <- .%%7
-		! ( wday == 2 || wday == 3 || any(. == n.holidays))
+		! ( wday %in% wdays || . %in% n.holidays)
 	}, logical(1))
 	n.bizdays <- n.dates[.is.bizday]
 	idx <- as.integer(1)
@@ -137,6 +142,10 @@ Calendar <- function (holidays=integer(0),
 	class(that) <- 'Calendar'
 	return(that)
 }
+
+
+#' @S3method weekdays Calendar
+weekdays.Calendar <- function(x, ...) x$weekdays
 
 #' @S3method print Calendar
 print.Calendar <- function(x, ...) {
