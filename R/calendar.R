@@ -45,12 +45,7 @@ Calendar <- function (holidays=integer(0),
 	}, logical(1))
 	n.bizdays <- n.dates[.is.bizday]
 	idx <- as.integer(1)
-	index <- vapply(.is.bizday, function(.) {
-		prev.idx <- idx
-		idx <<- prev.idx + as.integer(.)
-		prev.idx
-	}, integer(1))
-	# class attributes
+	index <- cumsum(.is.bizday)
 	bizdays <- dates[.is.bizday]
 	.adjust.next <- function(date) {
 		date <- as.Date(date)
