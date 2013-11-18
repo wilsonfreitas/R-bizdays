@@ -4,7 +4,7 @@
 \usage{
   Calendar(holidays = integer(0),
     start.date = "1970-01-01", end.date = "2071-01-01",
-    name = NULL)
+    name = NULL, weekdays = c("saturday", "sunday"))
 }
 \arguments{
   \item{holidays}{a vector of Dates which contains the

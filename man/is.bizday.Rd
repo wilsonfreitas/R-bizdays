@@ -1,8 +1,17 @@
 \name{is.bizday}
 \alias{is.bizday}
+\alias{is.bizday.Calendar}
+\alias{is.bizday.Date}
+\alias{is.bizday.character}
 \title{Checks if the given date is a business day.}
 \usage{
-  is.bizday(cal, dates)
+  is.bizday(object, ...)
+
+  \method{is.bizday}{Calendar} (cal, dates)
+
+  \method{is.bizday}{character} (dates)
+
+  \method{is.bizday}{Date} (dates)
 }
 \arguments{
   \item{cal}{an instance of Calendar}

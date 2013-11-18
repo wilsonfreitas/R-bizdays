@@ -3,14 +3,19 @@
 \alias{bizdays}
 \alias{bizdays-package}
 \alias{bizdays.Calendar}
-\alias{bizdays.default}
+\alias{bizdays.Date}
+\alias{bizdays.character}
 \title{Tools for business days calculations}
 \usage{
-  bizdays(...)
+  bizdays(obj, ...)
 
-  \method{bizdays}{Calendar} (cal, from, to, ...)
+  bizdays(obj, ...)
 
-  \method{bizdays}{default} (from, to, ...)
+  \method{bizdays}{Calendar} (cal, from, to)
+
+  \method{bizdays}{character} (from, to)
+
+  \method{bizdays}{Date} (from, to)
 }
 \arguments{
   \item{...}{function parameters}
@@ -41,8 +46,7 @@
 data(holidaysANBIMA)
 cal <- Calendar(holidaysANBIMA)
 bizdays(cal, '2013-01-02', '2013-01-31')
-data(holidaysANBIMA)
-cal <- Calendar(holidaysANBIMA)
+# Once you have a default calendar set
 bizdays.options$set(default.calendar=cal)
 bizdays('2013-01-02', '2013-01-31')
 }

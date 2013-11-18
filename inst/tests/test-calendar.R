@@ -154,11 +154,12 @@ test_that('it should set the default calendar', {
 	expect_equal(name(cal), name(bizdays.options$get('default.calendar')))
 })
 
-context('bizdays.default calls')
+context('bizdays calls')
 
 test_that('it should call bizdays.default with default calendar', {
 	bizdays.options$set(default.calendar=cal)
 	expect_equal(bizdays('2013-07-12', '2014-07-12'), 251)
+	expect_equal(bizdays(as.Date('2013-07-12'), '2014-07-12'), 251)
 })
 
 test_that('it should call bizdays.default with no default calendar', {

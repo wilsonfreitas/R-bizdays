@@ -90,8 +90,6 @@ Calendar <- function (holidays=integer(0),
 			stop('Given date out of range.')
 		if ( ! all(from <= to) )
 			stop('All from dates must be greater than all to dates.')
-		# if (length(from) != length(to))
-		# 	stop('from and to must have the same length.')
 		tryCatch(date_columns <- cbind(as.character(from), as.character(to)),
 			warning=function (w) {
 				stop("from's length must be multiple of to's length")
@@ -158,8 +156,6 @@ print.Calendar <- function(x, ...) {
 # is.Calendar <- function(cal) class(cal) == 'Calendar'
 # adjust.next <- function(object, ...) UseMethod("adjust.next", object)
 # adjust.previous <- function(object, ...) UseMethod("adjust.previous", object)
-# bizdays <- function(object, ...) UseMethod("bizdays", object)
-# is.bizday <- function(object, ...) UseMethod("is.bizday", object)
 # offset <- function(object, ...) UseMethod("offset", object)
 
 #' Adjusts the date to the next business day
@@ -205,25 +201,40 @@ bizdays <- function(...) UseMethod('bizdays')
 #' @param to the final date (or a vector of dates).
 #' All of these dates must be greater than the initial
 #' dates.
-#' @method bizdays Calendar
-#' @S3method bizdays Calendar
 #' @examples
 #' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA)
 #' bizdays(cal, '2013-01-02', '2013-01-31')
-bizdays.Calendar <- function(cal, from, to, ...) cal$bizdays(from, to)
-
-#' @rdname bizdays
-#' @method bizdays default
-#' @S3method bizdays default
-#' @examples
-#' data(holidaysANBIMA)
-#' cal <- Calendar(holidaysANBIMA)
+#' # Once you have a default calendar set
 #' bizdays.options$set(default.calendar=cal)
 #' bizdays('2013-01-02', '2013-01-31')
-bizdays.default <- function(from, to, ...) {
-	cal <- bizdays.options$get('default.calendar')
+bizdays <- function(obj, ...) UseMethod('bizdays', obj)
+
+#' @rdname bizdays
+#' @method bizdays Calendar
+#' @S3method bizdays Calendar
+bizdays.Calendar <- function(cal, from, to) {
+	from <- as.Date(from)
+	to <- as.Date(to)
 	cal$bizdays(from, to)
+}
+
+#' @rdname bizdays
+#' @method bizdays character
+#' @S3method bizdays character
+bizdays.character <- function(from, to) {
+	from <- as.Date(from)
+	to <- as.Date(to)
+	bizdays(from, to)
+}
+
+#' @rdname bizdays
+#' @method bizdays Date
+#' @S3method bizdays Date
+bizdays.Date <- function(from, to) {
+	cal <- bizdays.options$get('default.calendar')
+	to <- as.Date(to)
+	bizdays(cal, from, to)
 }
 
 #' Checks if the given date is a business day.
@@ -240,7 +251,31 @@ bizdays.default <- function(from, to, ...) {
 #' is.bizday(cal, '2013-01-02')
 #' dates <- seq(as.Date('2013-01-01'), as.Date('2013-01-05'), by='day')
 #' is.bizday(cal, dates)
-is.bizday <- function(cal, dates) cal$is.bizday(dates)
+is.bizday <- function(object, ...) UseMethod("is.bizday", object)
+
+#' @rdname is.bizday
+#' @method is.bizday Calendar
+#' @S3method is.bizday Calendar
+is.bizday.Calendar <- function(cal, dates) {
+	dates <- as.Date(dates)
+	cal$is.bizday(dates)
+}
+
+#' @rdname is.bizday
+#' @method is.bizday character
+#' @S3method is.bizday character
+is.bizday.character <- function(dates) {
+	dates <- as.Date(dates)
+	is.bizday(dates)
+}
+
+#' @rdname is.bizday
+#' @method is.bizday Date
+#' @S3method is.bizday Date
+is.bizday.Date <- function(dates) {
+	cal <- bizdays.options$get('default.calendar')
+	is.bizday(cal, dates)
+}
 
 #' Create a sequence of business days.
 #'
