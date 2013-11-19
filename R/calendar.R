@@ -36,6 +36,8 @@ Calendar <- function (holidays=integer(0),
 	}
 	that$start.date <- start.date
 	that$end.date <- end.date
+	n.start.date <- as.integer(start.date)
+	n.end.date <- as.integer(end.date)
 	dates <- seq(from=start.date, to=end.date, by='day')
 	n.dates <- as.integer(dates)
 	n.holidays <- as.integer(holidays)
@@ -47,88 +49,72 @@ Calendar <- function (holidays=integer(0),
 	idx <- as.integer(1)
 	index <- cumsum(.is.bizday)
 	bizdays <- dates[.is.bizday]
-	.adjust.next <- function(date) {
-		date <- as.Date(date)
-		while ( ! .is.bizday[dates == date] ) date <- date + 1
-		date
-	}
-	.adjust.previous <- function(date) {
-		date <- as.Date(date)
-		while ( ! .is.bizday[dates == date] ) date <- date - 1
-		date
-	}
-	.adjust <- function(dates, .adjust.FUN) {
-		if ( ! any(as.Date(dates) >= start.date & as.Date(dates) <= end.date) )
+	.adjust <- function(dates, offset) {
+		if ( ! any(dates >= n.start.date & dates <= n.end.date) )
 			stop('Given date out of range.')
-		o.dates <- integer(length(dates))
-		for (i in seq_along(dates)) {
-			o.dates[i] <- .adjust.FUN(dates[i])
+		adjust.FUN <- function(date) {
+			while ( ! .is.bizday[n.dates == date] ) date <- date + offset
+			date
 		}
-		as.Date(o.dates, origin='1970-01-01')
+		vapply(dates, adjust.FUN, integer(1))
+	}
+	that$adjust.next <- function(dates) {
+		.adjust(dates, 1L)
+	}
+	that$adjust.previous <- function(dates) {
+		.adjust(dates, -1L)
 	}
 	.bizdays <- function(from, to) {
-		from.idx <- index[dates %in% that$adjust.next(from)]
-		to.idx <- index[dates %in% that$adjust.previous(to)]
+		from.idx <- index[n.dates %in% that$adjust.next(from)]
+		to.idx <- index[n.dates %in% that$adjust.previous(to)]
 		stopifnot(length(from.idx) == length(to.idx))
 		to.idx - from.idx
 	}
-	that$adjust.next <- function(dates) {
-		.adjust(dates, .adjust.next)
-	}
-	that$adjust.previous <- function(dates) {
-		.adjust(dates, .adjust.previous)
-	}
 	that$bizdays <- function(from, to) {
-		if ( ! any(as.Date(from) >= start.date & as.Date(from) <= end.date) )
+		if ( ! any(from >= n.start.date & from <= n.end.date) )
 			stop('Given date out of range.')
-		if ( ! any(as.Date(to) >= start.date & as.Date(to) <= end.date) )
+		if ( ! any(to >= n.start.date & to <= n.end.date) )
 			stop('Given date out of range.')
 		if ( ! all(from <= to) )
 			stop('All from dates must be greater than all to dates.')
-		tryCatch(date_columns <- cbind(as.character(from), as.character(to)),
+		tryCatch(date_columns <- cbind(from, to),
 			warning=function (w) {
 				stop("from's length must be multiple of to's length")
 			})
-		from <- date_columns[,1]
-		to <- date_columns[,2]
-		bd <- integer(length(from))
-		for (i in seq_along(from)) {
-			bd[i] <- .bizdays(from[i], to[i])
-		}
-		bd
+		apply(date_columns, 1, function (x) .bizdays(x[1], x[2]))
 	}
 	that$is.bizday <- function(date) {
-		if ( ! any(as.Date(date) >= start.date & as.Date(date) <= end.date) )
+		if ( ! any(date >= n.start.date & date <= n.end.date) )
 			stop('Given date out of range.')
-		.is.bizday[dates %in% date]
+		.is.bizday[n.dates %in% date]
 	}
 	that$seq <- function(from, to) {
-		if ( ! any(as.Date(from) >= start.date & as.Date(from) <= end.date) )
+		if ( ! any(from >= n.start.date & from <= n.end.date) )
 			stop('Given date out of range.')
-		if ( ! any(as.Date(to) >= start.date & as.Date(to) <= end.date) )
+		if ( ! any(to >= n.start.date & to <= n.end.date) )
 			stop('Given date out of range.')
 		if ( ! all(from <= to) )
 			stop('All from dates must be greater than all to dates.')
-		bizdays[which(bizdays >= from & bizdays <= to)]
+		n.bizdays[which(n.bizdays >= from & n.bizdays <= to)]
 	}
-    that$offset <- function(date, n) {
-		if ( ! any(as.Date(date) >= start.date & as.Date(date) <= end.date) )
+	that$offset <- function(date, n) {
+		if ( ! any(date >= n.start.date & date <= n.end.date) )
 			stop('Given date out of range.')
 		if (n >= 0) {
-			adjust <- function(date) .adjust(date, .adjust.next)
+			adjust <- function(date) .adjust(date, 1L)
 			date <- adjust(date)
-			inc <- 1
+			inc <- 1L
 		} else {
-			adjust <- function(date) .adjust(date, .adjust.previous)
+			adjust <- function(date) .adjust(date, -1L)
 			date <- adjust(date)
-			inc <- -1
+			inc <- -1L
 			n <- abs(n)
 		}
-		i <- 0
+		i <- 0L
 		while (i < n) {
 			date <- date + inc
 			date <- adjust(date)
-			i <- i + 1
+			i <- i + 1L
 		}
 		date
 	}
@@ -165,7 +151,10 @@ print.Calendar <- function(x, ...) {
 #' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA)
 #' adjust.next(cal, '2013-01-01')
-adjust.next <- function(cal, dates) cal$adjust.next(dates)
+adjust.next <- function(cal, dates) {
+	dates <- as.integer(as.Date(dates))
+	as.Date(cal$adjust.next(dates), origin='1970-01-01')
+}
 
 #' Adjusts the date to the previous business day
 #'
@@ -179,7 +168,10 @@ adjust.next <- function(cal, dates) cal$adjust.next(dates)
 #' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA)
 #' adjust.previous(cal, '2013-01-01')
-adjust.previous <- function(cal, dates) cal$adjust.previous(dates)
+adjust.previous <- function(cal, dates) {
+	dates <- as.integer(as.Date(dates))
+	as.Date(cal$adjust.previous(dates), origin='1970-01-01')
+}
 
 #' Computes business days between two dates.
 #'
@@ -211,7 +203,7 @@ bizdays <- function(obj, ...) UseMethod('bizdays', obj)
 bizdays.Calendar <- function(cal, from, to) {
 	from <- as.Date(from)
 	to <- as.Date(to)
-	cal$bizdays(from, to)
+	cal$bizdays(as.integer(from), as.integer(to))
 }
 
 #' @rdname bizdays
@@ -253,7 +245,7 @@ is.bizday <- function(object, ...) UseMethod("is.bizday", object)
 #' @S3method is.bizday Calendar
 is.bizday.Calendar <- function(cal, dates) {
 	dates <- as.Date(dates)
-	cal$is.bizday(dates)
+	cal$is.bizday(as.integer(dates))
 }
 
 #' @rdname is.bizday
@@ -285,7 +277,11 @@ is.bizday.Date <- function(dates) {
 #' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA)
 #' bizseq(cal, '2013-01-02', '2013-01-31')
-bizseq <- function(cal, from, to) cal$seq(from, to)
+bizseq <- function(cal, from, to) {
+	from <- as.integer(as.Date(from))
+	to <- as.integer(as.Date(to))
+	as.Date(cal$seq(from, to), origin='1970-01-01')
+}
 
 #' Offset the date by n business days.
 #'
@@ -307,7 +303,10 @@ offset <- function(obj, ...) UseMethod('offset', obj)
 #' offset(cal, '2013-01-02', 5)
 #' dates <- seq(as.Date('2013-01-01'), as.Date('2013-01-05'), by='day')
 #' offset(cal, dates, 1)
-offset.Calendar <- function(obj, dates, n, ...) obj$offset(dates, n)
+offset.Calendar <- function(obj, dates, n, ...) {
+	dates <- as.integer(as.Date(dates))
+	as.Date(obj$offset(dates, n))
+}
 
 #' ANBIMA's holidays list
 #' 
