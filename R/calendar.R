@@ -23,11 +23,14 @@ Calendar <- function (holidays=integer(0),
 		weekdays=c('saturday', 'sunday')) {
 	
 	that <- list()
+	# weekdays
 	weekdays_codes <- list(monday=4, tuesday=5, wednesday=6, thursday=0,
 		friday=1, saturday=2, sunday=3)
 	wdays <- unlist(weekdays_codes[weekdays])
 	that$weekdays <- weekdays
+	# name
 	that$name <- name
+	# start.date and end.date
 	start.date <- as.Date(start.date)
 	end.date <- as.Date(end.date)
 	if (length(holidays) != 0) {
@@ -38,17 +41,18 @@ Calendar <- function (holidays=integer(0),
 	that$end.date <- end.date
 	n.start.date <- as.integer(start.date)
 	n.end.date <- as.integer(end.date)
-	dates <- seq(from=start.date, to=end.date, by='day')
-	n.dates <- as.integer(dates)
+	# dates and holidays
+	n.dates <- as.integer(seq(from=start.date, to=end.date, by='day'))
 	n.holidays <- as.integer(holidays)
+	# is bizday?
 	.is.bizday <- vapply(n.dates, function(.) {
 		wday <- .%%7
 		! ( wday %in% wdays || . %in% n.holidays)
 	}, logical(1))
+	# bizdays
 	n.bizdays <- n.dates[.is.bizday]
-	idx <- as.integer(1)
+	# index
 	index <- cumsum(.is.bizday)
-	bizdays <- dates[.is.bizday]
 	.adjust <- function(dates, offset) {
 		if ( ! any(dates >= n.start.date & dates <= n.end.date) )
 			stop('Given date out of range.')
