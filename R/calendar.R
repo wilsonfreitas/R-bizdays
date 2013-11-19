@@ -49,18 +49,29 @@ Calendar <- function (holidays=integer(0),
 		wday <- .%%7
 		! ( wday %in% wdays || . %in% n.holidays)
 	}, logical(1))
-	# bizdays
+	that$is.bizday <- function(date) {
+		.is.bizday[n.dates %in% date]
+	}
+	# bizdays and index
 	n.bizdays <- n.dates[.is.bizday]
-	# index
 	index <- cumsum(.is.bizday)
+	# bizdays
+	that$bizdays <- function(from, to) {
+		apply(cbind(from, to), 1, function(x) {
+			from <- x[1]
+			to <- x[2]
+			from.idx <- index[n.dates %in% that$adjust.next(from)]
+			to.idx <- index[n.dates %in% that$adjust.previous(to)]
+			stopifnot(length(from.idx) == length(to.idx))
+			to.idx - from.idx
+		})
+	}
+	# adjust.next and adjust.previous
 	.adjust <- function(dates, offset) {
-		if ( ! any(dates >= n.start.date & dates <= n.end.date) )
-			stop('Given date out of range.')
-		adjust.FUN <- function(date) {
+		vapply(dates, function(date) {
 			while ( ! .is.bizday[n.dates == date] ) date <- date + offset
 			date
-		}
-		vapply(dates, adjust.FUN, integer(1))
+		}, integer(1))
 	}
 	that$adjust.next <- function(dates) {
 		.adjust(dates, 1L)
@@ -68,30 +79,7 @@ Calendar <- function (holidays=integer(0),
 	that$adjust.previous <- function(dates) {
 		.adjust(dates, -1L)
 	}
-	.bizdays <- function(from, to) {
-		from.idx <- index[n.dates %in% that$adjust.next(from)]
-		to.idx <- index[n.dates %in% that$adjust.previous(to)]
-		stopifnot(length(from.idx) == length(to.idx))
-		to.idx - from.idx
-	}
-	that$bizdays <- function(from, to) {
-		if ( ! any(from >= n.start.date & from <= n.end.date) )
-			stop('Given date out of range.')
-		if ( ! any(to >= n.start.date & to <= n.end.date) )
-			stop('Given date out of range.')
-		if ( ! all(from <= to) )
-			stop('All from dates must be greater than all to dates.')
-		tryCatch(date_columns <- cbind(from, to),
-			warning=function (w) {
-				stop("from's length must be multiple of to's length")
-			})
-		apply(date_columns, 1, function (x) .bizdays(x[1], x[2]))
-	}
-	that$is.bizday <- function(date) {
-		if ( ! any(date >= n.start.date & date <= n.end.date) )
-			stop('Given date out of range.')
-		.is.bizday[n.dates %in% date]
-	}
+	# seq
 	that$seq <- function(from, to) {
 		if ( ! any(from >= n.start.date & from <= n.end.date) )
 			stop('Given date out of range.')
@@ -101,6 +89,7 @@ Calendar <- function (holidays=integer(0),
 			stop('All from dates must be greater than all to dates.')
 		n.bizdays[which(n.bizdays >= from & n.bizdays <= to)]
 	}
+	#offset
 	that$offset <- function(date, n) {
 		if ( ! any(date >= n.start.date & date <= n.end.date) )
 			stop('Given date out of range.')
@@ -156,7 +145,10 @@ print.Calendar <- function(x, ...) {
 #' cal <- Calendar(holidaysANBIMA)
 #' adjust.next(cal, '2013-01-01')
 adjust.next <- function(cal, dates) {
-	dates <- as.integer(as.Date(dates))
+	dates <- as.Date(dates)
+	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
+		stop('Given date out of range.')
+	dates <- as.integer(dates)
 	as.Date(cal$adjust.next(dates), origin='1970-01-01')
 }
 
@@ -173,7 +165,10 @@ adjust.next <- function(cal, dates) {
 #' cal <- Calendar(holidaysANBIMA)
 #' adjust.previous(cal, '2013-01-01')
 adjust.previous <- function(cal, dates) {
-	dates <- as.integer(as.Date(dates))
+	dates <- as.Date(dates)
+	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
+		stop('Given date out of range.')
+	dates <- as.integer(dates)
 	as.Date(cal$adjust.previous(dates), origin='1970-01-01')
 }
 
@@ -184,7 +179,7 @@ adjust.previous <- function(cal, dates) {
 #' 
 #' @param ... function parameters
 #' @export
-bizdays <- function(...) UseMethod('bizdays')
+# bizdays <- function(...) UseMethod('bizdays')
 
 #' @rdname bizdays
 #' @param cal an instance of Calendar
@@ -207,6 +202,15 @@ bizdays <- function(obj, ...) UseMethod('bizdays', obj)
 bizdays.Calendar <- function(cal, from, to) {
 	from <- as.Date(from)
 	to <- as.Date(to)
+	if ( ! any(from >= cal$start.date & from <= cal$end.date) )
+		stop('Given date out of range.')
+	if ( ! any(to >= cal$start.date & to <= cal$end.date) )
+		stop('Given date out of range.')
+	if ( ! all(from <= to) )
+		stop('All from dates must be greater than all to dates.')
+	lengths <- c(length(from), length(to))
+	if (max(lengths) %% min(lengths) != 0)
+		stop("from's length must be multiple of to's length and vice-versa.")
 	cal$bizdays(as.integer(from), as.integer(to))
 }
 
@@ -249,6 +253,8 @@ is.bizday <- function(object, ...) UseMethod("is.bizday", object)
 #' @S3method is.bizday Calendar
 is.bizday.Calendar <- function(cal, dates) {
 	dates <- as.Date(dates)
+	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
+		stop('Given date out of range.')
 	cal$is.bizday(as.integer(dates))
 }
 
