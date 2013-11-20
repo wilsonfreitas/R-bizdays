@@ -1,8 +1,17 @@
 \name{adjust.previous}
 \alias{adjust.previous}
+\alias{adjust.previous.Calendar}
+\alias{adjust.previous.Date}
+\alias{adjust.previous.character}
 \title{Adjusts the date to the previous business day}
 \usage{
-  adjust.previous(cal, dates)
+  adjust.previous(object, ...)
+
+  \method{adjust.previous}{Calendar} (cal, dates)
+
+  \method{adjust.previous}{character} (dates)
+
+  \method{adjust.previous}{Date} (dates)
 }
 \arguments{
   \item{cal}{an instance of Calendar}

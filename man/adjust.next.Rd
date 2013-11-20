@@ -1,8 +1,17 @@
 \name{adjust.next}
 \alias{adjust.next}
+\alias{adjust.next.Calendar}
+\alias{adjust.next.Date}
+\alias{adjust.next.character}
 \title{Adjusts the date to the next business day}
 \usage{
-  adjust.next(cal, dates)
+  adjust.next(object, ...)
+
+  \method{adjust.next}{Calendar} (cal, dates)
+
+  \method{adjust.next}{character} (dates)
+
+  \method{adjust.next}{Date} (dates)
 }
 \arguments{
   \item{cal}{an instance of Calendar}

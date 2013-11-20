@@ -9,8 +9,6 @@
 \usage{
   bizdays(obj, ...)
 
-  bizdays(obj, ...)
-
   \method{bizdays}{Calendar} (cal, from, to)
 
   \method{bizdays}{character} (from, to)

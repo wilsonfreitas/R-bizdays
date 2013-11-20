@@ -319,7 +319,12 @@ is.bizday.Date <- function(dates) {
 #' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA)
 #' bizseq(cal, '2013-01-02', '2013-01-31')
-bizseq <- function(cal, from, to) {
+bizseq <- function(obj, ...) UseMethod('bizseq', obj)
+
+#' @rdname bizseq
+#' @method bizseq Calendar
+#' @S3method bizseq Calendar
+bizseq.Calendar <- function(cal, from, to) {
 	from <- as.Date(from)
 	to <- as.Date(to)
 	if ( ! any(from >= cal$start.date & from <= cal$end.date) )
@@ -333,13 +338,37 @@ bizseq <- function(cal, from, to) {
 	as.Date(cal$seq(from, to), origin='1970-01-01')
 }
 
+#' @rdname bizseq
+#' @method bizseq character
+#' @S3method bizseq character
+bizseq.character <- function(from, to) {
+	from <- as.Date(from)
+	to <- as.Date(to)
+	bizseq(from, to)
+}
+
+#' @rdname bizseq
+#' @method bizseq Date
+#' @S3method bizseq Date
+bizseq.Date <- function(from, to) {
+	to <- as.Date(to)
+	cal <- bizdays.options$get('default.calendar')
+	bizseq(cal, from, to)
+}
+
 #' Offset the date by n business days.
 #'
 #' This function returns the given date offset by the given amount of n business
 #' days.
 #' @param ... isn't used in that implementation
 #' @export
-offset <- function(obj, ...) UseMethod('offset', obj)
+'+.Calendar' <- function(obj, dates, n, ...) {
+	dates <- as.Date(dates)
+	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
+		stop('Given date out of range.')
+	dates <- as.integer(dates)
+	as.Date(obj$offset(dates, n))
+}
 
 #' @rdname offset
 #' @param obj an instance of Calendar
@@ -426,13 +455,16 @@ new_defaults <- function(value=list()) {
 
 #' bizdays' options
 #' 
-#' \code{bizdays.options} defines the default calendar to be used at 
-#' \code{bizdays.default} calls.
+#' \code{bizdays.options} defines the default calendar to be used when
+#' calling to the functions: \code{bizdays}, \code{adjust.next}, 
+#' \code{adjust.previous}, \code{is.bizday}, \code{bizseq}, \code{offset}; 
+#' without providing a \code{Calendar} instance as a parameter.
 #' 
 #' @export
 #' @examples
 #' cal <- Calendar(name='Weekdays')
 #' bizdays.options$set(default.calendar=cal)
 #' bizdays.options$get('default.calendar')
-bizdays.options <- new_defaults(list())
+#' bizdays('2013-07-12', '2013-07-22')
+bizdays.options <- new_defaults()
 
