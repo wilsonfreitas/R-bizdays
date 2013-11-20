@@ -83,18 +83,17 @@ Calendar <- function (holidays=integer(0),
 	that$seq <- function(from, to) {
 		n.bizdays[which(n.bizdays >= from & n.bizdays <= to)]
 	}
-	#offset
-	that$offset <- function(date, n) {
+	# add
+	that$add <- function(date, n) {
 		if (n >= 0) {
 			adjust <- function(date) .adjust(date, 1L)
-			date <- adjust(date)
 			inc <- 1L
 		} else {
 			adjust <- function(date) .adjust(date, -1L)
-			date <- adjust(date)
 			inc <- -1L
 			n <- abs(n)
 		}
+		date <- adjust(date)
 		i <- 0L
 		while (i < n) {
 			date <- date + inc
@@ -356,38 +355,49 @@ bizseq.Date <- function(from, to) {
 	bizseq(cal, from, to)
 }
 
-#' Offset the date by n business days.
+#' Adds \code{n} business days to the given \code{dates}.
 #'
-#' This function returns the given date offset by the given amount of n business
+#' This function returns the given \code{dates} offset by the
+#' given amount of \code{n} business
 #' days.
-#' @param ... isn't used in that implementation
+#' 
 #' @export
-'+.Calendar' <- function(obj, dates, n, ...) {
-	dates <- as.Date(dates)
-	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
-		stop('Given date out of range.')
-	dates <- as.integer(dates)
-	as.Date(obj$offset(dates, n))
-}
+add <- function(obj, ...) UseMethod('add', obj)
 
-#' @rdname offset
+#' @rdname add
 #' @param obj an instance of Calendar
 #' @param dates a date or a vector of dates to be offset
-#' @param n the amount of business days to offset
-#' @method offset Calendar
-#' @S3method offset Calendar
+#' @param n the amount of business days to add
+#' @method add Calendar
+#' @S3method add Calendar
 #' @examples
 #' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA)
-#' offset(cal, '2013-01-02', 5)
+#' add(cal, '2013-01-02', 5)
 #' dates <- seq(as.Date('2013-01-01'), as.Date('2013-01-05'), by='day')
-#' offset(cal, dates, 1)
-offset.Calendar <- function(obj, dates, n, ...) {
+#' add(cal, dates, 1)
+add.Calendar <- function(cal, dates, n) {
 	dates <- as.Date(dates)
 	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
 		stop('Given date out of range.')
 	dates <- as.integer(dates)
-	as.Date(obj$offset(dates, n))
+	as.Date(cal$add(dates, n), origin='1970-01-01')
+}
+
+#' @rdname add
+#' @method add character
+#' @S3method add character
+add.character <- function(dates, n) {
+	dates <- as.Date(dates)
+	add(dates, n)
+}
+
+#' @rdname add
+#' @method add Date
+#' @S3method add Date
+add.Date <- function(dates, n) {
+	cal <- bizdays.options$get('default.calendar')
+	add(cal, dates, n)
 }
 
 #' ANBIMA's holidays list

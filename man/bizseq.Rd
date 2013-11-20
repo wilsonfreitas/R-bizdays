@@ -1,8 +1,17 @@
 \name{bizseq}
 \alias{bizseq}
+\alias{bizseq.Calendar}
+\alias{bizseq.Date}
+\alias{bizseq.character}
 \title{Create a sequence of business days.}
 \usage{
-  bizseq(cal, from, to)
+  bizseq(obj, ...)
+
+  \method{bizseq}{Calendar} (cal, from, to)
+
+  \method{bizseq}{character} (from, to)
+
+  \method{bizseq}{Date} (from, to)
 }
 \arguments{
   \item{cal}{an instance of Calendar}
