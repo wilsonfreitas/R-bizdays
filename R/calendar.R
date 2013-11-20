@@ -1,4 +1,4 @@
-
+ 
 #' Creates the calendar based on a list of holidays.
 #' 
 #' Calendar is the main class, it has all attributes necessary to execute
@@ -81,18 +81,10 @@ Calendar <- function (holidays=integer(0),
 	}
 	# seq
 	that$seq <- function(from, to) {
-		if ( ! any(from >= n.start.date & from <= n.end.date) )
-			stop('Given date out of range.')
-		if ( ! any(to >= n.start.date & to <= n.end.date) )
-			stop('Given date out of range.')
-		if ( ! all(from <= to) )
-			stop('All from dates must be greater than all to dates.')
 		n.bizdays[which(n.bizdays >= from & n.bizdays <= to)]
 	}
 	#offset
 	that$offset <- function(date, n) {
-		if ( ! any(date >= n.start.date & date <= n.end.date) )
-			stop('Given date out of range.')
 		if (n >= 0) {
 			adjust <- function(date) .adjust(date, 1L)
 			date <- adjust(date)
@@ -128,8 +120,6 @@ print.Calendar <- function(x, ...) {
 }
 
 # is.Calendar <- function(cal) class(cal) == 'Calendar'
-# adjust.next <- function(object, ...) UseMethod("adjust.next", object)
-# adjust.previous <- function(object, ...) UseMethod("adjust.previous", object)
 # offset <- function(object, ...) UseMethod("offset", object)
 
 #' Adjusts the date to the next business day
@@ -144,12 +134,33 @@ print.Calendar <- function(x, ...) {
 #' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA)
 #' adjust.next(cal, '2013-01-01')
-adjust.next <- function(cal, dates) {
+adjust.next <- function(object, ...) UseMethod("adjust.next", object)
+
+#' @rdname adjust.next
+#' @method adjust.next Calendar
+#' @S3method adjust.next Calendar
+adjust.next.Calendar <- function(cal, dates) {
 	dates <- as.Date(dates)
 	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
 		stop('Given date out of range.')
 	dates <- as.integer(dates)
 	as.Date(cal$adjust.next(dates), origin='1970-01-01')
+}
+
+#' @rdname adjust.next
+#' @method adjust.next character
+#' @S3method adjust.next character
+adjust.next.character <- function(dates) {
+	dates <- as.Date(dates)
+	adjust.next(dates)
+}
+
+#' @rdname adjust.next
+#' @method adjust.next Date
+#' @S3method adjust.next Date
+adjust.next.Date <- function(dates) {
+	cal <- bizdays.options$get('default.calendar')
+	adjust.next(cal, dates)
 }
 
 #' Adjusts the date to the previous business day
@@ -164,12 +175,33 @@ adjust.next <- function(cal, dates) {
 #' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA)
 #' adjust.previous(cal, '2013-01-01')
-adjust.previous <- function(cal, dates) {
+adjust.previous <- function(object, ...) UseMethod("adjust.previous", object)
+
+#' @rdname adjust.previous
+#' @method adjust.previous Calendar
+#' @S3method adjust.previous Calendar
+adjust.previous.Calendar <- function(cal, dates) {
 	dates <- as.Date(dates)
 	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
 		stop('Given date out of range.')
 	dates <- as.integer(dates)
 	as.Date(cal$adjust.previous(dates), origin='1970-01-01')
+}
+
+#' @rdname adjust.previous
+#' @method adjust.previous character
+#' @S3method adjust.previous character
+adjust.previous.character <- function(dates) {
+	dates <- as.Date(dates)
+	adjust.previous(dates)
+}
+
+#' @rdname adjust.previous
+#' @method adjust.previous Date
+#' @S3method adjust.previous Date
+adjust.previous.Date <- function(dates) {
+	cal <- bizdays.options$get('default.calendar')
+	adjust.previous(cal, dates)
 }
 
 #' Computes business days between two dates.
@@ -288,8 +320,16 @@ is.bizday.Date <- function(dates) {
 #' cal <- Calendar(holidaysANBIMA)
 #' bizseq(cal, '2013-01-02', '2013-01-31')
 bizseq <- function(cal, from, to) {
-	from <- as.integer(as.Date(from))
-	to <- as.integer(as.Date(to))
+	from <- as.Date(from)
+	to <- as.Date(to)
+	if ( ! any(from >= cal$start.date & from <= cal$end.date) )
+		stop('Given date out of range.')
+	if ( ! any(to >= cal$start.date & to <= cal$end.date) )
+		stop('Given date out of range.')
+	if ( ! all(from <= to) )
+		stop('All from dates must be greater than all to dates.')
+	from <- as.integer(from)
+	to <- as.integer(to)
 	as.Date(cal$seq(from, to), origin='1970-01-01')
 }
 
@@ -314,7 +354,10 @@ offset <- function(obj, ...) UseMethod('offset', obj)
 #' dates <- seq(as.Date('2013-01-01'), as.Date('2013-01-05'), by='day')
 #' offset(cal, dates, 1)
 offset.Calendar <- function(obj, dates, n, ...) {
-	dates <- as.integer(as.Date(dates))
+	dates <- as.Date(dates)
+	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
+		stop('Given date out of range.')
+	dates <- as.integer(dates)
 	as.Date(obj$offset(dates, n))
 }
 
