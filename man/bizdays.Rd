@@ -2,28 +2,26 @@
 \name{bizdays}
 \alias{bizdays}
 \alias{bizdays-package}
-\alias{bizdays.Calendar}
 \alias{bizdays.Date}
 \alias{bizdays.character}
 \title{Tools for business days calculations}
 \usage{
-  bizdays(obj, ...)
+  bizdays(from, to, cal, ...)
 
-  \method{bizdays}{Calendar} (cal, from, to)
+  \method{bizdays}{character} (from, to,
+    cal = bizdays.options$get("default.calendar"))
 
-  \method{bizdays}{character} (from, to)
-
-  \method{bizdays}{Date} (from, to)
+  \method{bizdays}{Date} (from, to,
+    cal = bizdays.options$get("default.calendar"))
 }
 \arguments{
-  \item{...}{function parameters}
+  \item{from}{the initial date (or a vector of dates)}
+
+  \item{to}{the final date (or a vector of dates).}
 
   \item{cal}{an instance of Calendar}
 
-  \item{from}{the initial date (or a vector of dates)}
-
-  \item{to}{the final date (or a vector of dates). All of
-  these dates must be greater than the initial dates.}
+  \item{...}{function parameters and possible extensions}
 }
 \description{
   In many countries the standard approach to price
@@ -43,7 +41,7 @@
 \examples{
 data(holidaysANBIMA)
 cal <- Calendar(holidaysANBIMA)
-bizdays(cal, '2013-01-02', '2013-01-31')
+bizdays('2013-01-02', '2013-01-31', cal)
 # Once you have a default calendar set
 bizdays.options$set(default.calendar=cal)
 bizdays('2013-01-02', '2013-01-31')
