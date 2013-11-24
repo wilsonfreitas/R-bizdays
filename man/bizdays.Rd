@@ -6,7 +6,7 @@
 \alias{bizdays.character}
 \title{Tools for business days calculations}
 \usage{
-  bizdays(from, to, cal, ...)
+  bizdays(from, to, cal)
 
   \method{bizdays}{character} (from, to,
     cal = bizdays.options$get("default.calendar"))
@@ -20,8 +20,6 @@
   \item{to}{the final date (or a vector of dates).}
 
   \item{cal}{an instance of Calendar}
-
-  \item{...}{function parameters and possible extensions}
 }
 \description{
   In many countries the standard approach to price

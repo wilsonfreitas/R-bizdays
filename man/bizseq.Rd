@@ -1,25 +1,24 @@
 \name{bizseq}
 \alias{bizseq}
-\alias{bizseq.Calendar}
 \alias{bizseq.Date}
 \alias{bizseq.character}
 \title{Create a sequence of business days.}
 \usage{
-  bizseq(obj, ...)
+  bizseq(from, to, cal)
 
-  \method{bizseq}{Calendar} (cal, from, to)
+  \method{bizseq}{character} (from, to,
+    cal = bizdays.options$get("default.calendar"))
 
-  \method{bizseq}{character} (from, to)
-
-  \method{bizseq}{Date} (from, to)
+  \method{bizseq}{Date} (from, to,
+    cal = bizdays.options$get("default.calendar"))
 }
 \arguments{
-  \item{cal}{an instance of Calendar}
-
   \item{from}{the initial date}
 
   \item{to}{the final date. This date must be greater that
   the initial date}
+
+  \item{cal}{an instance of Calendar}
 }
 \description{
   This function returns a sequence of business days
@@ -28,6 +27,6 @@
 \examples{
 data(holidaysANBIMA)
 cal <- Calendar(holidaysANBIMA)
-bizseq(cal, '2013-01-02', '2013-01-31')
+bizseq('2013-01-02', '2013-01-31', cal)
 }
 

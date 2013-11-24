@@ -15,6 +15,10 @@
   \item{end.date}{the date which calendar ends}
 
   \item{name}{calendar's name}
+
+  \item{weekdays}{a character vector which defines the
+  weekdays to be used as non-working days (defaults to
+  weekend \code{c('saturday', 'sunday')})}
 }
 \description{
   Calendar is the main class, it has all attributes
@@ -28,6 +32,6 @@ cal <- Calendar(name='ANBIMA', holidays=holidaysANBIMA)
 cal <- Calendar(name='Weekdays') # from 1970-01-01 to 2071-01-01
 # unnamed calendars have NULL names
 cal <- Calendar(start.date='1976-07-12', end.date='2013-10-28')
-is.null(name(cal)) # TRUE
+is.null(cal$name) # TRUE
 }
 

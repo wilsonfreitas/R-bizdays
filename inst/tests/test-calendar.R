@@ -1,6 +1,11 @@
 
 context('handle specific calendars')
 
+test_that('it should call bizdays.default with no default calendar', {
+	bizdays.options$set(default.calendar=NULL)
+	expect_error(bizdays('2013-07-12', '2014-07-12'))
+})
+
 test_that('it should use the default calendar', {
 	cal <- Calendar()
 	expect_true(cal$start.date == '1970-01-01')
@@ -82,5 +87,65 @@ test_that('it should create a business Calendar: Brazil\'s ANBIMA', {
 	expect_equal(bizdays('2013-08-13', '2023-01-02', cal), 2358)
 	expect_equal(bizdays('2013-08-13', '2024-01-02', cal), 2607)
 	expect_equal(bizdays('2013-08-13', '2025-01-02', cal), 2861)
+})
+
+context('check whether or not a date is a business day')
+
+test_that("is business day", {
+	data(holidaysANBIMA)
+	cal <- Calendar(holidaysANBIMA)
+	expect_false(is.bizday('2013-01-01', cal))
+	expect_true(is.bizday('2013-01-02', cal))
+	dates <- seq(as.Date('2013-01-01'), as.Date('2013-01-05'), by='day')
+	expect_equal(is.bizday(dates, cal), c(FALSE, TRUE, TRUE, TRUE, FALSE))
+})
+
+context('adjustment of business days')
+
+data(holidaysANBIMA)
+cal <- Calendar(holidaysANBIMA)
+
+test_that("it should move date to next business day", {
+	date <- as.character(adjust.next('2013-01-01', cal))
+	expect_equal(date, '2013-01-02')
+})
+
+test_that("it should move date to previous business day", {
+	date <- as.character(adjust.previous('2013-02-02', cal))
+	expect_equal(date, '2013-02-01')
+})
+
+test_that('it should adjust.next a vector of dates', {
+    dates <- c(as.Date('2013-01-01'), as.Date('2013-01-02'))
+    adj.dates <- adjust.next(dates, cal)
+    expect_equal(adj.dates, c(as.Date('2013-01-02'), as.Date('2013-01-02')))
+})
+
+test_that('it should adjust.previous a vector of dates', {
+    dates <- c(as.Date('2013-01-01'), as.Date('2013-01-02'))
+    adj.dates <- adjust.previous(dates, cal)
+    expect_equal(adj.dates, c(as.Date('2012-12-31'), as.Date('2013-01-02')))
+})
+
+context('sequence of bizdays')
+
+test_that("it should generate a sequence of bizdays", {
+    s <- c("2013-01-02","2013-01-03","2013-01-04","2013-01-07","2013-01-08",
+    "2013-01-09","2013-01-10")
+    expect_true(all( bizseq('2013-01-01', '2013-01-10', cal) == s ))
+})
+
+context('offset by a number of business days')
+
+test_that("it should offset the date by n business days", {
+    expect_equal(add('2013-01-02', 1, cal), as.Date('2013-01-03'))
+    expect_equal(add('2013-01-02', 3, cal), as.Date('2013-01-07'))
+    expect_equal(add('2013-01-02', 0, cal), as.Date('2013-01-02'))
+    expect_equal(add('2013-01-01', 0, cal), as.Date('2013-01-02'))
+    expect_equal(add('2013-01-01', -1, cal), as.Date('2012-12-28'), label=add('2013-01-01', -1, cal))
+    dates <- c(as.Date('2013-01-01'), as.Date('2013-01-02'))
+    expect_equal(add(dates, 1, cal), c(as.Date('2013-01-03'), as.Date('2013-01-03')))
+    cal <- Calendar(start.date='2013-01-01', end.date='2013-01-31')
+    expect_error(add('2013-01-10', 30, cal))
 })
 
