@@ -41,7 +41,7 @@ Once you have a brand new calendar you are going to have 6 functions at hand:
 
 - `bizdays`: returns the amount of business days between 2 dates
 - `is.bizday`: returns whether or not the given date is a business day
-- `offset`: returns the given date offset by `n` business days
+- `add`: returns the given date offset by `n` business days (positive or negative)
 - `bizseq`: returns a vector of a sequence of business days
 - `adjust.next` and `adjust.previous`: if the given date isn't a business day this function returns the next or previous business day, respectively, otherwise returns the given date
 
