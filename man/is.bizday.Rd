@@ -24,9 +24,9 @@
 \examples{
 data(holidaysANBIMA)
 cal <- Calendar(holidaysANBIMA)
-is.bizday('2013-01-02', cal)
+is.bizday("2013-01-02", cal)
 # Using the default Calendar
-dates <- seq(as.Date('2013-01-01'), as.Date('2013-01-05'), by='day')
+dates <- seq(as.Date("2013-01-01"), as.Date("2013-01-05"), by="day")
 is.bizday(dates)
 }
 

@@ -27,11 +27,13 @@
 \examples{
 # holidays has iso-formated dates
 data(holidaysANBIMA)
-cal <- Calendar(name='ANBIMA', holidays=holidaysANBIMA)
+cal <- Calendar(name="ANBIMA", holidays=holidaysANBIMA)
 # For empty calendar just pass nothing
-cal <- Calendar(name='Weekdays') # from 1970-01-01 to 2071-01-01
+cal <- Calendar(name="Weekdays") # from 1970-01-01 to 2071-01-01
+# ACTUAL calendar
+cal <- Calendar(name="Actual", weekdays=NULL)
 # unnamed calendars have NULL names
-cal <- Calendar(start.date='1976-07-12', end.date='2013-10-28')
+cal <- Calendar(start.date="1976-07-12", end.date="2013-10-28")
 is.null(cal$name) # TRUE
 }
 

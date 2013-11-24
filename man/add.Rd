@@ -26,8 +26,8 @@
 \examples{
 data(holidaysANBIMA)
 cal <- Calendar(holidaysANBIMA)
-add('2013-01-02', 5, cal)
-dates <- seq(as.Date('2013-01-01'), as.Date('2013-01-05'), by='day')
+add("2013-01-02", 5, cal)
+dates <- seq(as.Date("2013-01-01"), as.Date("2013-01-05"), by="day")
 add(dates, 1, cal)
 }
 

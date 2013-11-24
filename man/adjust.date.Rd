@@ -35,9 +35,7 @@
 \examples{
 data(holidaysANBIMA)
 cal <- Calendar(holidaysANBIMA)
-adjust.next('2013-01-01', cal)
-data(holidaysANBIMA)
-cal <- Calendar(holidaysANBIMA)
-adjust.previous('2013-01-01', cal)
+adjust.next("2013-01-01", cal)
+adjust.previous("2013-01-01", cal)
 }
 

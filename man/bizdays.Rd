@@ -39,9 +39,9 @@
 \examples{
 data(holidaysANBIMA)
 cal <- Calendar(holidaysANBIMA)
-bizdays('2013-01-02', '2013-01-31', cal)
+bizdays("2013-01-02", "2013-01-31", cal)
 # Once you have a default calendar set
 bizdays.options$set(default.calendar=cal)
-bizdays('2013-01-02', '2013-01-31')
+bizdays("2013-01-02", "2013-01-31")
 }
 
