@@ -24,3 +24,10 @@ test_that('it should bizdays a set of dates', {
 		c('2013-01-08', '2013-01-08')),
 		"from's length must be multiple of to's length and vice-versa.")
 })
+
+test_that('it should bizdays NA values', {
+  expect_equal(bizdays('2013-01-01', c('2013-12-31', '2014-12-31', NA)), c(260, 521, NA))
+  expect_equal(adjust.next(c('2013-12-31', '2014-12-31', NA)), as.Date(c('2013-12-31', '2014-12-31', NA)))
+  expect_equal(adjust.previous(c('2013-12-31', '2014-12-31', NA)), as.Date(c('2013-12-31', '2014-12-31', NA)))
+  expect_equal(is.bizday(c('2013-12-31', '2014-12-31', NA)), c(TRUE, TRUE, NA))
+})

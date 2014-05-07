@@ -55,28 +55,29 @@ Calendar <- function (holidays=integer(0),
 		! ( wday %in% wdays || . %in% n.holidays)
 	}, logical(1))
 	that$is.bizday <- function(date) {
-		.is.bizday[n.dates %in% date]
+		.is.bizday[match(date, n.dates)]
 	}
 	# bizdays and index
 	n.bizdays <- n.dates[.is.bizday]
 	index <- cumsum(.is.bizday)
 	# bizdays
 	that$bizdays <- function(from, to) {
-		apply(cbind(from, to), 1, function(x) {
-			from <- x[1]
-			to <- x[2]
-			from.idx <- index[n.dates %in% that$adjust.next(from)]
-			to.idx <- index[n.dates %in% that$adjust.previous(to)]
-			stopifnot(length(from.idx) == length(to.idx))
-			to.idx - from.idx
-		})
+	  from <- that$adjust.next(from)
+	  to <- that$adjust.previous(to)
+	  from.idx <- index[match(from, n.dates)]
+	  to.idx <- index[match(to, n.dates)]
+	  to.idx - from.idx
 	}
 	# adjust.next and adjust.previous
 	.adjust <- function(dates, offset) {
-		vapply(dates, function(date) {
-			while ( ! .is.bizday[n.dates == date] ) date <- date + offset
-			date
-		}, integer(1))
+    idx <- .is.bizday[match(dates, n.dates)]
+    idx[is.na(idx)] <- TRUE
+    while ( ! all(idx) ) {
+      dates[!idx] <- dates[!idx] + offset
+      idx <- .is.bizday[match(dates, n.dates)]
+      idx[is.na(idx)] <- TRUE
+    }
+    dates
 	}
 	that$adjust.next <- function(dates) {
 		.adjust(dates, 1L)
@@ -266,7 +267,7 @@ bizdays.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) 
 	lengths <- c(length(from), length(to))
 	if (max(lengths) %% min(lengths) != 0)
 		stop("from's length must be multiple of to's length and vice-versa.")
-	if ( ! all(from <= to) )
+	if ( ! all(from <= to, na.rm=TRUE) )
 		stop('All from dates must be greater than all to dates.')
 	cal$bizdays(as.integer(from), as.integer(to))
 }
@@ -430,7 +431,10 @@ add.Date <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
 	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
 		stop('Given date out of range.')
 	dates <- as.integer(dates)
-	as.Date(cal$add(dates, n), origin='1970-01-01')
+	dates <- as.Date(cal$add(dates, n), origin='1970-01-01')
+	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
+    stop('Dates out of range')
+  dates
 }
 
 #' ANBIMA's holidays list
