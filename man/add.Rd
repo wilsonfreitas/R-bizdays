@@ -1,16 +1,21 @@
 \name{add}
 \alias{add}
 \alias{add.Date}
+\alias{add.POSIXct}
+\alias{add.POSIXlt}
 \alias{add.character}
 \title{Adds \code{n} business days to the given \code{dates}.}
 \usage{
-  add(dates, n, cal)
+add(dates, n, cal)
 
-  \method{add}{character} (dates, n,
-    cal = bizdays.options$get("default.calendar"))
+\method{add}{character}(dates, n,
+  cal = bizdays.options$get("default.calendar"))
 
-  \method{add}{Date} (dates, n,
-    cal = bizdays.options$get("default.calendar"))
+\method{add}{POSIXct}(dates, n, cal = bizdays.options$get("default.calendar"))
+
+\method{add}{POSIXlt}(dates, n, cal = bizdays.options$get("default.calendar"))
+
+\method{add}{Date}(dates, n, cal = bizdays.options$get("default.calendar"))
 }
 \arguments{
   \item{dates}{a date or a vector of dates to be offset}
@@ -20,8 +25,8 @@
   \item{cal}{an instance of Calendar}
 }
 \description{
-  This function returns the given \code{dates} offset by
-  the given amount of \code{n} business days.
+This function returns the given \code{dates} offset by the
+given amount of \code{n} business days.
 }
 \examples{
 data(holidaysANBIMA)

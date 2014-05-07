@@ -1,16 +1,23 @@
 \name{bizseq}
 \alias{bizseq}
 \alias{bizseq.Date}
+\alias{bizseq.POSIXct}
+\alias{bizseq.POSIXlt}
 \alias{bizseq.character}
 \title{Create a sequence of business days.}
 \usage{
-  bizseq(from, to, cal)
+bizseq(from, to, cal)
 
-  \method{bizseq}{character} (from, to,
-    cal = bizdays.options$get("default.calendar"))
+\method{bizseq}{character}(from, to,
+  cal = bizdays.options$get("default.calendar"))
 
-  \method{bizseq}{Date} (from, to,
-    cal = bizdays.options$get("default.calendar"))
+\method{bizseq}{POSIXct}(from, to,
+  cal = bizdays.options$get("default.calendar"))
+
+\method{bizseq}{POSIXlt}(from, to,
+  cal = bizdays.options$get("default.calendar"))
+
+\method{bizseq}{Date}(from, to, cal = bizdays.options$get("default.calendar"))
 }
 \arguments{
   \item{from}{the initial date}
@@ -21,8 +28,8 @@
   \item{cal}{an instance of Calendar}
 }
 \description{
-  This function returns a sequence of business days
-  according to the given calendar.
+This function returns a sequence of business days according
+to the given calendar.
 }
 \examples{
 data(holidaysANBIMA)

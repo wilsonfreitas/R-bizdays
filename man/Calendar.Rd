@@ -2,9 +2,9 @@
 \alias{Calendar}
 \title{Creates the calendar based on a list of holidays.}
 \usage{
-  Calendar(holidays = integer(0),
-    start.date = "1970-01-01", end.date = "2071-01-01",
-    name = NULL, weekdays = c("saturday", "sunday"))
+Calendar(holidays = integer(0), start.date = "1970-01-01",
+  end.date = "2071-01-01", name = NULL, weekdays = c("saturday",
+  "sunday"))
 }
 \arguments{
   \item{holidays}{a vector of Dates which contains the
@@ -21,8 +21,8 @@
   weekend \code{c('saturday', 'sunday')})}
 }
 \description{
-  Calendar is the main class, it has all attributes
-  necessary to execute business days calculations.
+Calendar is the main class, it has all attributes necessary
+to execute business days calculations.
 }
 \examples{
 # holidays has iso-formated dates
