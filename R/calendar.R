@@ -153,6 +153,22 @@ adjust.next.Date <- function(dates, cal=bizdays.options$get('default.calendar'))
 }
 
 #' @rdname adjust.date
+#' @method adjust.next POSIXct
+#' @S3method adjust.next POSIXct
+adjust.next.POSIXct <- function(dates, cal=bizdays.options$get('default.calendar')) {
+  dates <- as.Date(dates)
+  adjust.next(dates, cal)
+}
+
+#' @rdname adjust.date
+#' @method adjust.next POSIXlt
+#' @S3method adjust.next POSIXlt
+adjust.next.POSIXlt <- function(dates, cal=bizdays.options$get('default.calendar')) {
+  dates <- as.Date(dates)
+  adjust.next(dates, cal)
+}
+
+#' @rdname adjust.date
 #' @export
 #' @examples
 #' adjust.previous("2013-01-01", cal)
@@ -174,6 +190,22 @@ adjust.previous.Date <- function(dates, cal=bizdays.options$get('default.calenda
 		stop('Given date out of range.')
 	dates <- as.integer(dates)
 	as.Date(cal$adjust.previous(dates), origin='1970-01-01')
+}
+
+#' @rdname adjust.date
+#' @method adjust.previous POSIXct
+#' @S3method adjust.previous POSIXct
+adjust.previous.POSIXct <- function(dates, cal=bizdays.options$get('default.calendar')) {
+  dates <- as.Date(dates)
+  adjust.previous(dates, cal)
+}
+
+#' @rdname adjust.date
+#' @method adjust.previous POSIXlt
+#' @S3method adjust.previous POSIXlt
+adjust.previous.POSIXlt <- function(dates, cal=bizdays.options$get('default.calendar')) {
+  dates <- as.Date(dates)
+  adjust.previous(dates, cal)
 }
 
 #' Computes business days between two dates.
@@ -201,6 +233,24 @@ bizdays.character <- function(from, to, cal=bizdays.options$get('default.calenda
 	from <- as.Date(from)
 	to <- as.Date(to)
 	bizdays(from, to, cal)
+}
+
+#' @rdname bizdays
+#' @method bizdays POSIXct
+#' @S3method bizdays POSIXct
+bizdays.POSIXct <- function(from, to, cal=bizdays.options$get('default.calendar')) {
+  from <- as.Date(from)
+  to <- as.Date(to)
+  bizdays(from, to, cal)
+}
+
+#' @rdname bizdays
+#' @method bizdays POSIXlt
+#' @S3method bizdays POSIXlt
+bizdays.POSIXlt <- function(from, to, cal=bizdays.options$get('default.calendar')) {
+  from <- as.Date(from)
+  to <- as.Date(to)
+  bizdays(from, to, cal)
 }
 
 #' @rdname bizdays
@@ -242,8 +292,24 @@ is.bizday <- function(dates, cal) UseMethod("is.bizday")
 #' @method is.bizday character
 #' @S3method is.bizday character
 is.bizday.character <- function(dates, cal=bizdays.options$get('default.calendar')) {
-	dates <- as.Date(dates)
-	is.bizday(dates, cal)
+  dates <- as.Date(dates)
+  is.bizday(dates, cal)
+}
+
+#' @rdname is.bizday
+#' @method is.bizday POSIXct
+#' @S3method is.bizday POSIXct
+is.bizday.POSIXct <- function(dates, cal=bizdays.options$get('default.calendar')) {
+  dates <- as.Date(dates)
+  is.bizday(dates, cal)
+}
+
+#' @rdname is.bizday
+#' @method is.bizday POSIXlt
+#' @S3method is.bizday POSIXlt
+is.bizday.POSIXlt <- function(dates, cal=bizdays.options$get('default.calendar')) {
+  dates <- as.Date(dates)
+  is.bizday(dates, cal)
 }
 
 #' @rdname is.bizday
@@ -274,9 +340,27 @@ bizseq <- function(from, to, cal) UseMethod('bizseq')
 #' @method bizseq character
 #' @S3method bizseq character
 bizseq.character <- function(from, to, cal=bizdays.options$get('default.calendar')) {
-	from <- as.Date(from)
-	to <- as.Date(to)
-	bizseq(from, to, cal)
+  from <- as.Date(from)
+  to <- as.Date(to)
+  bizseq(from, to, cal)
+}
+
+#' @rdname bizseq
+#' @method bizseq POSIXct
+#' @S3method bizseq POSIXct
+bizseq.POSIXct <- function(from, to, cal=bizdays.options$get('default.calendar')) {
+  from <- as.Date(from)
+  to <- as.Date(to)
+  bizseq(from, to, cal)
+}
+
+#' @rdname bizseq
+#' @method bizseq POSIXlt
+#' @S3method bizseq POSIXlt
+bizseq.POSIXlt <- function(from, to, cal=bizdays.options$get('default.calendar')) {
+  from <- as.Date(from)
+  to <- as.Date(to)
+  bizseq(from, to, cal)
 }
 
 #' @rdname bizseq
@@ -319,8 +403,24 @@ add <- function(dates, n, cal) UseMethod('add')
 #' @method add character
 #' @S3method add character
 add.character <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
-	dates <- as.Date(dates)
-	add(dates, n, cal)
+  dates <- as.Date(dates)
+  add(dates, n, cal)
+}
+
+#' @rdname add
+#' @method add POSIXct
+#' @S3method add POSIXct
+add.POSIXct <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
+  dates <- as.Date(dates)
+  add(dates, n, cal)
+}
+
+#' @rdname add
+#' @method add POSIXlt
+#' @S3method add POSIXlt
+add.POSIXlt <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
+  dates <- as.Date(dates)
+  add(dates, n, cal)
 }
 
 #' @rdname add
