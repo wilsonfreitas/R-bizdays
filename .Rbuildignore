@@ -1,4 +1,3 @@
-NAMESPACE.2
-calendar-1.R
-test-calendar-S3.R
 .git
+^.*\.Rproj$
+^\.Rproj\.user$
