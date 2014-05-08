@@ -492,9 +492,12 @@ new_defaults <- function(value=list()) {
 #' without providing a \code{Calendar} instance as a parameter.
 #' 
 #' @format a \code{list} with \code{get} and \code{set} functions attached
-#' @usage 
+#' \preformatted{
 #' bizdays.options$set(key=value)
 #' bizdays.options$get("key")
+#' }
+#' @usage 
+#' bizdays.options
 #' @export
 #' @examples
 #' cal <- Calendar(name="Weekdays")

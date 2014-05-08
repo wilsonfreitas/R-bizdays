@@ -2,10 +2,13 @@
 \name{bizdays.options}
 \alias{bizdays.options}
 \title{bizdays' options}
-\format{a \code{list} with \code{get} and \code{set} functions attached}
-\usage{
+\format{a \code{list} with \code{get} and \code{set} functions attached
+\preformatted{
 bizdays.options$set(key=value)
 bizdays.options$get("key")
+}}
+\usage{
+bizdays.options
 }
 \description{
 \code{bizdays.options} defines the default calendar to be
