@@ -260,6 +260,7 @@ bizdays.POSIXlt <- function(from, to, cal=bizdays.options$get('default.calendar'
 bizdays.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
 	to <- as.Date(to)
 	# ---
+	if (all(is.na(to))) return( rep(NA, max(length(to), length(from))) )
 	if ( ! any(from >= cal$start.date & from <= cal$end.date) )
 		stop('Given date out of range.')
 	if ( ! any(to >= cal$start.date & to <= cal$end.date) )
