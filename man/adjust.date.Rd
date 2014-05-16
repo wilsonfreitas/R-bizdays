@@ -16,13 +16,13 @@ adjust.next(dates, cal)
 \method{adjust.next}{character}(dates,
   cal = bizdays.options$get("default.calendar"))
 
-\method{adjust.next}{Date}(dates,
-  cal = bizdays.options$get("default.calendar"))
-
 \method{adjust.next}{POSIXct}(dates,
   cal = bizdays.options$get("default.calendar"))
 
 \method{adjust.next}{POSIXlt}(dates,
+  cal = bizdays.options$get("default.calendar"))
+
+\method{adjust.next}{Date}(dates,
   cal = bizdays.options$get("default.calendar"))
 
 adjust.previous(dates, cal)
@@ -30,13 +30,13 @@ adjust.previous(dates, cal)
 \method{adjust.previous}{character}(dates,
   cal = bizdays.options$get("default.calendar"))
 
-\method{adjust.previous}{Date}(dates,
-  cal = bizdays.options$get("default.calendar"))
-
 \method{adjust.previous}{POSIXct}(dates,
   cal = bizdays.options$get("default.calendar"))
 
 \method{adjust.previous}{POSIXlt}(dates,
+  cal = bizdays.options$get("default.calendar"))
+
+\method{adjust.previous}{Date}(dates,
   cal = bizdays.options$get("default.calendar"))
 }
 \arguments{
