@@ -4,6 +4,7 @@
 \alias{bizdayse.POSIXct}
 \alias{bizdayse.POSIXlt}
 \alias{bizdayse.character}
+\alias{bizyearse}
 \alias{bizyearse.Date}
 \alias{bizyearse.POSIXct}
 \alias{bizyearse.POSIXlt}
@@ -23,6 +24,8 @@ bizdayse(dates, curd, cal)
 
 \method{bizdayse}{Date}(dates, curd,
   cal = bizdays.options$get("default.calendar"))
+
+bizyearse(dates, curd, cal)
 
 \method{bizyearse}{character}(dates, curd,
   cal = bizdays.options$get("default.calendar"))

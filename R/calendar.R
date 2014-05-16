@@ -539,7 +539,6 @@ bizyears.Date <- function(from, to, cal=bizdays.options$get('default.calendar'))
 #' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA, dib=252)
 #' bizdayse("2013-01-02", 3, cal)
-#' bizyearse("2013-01-02", 3, cal)
 bizdayse <- function(dates, curd, cal) UseMethod('bizdayse')
 
 .bizdayse <- function(dates, curd, cal=bizdays.options$get('default.calendar')) {
@@ -569,7 +568,10 @@ bizdayse.Date <- function(dates, curd, cal=bizdays.options$get('default.calendar
 	bizdays(dates, dates+curd, cal)
 }
 
-# bizyearse
+#' @rdname bizdayse
+#' @export
+#' @examples
+#' bizyearse("2013-01-02", 3, cal)
 bizyearse <- function(dates, curd, cal) UseMethod('bizyearse')
 
 .bizyearse <- function(dates, curd, cal=bizdays.options$get('default.calendar')) {
