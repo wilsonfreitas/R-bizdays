@@ -527,7 +527,7 @@ bizyears <- function(from, to, cal) UseMethod('bizyears')
 #' @rdname bizyears
 #' @method bizyears character
 #' @S3method bizyears character
-bizyears.character <- function(from, to, cal=bizyears.options$get('default.calendar')) {
+bizyears.character <- function(from, to, cal=bizdays.options$get('default.calendar')) {
 	from <- as.Date(from)
 	bizyears(from, to, cal)
 }
@@ -554,5 +554,47 @@ bizyears.POSIXlt <- function(from, to, cal=bizdays.options$get('default.calendar
 bizyears.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
 	to <- as.Date(to)
 	bizdays(from, to, cal)/cal$dib
+}
+
+#' Business days and current days equivalence
+#' 
+#' \code{bizdayse} stands for business days equivalent, it returns the amount
+#' of business days equivalent to a given number of current days.
+#' 
+#' @param dates the initial date (or a vector of dates)
+#' @param curd the amount of current days (or a vector of numeric)
+#' @param cal an instance of Calendar
+#' @export
+#' @examples
+#' data(holidaysANBIMA)
+#' cal <- Calendar(holidaysANBIMA, dib=252)
+#' bizdayse("2013-01-02", 3, cal)
+bizdayse <- function(dates, curd, cal) UseMethod('bizdayse')
+
+.bizdayse <- function(dates, curd, cal=bizdays.options$get('default.calendar')) {
+	dates <- as.Date(dates)
+	bizdayse(dates, curd, cal)
+}
+
+#' @rdname bizdayse
+#' @method bizdayse character
+#' @S3method bizdayse character
+bizdayse.character <- .bizdayse
+
+#' @rdname bizdayse
+#' @method bizdayse POSIXct
+#' @S3method bizdayse POSIXct
+bizdayse.POSIXct <- .bizdayse
+
+#' @rdname bizdayse
+#' @method bizdayse POSIXlt
+#' @S3method bizdayse POSIXlt
+bizdayse.POSIXlt <- .bizdayse
+
+#' @rdname bizdayse
+#' @method bizdayse Date
+#' @S3method bizdayse Date
+bizdayse.Date <- function(dates, curd, cal=bizdays.options$get('default.calendar')) {
+	bizdays(dates, dates+curd, cal)
 }
 

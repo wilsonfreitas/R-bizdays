@@ -48,3 +48,10 @@ test_that('it should bizyears dates', {
 	cal <- Calendar(holidaysANBIMA, dib=252)
 	expect_equal(bizyears('2013-08-21', '2013-08-24', cal), 2/252)
 })
+
+context('bizdays and current days equivalence')
+
+test_that('it should compute the business days equivalent to current days', {
+	cal <- Calendar(holidaysANBIMA, dib=252)
+	expect_equal(bizdayse('2013-08-21', 3, cal), 2)
+})

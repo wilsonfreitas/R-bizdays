@@ -9,7 +9,7 @@
 bizyears(from, to, cal)
 
 \method{bizyears}{character}(from, to,
-  cal = bizyears.options$get("default.calendar"))
+  cal = bizdays.options$get("default.calendar"))
 
 \method{bizyears}{POSIXct}(from, to,
   cal = bizdays.options$get("default.calendar"))
