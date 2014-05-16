@@ -24,9 +24,11 @@
 #' is.null(cal$name) # TRUE
 Calendar <- function (holidays=integer(0),
 		start.date='1970-01-01', end.date='2071-01-01', name=NULL,
-		weekdays=c('saturday', 'sunday')) {
+		weekdays=c('saturday', 'sunday'), dib=365) {
 	
 	that <- list()
+	# dib
+	that$dib <- dib
 	# weekdays
 	weekdays_codes <- list(monday=4, tuesday=5, wednesday=6, thursday=0,
 		friday=1, saturday=2, sunday=3)
@@ -507,4 +509,48 @@ new_defaults <- function(value=list()) {
 #' bizdays("2013-07-12", "2013-07-22")
 bizdays.options <- new_defaults()
 bizdays.options$set(default.calendar=Calendar())
+
+#' Computes the period between two dates in years taking into account business days
+#' 
+#' @param from the initial date (or a vector of dates)
+#' @param to the final date (or a vector of dates).
+#' @param cal an instance of Calendar
+#' @export
+#' @examples
+#' data(holidaysANBIMA)
+#' cal <- Calendar(holidaysANBIMA, dib=252)
+#' bizyears("2013-01-02", "2013-01-31", cal)
+bizyears <- function(from, to, cal) UseMethod('bizyears')
+
+#' @rdname bizyears
+#' @method bizyears character
+#' @S3method bizyears character
+bizyears.character <- function(from, to, cal=bizyears.options$get('default.calendar')) {
+	from <- as.Date(from)
+	bizyears(from, to, cal)
+}
+
+#' @rdname bizyears
+#' @method bizyears POSIXct
+#' @S3method bizyears POSIXct
+bizyears.POSIXct <- function(from, to, cal=bizdays.options$get('default.calendar')) {
+  from <- as.Date(from)
+  bizyears(from, to, cal)
+}
+
+#' @rdname bizyears
+#' @method bizyears POSIXlt
+#' @S3method bizyears POSIXlt
+bizyears.POSIXlt <- function(from, to, cal=bizdays.options$get('default.calendar')) {
+  from <- as.Date(from)
+  bizyears(from, to, cal)
+}
+
+#' @rdname bizyears
+#' @method bizyears Date
+#' @S3method bizyears Date
+bizyears.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
+	to <- as.Date(to)
+	bizdays(from, to, cal)/cal$dib
+}
 

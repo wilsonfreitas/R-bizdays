@@ -39,3 +39,12 @@ test_that('it should bizdays all NA values', {
 	expect_equal(bizdays(c('2013-01-01', '2013-02-01'), NA), c(NA, NA))
 	expect_equal(bizdays('2013-01-01', c(NA, NA)), c(NA, NA))
 })
+
+context('bizyears')
+
+test_that('it should bizyears dates', {
+	cal <- Calendar()
+	expect_equal(bizyears('2013-01-02', '2013-01-03', cal), 1/365)
+	cal <- Calendar(holidaysANBIMA, dib=252)
+	expect_equal(bizyears('2013-08-21', '2013-08-24', cal), 2/252)
+})
