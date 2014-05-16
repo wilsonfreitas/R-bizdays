@@ -19,6 +19,10 @@ Calendar(holidays = integer(0), start.date = "1970-01-01",
   \item{weekdays}{a character vector which defines the
   weekdays to be used as non-working days (defaults to
   weekend \code{c('saturday', 'sunday')})}
+
+  \item{dib}{a single numeric variable which indicates the
+  amount of days within a year (\code{dib} stands for days
+  in base and defaults to 365).}
 }
 \description{
 Calendar is the main class, it has all attributes necessary

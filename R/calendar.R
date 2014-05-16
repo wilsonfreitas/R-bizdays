@@ -10,6 +10,8 @@
 #' @param name calendar's name
 #' @param weekdays a character vector which defines the weekdays to be used as
 #' non-working days (defaults to weekend \code{c('saturday', 'sunday')})
+#' @param dib a single numeric variable which indicates the amount of days
+#' within a year (\code{dib} stands for days in base and defaults to 365).
 #' @export
 #' @examples
 #' # holidays has iso-formated dates
