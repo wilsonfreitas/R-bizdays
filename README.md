@@ -3,6 +3,8 @@
 
 # bizdays
 
+[![Build Status](https://travis-ci.org/wilsonfreitas/R-bizdays.svg?branch=master)](https://travis-ci.org/wilsonfreitas/R-bizdays)
+
 `bizdays` makes your life less miserable when you have to deal with business days calculations.
 For many countries it is pretty much usual the use of business days to price financial instruments.
 Usually Excel's `NETWORKDAYS` is fairly at hand and once you have a list of holidays it is quite easy to put your data into a spreadsheet and make things happen.
