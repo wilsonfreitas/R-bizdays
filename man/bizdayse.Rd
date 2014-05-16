@@ -4,6 +4,10 @@
 \alias{bizdayse.POSIXct}
 \alias{bizdayse.POSIXlt}
 \alias{bizdayse.character}
+\alias{bizyearse.Date}
+\alias{bizyearse.POSIXct}
+\alias{bizyearse.POSIXlt}
+\alias{bizyearse.character}
 \title{Business days and current days equivalence}
 \usage{
 bizdayse(dates, curd, cal)
@@ -18,6 +22,18 @@ bizdayse(dates, curd, cal)
   cal = bizdays.options$get("default.calendar"))
 
 \method{bizdayse}{Date}(dates, curd,
+  cal = bizdays.options$get("default.calendar"))
+
+\method{bizyearse}{character}(dates, curd,
+  cal = bizdays.options$get("default.calendar"))
+
+\method{bizyearse}{POSIXct}(dates, curd,
+  cal = bizdays.options$get("default.calendar"))
+
+\method{bizyearse}{POSIXlt}(dates, curd,
+  cal = bizdays.options$get("default.calendar"))
+
+\method{bizyearse}{Date}(dates, curd,
   cal = bizdays.options$get("default.calendar"))
 }
 \arguments{
@@ -37,5 +53,6 @@ number of current days.
 data(holidaysANBIMA)
 cal <- Calendar(holidaysANBIMA, dib=252)
 bizdayse("2013-01-02", 3, cal)
+bizyearse("2013-01-02", 3, cal)
 }
 

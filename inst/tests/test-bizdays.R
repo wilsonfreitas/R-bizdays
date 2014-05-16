@@ -54,4 +54,5 @@ context('bizdays and current days equivalence')
 test_that('it should compute the business days equivalent to current days', {
 	cal <- Calendar(holidaysANBIMA, dib=252)
 	expect_equal(bizdayse('2013-08-21', 3, cal), 2)
+	expect_equal(bizyearse('2013-08-21', 3, cal), 2/252)
 })
