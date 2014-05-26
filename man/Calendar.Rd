@@ -3,9 +3,8 @@
 \title{Creates the calendar based on a list of holidays.}
 \usage{
 Calendar(holidays = integer(0), start.date = "1970-01-01",
-  end.date = "2071-01-01", name = NULL, weekdays = c("saturday",
-  "sunday"), dib = 365, adjust.from = adjust.next,
-  adjust.to = adjust.previous)
+  end.date = "2071-01-01", name = "actual", weekdays = NULL, dib = 365,
+  adjust.from = adjust.next, adjust.to = adjust.previous)
 }
 \arguments{
   \item{holidays}{a vector of Dates which contains the
@@ -19,7 +18,7 @@ Calendar(holidays = integer(0), start.date = "1970-01-01",
 
   \item{weekdays}{a character vector which defines the
   weekdays to be used as non-working days (defaults to
-  weekend \code{c('saturday', 'sunday')})}
+  \code{NULL} which represents an actual calendar)}
 
   \item{dib}{a single numeric variable which indicates the
   amount of days within a year (\code{dib} stands for days
