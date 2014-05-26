@@ -12,6 +12,8 @@
 #' non-working days (defaults to weekend \code{c('saturday', 'sunday')})
 #' @param dib a single numeric variable which indicates the amount of days
 #' within a year (\code{dib} stands for days in base and defaults to 365).
+#' @param adjust.from \code{bizdays} \code{from} argument adjustment
+#' @param adjust.to \code{bizdays} \code{to} argument adjustment
 #' @export
 #' @examples
 #' # holidays has iso-formated dates
