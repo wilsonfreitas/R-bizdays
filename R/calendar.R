@@ -26,9 +26,13 @@
 #' is.null(cal$name) # TRUE
 Calendar <- function (holidays=integer(0),
 		start.date='1970-01-01', end.date='2071-01-01', name=NULL,
-		weekdays=c('saturday', 'sunday'), dib=365) {
+		weekdays=c('saturday', 'sunday'), dib=365, adjust.from=adjust.next,
+		adjust.to=adjust.previous) {
 	
 	that <- list()
+	# adjust functions
+	that$adjust.from <- adjust.from
+	that$adjust.to <- adjust.to
 	# dib
 	that$dib <- dib
 	# weekdays
@@ -66,11 +70,9 @@ Calendar <- function (holidays=integer(0),
 	index <- cumsum(.is.bizday)
 	# bizdays
 	that$bizdays <- function(from, to) {
-	  from <- that$adjust.next(from)
-	  to <- that$adjust.previous(to)
-	  from.idx <- index[match(from, n.dates)]
-	  to.idx <- index[match(to, n.dates)]
-	  to.idx - from.idx
+		from.idx <- index[match(from, n.dates)]
+		to.idx <- index[match(to, n.dates)]
+		to.idx - from.idx
 	}
 	# adjust.next and adjust.previous
 	.adjust <- function(dates, offset) {
@@ -259,6 +261,8 @@ bizdays.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) 
 		stop("from's length must be multiple of to's length and vice-versa.")
 	if ( ! all(from <= to, na.rm=TRUE) )
 		stop('All from dates must be greater than all to dates.')
+	from <- cal$adjust.from(from, cal)
+	to <- cal$adjust.to(to, cal)
 	cal$bizdays(as.integer(from), as.integer(to))
 }
 
