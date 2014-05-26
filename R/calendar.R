@@ -9,11 +9,13 @@
 #' @param end.date the date which calendar ends
 #' @param name calendar's name
 #' @param weekdays a character vector which defines the weekdays to be used as
-#' non-working days (defaults to weekend \code{c('saturday', 'sunday')})
+#' non-working days (defaults to \code{NULL} which represents an actual 
+#' calendar)
 #' @param dib a single numeric variable which indicates the amount of days
 #' within a year (\code{dib} stands for days in base and defaults to 365).
 #' @param adjust.from \code{bizdays} \code{from} argument adjustment
 #' @param adjust.to \code{bizdays} \code{to} argument adjustment
+#' 
 #' @export
 #' @examples
 #' # holidays has iso-formated dates
@@ -27,8 +29,8 @@
 #' cal <- Calendar(start.date="1976-07-12", end.date="2013-10-28")
 #' is.null(cal$name) # TRUE
 Calendar <- function (holidays=integer(0),
-		start.date='1970-01-01', end.date='2071-01-01', name=NULL,
-		weekdays=c('saturday', 'sunday'), dib=365, adjust.from=adjust.next,
+		start.date='1970-01-01', end.date='2071-01-01', name='actual',
+		weekdays=NULL, dib=365, adjust.from=adjust.next,
 		adjust.to=adjust.previous) {
 	
 	that <- list()

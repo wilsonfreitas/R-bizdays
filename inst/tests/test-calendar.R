@@ -7,7 +7,7 @@ test_that('it should call bizdays.default with no default calendar', {
 })
 
 test_that('it should use the default calendar', {
-	cal <- Calendar()
+	cal <- Calendar(weekdays=c('saturday', 'sunday'))
 	expect_true(cal$start.date == '1970-01-01')
 	expect_true(cal$end.date == '2071-01-01')
 	expect_true(all(cal$weekdays == c('saturday', 'sunday')))
@@ -21,7 +21,7 @@ test_that('it should use the default calendar', {
 })
 
 test_that('it should create a short calendar and test its boundaries', {
-	cal <- Calendar(start.date='2013-01-01', end.date='2013-12-31')
+	cal <- Calendar(start.date='2013-01-01', end.date='2013-12-31', weekdays=c('saturday', 'sunday'))
 	expect_true(cal$start.date == '2013-01-01')
 	expect_true(cal$end.date == '2013-12-31')
 	expect_true(all(cal$weekdays == c('saturday', 'sunday')))
@@ -41,7 +41,7 @@ test_that('it should create an Actual Calendar', {
 
 test_that('it should create a business Calendar: Brazil\'s ANBIMA', {
 	data(holidaysANBIMA)
-	cal <- Calendar(holidaysANBIMA)
+	cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'))
 	expect_equal(bizdays('2013-07-12', '2014-07-12', cal), 251)
 	expect_equal(bizdays('2013-08-21', '2013-08-24', cal), 2)
 	expect_equal(bizdays('2013-01-01', '2013-01-31', cal), 21)
@@ -93,7 +93,7 @@ context('check whether or not a date is a business day')
 
 test_that("is business day", {
 	data(holidaysANBIMA)
-	cal <- Calendar(holidaysANBIMA)
+	cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'))
 	expect_false(is.bizday('2013-01-01', cal))
 	expect_true(is.bizday('2013-01-02', cal))
 	dates <- seq(as.Date('2013-01-01'), as.Date('2013-01-05'), by='day')
@@ -103,7 +103,7 @@ test_that("is business day", {
 context('adjustment of business days')
 
 data(holidaysANBIMA)
-cal <- Calendar(holidaysANBIMA)
+cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'))
 
 test_that("it should move date to next business day", {
 	date <- as.character(adjust.next('2013-01-01', cal))
