@@ -18,3 +18,4 @@ Changes in Version 0.1.4
   * bizdays, adjust.previous, adjust.next and is.bizday handle NA values
   without break
 
+  * bizdays, adjust.next and adjust.previous are fast
