@@ -29,26 +29,6 @@ or using `devtools`
 devtools::install_github('R-bizdays', username='wilsonfreitas')
 ```
 
-## Using
-
-Everything relies on the `Calendar` class, well it is not a strict class as some would argue but in R's domains it is pretty much a class.
-
-```R
-data(holidaysANBIMA)
-cal <- Calendar(holidaysANBIMA)
-```
-
-You have to pass a list of `Date` objects to the `Calendar` function in order to have the calendar properly created.
-Once you have a brand new calendar you are going to have 6 functions at hand: 
-
-- `bizdays`: returns the amount of business days between 2 dates
-- `is.bizday`: returns whether or not the given date is a business day
-- `add`: returns the given date offset by `n` business days (positive or negative)
-- `bizseq`: returns a vector of a sequence of business days
-- `adjust.next` and `adjust.previous`: if the given date isn't a business day this function returns the next or previous business day, respectively, otherwise returns the given date
-
-**All functions, except `bizseq`, accept vector of `Date` objects.**
-
 ## Holidays
 
 I've included a dataset called `holidaysANBIMA` containing the list of holidays released by [ANBIMA][ANBIMA], this is quite useful at brazilian financial market.
