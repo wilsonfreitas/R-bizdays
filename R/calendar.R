@@ -382,39 +382,39 @@ bizseq.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
 #' @examples
 #' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA)
-#' add("2013-01-02", 5, cal)
+#' add.bizdays("2013-01-02", 5, cal)
 #' dates <- seq(as.Date("2013-01-01"), as.Date("2013-01-05"), by="day")
-#' add(dates, 1, cal)
-add <- function(dates, n, cal) UseMethod('add')
+#' add.bizdays(dates, 1, cal)
+add.bizdays <- function(dates, n, cal) UseMethod('add.bizdays')
 
-#' @rdname add
-#' @method add character
-#' @S3method add character
-add.character <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
+#' @rdname add.bizdays
+#' @method add.bizdays character
+#' @S3method add.bizdays character
+add.bizdays.character <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
   dates <- as.Date(dates)
-  add(dates, n, cal)
+  add.bizdays(dates, n, cal)
 }
 
-#' @rdname add
-#' @method add POSIXct
-#' @S3method add POSIXct
-add.POSIXct <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
+#' @rdname add.bizdays
+#' @method add.bizdays POSIXct
+#' @S3method add.bizdays POSIXct
+add.bizdays.POSIXct <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
   dates <- as.Date(dates)
-  add(dates, n, cal)
+  add.bizdays(dates, n, cal)
 }
 
-#' @rdname add
-#' @method add POSIXlt
-#' @S3method add POSIXlt
-add.POSIXlt <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
+#' @rdname add.bizdays
+#' @method add.bizdays POSIXlt
+#' @S3method add.bizdays POSIXlt
+add.bizdays.POSIXlt <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
   dates <- as.Date(dates)
-  add(dates, n, cal)
+  add.bizdays(dates, n, cal)
 }
 
-#' @rdname add
-#' @method add Date
-#' @S3method add Date
-add.Date <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
+#' @rdname add.bizdays
+#' @method add.bizdays Date
+#' @S3method add.bizdays Date
+add.bizdays.Date <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
 	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
 		stop('Given date out of range.')
 	dates <- as.integer(dates)

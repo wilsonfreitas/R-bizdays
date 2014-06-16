@@ -138,14 +138,14 @@ test_that("it should generate a sequence of bizdays", {
 context('offset by a number of business days')
 
 test_that("it should offset the date by n business days", {
-    expect_equal(add('2013-01-02', 1, cal), as.Date('2013-01-03'))
-    expect_equal(add('2013-01-02', 3, cal), as.Date('2013-01-07'))
-    expect_equal(add('2013-01-02', 0, cal), as.Date('2013-01-02'))
-    expect_equal(add('2013-01-01', 0, cal), as.Date('2013-01-02'))
-    expect_equal(add('2013-01-01', -1, cal), as.Date('2012-12-28'), label=add('2013-01-01', -1, cal))
+    expect_equal(add.bizdays('2013-01-02', 1, cal), as.Date('2013-01-03'))
+    expect_equal(add.bizdays('2013-01-02', 3, cal), as.Date('2013-01-07'))
+    expect_equal(add.bizdays('2013-01-02', 0, cal), as.Date('2013-01-02'))
+    expect_equal(add.bizdays('2013-01-01', 0, cal), as.Date('2013-01-02'))
+    expect_equal(add.bizdays('2013-01-01', -1, cal), as.Date('2012-12-28'), label=add.bizdays('2013-01-01', -1, cal))
     dates <- c(as.Date('2013-01-01'), as.Date('2013-01-02'))
-    expect_equal(add(dates, 1, cal), c(as.Date('2013-01-03'), as.Date('2013-01-03')))
+    expect_equal(add.bizdays(dates, 1, cal), c(as.Date('2013-01-03'), as.Date('2013-01-03')))
     cal <- Calendar(start.date='2013-01-01', end.date='2013-01-31')
-    expect_error(add('2013-01-10', 30, cal))
+    expect_error(add.bizdays('2013-01-10', 30, cal))
 })
 
