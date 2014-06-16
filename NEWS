@@ -1,5 +1,7 @@
 Changes in Version 0.1.5
 
+  * add function has been renamed to add.bizdays
+
   * Calendar's argument weekdays default value is NULL
 
   * Calendar has new arguments: dib, adjust.from, adjust.to
