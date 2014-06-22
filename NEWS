@@ -1,3 +1,16 @@
+Changes in Version 0.1.6
+
+  * print.Calendar returns invisible(x) and shows weekdays
+  
+  * Calendar raises a warning when holidays is set and weekdays is not
+  
+  * Calendar's dib and name defaults to NULL
+  
+  * default.calendar is Calendar(name='Actual', dib=365)
+  
+  * bizyears raises an error if dib is NULL
+
+
 Changes in Version 0.1.5
 
   * add function has been renamed to add.bizdays
