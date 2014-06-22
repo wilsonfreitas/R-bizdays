@@ -7,7 +7,7 @@ Description: bizdays is a small set of functions to help with calculations
     bizdays can be fairly used for fixed income calculations.
     Many countries make intense use of business days to price
     financial instruments, like bonds and derivatives.
-Version: 0.1.5
+Version: 0.1.6
 Author: Wilson Freitas <wilson.freitas@gmail.com>
 Maintainer: Wilson Freitas <wilson.freitas@gmail.com>
 URL: https://github.com/wilsonfreitas/R-bizdays
