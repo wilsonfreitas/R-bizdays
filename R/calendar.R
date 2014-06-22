@@ -12,7 +12,7 @@
 #' non-working days (defaults to \code{NULL} which represents an actual 
 #' calendar)
 #' @param dib a single numeric variable which indicates the amount of days
-#' within a year (\code{dib} stands for days in base and defaults to 365).
+#' within a year (\code{dib} stands for days in base).
 #' @param adjust.from \code{bizdays} \code{from} argument adjustment
 #' @param adjust.to \code{bizdays} \code{to} argument adjustment
 #' 
@@ -20,17 +20,16 @@
 #' @examples
 #' # holidays has iso-formated dates
 #' data(holidaysANBIMA)
-#' cal <- Calendar(name="ANBIMA", holidays=holidaysANBIMA)
-#' # For empty calendar just pass nothing
-#' cal <- Calendar(name="Weekdays") # from 1970-01-01 to 2071-01-01
+#' cal <- Calendar(name="ANBIMA", holidays=holidaysANBIMA,
+#'                 weekdays=c('saturday', 'sunday'), dib=252)
 #' # ACTUAL calendar
-#' cal <- Calendar(name="Actual", weekdays=NULL)
+#' cal <- Calendar(name="Actual", dib=365)
 #' # unnamed calendars have NULL names
 #' cal <- Calendar(start.date="1976-07-12", end.date="2013-10-28")
 #' is.null(cal$name) # TRUE
 Calendar <- function (holidays=integer(0),
 		start.date='1970-01-01', end.date='2071-01-01', name='actual',
-		weekdays=NULL, dib=365, adjust.from=adjust.next,
+		weekdays=NULL, dib=NULL, adjust.from=adjust.next,
 		adjust.to=adjust.previous) {
 	
 	if (length(holidays) != 0 && all(is.null(weekdays)))
@@ -146,7 +145,7 @@ print.Calendar <- function(x, ...) {
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
-#' cal <- Calendar(holidaysANBIMA)
+#' cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'))
 #' adjust.next("2013-01-01", cal)
 adjust.next <- function(dates, cal) UseMethod("adjust.next")
 
@@ -227,7 +226,7 @@ adjust.previous.Date <- function(dates, cal=bizdays.options$get('default.calenda
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
-#' cal <- Calendar(holidaysANBIMA)
+#' cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'))
 #' bizdays("2013-01-02", "2013-01-31", cal)
 #' # Once you have a default calendar set
 #' bizdays.options$set(default.calendar=cal)
@@ -285,7 +284,7 @@ bizdays.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) 
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
-#' cal <- Calendar(holidaysANBIMA)
+#' cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'))
 #' is.bizday("2013-01-02", cal)
 #' # Using the default Calendar
 #' dates <- seq(as.Date("2013-01-01"), as.Date("2013-01-05"), by="day")
@@ -332,7 +331,7 @@ is.bizday.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
-#' cal <- Calendar(holidaysANBIMA)
+#' cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'))
 #' bizseq("2013-01-02", "2013-01-31", cal)
 bizseq <- function(from, to, cal) UseMethod('bizseq')
 
@@ -386,7 +385,7 @@ bizseq.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
-#' cal <- Calendar(holidaysANBIMA)
+#' cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'))
 #' add.bizdays("2013-01-02", 5, cal)
 #' dates <- seq(as.Date("2013-01-01"), as.Date("2013-01-05"), by="day")
 #' add.bizdays(dates, 1, cal)
@@ -507,7 +506,7 @@ bizdays.options$set(default.calendar=Calendar())
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
-#' cal <- Calendar(holidaysANBIMA, dib=252)
+#' cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'), dib=252)
 #' bizyears("2013-01-02", "2013-01-31", cal)
 bizyears <- function(from, to, cal) UseMethod('bizyears')
 
@@ -550,7 +549,7 @@ bizyears.Date <- function(from, to, cal=bizdays.options$get('default.calendar'))
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
-#' cal <- Calendar(holidaysANBIMA, dib=252)
+#' cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'), dib=252)
 #' bizdayse("2013-01-02", 3, cal)
 bizdayse <- function(dates, curd, cal) UseMethod('bizdayse')
 

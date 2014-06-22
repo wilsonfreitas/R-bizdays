@@ -43,7 +43,7 @@ test_that('it should bizdays all NA values', {
 context('bizyears')
 
 test_that('it should bizyears dates', {
-	cal <- Calendar()
+	cal <- Calendar(dib=365)
 	expect_equal(bizyears('2013-01-02', '2013-01-03', cal), 1/365)
 	cal <- Calendar(holidaysANBIMA, dib=252, weekdays=c('saturday', 'sunday'))
 	expect_equal(bizyears('2013-08-21', '2013-08-24', cal), 2/252)
