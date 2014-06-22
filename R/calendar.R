@@ -127,7 +127,9 @@ print.Calendar <- function(x, ...) {
 	cal <- x
 	cat('Calendar:', cal$name,
 		'\nRange:', format(as.Date(cal$start.date, origin='1970-01-01'), '%Y-%m-%d'),
-		'to', format(as.Date(cal$end.date, origin='1970-01-01'), '%Y-%m-%d'))
+		'to', format(as.Date(cal$end.date, origin='1970-01-01'), '%Y-%m-%d'),
+		'\nweekdays:', cal$weekdays)
+	invisible(x)
 }
 
 #' Adjusts the date to the next business day
