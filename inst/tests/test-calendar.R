@@ -149,3 +149,7 @@ test_that("it should offset the date by n business days", {
     expect_error(add.bizdays('2013-01-10', 30, cal))
 })
 
+test_that('it should warn for bad settings', {
+	data(holidaysANBIMA)
+	expect_warning(Calendar(holidaysANBIMA), 'You provided holidays without set weekdays.\nThat setup leads to inconsistencies!')
+})

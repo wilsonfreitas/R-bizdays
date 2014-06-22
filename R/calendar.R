@@ -33,6 +33,9 @@ Calendar <- function (holidays=integer(0),
 		weekdays=NULL, dib=365, adjust.from=adjust.next,
 		adjust.to=adjust.previous) {
 	
+	if (length(holidays) != 0 && all(is.null(weekdays)))
+		warning('You provided holidays without set weekdays.\n',
+				'That setup leads to inconsistencies!')
 	that <- list()
 	# adjust functions
 	that$adjust.from <- adjust.from
