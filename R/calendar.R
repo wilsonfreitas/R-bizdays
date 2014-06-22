@@ -28,7 +28,7 @@
 #' cal <- Calendar(start.date="1976-07-12", end.date="2013-10-28")
 #' is.null(cal$name) # TRUE
 Calendar <- function (holidays=integer(0),
-		start.date='1970-01-01', end.date='2071-01-01', name='actual',
+		start.date='1970-01-01', end.date='2071-01-01', name=NULL,
 		weekdays=NULL, dib=NULL, adjust.from=adjust.next,
 		adjust.to=adjust.previous) {
 	
@@ -496,7 +496,7 @@ new_defaults <- function(value=list()) {
 #' bizdays.options$get("default.calendar")
 #' bizdays("2013-07-12", "2013-07-22")
 bizdays.options <- new_defaults()
-bizdays.options$set(default.calendar=Calendar())
+bizdays.options$set(default.calendar=Calendar(name="Actual", dib=365))
 
 #' Computes the period between two dates in years taking into account business days
 #' 
@@ -534,6 +534,8 @@ bizyears.POSIXlt <- .bizyears
 #' @method bizyears Date
 #' @S3method bizyears Date
 bizyears.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
+	if (is.null(cal$dib))
+		stop('NULL dib')
 	to <- as.Date(to)
 	bizdays(from, to, cal)/cal$dib
 }

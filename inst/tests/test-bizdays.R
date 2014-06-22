@@ -49,6 +49,11 @@ test_that('it should bizyears dates', {
 	expect_equal(bizyears('2013-08-21', '2013-08-24', cal), 2/252)
 })
 
+test_that('it should raise an error while bizyears dates', {
+	cal <- Calendar()
+	expect_error(bizyears('2013-01-02', '2013-01-03', cal), 'NULL dib')
+})
+
 context('bizdays and current days equivalence')
 
 test_that('it should compute the business days equivalent to current days', {
