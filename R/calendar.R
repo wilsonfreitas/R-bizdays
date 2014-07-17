@@ -130,7 +130,9 @@ print.Calendar <- function(x, ...) {
 	cat('Calendar:', cal$name,
 		'\nRange:', format(as.Date(cal$start.date, origin='1970-01-01'), '%Y-%m-%d'),
 		'to', format(as.Date(cal$end.date, origin='1970-01-01'), '%Y-%m-%d'),
-		'\nweekdays:', cal$weekdays)
+		'\nweekdays:', cal$weekdays,
+		'\ndib:', cal$dib,
+		'\n')
 	invisible(x)
 }
 
