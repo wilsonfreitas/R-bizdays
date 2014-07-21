@@ -33,7 +33,7 @@ given amount of \code{n} business days.
 }
 \examples{
 data(holidaysANBIMA)
-cal <- Calendar(holidaysANBIMA)
+cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'))
 add.bizdays("2013-01-02", 5, cal)
 dates <- seq(as.Date("2013-01-01"), as.Date("2013-01-05"), by="day")
 add.bizdays(dates, 1, cal)

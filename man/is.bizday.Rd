@@ -30,7 +30,7 @@ day and FALSE otherwise.
 }
 \examples{
 data(holidaysANBIMA)
-cal <- Calendar(holidaysANBIMA)
+cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'))
 is.bizday("2013-01-02", cal)
 # Using the default Calendar
 dates <- seq(as.Date("2013-01-01"), as.Date("2013-01-05"), by="day")

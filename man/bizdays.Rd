@@ -46,7 +46,7 @@ function.
 }
 \examples{
 data(holidaysANBIMA)
-cal <- Calendar(holidaysANBIMA)
+cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'))
 bizdays("2013-01-02", "2013-01-31", cal)
 # Once you have a default calendar set
 bizdays.options$set(default.calendar=cal)

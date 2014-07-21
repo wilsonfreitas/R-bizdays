@@ -33,7 +33,7 @@ to the given calendar.
 }
 \examples{
 data(holidaysANBIMA)
-cal <- Calendar(holidaysANBIMA)
+cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'))
 bizseq("2013-01-02", "2013-01-31", cal)
 }
 

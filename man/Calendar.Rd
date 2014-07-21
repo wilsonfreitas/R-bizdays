@@ -3,7 +3,7 @@
 \title{Creates the calendar based on a list of holidays.}
 \usage{
 Calendar(holidays = integer(0), start.date = "1970-01-01",
-  end.date = "2071-01-01", name = "actual", weekdays = NULL, dib = 365,
+  end.date = "2071-01-01", name = NULL, weekdays = NULL, dib = NULL,
   adjust.from = adjust.next, adjust.to = adjust.previous)
 }
 \arguments{
@@ -22,7 +22,7 @@ Calendar(holidays = integer(0), start.date = "1970-01-01",
 
   \item{dib}{a single numeric variable which indicates the
   amount of days within a year (\code{dib} stands for days
-  in base and defaults to 365).}
+  in base).}
 
   \item{adjust.from}{\code{bizdays} \code{from} argument
   adjustment}
@@ -37,11 +37,10 @@ to execute business days calculations.
 \examples{
 # holidays has iso-formated dates
 data(holidaysANBIMA)
-cal <- Calendar(name="ANBIMA", holidays=holidaysANBIMA)
-# For empty calendar just pass nothing
-cal <- Calendar(name="Weekdays") # from 1970-01-01 to 2071-01-01
+cal <- Calendar(name="ANBIMA", holidays=holidaysANBIMA,
+                weekdays=c('saturday', 'sunday'), dib=252)
 # ACTUAL calendar
-cal <- Calendar(name="Actual", weekdays=NULL)
+cal <- Calendar(name="Actual", dib=365)
 # unnamed calendars have NULL names
 cal <- Calendar(start.date="1976-07-12", end.date="2013-10-28")
 is.null(cal$name) # TRUE

@@ -33,7 +33,7 @@ account business days
 }
 \examples{
 data(holidaysANBIMA)
-cal <- Calendar(holidaysANBIMA, dib=252)
+cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'), dib=252)
 bizyears("2013-01-02", "2013-01-31", cal)
 }
 
