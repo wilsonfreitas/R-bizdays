@@ -82,14 +82,14 @@ Calendar <- function (holidays=integer(0),
 	}
 	# adjust.next and adjust.previous
 	.adjust <- function(dates, offset) {
-    idx <- .is.bizday[match(dates, n.dates)]
-    idx[is.na(idx)] <- TRUE
-    while ( ! all(idx) ) {
-      dates[!idx] <- dates[!idx] + offset
-      idx <- .is.bizday[match(dates, n.dates)]
-      idx[is.na(idx)] <- TRUE
-    }
-    dates
+		idx <- .is.bizday[match(dates, n.dates)]
+		idx[is.na(idx)] <- TRUE
+		while ( ! all(idx) ) {
+			dates[!idx] <- dates[!idx] + offset
+			idx <- .is.bizday[match(dates, n.dates)]
+			idx[is.na(idx)] <- TRUE
+		}
+		dates
 	}
 	that$adjust.next <- function(dates) {
 		.adjust(dates, 1L)
