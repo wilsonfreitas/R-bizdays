@@ -73,6 +73,7 @@ Calendar <- function (holidays=integer(0),
 	}
 	# bizdays and index
 	n.bizdays <- n.dates[.is.bizday]
+	index.bizdays <- seq_along(n.bizdays)
 	index <- cumsum(.is.bizday)
 	# bizdays
 	that$bizdays <- function(from, to) {
@@ -103,22 +104,8 @@ Calendar <- function (holidays=integer(0),
 	}
 	# add
 	that$add <- function(date, n) {
-		if (n >= 0) {
-			adjust <- function(date) .adjust(date, 1L)
-			inc <- 1L
-		} else {
-			adjust <- function(date) .adjust(date, -1L)
-			inc <- -1L
-			n <- abs(n)
-		}
-		date <- adjust(date)
-		i <- 0L
-		while (i < n) {
-			date <- date + inc
-			date <- adjust(date)
-			i <- i + 1L
-		}
-		date
+		ref <- index.bizdays[which(date == n.bizdays)]
+		n.bizdays[which(index.bizdays - ref == n)]
 	}
 	class(that) <- 'Calendar'
 	return(that)
@@ -423,11 +410,13 @@ add.bizdays.POSIXlt <- function(dates, n, cal=bizdays.options$get('default.calen
 add.bizdays.Date <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
 	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
 		stop('Given date out of range.')
+	dates <- cal$adjust.from(dates, cal)
 	dates <- as.integer(dates)
-	dates <- as.Date(cal$add(dates, n), origin='1970-01-01')
+	dates <- apply(cbind(dates, n), 1, function(x) cal$add(x[1], x[2]))
+	dates <- as.Date(dates, origin='1970-01-01')
 	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
-    stop('Dates out of range')
-  dates
+		stop('Dates out of range')
+	dates
 }
 
 #' ANBIMA's holidays list
