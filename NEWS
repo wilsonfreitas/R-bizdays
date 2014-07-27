@@ -9,7 +9,8 @@ Changes in Version 0.2.0
   * default.calendar is Calendar(name='Actual', dib=365)
   
   * bizyears raises an error if dib is NULL
-
+  
+  * add.bizdays performance improved
 
 Changes in Version 0.1.5
 
