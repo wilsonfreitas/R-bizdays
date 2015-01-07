@@ -111,7 +111,7 @@ Calendar <- function (holidays=integer(0),
 	return(that)
 }
 
-#' @S3method print Calendar
+#' @export
 print.Calendar <- function(x, ...) {
 	cal <- x
 	cat('Calendar:', cal$name,
@@ -138,14 +138,15 @@ print.Calendar <- function(x, ...) {
 #' adjust.next("2013-01-01", cal)
 adjust.next <- function(dates, cal) UseMethod("adjust.next")
 
+#' @rdname adjust.date
+#' @export
 adjust.next.default <- function(dates, cal=bizdays.options$get('default.calendar')) {
 	dates <- as.Date(dates)
 	adjust.next(dates, cal)
 }
 
 #' @rdname adjust.date
-#' @method adjust.next Date
-#' @S3method adjust.next Date
+#' @export
 adjust.next.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
 	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
 		stop('Given date out of range.')
@@ -159,14 +160,15 @@ adjust.next.Date <- function(dates, cal=bizdays.options$get('default.calendar'))
 #' adjust.previous("2013-01-01", cal)
 adjust.previous <- function(dates, cal) UseMethod("adjust.previous")
 
+#' @rdname adjust.date
+#' @export
 adjust.previous.default <- function(dates, cal=bizdays.options$get('default.calendar')) {
 	dates <- as.Date(dates)
 	adjust.previous(dates, cal)
 }
 
 #' @rdname adjust.date
-#' @method adjust.previous Date
-#' @S3method adjust.previous Date
+#' @export
 adjust.previous.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
 	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
 		stop('Given date out of range.')
@@ -192,14 +194,15 @@ adjust.previous.Date <- function(dates, cal=bizdays.options$get('default.calenda
 #' bizdays("2013-01-02", "2013-01-31")
 bizdays <- function(from, to, cal) UseMethod('bizdays')
 
+#' @rdname bizdays
+#' @export
 bizdays.default <- function(from, to, cal=bizdays.options$get('default.calendar')) {
 	from <- as.Date(from)
 	bizdays(from, to, cal)
 }
 
 #' @rdname bizdays
-#' @method bizdays Date
-#' @S3method bizdays Date
+#' @export
 bizdays.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
 	to <- as.Date(to)
 	# ---
@@ -235,14 +238,15 @@ bizdays.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) 
 #' is.bizday(dates)
 is.bizday <- function(dates, cal) UseMethod("is.bizday")
 
+#' @rdname is.bizday
+#' @export
 is.bizday.default <- function(dates, cal=bizdays.options$get('default.calendar')) {
   dates <- as.Date(dates)
   is.bizday(dates, cal)
 }
 
 #' @rdname is.bizday
-#' @method is.bizday Date
-#' @S3method is.bizday Date
+#' @export
 is.bizday.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
 	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
 		stop('Given date out of range.')
@@ -264,14 +268,15 @@ is.bizday.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
 #' bizseq("2013-01-02", "2013-01-31", cal)
 bizseq <- function(from, to, cal) UseMethod('bizseq')
 
+#' @rdname bizseq
+#' @export
 bizseq.default <- function(from, to, cal=bizdays.options$get('default.calendar')) {
   from <- as.Date(from)
   bizseq(from, to, cal)
 }
 
 #' @rdname bizseq
-#' @method bizseq Date
-#' @S3method bizseq Date
+#' @export
 bizseq.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
 	to <- as.Date(to)
 	# ---
@@ -305,14 +310,15 @@ bizseq.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
 #' add.bizdays(dates, 1, cal)
 add.bizdays <- function(dates, n, cal) UseMethod('add.bizdays')
 
+#' @rdname add.bizdays
+#' @export
 add.bizdays.default <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
   dates <- as.Date(dates)
   add.bizdays(dates, n, cal)
 }
 
 #' @rdname add.bizdays
-#' @method add.bizdays Date
-#' @S3method add.bizdays Date
+#' @export
 add.bizdays.Date <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
 	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
 		stop('Given date out of range.')
@@ -407,14 +413,15 @@ bizdays.options$set(default.calendar=Calendar(name="Actual", dib=365))
 #' bizyears("2013-01-02", "2013-01-31", cal)
 bizyears <- function(from, to, cal) UseMethod('bizyears')
 
+#' @rdname bizyears
+#' @export
 bizyears.default <- function(from, to, cal=bizdays.options$get('default.calendar')) {
 	from <- as.Date(from)
 	bizyears(from, to, cal)
 }
 
 #' @rdname bizyears
-#' @method bizyears Date
-#' @S3method bizyears Date
+#' @export
 bizyears.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
 	if (is.null(cal$dib))
 		stop('NULL dib')
@@ -437,14 +444,15 @@ bizyears.Date <- function(from, to, cal=bizdays.options$get('default.calendar'))
 #' bizdayse("2013-01-02", 3, cal)
 bizdayse <- function(dates, curd, cal) UseMethod('bizdayse')
 
+#' @rdname bizdayse
+#' @export
 bizdayse.default <- function(dates, curd, cal=bizdays.options$get('default.calendar')) {
 	dates <- as.Date(dates)
 	bizdayse(dates, curd, cal)
 }
 
 #' @rdname bizdayse
-#' @method bizdayse Date
-#' @S3method bizdayse Date
+#' @export
 bizdayse.Date <- function(dates, curd, cal=bizdays.options$get('default.calendar')) {
 	bizdays(dates, dates+curd, cal)
 }
@@ -455,14 +463,15 @@ bizdayse.Date <- function(dates, curd, cal=bizdays.options$get('default.calendar
 #' bizyearse("2013-01-02", 3, cal)
 bizyearse <- function(dates, curd, cal) UseMethod('bizyearse')
 
+#' @rdname bizdayse
+#' @export
 bizyearse.default <- function(dates, curd, cal=bizdays.options$get('default.calendar')) {
 	dates <- as.Date(dates)
 	bizyearse(dates, curd, cal)
 }
 
 #' @rdname bizdayse
-#' @method bizyearse Date
-#' @S3method bizyearse Date
+#' @export
 bizyearse.Date <- function(dates, curd, cal=bizdays.options$get('default.calendar')) {
 	bizyears(dates, dates+curd, cal)
 }

@@ -7,12 +7,12 @@
 
 `bizdays` makes your life less miserable when you have to deal with business days calculations.
 For many countries it is pretty much usual the use of business days to price financial instruments.
-Usually Excel's `NETWORKDAYS` is fairly at hand and once you have a list of holidays it is quite easy to put your data into a spreadsheet and make things happen.
+Usually Excel's `NETWORKDAYS` is fairly at hand and once you have a list of holidays this is quite easy to put your data into a spreadsheet and make things happen.
+
 Although R's users have similar feature in packages like `RQuantLib` and `timeDate` it doesn't come for free.
 Users have to do some stackoverflow and google in order to get this task accomplished.
-`bizdays` tries to fit your needs. It is a tiny package which is dramactically focused on this simple task: calculations involving business days for a given list of holidays.
+`bizdays` tries to fit your needs. It is a tiny package which is dramactically focused on that simple task: calculations involving business days for a given list of holidays.
 It doesn't implement specific holidays guessing algorithms, because I know that someway or another you will face a situation where that smart algorithm fails and that implementation will become useless.
-Many financial institutions have to handle with nasty contract's rules from many different countries and each market has its own rules for counting the business days.
 
 
 ## Installing
@@ -35,7 +35,7 @@ You start by defining a `Calendar` object.
 
 ```R
 library(bizdays)
-cal <- Calendar(holidays, weekdays=c('Sunday', 'Saturday'))
+cal <- Calendar(holidays, weekdays=c('sunday', 'saturday'))
 ```
 
 where `holidays` is a sequence of dates which represents nonworking dates and the second argument, `weekdays`, is a sequence with nonworking weekdays.
@@ -48,12 +48,13 @@ Once you have instantiated a `Calendar` object you simply call `bizdays` functio
 business_days <- bizdays(from_dates, to_dates, cal)
 ```
 
-> ####Why define weekdays?
+> #### Why define weekdays?
 > 
 > I am frequently asked *Why do I have to define weekdays?* or even *Shouldn't it be `weekenddays` instead?*.
 > 
 > The reason I created `weekdays`:
-> I want to provide a way to compute business days accordingly to any definition or satisfying any needs. In my world, the financial industry, weekends are nonworking days, but for those who work with events, for example, mondays migth be nonworking days.
+> I want to provide a way to compute business days accordingly to any definition or satisfying any needs.
+> In my world, the financial industry, weekends are nonworking days, but for those who work with events, for example, mondays migth be nonworking days.
 > 
 > `weekdays` defaults to `NULL` because I wanted the `Calendar()` call returned an [Actual](http://en.wikipedia.org/wiki/Day_count_convention#Actual_methods) calendar.
 > So calling `Calendar(dib=365, name='Actual/365')` returns an [Actual/365](http://en.wikipedia.org/wiki/Day_count_convention#Actual.2F365_Fixed) calendar.
