@@ -138,25 +138,10 @@ print.Calendar <- function(x, ...) {
 #' adjust.next("2013-01-01", cal)
 adjust.next <- function(dates, cal) UseMethod("adjust.next")
 
-.adjust.next <- function(dates, cal=bizdays.options$get('default.calendar')) {
+adjust.next.default <- function(dates, cal=bizdays.options$get('default.calendar')) {
 	dates <- as.Date(dates)
 	adjust.next(dates, cal)
 }
-
-#' @rdname adjust.date
-#' @method adjust.next character
-#' @S3method adjust.next character
-adjust.next.character <- .adjust.next
-
-#' @rdname adjust.date
-#' @method adjust.next POSIXct
-#' @S3method adjust.next POSIXct
-adjust.next.POSIXct <- .adjust.next
-
-#' @rdname adjust.date
-#' @method adjust.next POSIXlt
-#' @S3method adjust.next POSIXlt
-adjust.next.POSIXlt <- .adjust.next
 
 #' @rdname adjust.date
 #' @method adjust.next Date
@@ -174,25 +159,10 @@ adjust.next.Date <- function(dates, cal=bizdays.options$get('default.calendar'))
 #' adjust.previous("2013-01-01", cal)
 adjust.previous <- function(dates, cal) UseMethod("adjust.previous")
 
-.adjust.previous <- function(dates, cal=bizdays.options$get('default.calendar')) {
+adjust.previous.default <- function(dates, cal=bizdays.options$get('default.calendar')) {
 	dates <- as.Date(dates)
 	adjust.previous(dates, cal)
 }
-
-#' @rdname adjust.date
-#' @method adjust.previous character
-#' @S3method adjust.previous character
-adjust.previous.character <- .adjust.previous
-
-#' @rdname adjust.date
-#' @method adjust.previous POSIXct
-#' @S3method adjust.previous POSIXct
-adjust.previous.POSIXct <- .adjust.previous
-
-#' @rdname adjust.date
-#' @method adjust.previous POSIXlt
-#' @S3method adjust.previous POSIXlt
-adjust.previous.POSIXlt <- .adjust.previous
 
 #' @rdname adjust.date
 #' @method adjust.previous Date
@@ -222,25 +192,10 @@ adjust.previous.Date <- function(dates, cal=bizdays.options$get('default.calenda
 #' bizdays("2013-01-02", "2013-01-31")
 bizdays <- function(from, to, cal) UseMethod('bizdays')
 
-.bizdays <- function(from, to, cal=bizdays.options$get('default.calendar')) {
+bizdays.default <- function(from, to, cal=bizdays.options$get('default.calendar')) {
 	from <- as.Date(from)
 	bizdays(from, to, cal)
 }
-
-#' @rdname bizdays
-#' @method bizdays character
-#' @S3method bizdays character
-bizdays.character <- .bizdays
-
-#' @rdname bizdays
-#' @method bizdays POSIXct
-#' @S3method bizdays POSIXct
-bizdays.POSIXct <- .bizdays
-
-#' @rdname bizdays
-#' @method bizdays POSIXlt
-#' @S3method bizdays POSIXlt
-bizdays.POSIXlt <- .bizdays
 
 #' @rdname bizdays
 #' @method bizdays Date
@@ -280,25 +235,10 @@ bizdays.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) 
 #' is.bizday(dates)
 is.bizday <- function(dates, cal) UseMethod("is.bizday")
 
-.is.bizday <- function(dates, cal=bizdays.options$get('default.calendar')) {
+is.bizday.default <- function(dates, cal=bizdays.options$get('default.calendar')) {
   dates <- as.Date(dates)
   is.bizday(dates, cal)
 }
-
-#' @rdname is.bizday
-#' @method is.bizday character
-#' @S3method is.bizday character
-is.bizday.character <- .is.bizday
-
-#' @rdname is.bizday
-#' @method is.bizday POSIXct
-#' @S3method is.bizday POSIXct
-is.bizday.POSIXct <- .is.bizday
-
-#' @rdname is.bizday
-#' @method is.bizday POSIXlt
-#' @S3method is.bizday POSIXlt
-is.bizday.POSIXlt <- .is.bizday
 
 #' @rdname is.bizday
 #' @method is.bizday Date
@@ -324,25 +264,10 @@ is.bizday.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
 #' bizseq("2013-01-02", "2013-01-31", cal)
 bizseq <- function(from, to, cal) UseMethod('bizseq')
 
-.bizseq <- function(from, to, cal=bizdays.options$get('default.calendar')) {
+bizseq.default <- function(from, to, cal=bizdays.options$get('default.calendar')) {
   from <- as.Date(from)
   bizseq(from, to, cal)
 }
-
-#' @rdname bizseq
-#' @method bizseq character
-#' @S3method bizseq character
-bizseq.character <- .bizseq
-
-#' @rdname bizseq
-#' @method bizseq POSIXct
-#' @S3method bizseq POSIXct
-bizseq.POSIXct <- .bizseq
-
-#' @rdname bizseq
-#' @method bizseq POSIXlt
-#' @S3method bizseq POSIXlt
-bizseq.POSIXlt <- .bizseq
 
 #' @rdname bizseq
 #' @method bizseq Date
@@ -380,26 +305,7 @@ bizseq.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
 #' add.bizdays(dates, 1, cal)
 add.bizdays <- function(dates, n, cal) UseMethod('add.bizdays')
 
-#' @rdname add.bizdays
-#' @method add.bizdays character
-#' @S3method add.bizdays character
-add.bizdays.character <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
-  dates <- as.Date(dates)
-  add.bizdays(dates, n, cal)
-}
-
-#' @rdname add.bizdays
-#' @method add.bizdays POSIXct
-#' @S3method add.bizdays POSIXct
-add.bizdays.POSIXct <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
-  dates <- as.Date(dates)
-  add.bizdays(dates, n, cal)
-}
-
-#' @rdname add.bizdays
-#' @method add.bizdays POSIXlt
-#' @S3method add.bizdays POSIXlt
-add.bizdays.POSIXlt <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
+add.bizdays.default <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
   dates <- as.Date(dates)
   add.bizdays(dates, n, cal)
 }
@@ -501,25 +407,10 @@ bizdays.options$set(default.calendar=Calendar(name="Actual", dib=365))
 #' bizyears("2013-01-02", "2013-01-31", cal)
 bizyears <- function(from, to, cal) UseMethod('bizyears')
 
-.bizyears <- function(from, to, cal=bizdays.options$get('default.calendar')) {
+bizyears.default <- function(from, to, cal=bizdays.options$get('default.calendar')) {
 	from <- as.Date(from)
 	bizyears(from, to, cal)
 }
-
-#' @rdname bizyears
-#' @method bizyears character
-#' @S3method bizyears character
-bizyears.character <- .bizyears
-
-#' @rdname bizyears
-#' @method bizyears POSIXct
-#' @S3method bizyears POSIXct
-bizyears.POSIXct <- .bizyears
-
-#' @rdname bizyears
-#' @method bizyears POSIXlt
-#' @S3method bizyears POSIXlt
-bizyears.POSIXlt <- .bizyears
 
 #' @rdname bizyears
 #' @method bizyears Date
@@ -546,25 +437,10 @@ bizyears.Date <- function(from, to, cal=bizdays.options$get('default.calendar'))
 #' bizdayse("2013-01-02", 3, cal)
 bizdayse <- function(dates, curd, cal) UseMethod('bizdayse')
 
-.bizdayse <- function(dates, curd, cal=bizdays.options$get('default.calendar')) {
+bizdayse.default <- function(dates, curd, cal=bizdays.options$get('default.calendar')) {
 	dates <- as.Date(dates)
 	bizdayse(dates, curd, cal)
 }
-
-#' @rdname bizdayse
-#' @method bizdayse character
-#' @S3method bizdayse character
-bizdayse.character <- .bizdayse
-
-#' @rdname bizdayse
-#' @method bizdayse POSIXct
-#' @S3method bizdayse POSIXct
-bizdayse.POSIXct <- .bizdayse
-
-#' @rdname bizdayse
-#' @method bizdayse POSIXlt
-#' @S3method bizdayse POSIXlt
-bizdayse.POSIXlt <- .bizdayse
 
 #' @rdname bizdayse
 #' @method bizdayse Date
@@ -579,25 +455,10 @@ bizdayse.Date <- function(dates, curd, cal=bizdays.options$get('default.calendar
 #' bizyearse("2013-01-02", 3, cal)
 bizyearse <- function(dates, curd, cal) UseMethod('bizyearse')
 
-.bizyearse <- function(dates, curd, cal=bizdays.options$get('default.calendar')) {
+bizyearse.default <- function(dates, curd, cal=bizdays.options$get('default.calendar')) {
 	dates <- as.Date(dates)
 	bizyearse(dates, curd, cal)
 }
-
-#' @rdname bizdayse
-#' @method bizyearse character
-#' @S3method bizyearse character
-bizyearse.character <- .bizyearse
-
-#' @rdname bizdayse
-#' @method bizyearse POSIXct
-#' @S3method bizyearse POSIXct
-bizyearse.POSIXct <- .bizyearse
-
-#' @rdname bizdayse
-#' @method bizyearse POSIXlt
-#' @S3method bizyearse POSIXlt
-bizyearse.POSIXlt <- .bizyearse
 
 #' @rdname bizdayse
 #' @method bizyearse Date
