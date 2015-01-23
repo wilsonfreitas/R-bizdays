@@ -3,25 +3,48 @@
 #' 
 #' Calendar is the main class, it has all attributes necessary to execute
 #' business days calculations.
-#'
+#' 
 #' @param holidays a vector of Dates which contains the holidays
-#' @param start.date the date which calendar starts
-#' @param end.date the date which calendar ends
+#' @param start.date the date which the calendar starts
+#' @param end.date the date which the calendar ends
 #' @param name calendar's name
 #' @param weekdays a character vector which defines the weekdays to be used as
 #' non-working days (defaults to \code{NULL} which represents an actual 
-#' calendar)
+#' calendar). It accepts: \code{sunday}, \code{monday}, \code{thuesday}, 
+#' \code{wednesday}, \code{thursday}, \code{friday}, \code{saturday}. 
+#' Defining the weekend as nonworking days is \code{weekdays=c("saturday", "sunday")}.
 #' @param dib a single numeric variable which indicates the amount of days
 #' within a year (\code{dib} stands for days in base).
-#' @param adjust.from \code{bizdays} \code{from} argument adjustment
-#' @param adjust.to \code{bizdays} \code{to} argument adjustment
+#' @param adjust.from is a function to be used with the \code{bizdays}'s \code{from} argument.
+#' That function adjusts the argument if it is a nonworking day according to calendar.
+#' @param adjust.to is a function to be used with the \code{bizdays}'s \code{to} argument.
+#' See also \code{\link{adjust.from}}.
+#' 
+#' @details
+#' The arguments \code{start.date} and \code{end.date} can be set but once \code{holidays}
+#' is set, \code{start.date} is defined to \code{min(holidays)} and \code{end.date} to 
+#' \code{max(holidays)}.
+#' 
+#' \code{weekdays} is controversial but it is only a sequence of nonworking weekdays according
+#' to the defined calendar.
+#' In the great majority of situations it refers to the weekend but it is also possible defining
+#' it differently.
+#' \code{weekdays} accepts a \code{character} sequence with lower case weekdays (
+#' \code{sunday}, \code{monday}, \code{thuesday}, \code{wednesday}, \code{thursday},
+#' \code{friday}, \code{saturday}).
+#' That argument defaults to \code{NULL} because the default intended behavior for 
+#' \code{Calendar} returns an \emph{actual} calendar, so calling \code{Calendar(dib=365)} 
+#' returns a \emph{actual/365} calendar and \code{Calendar(dib=360)} and \emph{actual/360}
+#' (for more calendars see \link{http://en.wikipedia.org/wiki/Day_count_convention})
+#' To define the weekend as the nonworking weekdays one could simply
+#' use \code{weekdays=c("saturday", "sunday")}.
 #' 
 #' @export
 #' @examples
 #' # holidays has iso-formated dates
 #' data(holidaysANBIMA)
 #' cal <- Calendar(name="ANBIMA", holidays=holidaysANBIMA,
-#'                 weekdays=c('saturday', 'sunday'), dib=252)
+#'                 weekdays=c("saturday", "sunday"), dib=252)
 #' # ACTUAL calendar
 #' cal <- Calendar(name="Actual", dib=365)
 #' # unnamed calendars have NULL names
