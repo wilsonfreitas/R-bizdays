@@ -40,25 +40,37 @@ The arguments \code{start.date} and \code{end.date} can be set but once \code{ho
 is set, \code{start.date} is defined to \code{min(holidays)} and \code{end.date} to
 \code{max(holidays)}.
 
-\code{weekdays} is controversial but it is only a sequence of nonworking weekdays according
-to the defined calendar.
+\code{weekdays} is controversial but it is only a sequence of nonworking weekdays.
 In the great majority of situations it refers to the weekend but it is also possible defining
 it differently.
 \code{weekdays} accepts a \code{character} sequence with lower case weekdays (
 \code{sunday}, \code{monday}, \code{thuesday}, \code{wednesday}, \code{thursday},
 \code{friday}, \code{saturday}).
-That argument defaults to \code{NULL} because the default intended behavior for
+This argument defaults to \code{NULL} because the default intended behavior for
 \code{Calendar} returns an \emph{actual} calendar, so calling \code{Calendar(dib=365)}
 returns a \emph{actual/365} calendar and \code{Calendar(dib=360)} and \emph{actual/360}
-(for more calendars see \link{http://en.wikipedia.org/wiki/Day_count_convention})
+(for more calendars see \href{http://en.wikipedia.org/wiki/Day_count_convention}{Day Count Convention})
 To define the weekend as the nonworking weekdays one could simply
 use \code{weekdays=c("saturday", "sunday")}.
+
+\code{dib} reffers to \emph{days in base} and represents the amount of days within a year.
+That is necessary for defining Day Count Conventions and for accounting annualized periods
+(see \code{\link{bizyears}}).
+
+The arguments \code{adjust.from} and \code{adjust.to} are used to adjust \code{bizdays}' arguments
+\code{from} and \code{to}, respectively.
+These arguments need to be adjusted when nonworking days are provided.
+The default behavior, setting \code{adjust.from=adjust.previous} and \code{adjust.to=adjust.next},
+works like Excel's function NETWORKDAYS, since that is fairly used by a great number of practitioners.
+
+\code{Calendar} doesn't have to be named, but it helps identifying the calendars once many are instantiated.
+You name a \code{Calendar} by setting the argument \code{name}.
 }
 \examples{
 # holidays has iso-formated dates
 data(holidaysANBIMA)
 cal <- Calendar(name="ANBIMA", holidays=holidaysANBIMA,
-                weekdays=c('saturday', 'sunday'), dib=252)
+                weekdays=c("saturday", "sunday"), dib=252)
 # ACTUAL calendar
 cal <- Calendar(name="Actual", dib=365)
 # unnamed calendars have NULL names

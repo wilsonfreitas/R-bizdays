@@ -1,8 +1,8 @@
  
-#' Creates the calendar based on a list of holidays.
+#' Creates a calendar.
 #' 
-#' Calendar is the main class, it has all attributes necessary to execute
-#' business days calculations.
+#' The \code{Calendar} stores all information necessary to compute business days.
+#' This works like a helper class for many of \code{bizdays}' methods.
 #' 
 #' @param holidays a vector of Dates which contains the holidays
 #' @param start.date the date which the calendar starts
@@ -25,19 +25,31 @@
 #' is set, \code{start.date} is defined to \code{min(holidays)} and \code{end.date} to 
 #' \code{max(holidays)}.
 #' 
-#' \code{weekdays} is controversial but it is only a sequence of nonworking weekdays according
-#' to the defined calendar.
+#' \code{weekdays} is controversial but it is only a sequence of nonworking weekdays.
 #' In the great majority of situations it refers to the weekend but it is also possible defining
 #' it differently.
 #' \code{weekdays} accepts a \code{character} sequence with lower case weekdays (
 #' \code{sunday}, \code{monday}, \code{thuesday}, \code{wednesday}, \code{thursday},
 #' \code{friday}, \code{saturday}).
-#' That argument defaults to \code{NULL} because the default intended behavior for 
+#' This argument defaults to \code{NULL} because the default intended behavior for 
 #' \code{Calendar} returns an \emph{actual} calendar, so calling \code{Calendar(dib=365)} 
 #' returns a \emph{actual/365} calendar and \code{Calendar(dib=360)} and \emph{actual/360}
-#' (for more calendars see \link{http://en.wikipedia.org/wiki/Day_count_convention})
+#' (for more calendars see \href{http://en.wikipedia.org/wiki/Day_count_convention}{Day Count Convention})
 #' To define the weekend as the nonworking weekdays one could simply
 #' use \code{weekdays=c("saturday", "sunday")}.
+#' 
+#' \code{dib} reffers to \emph{days in base} and represents the amount of days within a year.
+#' That is necessary for defining Day Count Conventions and for accounting annualized periods 
+#' (see \code{\link{bizyears}}).
+#' 
+#' The arguments \code{adjust.from} and \code{adjust.to} are used to adjust \code{bizdays}' arguments
+#' \code{from} and \code{to}, respectively.
+#' These arguments need to be adjusted when nonworking days are provided.
+#' The default behavior, setting \code{adjust.from=adjust.previous} and \code{adjust.to=adjust.next},
+#' works like Excel's function NETWORKDAYS, since that is fairly used by a great number of practitioners.
+#' 
+#' \code{Calendar} doesn't have to be named, but it helps identifying the calendars once many are instantiated.
+#' You name a \code{Calendar} by setting the argument \code{name}.
 #' 
 #' @export
 #' @examples
@@ -157,7 +169,7 @@ print.Calendar <- function(x, ...) {
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
-#' cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'))
+#' cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"))
 #' adjust.next("2013-01-01", cal)
 adjust.next <- function(dates, cal) UseMethod("adjust.next")
 
@@ -210,7 +222,7 @@ adjust.previous.Date <- function(dates, cal=bizdays.options$get('default.calenda
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
-#' cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'))
+#' cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"))
 #' bizdays("2013-01-02", "2013-01-31", cal)
 #' # Once you have a default calendar set
 #' bizdays.options$set(default.calendar=cal)
@@ -254,7 +266,7 @@ bizdays.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) 
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
-#' cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'))
+#' cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"))
 #' is.bizday("2013-01-02", cal)
 #' # Using the default Calendar
 #' dates <- seq(as.Date("2013-01-01"), as.Date("2013-01-05"), by="day")
@@ -287,7 +299,7 @@ is.bizday.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
-#' cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'))
+#' cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"))
 #' bizseq("2013-01-02", "2013-01-31", cal)
 bizseq <- function(from, to, cal) UseMethod('bizseq')
 
@@ -327,7 +339,7 @@ bizseq.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
-#' cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'))
+#' cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"))
 #' add.bizdays("2013-01-02", 5, cal)
 #' dates <- seq(as.Date("2013-01-01"), as.Date("2013-01-05"), by="day")
 #' add.bizdays(dates, 1, cal)
@@ -432,7 +444,7 @@ bizdays.options$set(default.calendar=Calendar(name="Actual", dib=365))
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
-#' cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'), dib=252)
+#' cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"), dib=252)
 #' bizyears("2013-01-02", "2013-01-31", cal)
 bizyears <- function(from, to, cal) UseMethod('bizyears')
 
@@ -463,7 +475,7 @@ bizyears.Date <- function(from, to, cal=bizdays.options$get('default.calendar'))
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
-#' cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'), dib=252)
+#' cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"), dib=252)
 #' bizdayse("2013-01-02", 3, cal)
 bizdayse <- function(dates, curd, cal) UseMethod('bizdayse')
 

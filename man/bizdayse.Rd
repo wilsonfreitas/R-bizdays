@@ -37,7 +37,7 @@ of business days equivalent to a given number of current days.
 }
 \examples{
 data(holidaysANBIMA)
-cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'), dib=252)
+cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"), dib=252)
 bizdayse("2013-01-02", 3, cal)
 bizyearse("2013-01-02", 3, cal)
 }

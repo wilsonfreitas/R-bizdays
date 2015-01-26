@@ -35,7 +35,7 @@ non-business day.
 }
 \examples{
 data(holidaysANBIMA)
-cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'))
+cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"))
 adjust.next("2013-01-01", cal)
 adjust.previous("2013-01-01", cal)
 }
