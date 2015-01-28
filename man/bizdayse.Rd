@@ -29,7 +29,7 @@ bizyearse(dates, curd, cal)
 
 \item{curd}{the amount of current days (or a vector of numeric)}
 
-\item{cal}{an instance of Calendar}
+\item{cal}{an instance of \code{Calendar}}
 }
 \description{
 \code{bizdayse} stands for business days equivalent, it returns the amount

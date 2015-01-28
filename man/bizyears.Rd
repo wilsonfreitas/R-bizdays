@@ -18,7 +18,7 @@ bizyears(from, to, cal)
 
 \item{to}{the final date (or a vector of dates).}
 
-\item{cal}{an instance of Calendar}
+\item{cal}{an instance of \code{Calendar}}
 }
 \description{
 Computes the period between two dates in years taking into account business days

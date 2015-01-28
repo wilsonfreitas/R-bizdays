@@ -18,7 +18,7 @@ bizdays(from, to, cal)
 
 \item{to}{the final date (or a vector of dates).}
 
-\item{cal}{an instance of Calendar}
+\item{cal}{an instance of \code{Calendar}}
 }
 \description{
 This function computes the amount of business days between 2 taking into

@@ -15,7 +15,7 @@ is.bizday(dates, cal)
 \arguments{
 \item{dates}{a date or a vector of dates to be checked}
 
-\item{cal}{an instance of Calendar}
+\item{cal}{an instance of \code{Calendar}}
 }
 \description{
 This function returns TRUE if the given date is a business day and FALSE

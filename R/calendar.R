@@ -1,6 +1,7 @@
  
-#' Creates a calendar.
+#' @title Creates a calendar
 #' 
+#' @description
 #' The \code{Calendar} stores all information necessary to compute business days.
 #' This works like a helper class for many of \code{bizdays}' methods.
 #' 
@@ -18,7 +19,7 @@
 #' @param adjust.from is a function to be used with the \code{bizdays}'s \code{from} argument.
 #' That function adjusts the argument if it is a nonworking day according to calendar.
 #' @param adjust.to is a function to be used with the \code{bizdays}'s \code{to} argument.
-#' See also \code{\link{adjust.from}}.
+#' See also \code{adjust.from}.
 #' 
 #' @details
 #' The arguments \code{start.date} and \code{end.date} can be set but once \code{holidays}
@@ -158,29 +159,31 @@ print.Calendar <- function(x, ...) {
 	invisible(x)
 }
 
-#' Adjusts the date to the next business day
+#' Adjusts the given dates to the next/previous business day
 #'
-#' Moves the given date to the next business day, once it is a
-#' non-business day.
+#' If the given dates are business days it returns the given dates, but once it
+#' is not, it returns the next/previous business days.
 #'
-#' @param dates a vector of dates to be adjusted
-#' @param cal an instance of Calendar
+#' @param dates dates to be adjusted
+#' @param cal an instance of \code{Calendar}
+#' 
+#' @name adjust.date
+NULL
+
 #' @rdname adjust.date
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"))
 #' adjust.next("2013-01-01", cal)
-adjust.next <- function(dates, cal) UseMethod("adjust.next")
+adjust.next <- function(dates, cal=bizdays.options$get('default.calendar')) UseMethod("adjust.next")
 
-#' @rdname adjust.date
 #' @export
 adjust.next.default <- function(dates, cal=bizdays.options$get('default.calendar')) {
 	dates <- as.Date(dates)
 	adjust.next(dates, cal)
 }
 
-#' @rdname adjust.date
 #' @export
 adjust.next.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
 	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
@@ -193,16 +196,14 @@ adjust.next.Date <- function(dates, cal=bizdays.options$get('default.calendar'))
 #' @export
 #' @examples
 #' adjust.previous("2013-01-01", cal)
-adjust.previous <- function(dates, cal) UseMethod("adjust.previous")
+adjust.previous <- function(dates, cal=bizdays.options$get('default.calendar')) UseMethod("adjust.previous")
 
-#' @rdname adjust.date
 #' @export
 adjust.previous.default <- function(dates, cal=bizdays.options$get('default.calendar')) {
 	dates <- as.Date(dates)
 	adjust.previous(dates, cal)
 }
 
-#' @rdname adjust.date
 #' @export
 adjust.previous.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
 	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
@@ -218,7 +219,7 @@ adjust.previous.Date <- function(dates, cal=bizdays.options$get('default.calenda
 #' 
 #' @param from the initial date (or a vector of dates)
 #' @param to the final date (or a vector of dates).
-#' @param cal an instance of Calendar
+#' @param cal an instance of \code{Calendar}
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
@@ -262,7 +263,7 @@ bizdays.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) 
 #' otherwise.
 #'
 #' @param dates a date or a vector of dates to be checked
-#' @param cal an instance of Calendar
+#' @param cal an instance of \code{Calendar}
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
@@ -295,7 +296,7 @@ is.bizday.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
 #'
 #' @param from the initial date
 #' @param to the final date. This date must be greater that the initial date
-#' @param cal an instance of Calendar
+#' @param cal an instance of \code{Calendar}
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
@@ -329,13 +330,18 @@ bizseq.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
 
 #' Adds \code{n} business days to the given \code{dates}.
 #'
-#' This function returns the given \code{dates} offset by the
-#' given amount of \code{n} business
-#' days.
+#' Returns the given \code{dates} offset by the
+#' given amount of \code{n} business days.
 #' 
-#' @param dates a date or a vector of dates to be offset
+#' @param dates dates to be offset
 #' @param n the amount of business days to add
-#' @param cal an instance of Calendar
+#' @param cal an instance of \code{Calendar}
+#' 
+#' @details
+#' The argument \code{n} accepts a sequence of integers and if its length
+#' differs from \code{dates}' length, the recycle rule is applied to fulfill the
+#' gap.
+#' 
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
@@ -343,16 +349,14 @@ bizseq.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
 #' add.bizdays("2013-01-02", 5, cal)
 #' dates <- seq(as.Date("2013-01-01"), as.Date("2013-01-05"), by="day")
 #' add.bizdays(dates, 1, cal)
-add.bizdays <- function(dates, n, cal) UseMethod('add.bizdays')
+add.bizdays <- function(dates, n, cal=bizdays.options$get('default.calendar')) UseMethod('add.bizdays')
 
-#' @rdname add.bizdays
 #' @export
 add.bizdays.default <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
   dates <- as.Date(dates)
   add.bizdays(dates, n, cal)
 }
 
-#' @rdname add.bizdays
 #' @export
 add.bizdays.Date <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
 	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
@@ -440,7 +444,7 @@ bizdays.options$set(default.calendar=Calendar(name="Actual", dib=365))
 #' 
 #' @param from the initial date (or a vector of dates)
 #' @param to the final date (or a vector of dates).
-#' @param cal an instance of Calendar
+#' @param cal an instance of \code{Calendar}
 #' @export
 #' @examples
 #' data(holidaysANBIMA)
@@ -471,7 +475,7 @@ bizyears.Date <- function(from, to, cal=bizdays.options$get('default.calendar'))
 #' 
 #' @param dates the initial date (or a vector of dates)
 #' @param curd the amount of current days (or a vector of numeric)
-#' @param cal an instance of Calendar
+#' @param cal an instance of \code{Calendar}
 #' @export
 #' @examples
 #' data(holidaysANBIMA)

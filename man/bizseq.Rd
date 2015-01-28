@@ -17,7 +17,7 @@ bizseq(from, to, cal)
 
 \item{to}{the final date. This date must be greater that the initial date}
 
-\item{cal}{an instance of Calendar}
+\item{cal}{an instance of \code{Calendar}}
 }
 \description{
 This function returns a sequence of business days according to the given
