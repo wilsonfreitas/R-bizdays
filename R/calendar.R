@@ -328,13 +328,13 @@ bizseq.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
 	as.Date(cal$seq(from, to), origin='1970-01-01')
 }
 
-#' Adds \code{n} business days to the given \code{dates}.
+#' Offsets the given \code{dates} by \code{n} business days
 #'
-#' Returns the given \code{dates} offset by the
-#' given amount of \code{n} business days.
+#' Returns the given \code{dates} offset by the given amount of \code{n}
+#' business days.
 #' 
 #' @param dates dates to be offset
-#' @param n the amount of business days to add
+#' @param n the amount of business days to offset
 #' @param cal an instance of \code{Calendar}
 #' 
 #' @details
@@ -342,13 +342,18 @@ bizseq.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
 #' differs from \code{dates}' length, the recycle rule is applied to fulfill the
 #' gap.
 #' 
-#' @export
+#' @name offset
 #' @examples
 #' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"))
-#' add.bizdays("2013-01-02", 5, cal)
+#' offset("2013-01-02", 5, cal)
 #' dates <- seq(as.Date("2013-01-01"), as.Date("2013-01-05"), by="day")
-#' add.bizdays(dates, 1, cal)
+#' offset(dates, 1, cal)
+#' @export
+offset <- function(dates, n, cal=bizdays.options$get('default.calendar')) UseMethod('add.bizdays')
+
+#' @rdname offset
+#' @export
 add.bizdays <- function(dates, n, cal=bizdays.options$get('default.calendar')) UseMethod('add.bizdays')
 
 #' @export
@@ -356,6 +361,9 @@ add.bizdays.default <- function(dates, n, cal=bizdays.options$get('default.calen
   dates <- as.Date(dates)
   add.bizdays(dates, n, cal)
 }
+
+#' @export
+offset.default <- add.bizdays.default
 
 #' @export
 add.bizdays.Date <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
@@ -369,6 +377,10 @@ add.bizdays.Date <- function(dates, n, cal=bizdays.options$get('default.calendar
 		stop('Dates out of range')
 	dates
 }
+
+#' @export
+offset.Date <- add.bizdays.Date
+
 
 #' ANBIMA's holidays list
 #' 
