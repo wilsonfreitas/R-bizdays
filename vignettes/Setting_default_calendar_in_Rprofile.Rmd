@@ -1,0 +1,37 @@
+---
+title: "Setting default calendar in .Rprofile"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Setting default calendar in .Rprofile}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+
+# Setting default calendar in .Rprofile
+
+That's the way I use `bizdays`, I set the `default.calendar` in my `.Rprofile`.
+Since I am always using `holidaysANBIMA` holidays I create and set the default calendar in my `.Rprofile`.
+
+```{r}
+library(bizdays)
+cal <- Calendar(holidays=holidaysANBIMA, name='ANBIMA', weekdays=c('saturday', 'sunday'), dib=252)
+bizdays.options$set(default.calendar=cal)
+```
+
+If you put these 3 lines of code at the end of your `.Rprofile` you don't have to instantiate the calendar every time you use `bizdays`.
+You can simply
+
+```{r}
+bizdays(from_dates, to_dates)
+```
+
+And it works with any of `bizdays` functions:
+
+- `bizdays`, `bizdayse`
+- `bizyears`, `bizyearse`
+- `adjust.next`, `adjust.previous`
+- `bizseq`
+- `is.bizday`
+- `offset`, `add.bizdays`

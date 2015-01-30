@@ -1,0 +1,40 @@
+---
+title: "Using bizdays"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using bizdays}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+# Using bizdays
+
+You start by defining a `Calendar` object.
+
+```{r}
+library(bizdays)
+cal <- Calendar(holidaysANBIMA, weekdays=c('sunday', 'saturday'), dib=252)
+```
+
+where `holidays` is a sequence of dates which represents nonworking dates and the second argument, `weekdays`, is a sequence with nonworking weekdays.
+`holidays` might be a sequence of strings with ISO formatted dates, `Date` (or `POSIX*`) objects or integers which represent dates in R.
+`weekdays` must be a sequence of weekdays in words (lowercase).
+
+Once you have instantiated a `Calendar` object you simply call `bizdays` function to get the amount of business days between 2 dates (or set of dates).
+
+```{r}
+bizdays(from_dates, to_dates, cal)
+```
+
+> #### Why define weekdays?
+> 
+> I am frequently asked *Why do I have to define weekdays?* or even *Shouldn't it be `weekenddays` instead?*.
+> 
+> The reason I created `weekdays`:
+> I want to provide a way to compute business days accordingly to any definition or satisfying any needs.
+> In my world, the financial industry, weekends are nonworking days, but for those who work with events, for example, mondays migth be nonworking days.
+> 
+> `weekdays` defaults to `NULL` because I wanted the `Calendar()` call returned an [Actual](http://en.wikipedia.org/wiki/Day_count_convention#Actual_methods) calendar.
+> So calling `Calendar(dib=365, name='Actual/365')` returns an [Actual/365](http://en.wikipedia.org/wiki/Day_count_convention#Actual.2F365_Fixed) calendar.
+
