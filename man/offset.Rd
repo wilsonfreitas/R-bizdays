@@ -15,6 +15,9 @@ add.bizdays(dates, n, cal = bizdays.options$get("default.calendar"))
 
 \item{cal}{an instance of \code{Calendar}}
 }
+\value{
+\code{Date} objects offset by the amount of days defined.
+}
 \description{
 Returns the given \code{dates} offset by the given amount of \code{n}
 business days.
@@ -24,11 +27,32 @@ The argument \code{n} accepts a sequence of integers and if its length
 differs from \code{dates}' length, the recycle rule is applied to fulfill the
 gap.
 }
+\section{Date types accepted}{
+
+
+The argument \code{dates} accepts \code{Date} objects and any
+object that returns a valid \code{Date} object when passed through
+\code{as.Date}, which include all \code{POSIX*} classes and \code{character}
+objects with ISO formatted dates.
+}
+
+\section{Recycle rule}{
+
+
+These arguments handle the recycle rule so a vector of dates and a vector of
+numbers can be provided and once those vectors differs in length the recycle
+rule is applied.
+}
 \examples{
 data(holidaysANBIMA)
 cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"))
+
 offset("2013-01-02", 5, cal)
+
+# Once you have a default calendar set, cal does not need to be provided
+bizdays.options$set(default.calendar=cal)
+
 dates <- seq(as.Date("2013-01-01"), as.Date("2013-01-05"), by="day")
-offset(dates, 1, cal)
+offset(dates, 1)
 }
 

@@ -22,7 +22,7 @@
 #' handle the recycle rule.
 #'
 #' @author
-#' Wilson Freitas
+#' Wilson Freitas <\url{http://aboutwilson.net}>
 #' 
 #' @seealso
 #' CRAN Task View: Empirical Finance

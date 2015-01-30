@@ -14,9 +14,20 @@ adjust.previous(dates, cal = bizdays.options$get("default.calendar"))
 
 \item{cal}{an instance of \code{Calendar}}
 }
+\value{
+\code{Date} objects adjusted accordingly.
+}
 \description{
 If the given dates are business days it returns the given dates, but once it
 is not, it returns the next/previous business days.
+}
+\section{Date types accepted}{
+
+
+The argument \code{dates} accepts \code{Date} objects and any
+object that returns a valid \code{Date} object when passed through
+\code{as.Date}, which include all \code{POSIX*} classes and \code{character}
+objects with ISO formatted dates.
 }
 \examples{
 data(holidaysANBIMA)

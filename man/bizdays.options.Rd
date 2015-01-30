@@ -3,24 +3,27 @@
 \name{bizdays.options}
 \alias{bizdays.options}
 \title{bizdays' options}
-\format{a \code{list} with \code{get} and \code{set} functions attached
-\preformatted{
-bizdays.options$set(key=value)
-bizdays.options$get("key")
-}}
+\format{A \code{list} object with \emph{methods} \code{get} and \code{set} attached to.}
 \usage{
-bizdays.options
+bizdays.options$set(option.key=value)
+bizdays.options$get("option.key")
 }
 \description{
-\code{bizdays.options} defines the default calendar to be used when
-calling to the functions: \code{bizdays}, \code{adjust.next},
-\code{adjust.previous}, \code{is.bizday}, \code{bizseq}, \code{offset};
-without providing a \code{Calendar} instance as a parameter.
+\code{bizdays.options} defines option parameters used internally in \code{bizdays}.
+}
+\details{
+\code{bizdays} supports the following parameter:
+
+\itemize{
+\item{\code{default.calendar}: }{the default calendar to be used with the
+functions: \code{bizdays}, \code{bizdayse}, \code{adjust.next},
+\code{adjust.previous}, \code{is.bizday}, \code{bizseq}, \code{offset},
+\code{bizyears}, \code{bizyearse}}
+}
 }
 \examples{
-cal <- Calendar(name="Weekdays")
+cal <- Calendar(name="Actual/365", dib=365)
 bizdays.options$set(default.calendar=cal)
-bizdays.options$get("default.calendar")
 bizdays("2013-07-12", "2013-07-22")
 }
 \keyword{datasets}
