@@ -256,6 +256,9 @@ adjust.previous.Date <- function(dates, cal=bizdays.options$get('default.calenda
 #' @return
 #' \code{integer} objects representing the amount of business days.
 #' 
+#' @seealso
+#' \code{\link{bizyears}} for business days values in years.
+#' 
 #' @examples
 #' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"))
@@ -520,13 +523,17 @@ new_defaults <- function(value=list()) {
 #' 
 #' \code{bizdays.options} defines option parameters used internally in \code{bizdays}.
 #' 
-#' @usage
-#' bizdays.options$set(option.key=value)
-#' bizdays.options$get("option.key")
-#' 
-#' @format A \code{list} object with \emph{methods} \code{get} and \code{set} attached to.
+#' @format
+#' A \code{list} object with \emph{methods} \code{get} and \code{set} attached to.
 #' 
 #' @details
+#' Parameters are stored in \code{bizdays.options} using \code{get} and \code{set}
+#' 
+#' \preformatted{
+#' bizdays.options$set(option.key=value)
+#' bizdays.options$get("option.key")
+#' }
+#' 
 #' \code{bizdays} supports the following parameter: 
 #' 
 #' \itemize{
@@ -584,6 +591,9 @@ bizdays.options$set(default.calendar=Calendar(name="Actual/365", dib=365))
 #' numbers can be provided and once those vectors differs in length the recycle
 #' rule is applied.
 #' 
+#' @seealso
+#' \code{\link{bizyearse}} for business days in years.
+#' 
 #' @examples
 #' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"), dib=252)
@@ -621,6 +631,9 @@ bizdayse.Date <- function(dates, curd, cal=bizdays.options$get('default.calendar
 #' @param to the final dates
 #' @param cal an instance of \code{Calendar}
 #' 
+#' @return
+#' \code{numeric} objects representing the amount of business days in years.
+#' 
 #' @section Date types accepted:
 #' 
 #' The arguments \code{from} and \code{to} accept \code{Date} objects and any
@@ -643,8 +656,8 @@ bizdayse.Date <- function(dates, curd, cal=bizdays.options$get('default.calendar
 #' A common and useful setting is \code{adjust.to=adjust.next} which moves
 #' expiring maturities to the next business day, once it is not.
 #' 
-#' @return
-#' \code{numeric} objects representing the amount of business days in years.
+#' @seealso
+#' \code{\link{bizdays}} for business days.
 #' 
 #' @examples
 #' data(holidaysANBIMA)
@@ -692,6 +705,9 @@ bizyears.Date <- function(from, to, cal=bizdays.options$get('default.calendar'))
 #' These arguments handle the recycle rule so a vector of dates and a vector of
 #' numbers can be provided and once those vectors differs in length the recycle
 #' rule is applied.
+#' 
+#' @seealso
+#' \code{\link{bizdayse}} for business days.
 #' 
 #' @examples
 #' data(holidaysANBIMA)

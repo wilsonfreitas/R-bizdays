@@ -40,4 +40,7 @@ data(holidaysANBIMA)
 cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"), dib=252)
 bizyearse("2013-01-02", 3, cal)
 }
+\seealso{
+\code{\link{bizdayse}} for business days.
+}
 

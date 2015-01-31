@@ -5,13 +5,19 @@
 \title{bizdays' options}
 \format{A \code{list} object with \emph{methods} \code{get} and \code{set} attached to.}
 \usage{
-bizdays.options$set(option.key=value)
-bizdays.options$get("option.key")
+bizdays.options
 }
 \description{
 \code{bizdays.options} defines option parameters used internally in \code{bizdays}.
 }
 \details{
+Parameters are stored in \code{bizdays.options} using \code{get} and \code{set}
+
+\preformatted{
+bizdays.options$set(option.key=value)
+bizdays.options$get("option.key")
+}
+
 \code{bizdays} supports the following parameter:
 
 \itemize{
