@@ -1,5 +1,5 @@
 Package: bizdays
-Title: Functions to handle business days calculations
+Title: Business Days Calculations and Utilities
 Description: bizdays is a small set of functions to help with calculations
     which make use of business days. It works based on a list of holidays
     which is passed as an argument. Its interface is simple and flexible

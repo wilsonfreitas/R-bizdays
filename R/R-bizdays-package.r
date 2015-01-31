@@ -1,4 +1,4 @@
-#' @title Tools for business days calculations
+#' @title Business Days Calculations and Utilities
 #' 
 #' @description
 #' In many countries the standard approach to price derivatives and fixed income
