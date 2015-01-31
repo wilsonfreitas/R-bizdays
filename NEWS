@@ -1,3 +1,17 @@
+Changes in Version 0.2.1
+
+  * changed print.Calendar to be more informative
+  
+  * new offset function create (add.bizdays alias)
+  
+  * offset (add.bizdays) accepts vector of numbers (n argument)
+  
+  * updated documentation
+  
+  * added vignettes
+
+  * renamed default.calendar to Calendar(name='Actual/365', dib=365)
+
 Changes in Version 0.2.0
 
   * print.Calendar returns invisible(x) and shows weekdays
