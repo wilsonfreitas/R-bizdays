@@ -489,7 +489,7 @@ merge_list = function(x, y) {
   x
 }
 
-# new_defaults — creates a settings object
+# new_defaults - creates a settings object
 new_defaults <- function(value=list()) {
 	defaults <- value
 
