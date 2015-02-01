@@ -2,7 +2,7 @@
 \docType{package}
 \name{bizdays-package}
 \alias{bizdays-package}
-\title{Tools for business days calculations}
+\title{Business Days Calculations and Utilities}
 \description{
 In many countries the standard approach to price derivatives and fixed income
 instruments involves the use of business days. In Brazil, for example, the

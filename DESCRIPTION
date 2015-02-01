@@ -1,12 +1,7 @@
 Package: bizdays
 Title: Business Days Calculations and Utilities
-Description: bizdays is a small set of functions to help with calculations
-    which make use of business days. It works based on a list of holidays
-    which is passed as an argument. Its interface is simple and flexible
-    operating on vector of dates.
-    bizdays can be fairly used for fixed income calculations.
-    Many countries make intense use of business days to price
-    financial instruments, like bonds and derivatives.
+Description: Business days calculations based on a list of holidays and
+    nonworking weekdays. Quite useful for fixed income and derivatives pricing.
 Version: 0.2.1
 Author: Wilson Freitas <wilson.freitas@gmail.com>
 Maintainer: Wilson Freitas <wilson.freitas@gmail.com>
