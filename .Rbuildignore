@@ -2,4 +2,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 chineseNewYearDays.cal
+Feriados_Bovespa.txt
 .travis.yml
