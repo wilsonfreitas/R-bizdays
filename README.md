@@ -38,8 +38,8 @@ library(bizdays)
 cal <- Calendar(holidays, weekdays=c('sunday', 'saturday'))
 ```
 
-where `holidays` is a sequence of dates which represents nonworking dates and the second argument, `weekdays`, is a sequence with nonworking weekdays.
-`holidays` might be a sequence of strings with ISO formatted dates, `Date` (or `POSIX*`) objects or integers which represent dates in R.
+where `holidays` is a sequence of dates which represents **nonworking dates** and the second argument, `weekdays`, is a sequence with **nonworking weekdays**, so what `Calendar` does is define *gaps*.
+`holidays` is a sequence of `Date` (or `POSIX*`) objects and 
 `weekdays` must be a sequence of weekdays in words (lowercase).
 
 Once you have instantiated a `Calendar` object you simply call `bizdays` function to get the amount of business days between 2 dates (or set of dates).

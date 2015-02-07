@@ -14,7 +14,7 @@ vignette: >
 That's the way I use `bizdays`, I set the `default.calendar` in my `.Rprofile`.
 Since I am always using `holidaysANBIMA` holidays I create and set the default calendar in my `.Rprofile`.
 
-```{r}
+```{r, message=FALSE}
 library(bizdays)
 cal <- Calendar(holidays=holidaysANBIMA, name='ANBIMA', weekdays=c('saturday', 'sunday'), dib=252)
 bizdays.options$set(default.calendar=cal)
