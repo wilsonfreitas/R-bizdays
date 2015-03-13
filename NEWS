@@ -1,5 +1,14 @@
 Changes in Version 0.2.1
 
+  * Calendar accepts POSIX* in holidays
+  
+  * Calendar's start.date and end.date are set to default values only 
+  when their aren't provided
+  
+  * Docs updated
+
+Changes in Version 0.2.1
+
   * changed print.Calendar to be more informative
   
   * new offset function create (add.bizdays alias)

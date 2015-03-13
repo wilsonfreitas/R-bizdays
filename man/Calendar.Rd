@@ -4,9 +4,9 @@
 \alias{Calendar}
 \title{Creates a calendar}
 \usage{
-Calendar(holidays = integer(0), start.date = "1970-01-01",
-  end.date = "2071-01-01", name = NULL, weekdays = NULL, dib = NULL,
-  adjust.from = adjust.next, adjust.to = adjust.previous)
+Calendar(holidays = integer(0), start.date = NULL, end.date = NULL,
+  name = NULL, weekdays = NULL, dib = NULL, adjust.from = adjust.next,
+  adjust.to = adjust.previous)
 }
 \arguments{
 \item{holidays}{a vector of Dates which contains the holidays}
@@ -37,9 +37,9 @@ The \code{Calendar} stores all information necessary to compute business days.
 This works like a helper class for many of \code{bizdays}' methods.
 }
 \details{
-The arguments \code{start.date} and \code{end.date} can be set but once \code{holidays}
-is set, \code{start.date} is defined to \code{min(holidays)} and \code{end.date} to
-\code{max(holidays)}.
+The arguments \code{start.date} and \code{end.date} can be set but once they aren't and \code{holidays}
+is set, \code{start.date} is defined to \code{min(holidays)} and \code{end.date} to \code{max(holidays)}.
+If holidays isn't set \code{start.date} is set to \code{'1970-01-01'} and \code{end.date} to \code{'2071-01-01'}.
 
 \code{weekdays} is controversial but it is only a sequence of nonworking weekdays.
 In the great majority of situations it refers to the weekend but it is also possible defining
