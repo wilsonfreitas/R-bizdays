@@ -85,23 +85,24 @@ Calendar <- function (holidays=integer(0),
 	that$weekdays <- weekdays
 	# name
 	that$name <- name
+	# dates and holidays
+	n.holidays <- as.integer(as.Date(holidays, origin='1970-01-01'))
 	# start.date and end.date
 	.has_holidays <- length(holidays) != 0
 	if (is.null(start.date)) {
-		start.date <- if (.has_holidays) as.Date(min(holidays)) else as.Date('1970-01-01')
+		start.date <- if (.has_holidays) as.Date(min(n.holidays), origin='1970-01-01') else as.Date('1970-01-01')
 	} else
 		start.date <- as.Date(start.date)
 	if (is.null(end.date)) {
-		end.date <- if (.has_holidays) as.Date(max(holidays)) else as.Date('2071-01-01')
+		end.date <- if (.has_holidays) as.Date(max(n.holidays), origin='1970-01-01') else as.Date('2071-01-01')
 	} else
 		end.date <- as.Date(end.date)
 	that$start.date <- start.date
 	that$end.date <- end.date
 	n.start.date <- as.integer(start.date)
 	n.end.date <- as.integer(end.date)
-	# dates and holidays
+	# dates
 	n.dates <- as.integer(seq(from=start.date, to=end.date, by='day'))
-	n.holidays <- as.integer(holidays)
 	# is bizday?
 	.is.bizday <- vapply(n.dates, function(.) {
 		wday <- .%%7

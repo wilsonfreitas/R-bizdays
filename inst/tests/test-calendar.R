@@ -159,3 +159,15 @@ test_that('it should warn for bad settings', {
 	data(holidaysANBIMA)
 	expect_warning(Calendar(holidaysANBIMA), 'You provided holidays without set weekdays.\nThat setup leads to inconsistencies!')
 })
+
+context('POSIX* holidays')
+
+test_that('it should create a calendar with POSIX holidays', {
+	library(lubridate)
+	cal <- Calendar(ymd(c("1970-01-01", "2015-05-14", "2015-05-25", "2037-12-31")),
+		weekdays=c("saturday","sunday"))
+	x <- ymd("2015-04-13 UTC", "2015-05-11 UTC", "2015-05-25 UTC")
+	y <- ymd("2015-04-17 UTC", "2015-05-15 UTC", "2015-05-29 UTC")
+	expect_equal(bizdays(x, y, cal), c(4, 3, 3))
+})
+
