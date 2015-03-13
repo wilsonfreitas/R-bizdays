@@ -64,7 +64,7 @@
 #' cal <- Calendar(start.date="1976-07-12", end.date="2013-10-28")
 #' is.null(cal$name) # TRUE
 Calendar <- function (holidays=integer(0),
-		start.date='1970-01-01', end.date='2071-01-01', name=NULL,
+		start.date=NULL, end.date=NULL, name=NULL,
 		weekdays=NULL, dib=NULL, adjust.from=adjust.next,
 		adjust.to=adjust.previous) {
 	
@@ -86,12 +86,15 @@ Calendar <- function (holidays=integer(0),
 	# name
 	that$name <- name
 	# start.date and end.date
-	start.date <- as.Date(start.date)
-	end.date <- as.Date(end.date)
-	if (length(holidays) != 0) {
-		start.date <- as.Date(min(holidays))
-		end.date <- as.Date(max(holidays))
-	}
+	.has_holidays <- length(holidays) != 0
+	if (is.null(start.date)) {
+		start.date <- if (.has_holidays) as.Date(min(holidays)) else as.Date('1970-01-01')
+	} else
+		start.date <- as.Date(start.date)
+	if (is.null(end.date)) {
+		end.date <- if (.has_holidays) as.Date(max(holidays)) else as.Date('2071-01-01')
+	} else
+		end.date <- as.Date(end.date)
 	that$start.date <- start.date
 	that$end.date <- end.date
 	n.start.date <- as.integer(start.date)
