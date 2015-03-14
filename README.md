@@ -44,7 +44,7 @@ where `holidays` is a sequence of dates which represents **nonworking dates** an
 
 Once you have instantiated a `Calendar` object you simply call `bizdays` function to get the amount of business days between 2 dates (or set of dates).
 
-```{r}
+```R
 business_days <- bizdays(from_dates, to_dates, cal)
 ```
 
@@ -64,7 +64,7 @@ business_days <- bizdays(from_dates, to_dates, cal)
 
 Since I am always using `holidaysANBIMA` holidays I create and set the default calendar in my `.Rprofile`
 
-```{r}
+```R
 library(bizdays)
 cal <- Calendar(holidays=holidaysANBIMA, name='ANBIMA', weekdays=c('saturday', 'sunday'), dib=252)
 bizdays.options$set(default.calendar=cal)
@@ -73,7 +73,7 @@ bizdays.options$set(default.calendar=cal)
 If you put these 3 lines of code at the end of your `.Rprofile` you don't have to instantiate the calendar every time you use `bizdays`.
 You can simply
 
-```{r}
+```R
 business_days <- bizdays(from_dates, to_dates)
 ```
 
