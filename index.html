@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>bizdays by wilsonfreitas</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>bizdays</h1>
+        <p>Business Days Calculations and Utilities in R</p>
+
+        <p class="view"><a href="https://github.com/wilsonfreitas/R-bizdays">View the Project on GitHub <small>wilsonfreitas/R-bizdays</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/wilsonfreitas/R-bizdays/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/wilsonfreitas/R-bizdays/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/wilsonfreitas/R-bizdays">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p><code>bizdays</code> makes your life less miserable when you have to deal with business days calculations.
+For many countries it is pretty much usual the use of business days to price financial instruments.
+Usually Excel's <code>NETWORKDAYS</code> is fairly at hand and once you have a list of holidays this is quite easy to put your data into a spreadsheet and make things happen.</p>
+
+<p>Although R's users have similar feature in packages like <code>RQuantLib</code> and <code>timeDate</code> it doesn't come for free.
+Users have to do some stackoverflow and google in order to get this task accomplished.
+<code>bizdays</code> tries to fit your needs. It is a tiny package which is dramactically focused on that simple task: calculations involving business days for a given list of holidays.
+It doesn't implement specific holidays guessing algorithms, because I know that someway or another you will face a situation where that smart algorithm fails and that implementation will become useless.</p>
+
+<h2>
+<a id="installing" class="anchor" href="#installing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installing</h2>
+
+<p>It is available on <a href="http://cran.r-project.org/web/packages/bizdays/index.html">CRAN</a> to be installed through:</p>
+
+<div class="highlight highlight-R"><pre>install.packages(<span class="pl-s"><span class="pl-pds">'</span>bizdays<span class="pl-pds">'</span></span>)</pre></div>
+
+<p>or using <code>devtools</code></p>
+
+<div class="highlight highlight-R"><pre><span class="pl-e">devtools</span><span class="pl-k">::</span>install_github(<span class="pl-s"><span class="pl-pds">'</span>R-bizdays<span class="pl-pds">'</span></span>, <span class="pl-v">username</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>wilsonfreitas<span class="pl-pds">'</span></span>)</pre></div>
+
+<h2>
+<a id="using" class="anchor" href="#using" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using</h2>
+
+<p>You start by defining a <code>Calendar</code> object.</p>
+
+<div class="highlight highlight-R"><pre>library(<span class="pl-smi">bizdays</span>)
+<span class="pl-smi">cal</span> <span class="pl-k">&lt;-</span> Calendar(<span class="pl-smi">holidays</span>, <span class="pl-v">weekdays</span><span class="pl-k">=</span>c(<span class="pl-s"><span class="pl-pds">'</span>sunday<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>saturday<span class="pl-pds">'</span></span>))</pre></div>
+
+<p>where <code>holidays</code> is a sequence of dates which represents <strong>nonworking dates</strong> and the second argument, <code>weekdays</code>, is a sequence with <strong>nonworking weekdays</strong>, so what <code>Calendar</code> does is define <em>gaps</em>.
+<code>holidays</code> is a sequence of <code>Date</code> (or <code>POSIX*</code>) objects and 
+<code>weekdays</code> must be a sequence of weekdays in words (lowercase).</p>
+
+<p>Once you have instantiated a <code>Calendar</code> object you simply call <code>bizdays</code> function to get the amount of business days between 2 dates (or set of dates).</p>
+
+<div class="highlight highlight-R"><pre><span class="pl-smi">business_days</span> <span class="pl-k">&lt;-</span> bizdays(<span class="pl-smi">from_dates</span>, <span class="pl-smi">to_dates</span>, <span class="pl-smi">cal</span>)</pre></div>
+
+<blockquote>
+<h4>
+<a id="why-define-weekdays" class="anchor" href="#why-define-weekdays" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why define weekdays?</h4>
+
+<p>I am frequently asked <em>Why do I have to define weekdays?</em> or even <em>Shouldn't it be <code>weekenddays</code> instead?</em>.</p>
+
+<p>The reason I created <code>weekdays</code>:
+I want to provide a way to compute business days accordingly to any definition or satisfying any needs.
+In my world, the financial industry, weekends are nonworking days, but for those who work with events, for example, mondays migth be nonworking days.</p>
+
+<p><code>weekdays</code> defaults to <code>NULL</code> because I wanted the <code>Calendar()</code> call returned an <a href="http://en.wikipedia.org/wiki/Day_count_convention#Actual_methods">Actual</a> calendar.
+So calling <code>Calendar(dib=365, name='Actual/365')</code> returns an <a href="http://en.wikipedia.org/wiki/Day_count_convention#Actual.2F365_Fixed">Actual/365</a> calendar.</p>
+</blockquote>
+
+<h3>
+<a id="the-way-i-use-bizdays" class="anchor" href="#the-way-i-use-bizdays" aria-hidden="true"><span class="octicon octicon-link"></span></a>The way I use <code>bizdays</code>
+</h3>
+
+<p>Since I am always using <code>holidaysANBIMA</code> holidays I create and set the default calendar in my <code>.Rprofile</code></p>
+
+<div class="highlight highlight-R"><pre>library(<span class="pl-smi">bizdays</span>)
+<span class="pl-smi">cal</span> <span class="pl-k">&lt;-</span> Calendar(<span class="pl-v">holidays</span><span class="pl-k">=</span><span class="pl-smi">holidaysANBIMA</span>, <span class="pl-v">name</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>ANBIMA<span class="pl-pds">'</span></span>, <span class="pl-v">weekdays</span><span class="pl-k">=</span>c(<span class="pl-s"><span class="pl-pds">'</span>saturday<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>sunday<span class="pl-pds">'</span></span>), <span class="pl-v">dib</span><span class="pl-k">=</span><span class="pl-c1">252</span>)
+<span class="pl-smi">bizdays.options</span><span class="pl-k">$</span>set(<span class="pl-v">default.calendar</span><span class="pl-k">=</span><span class="pl-smi">cal</span>)</pre></div>
+
+<p>If you put these 3 lines of code at the end of your <code>.Rprofile</code> you don't have to instantiate the calendar every time you use <code>bizdays</code>.
+You can simply</p>
+
+<div class="highlight highlight-R"><pre><span class="pl-smi">business_days</span> <span class="pl-k">&lt;-</span> bizdays(<span class="pl-smi">from_dates</span>, <span class="pl-smi">to_dates</span>)</pre></div>
+
+<p>And it works with any <code>bizdays</code> functions.</p>
+
+<h2>
+<a id="holidays" class="anchor" href="#holidays" aria-hidden="true"><span class="octicon octicon-link"></span></a>Holidays</h2>
+
+<p>I've included a dataset called <code>holidaysANBIMA</code> containing the list of holidays released by <a href="http://portal.anbima.com.br/Pages/home.aspx">ANBIMA</a>, this is quite useful at brazilian financial market.
+So, if you have a specific list of holidays used at any market in the world, please share with me, I will be glad to include it in future releases.</p>
+
+<hr>
+
+<h2>
+<a id="setting-default-calendar-in-rprofile" class="anchor" href="#setting-default-calendar-in-rprofile" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setting default calendar in .Rprofile</h2>
+
+<p>That's the way I use <code>bizdays</code>, I set the <code>default.calendar</code> in my <code>.Rprofile</code>.
+Since I am always using <code>holidaysANBIMA</code> holidays I create and set the default calendar in my <code>.Rprofile</code>.</p>
+
+<pre lang="r,"><code>library(bizdays)
+cal &lt;- Calendar(holidays=holidaysANBIMA, name='ANBIMA', weekdays=c('saturday', 'sunday'), dib=252)
+bizdays.options$set(default.calendar=cal)
+</code></pre>
+
+<p>If you put these 3 lines of code at the end of your <code>.Rprofile</code> you don't have to instantiate the calendar every time you use <code>bizdays</code>.
+You can simply</p>
+
+<div class="highlight highlight-r"><pre><span class="pl-smi">from_dates</span> <span class="pl-k">&lt;-</span> c(<span class="pl-s"><span class="pl-pds">'</span>2013-07-12<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>2012-06-13<span class="pl-pds">'</span></span>)
+<span class="pl-smi">to_dates</span> <span class="pl-k">&lt;-</span> seq(as.Date(<span class="pl-s"><span class="pl-pds">'</span>2014-02-17<span class="pl-pds">'</span></span>), as.Date(<span class="pl-s"><span class="pl-pds">'</span>2016-07-21<span class="pl-pds">'</span></span>), <span class="pl-v">by</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>months<span class="pl-pds">'</span></span>)
+bizdays(<span class="pl-smi">from_dates</span>, <span class="pl-smi">to_dates</span>)</pre></div>
+
+<p>And it works with any of <code>bizdays</code> functions:</p>
+
+<ul>
+<li>
+<code>bizdays</code>, <code>bizdayse</code>
+</li>
+<li>
+<code>bizyears</code>, <code>bizyearse</code>
+</li>
+<li>
+<code>adjust.next</code>, <code>adjust.previous</code>
+</li>
+<li><code>bizseq</code></li>
+<li><code>is.bizday</code></li>
+<li>
+<code>offset</code>, <code>add.bizdays</code>
+</li>
+</ul>
+
+<hr>
+
+<h2>
+<a id="using-bizdays" class="anchor" href="#using-bizdays" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using bizdays</h2>
+
+<p>You start by defining a <code>Calendar</code> object.</p>
+
+<pre lang="r,"><code>library(bizdays)
+cal &lt;- Calendar(holidaysANBIMA, weekdays=c('sunday', 'saturday'), dib=252)
+</code></pre>
+
+<p>where <code>holidays</code> is a sequence of dates which represents <strong>nonworking dates</strong> and the second argument, <code>weekdays</code>, is a sequence with <strong>nonworking weekdays</strong>, so what <code>Calendar</code> does is define <em>gaps</em>.
+<code>holidays</code> is a sequence of <code>Date</code> (or <code>POSIX*</code>) objects and 
+<code>weekdays</code> must be a sequence of weekdays in words (lowercase).</p>
+
+<p>Once you have instantiated a <code>Calendar</code> object you simply call <code>bizdays</code> function to get the amount of business days between 2 dates (or set of dates).</p>
+
+<div class="highlight highlight-r"><pre><span class="pl-smi">from_dates</span> <span class="pl-k">&lt;-</span> c(<span class="pl-s"><span class="pl-pds">'</span>2013-07-12<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>2012-06-13<span class="pl-pds">'</span></span>)
+<span class="pl-smi">to_dates</span> <span class="pl-k">&lt;-</span> seq(as.Date(<span class="pl-s"><span class="pl-pds">'</span>2014-02-17<span class="pl-pds">'</span></span>), as.Date(<span class="pl-s"><span class="pl-pds">'</span>2016-07-21<span class="pl-pds">'</span></span>), <span class="pl-v">by</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>months<span class="pl-pds">'</span></span>)
+bizdays(<span class="pl-smi">from_dates</span>, <span class="pl-smi">to_dates</span>, <span class="pl-smi">cal</span>)</pre></div>
+
+<blockquote>
+<h4>
+<a id="why-define-weekdays-1" class="anchor" href="#why-define-weekdays-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why define weekdays?</h4>
+
+<p>I am frequently asked <em>Why do I have to define weekdays?</em> or even <em>Shouldn't it be <code>weekenddays</code> instead?</em>.</p>
+
+<p>The reason I created <code>weekdays</code>:
+I want to provide a way to compute business days accordingly to any definition or satisfying any needs.
+In my world, the financial industry, weekends are nonworking days, but for those who work with events, for example, mondays migth be nonworking days.</p>
+
+<p><code>weekdays</code> defaults to <code>NULL</code> because I wanted the <code>Calendar()</code> call returned an <a href="http://en.wikipedia.org/wiki/Day_count_convention#Actual_methods">Actual</a> calendar.
+So calling <code>Calendar(dib=365, name='Actual/365')</code> returns an <a href="http://en.wikipedia.org/wiki/Day_count_convention#Actual.2F365_Fixed">Actual/365</a> calendar.</p>
+</blockquote>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/wilsonfreitas">wilsonfreitas</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
