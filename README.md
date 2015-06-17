@@ -3,6 +3,8 @@
 
 [![Build Status](https://travis-ci.org/wilsonfreitas/R-bizdays.svg?branch=master)](https://travis-ci.org/wilsonfreitas/R-bizdays)
 
+[![Downloads](http://cranlogs.r-pkg.org/badges/shinyjs?color=brightgreen)](https://travis-ci.org/wilsonfreitas/R-bizdays)
+
 [cran-bizdays]: http://cran.r-project.org/web/packages/bizdays/index.html
 [ANBIMA]: http://portal.anbima.com.br/Pages/home.aspx
 
