@@ -2,7 +2,7 @@
 # [R-bizdays](http://cran.r-project.org/web/packages/bizdays/index.html)
 
 [![Build Status](https://travis-ci.org/wilsonfreitas/R-bizdays.svg?branch=master)](https://travis-ci.org/wilsonfreitas/R-bizdays)
-[![Downloads](http://cranlogs.r-pkg.org/badges/shinyjs?color=brightgreen)](http://cran.r-project.org/web/packages/bizdays/index.html)
+[![Downloads](http://cranlogs.r-pkg.org/badges/bizdays?color=brightgreen)](http://cran.r-project.org/web/packages/bizdays/index.html)
 
 [cran-bizdays]: http://cran.r-project.org/web/packages/bizdays/index.html
 [ANBIMA]: http://portal.anbima.com.br/Pages/home.aspx
