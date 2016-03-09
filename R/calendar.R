@@ -297,11 +297,17 @@ bizdays.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) 
 	lengths <- c(length(from), length(to))
 	if (max(lengths) %% min(lengths) != 0)
 		stop("from's length must be multiple of to's length and vice-versa.")
-	if ( ! all(from <= to, na.rm=TRUE) )
-		stop('All from dates must be greater than all to dates.')
-	from <- cal$adjust.from(from, cal)
-	to <- cal$adjust.to(to, cal)
-	cal$bizdays(as.integer(from), as.integer(to))
+	idx <- from > to
+	idx[is.na(idx)] <- FALSE
+	new.from <- from
+	new.to <- to
+	new.from[idx] <- to[idx]
+	new.to[idx] <- from[idx]
+	new.from <- cal$adjust.from(new.from, cal)
+	new.to <- cal$adjust.to(new.to, cal)
+	bdays <- cal$bizdays(as.integer(new.from), as.integer(new.to))
+	bdays[idx] <- -bdays[idx]
+	bdays
 }
 
 #' Checks if the given dates are business days.

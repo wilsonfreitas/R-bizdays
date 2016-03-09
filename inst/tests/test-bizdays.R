@@ -25,6 +25,19 @@ test_that('it should bizdays a set of dates', {
 		"from's length must be multiple of to's length and vice-versa.")
 })
 
+test_that('it should return negative bizdays', {
+	cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'))
+	expect_equal(bizdays('2014-07-12', '2013-07-12', cal), -251)
+	expect_equal(
+		bizdays(c('2013-08-21', '2013-01-31', '2013-01-01'), c('2013-08-24', '2013-01-01', '2014-01-01'), cal),
+		c(2, -21, 252)
+	)
+	expect_equal(
+		bizdays(c('2013-08-21', '2013-01-31', '2013-01-01'), c(NA, '2013-01-01', '2014-01-01'), cal),
+		c(NA, -21, 252)
+	)
+})
+
 context('handling NA values')
 
 test_that('it should bizdays NA values', {
