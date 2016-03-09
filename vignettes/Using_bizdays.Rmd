@@ -10,22 +10,30 @@ vignette: >
 
 # Using bizdays
 
-You start by defining a `Calendar` object.
+First of all, load `bizdays`:
 
-```{r, message=FALSE}
-library(bizdays)
-cal <- Calendar(holidaysANBIMA, weekdays=c('sunday', 'saturday'), dib=252)
+	library(bizdays)
+
+### Skiping holidays and weekends (formal business days calendar)
+
+```{r, echo=FALSE}
+holidays <- holidaysANBIMA
 ```
 
-where `holidays` is a sequence of dates which represents **nonworking dates** and the second argument, `weekdays`, is a sequence with **nonworking weekdays**, so what `Calendar` does is define *gaps*.
-`holidays` is a sequence of `Date` (or `POSIX*`) objects and 
-`weekdays` must be a sequence of weekdays in words (lowercase).
+```{r, message=FALSE}
+cal <- Calendar(holidays, weekdays=c('sunday', 'saturday'))
+```
 
-Once you have instantiated a `Calendar` object you simply call `bizdays` function to get the amount of business days between 2 dates (or set of dates).
+where `holidays` is a sequence of dates which represents **nonworking dates** and the second argument, `weekdays`, is a sequence with **nonworking weekdays**.
+
+`holidays` must be a sequence of `Date` (or `POSIX*`) objects and 
+`weekdays` must be a sequence of weekdays in words (`sunday`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`).
+
+Once you have instantiated a `Calendar` object you simply call `bizdays` function to compute the amount of business days between dates.
 
 ```{r}
-from_dates <- c('2013-07-12', '2012-06-13')
-to_dates <- seq(as.Date('2014-02-17'), as.Date('2016-07-21'), by='months')
+from_dates <- '2013-01-01'
+to_dates <- seq(as.Date('2013-12-31'), as.Date('2020-12-31'), by='years')
 bizdays(from_dates, to_dates, cal)
 ```
 
@@ -40,3 +48,44 @@ bizdays(from_dates, to_dates, cal)
 > `weekdays` defaults to `NULL` because I wanted the `Calendar()` call returned an [Actual](http://en.wikipedia.org/wiki/Day_count_convention#Actual_methods) calendar.
 > So calling `Calendar(dib=365, name='Actual/365')` returns an [Actual/365](http://en.wikipedia.org/wiki/Day_count_convention#Actual.2F365_Fixed) calendar.
 
+### Skiping weekends (defining weekends as nonworking days)
+
+```{r, message=FALSE}
+cal <- Calendar(weekdays=c('sunday', 'saturday'))
+```
+
+define only `weekdays` to weekend days.
+
+```{r}
+from_dates <- '2013-01-01'
+to_dates <- seq(as.Date('2013-12-31'), as.Date('2020-12-31'), by='years')
+bizdays(from_dates, to_dates, cal)
+```
+
+### Skiping mondays (defining mondays as nonworking days)
+
+```{r, message=FALSE}
+cal <- Calendar(weekdays='monday')
+```
+
+set `weekdays` to `'monday'`.
+
+```{r}
+from_dates <- '2013-01-01'
+to_dates <- seq(as.Date('2013-12-31'), as.Date('2020-12-31'), by='years')
+bizdays(from_dates, to_dates, cal)
+```
+
+### Skip nothing (formal current days calendar)
+
+```{r, message=FALSE}
+cal <- Calendar()
+```
+
+simply set no arguments.
+
+```{r}
+from_dates <- '2013-01-01'
+to_dates <- seq(as.Date('2013-12-31'), as.Date('2020-12-31'), by='years')
+bizdays(from_dates, to_dates, cal)
+```
