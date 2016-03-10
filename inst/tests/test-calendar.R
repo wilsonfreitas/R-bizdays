@@ -106,24 +106,32 @@ data(holidaysANBIMA)
 cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'))
 
 test_that("it should move date to next business day", {
-	date <- as.character(adjust.next('2013-01-01', cal))
-	expect_equal(date, '2013-01-02')
+  date <- as.character(adjust.next('2013-01-01', cal))
+  expect_equal(date, '2013-01-02')
+  date <- as.character(following('2013-01-01', cal))
+  expect_equal(date, '2013-01-02')
 })
 
 test_that("it should move date to previous business day", {
-	date <- as.character(adjust.previous('2013-02-02', cal))
-	expect_equal(date, '2013-02-01')
+  date <- as.character(adjust.previous('2013-02-02', cal))
+  expect_equal(date, '2013-02-01')
+  date <- as.character(preceding('2013-02-02', cal))
+  expect_equal(date, '2013-02-01')
 })
 
 test_that('it should adjust.next a vector of dates', {
     dates <- c(as.Date('2013-01-01'), as.Date('2013-01-02'))
     adj.dates <- adjust.next(dates, cal)
     expect_equal(adj.dates, c(as.Date('2013-01-02'), as.Date('2013-01-02')))
+    adj.dates <- following(dates, cal)
+    expect_equal(adj.dates, c(as.Date('2013-01-02'), as.Date('2013-01-02')))
 })
 
 test_that('it should adjust.previous a vector of dates', {
     dates <- c(as.Date('2013-01-01'), as.Date('2013-01-02'))
     adj.dates <- adjust.previous(dates, cal)
+    expect_equal(adj.dates, c(as.Date('2012-12-31'), as.Date('2013-01-02')))
+    adj.dates <- preceding(dates, cal)
     expect_equal(adj.dates, c(as.Date('2012-12-31'), as.Date('2013-01-02')))
 })
 

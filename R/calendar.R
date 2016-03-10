@@ -192,6 +192,12 @@ NULL
 #' adjust.next("2013-01-01", cal)
 adjust.next <- function(dates, cal=bizdays.options$get('default.calendar')) UseMethod("adjust.next")
 
+#' @rdname adjust.date
+#' @export
+#' @examples
+#' following("2013-01-01", cal)
+following <- function(dates, cal=bizdays.options$get('default.calendar')) UseMethod("following")
+
 #' @export
 adjust.next.default <- function(dates, cal=bizdays.options$get('default.calendar')) {
 	dates <- as.Date(dates)
@@ -206,11 +212,24 @@ adjust.next.Date <- function(dates, cal=bizdays.options$get('default.calendar'))
 	as.Date(cal$adjust.next(dates), origin='1970-01-01')
 }
 
+#' @export
+following.default <- adjust.next.default
+
+#' @export
+following.Date <- adjust.next.Date
+
+
 #' @rdname adjust.date
 #' @export
 #' @examples
 #' adjust.previous("2013-01-01", cal)
 adjust.previous <- function(dates, cal=bizdays.options$get('default.calendar')) UseMethod("adjust.previous")
+
+#' @rdname adjust.date
+#' @export
+#' @examples
+#' preceding("2013-01-01", cal)
+preceding <- function(dates, cal=bizdays.options$get('default.calendar')) UseMethod("preceding")
 
 #' @export
 adjust.previous.default <- function(dates, cal=bizdays.options$get('default.calendar')) {
@@ -225,6 +244,13 @@ adjust.previous.Date <- function(dates, cal=bizdays.options$get('default.calenda
 	dates <- as.integer(dates)
 	as.Date(cal$adjust.previous(dates), origin='1970-01-01')
 }
+
+#' @export
+preceding.default <- adjust.previous.default
+
+#' @export
+preceding.Date <- adjust.previous.Date
+
 
 #' Computes business days between two dates.
 #'
