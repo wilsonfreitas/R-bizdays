@@ -1,4 +1,4 @@
- 
+
 #' @title Creates a calendar
 #' 
 #' @description
@@ -64,103 +64,103 @@
 #' cal <- Calendar(start.date="1976-07-12", end.date="2013-10-28")
 #' is.null(cal$name) # TRUE
 Calendar <- function (holidays=integer(0),
-		start.date=NULL, end.date=NULL, name=NULL,
-		weekdays=NULL, dib=NULL, adjust.from=adjust.next,
-		adjust.to=adjust.previous) {
-	
-	if (length(holidays) != 0 && all(is.null(weekdays)))
-		warning('You provided holidays without set weekdays.\n',
-				'That setup leads to inconsistencies!')
-	that <- list()
-	# adjust functions
-	that$adjust.from <- adjust.from
-	that$adjust.to <- adjust.to
-	# dib
-	that$dib <- dib
-	# weekdays
-	weekdays_codes <- list(monday=4, tuesday=5, wednesday=6, thursday=0,
-		friday=1, saturday=2, sunday=3)
-	wdays <- unlist(weekdays_codes[weekdays])
-	wdays <- if (is.null(wdays)) integer(0) else wdays
-	that$weekdays <- weekdays
-	# name
-	that$name <- name
-	# dates and holidays
-	n.holidays <- as.integer(as.Date(holidays, origin='1970-01-01'))
-	# start.date and end.date
-	.has_holidays <- length(holidays) != 0
-	if (is.null(start.date)) {
-		start.date <- if (.has_holidays) as.Date(min(n.holidays), origin='1970-01-01') else as.Date('1970-01-01')
-	} else
-		start.date <- as.Date(start.date)
-	if (is.null(end.date)) {
-		end.date <- if (.has_holidays) as.Date(max(n.holidays), origin='1970-01-01') else as.Date('2071-01-01')
-	} else
-		end.date <- as.Date(end.date)
-	that$start.date <- start.date
-	that$end.date <- end.date
-	n.start.date <- as.integer(start.date)
-	n.end.date <- as.integer(end.date)
-	# dates
-	n.dates <- as.integer(seq(from=start.date, to=end.date, by='day'))
-	# is bizday?
-	.is.bizday <- vapply(n.dates, function(.) {
-		wday <- .%%7
-		! ( wday %in% wdays || . %in% n.holidays)
-	}, logical(1))
-	that$is.bizday <- function(date) {
-		.is.bizday[match(date, n.dates)]
-	}
-	# bizdays and index
-	n.bizdays <- n.dates[.is.bizday]
-	index.bizdays <- seq_along(n.bizdays)
-	index <- cumsum(.is.bizday)
-	# bizdays
-	that$bizdays <- function(from, to) {
-		from.idx <- index[match(from, n.dates)]
-		to.idx <- index[match(to, n.dates)]
-		to.idx - from.idx
-	}
-	# adjust.next and adjust.previous
-	.adjust <- function(dates, offset) {
-		idx <- .is.bizday[match(dates, n.dates)]
-		idx[is.na(idx)] <- TRUE
-		while ( ! all(idx) ) {
-			dates[!idx] <- dates[!idx] + offset
-			idx <- .is.bizday[match(dates, n.dates)]
-			idx[is.na(idx)] <- TRUE
-		}
-		dates
-	}
-	that$adjust.next <- function(dates) {
-		.adjust(dates, 1L)
-	}
-	that$adjust.previous <- function(dates) {
-		.adjust(dates, -1L)
-	}
-	# seq
-	that$seq <- function(from, to) {
-		n.bizdays[which(n.bizdays >= from & n.bizdays <= to)]
-	}
-	# add
-	that$add <- function(date, n) {
-		ref <- index.bizdays[which(date == n.bizdays)]
-		n.bizdays[which(index.bizdays - ref == n)]
-	}
-	class(that) <- 'Calendar'
-	return(that)
+                      start.date=NULL, end.date=NULL, name=NULL,
+                      weekdays=NULL, dib=NULL, adjust.from=adjust.next,
+                      adjust.to=adjust.previous) {
+  
+  if (length(holidays) != 0 && all(is.null(weekdays)))
+    warning('You provided holidays without set weekdays.\n',
+            'That setup leads to inconsistencies!')
+  that <- list()
+  # adjust functions
+  that$adjust.from <- adjust.from
+  that$adjust.to <- adjust.to
+  # dib
+  that$dib <- dib
+  # weekdays
+  weekdays_codes <- list(monday=4, tuesday=5, wednesday=6, thursday=0,
+                         friday=1, saturday=2, sunday=3)
+  wdays <- unlist(weekdays_codes[weekdays])
+  wdays <- if (is.null(wdays)) integer(0) else wdays
+  that$weekdays <- weekdays
+  # name
+  that$name <- name
+  # dates and holidays
+  n.holidays <- as.integer(as.Date(holidays, origin='1970-01-01'))
+  # start.date and end.date
+  .has_holidays <- length(holidays) != 0
+  if (is.null(start.date)) {
+    start.date <- if (.has_holidays) as.Date(min(n.holidays), origin='1970-01-01') else as.Date('1970-01-01')
+  } else
+    start.date <- as.Date(start.date)
+  if (is.null(end.date)) {
+    end.date <- if (.has_holidays) as.Date(max(n.holidays), origin='1970-01-01') else as.Date('2071-01-01')
+  } else
+    end.date <- as.Date(end.date)
+  that$start.date <- start.date
+  that$end.date <- end.date
+  n.start.date <- as.integer(start.date)
+  n.end.date <- as.integer(end.date)
+  # dates
+  n.dates <- as.integer(seq(from=start.date, to=end.date, by='day'))
+  # is bizday?
+  .is.bizday <- vapply(n.dates, function(.) {
+    wday <- .%%7
+    ! ( wday %in% wdays || . %in% n.holidays)
+  }, logical(1))
+  that$is.bizday <- function(date) {
+    .is.bizday[match(date, n.dates)]
+  }
+  # bizdays and index
+  n.bizdays <- n.dates[.is.bizday]
+  index.bizdays <- seq_along(n.bizdays)
+  index <- cumsum(.is.bizday)
+  # bizdays
+  that$bizdays <- function(from, to) {
+    from.idx <- index[match(from, n.dates)]
+    to.idx <- index[match(to, n.dates)]
+    to.idx - from.idx
+  }
+  # adjust.next and adjust.previous
+  .adjust <- function(dates, offset) {
+    idx <- .is.bizday[match(dates, n.dates)]
+    idx[is.na(idx)] <- TRUE
+    while ( ! all(idx) ) {
+      dates[!idx] <- dates[!idx] + offset
+      idx <- .is.bizday[match(dates, n.dates)]
+      idx[is.na(idx)] <- TRUE
+    }
+    dates
+  }
+  that$adjust.next <- function(dates) {
+    .adjust(dates, 1L)
+  }
+  that$adjust.previous <- function(dates) {
+    .adjust(dates, -1L)
+  }
+  # seq
+  that$seq <- function(from, to) {
+    n.bizdays[which(n.bizdays >= from & n.bizdays <= to)]
+  }
+  # add
+  that$add <- function(date, n) {
+    ref <- index.bizdays[which(date == n.bizdays)]
+    n.bizdays[which(index.bizdays - ref == n)]
+  }
+  class(that) <- 'Calendar'
+  return(that)
 }
 
 #' @export
 print.Calendar <- function(x, ...) {
-	cal <- x
-	cat('Calendar:', cal$name,
-		'\nRange:', format(as.Date(cal$start.date, origin='1970-01-01'), '%Y-%m-%d'),
-		'to', format(as.Date(cal$end.date, origin='1970-01-01'), '%Y-%m-%d'),
-		'\nweekdays:', cal$weekdays,
-		'\ndib:', cal$dib,
-		'\n')
-	invisible(x)
+  cal <- x
+  cat('Calendar:', cal$name,
+      '\nRange:', format(as.Date(cal$start.date, origin='1970-01-01'), '%Y-%m-%d'),
+      'to', format(as.Date(cal$end.date, origin='1970-01-01'), '%Y-%m-%d'),
+      '\nweekdays:', cal$weekdays,
+      '\ndib:', cal$dib,
+      '\n')
+  invisible(x)
 }
 
 #' Adjusts the given dates to the next/previous business day
@@ -200,16 +200,16 @@ following <- function(dates, cal=bizdays.options$get('default.calendar')) UseMet
 
 #' @export
 adjust.next.default <- function(dates, cal=bizdays.options$get('default.calendar')) {
-	dates <- as.Date(dates)
-	adjust.next(dates, cal)
+  dates <- as.Date(dates)
+  adjust.next(dates, cal)
 }
 
 #' @export
 adjust.next.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
-	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
-		stop('Given date out of range.')
-	dates <- as.integer(dates)
-	as.Date(cal$adjust.next(dates), origin='1970-01-01')
+  if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
+    stop('Given date out of range.')
+  dates <- as.integer(dates)
+  as.Date(cal$adjust.next(dates), origin='1970-01-01')
 }
 
 #' @export
@@ -233,16 +233,16 @@ preceding <- function(dates, cal=bizdays.options$get('default.calendar')) UseMet
 
 #' @export
 adjust.previous.default <- function(dates, cal=bizdays.options$get('default.calendar')) {
-	dates <- as.Date(dates)
-	adjust.previous(dates, cal)
+  dates <- as.Date(dates)
+  adjust.previous(dates, cal)
 }
 
 #' @export
 adjust.previous.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
-	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
-		stop('Given date out of range.')
-	dates <- as.integer(dates)
-	as.Date(cal$adjust.previous(dates), origin='1970-01-01')
+  if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
+    stop('Given date out of range.')
+  dates <- as.integer(dates)
+  as.Date(cal$adjust.previous(dates), origin='1970-01-01')
 }
 
 #' @export
@@ -307,33 +307,33 @@ bizdays <- function(from, to, cal=bizdays.options$get('default.calendar')) UseMe
 
 #' @export
 bizdays.default <- function(from, to, cal=bizdays.options$get('default.calendar')) {
-	from <- as.Date(from)
-	bizdays(from, to, cal)
+  from <- as.Date(from)
+  bizdays(from, to, cal)
 }
 
 #' @export
 bizdays.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
-	to <- as.Date(to)
-	# ---
-	if (all(is.na(to))) return( rep(NA, max(length(to), length(from))) )
-	if ( ! any(from >= cal$start.date & from <= cal$end.date) )
-		stop('Given date out of range.')
-	if ( ! any(to >= cal$start.date & to <= cal$end.date) )
-		stop('Given date out of range.')
-	lengths <- c(length(from), length(to))
-	if (max(lengths) %% min(lengths) != 0)
-		stop("from's length must be multiple of to's length and vice-versa.")
-	idx <- from > to
-	idx[is.na(idx)] <- FALSE
-	new.from <- from
-	new.to <- to
-	new.from[idx] <- to[idx]
-	new.to[idx] <- from[idx]
-	new.from <- cal$adjust.from(new.from, cal)
-	new.to <- cal$adjust.to(new.to, cal)
-	bdays <- cal$bizdays(as.integer(new.from), as.integer(new.to))
-	bdays[idx] <- -bdays[idx]
-	bdays
+  to <- as.Date(to)
+  # ---
+  if (all(is.na(to))) return( rep(NA, max(length(to), length(from))) )
+  if ( ! any(from >= cal$start.date & from <= cal$end.date) )
+    stop('Given date out of range.')
+  if ( ! any(to >= cal$start.date & to <= cal$end.date) )
+    stop('Given date out of range.')
+  lengths <- c(length(from), length(to))
+  if (max(lengths) %% min(lengths) != 0)
+    stop("from's length must be multiple of to's length and vice-versa.")
+  idx <- from > to
+  idx[is.na(idx)] <- FALSE
+  new.from <- from
+  new.to <- to
+  new.from[idx] <- to[idx]
+  new.to[idx] <- from[idx]
+  new.from <- cal$adjust.from(new.from, cal)
+  new.to <- cal$adjust.to(new.to, cal)
+  bdays <- cal$bizdays(as.integer(new.from), as.integer(new.to))
+  bdays[idx] <- -bdays[idx]
+  bdays
 }
 
 #' Checks if the given dates are business days.
@@ -377,9 +377,9 @@ is.bizday.default <- function(dates, cal=bizdays.options$get('default.calendar')
 
 #' @export
 is.bizday.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
-	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
-		stop('Given date out of range.')
-	cal$is.bizday(as.integer(dates))
+  if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
+    stop('Given date out of range.')
+  cal$is.bizday(as.integer(dates))
 }
 
 #' Create a sequence of business days
@@ -417,18 +417,18 @@ bizseq.default <- function(from, to, cal=bizdays.options$get('default.calendar')
 
 #' @export
 bizseq.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
-	to <- as.Date(to)
-	# ---
-	to <- as.Date(to)
-	if ( ! any(from >= cal$start.date & from <= cal$end.date) )
-		stop('Given date out of range.')
-	if ( ! any(to >= cal$start.date & to <= cal$end.date) )
-		stop('Given date out of range.')
-	if ( ! all(from <= to) )
-		stop('All from dates must be greater than all to dates.')
-	from <- as.integer(from)
-	to <- as.integer(to)
-	as.Date(cal$seq(from, to), origin='1970-01-01')
+  to <- as.Date(to)
+  # ---
+  to <- as.Date(to)
+  if ( ! any(from >= cal$start.date & from <= cal$end.date) )
+    stop('Given date out of range.')
+  if ( ! any(to >= cal$start.date & to <= cal$end.date) )
+    stop('Given date out of range.')
+  if ( ! all(from <= to) )
+    stop('All from dates must be greater than all to dates.')
+  from <- as.integer(from)
+  to <- as.integer(to)
+  as.Date(cal$seq(from, to), origin='1970-01-01')
 }
 
 #' Offsets the given \code{dates} by \code{n} business days
@@ -493,15 +493,15 @@ offset.default <- add.bizdays.default
 
 #' @export
 add.bizdays.Date <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
-	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
-		stop('Given date out of range.')
-	dates <- cal$adjust.from(dates, cal)
-	dates <- as.integer(dates)
-	dates <- apply(cbind(dates, n), 1, function(x) cal$add(x[1], x[2]))
-	dates <- as.Date(dates, origin='1970-01-01')
-	if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
-		stop('Dates out of range')
-	dates
+  if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
+    stop('Given date out of range.')
+  dates <- cal$adjust.from(dates, cal)
+  dates <- as.integer(dates)
+  dates <- apply(cbind(dates, n), 1, function(x) cal$add(x[1], x[2]))
+  dates <- as.Date(dates, origin='1970-01-01')
+  if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
+    stop('Dates out of range')
+  dates
 }
 
 #' @export
@@ -527,32 +527,32 @@ merge_list = function(x, y) {
 
 # new_defaults - creates a settings object
 new_defaults <- function(value=list()) {
-	defaults <- value
-
-	get <- function(name, default=FALSE, drop=TRUE) {
-		if (default)
-			defaults <- value  # this is only a local version
-		if (missing(name))
-			defaults
-		else {
-			if (drop && length(name) == 1)
-				defaults[[name]]
-			else
-				defaults[name]
-			}
-		}
-	set <- function(...) {
-		dots <- list(...)
-		if (length(dots) == 0) return()
-		if (is.null(names(dots)) && length(dots) == 1 && is.list(dots[[1]]))
-		if (length(dots <- dots[[1]]) == 0) return()
-		defaults <<- merge(dots)
-		invisible(NULL)
-	}
-	merge <- function(values) merge_list(defaults, values)
-	restore <- function(target = value) defaults <<- target
-
-	list(get=get, set=set, merge=merge, restore=restore)
+  defaults <- value
+  
+  get <- function(name, default=FALSE, drop=TRUE) {
+    if (default)
+      defaults <- value  # this is only a local version
+    if (missing(name))
+      defaults
+    else {
+      if (drop && length(name) == 1)
+        defaults[[name]]
+      else
+        defaults[name]
+    }
+  }
+  set <- function(...) {
+    dots <- list(...)
+    if (length(dots) == 0) return()
+    if (is.null(names(dots)) && length(dots) == 1 && is.list(dots[[1]]))
+      if (length(dots <- dots[[1]]) == 0) return()
+    defaults <<- merge(dots)
+    invisible(NULL)
+  }
+  merge <- function(values) merge_list(defaults, values)
+  restore <- function(target = value) defaults <<- target
+  
+  list(get=get, set=set, merge=merge, restore=restore)
 }
 
 #' bizdays' options
@@ -640,13 +640,13 @@ bizdayse <- function(dates, curd, cal=bizdays.options$get('default.calendar')) U
 
 #' @export
 bizdayse.default <- function(dates, curd, cal=bizdays.options$get('default.calendar')) {
-	dates <- as.Date(dates)
-	bizdayse(dates, curd, cal)
+  dates <- as.Date(dates)
+  bizdayse(dates, curd, cal)
 }
 
 #' @export
 bizdayse.Date <- function(dates, curd, cal=bizdays.options$get('default.calendar')) {
-	bizdays(dates, dates+curd, cal)
+  bizdays(dates, dates+curd, cal)
 }
 
 #' Computes business days between two dates in years
@@ -705,16 +705,16 @@ bizyears <- function(from, to, cal=bizdays.options$get('default.calendar')) UseM
 
 #' @export
 bizyears.default <- function(from, to, cal=bizdays.options$get('default.calendar')) {
-	from <- as.Date(from)
-	bizyears(from, to, cal)
+  from <- as.Date(from)
+  bizyears(from, to, cal)
 }
 
 #' @export
 bizyears.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
-	if (is.null(cal$dib))
-		stop('NULL dib')
-	to <- as.Date(to)
-	bizdays(from, to, cal)/cal$dib
+  if (is.null(cal$dib))
+    stop('NULL dib')
+  to <- as.Date(to)
+  bizdays(from, to, cal)/cal$dib
 }
 
 #' Business days and current days equivalence in years
@@ -755,11 +755,11 @@ bizyearse <- function(dates, curd, cal=bizdays.options$get('default.calendar')) 
 
 #' @export
 bizyearse.default <- function(dates, curd, cal=bizdays.options$get('default.calendar')) {
-	dates <- as.Date(dates)
-	bizyearse(dates, curd, cal)
+  dates <- as.Date(dates)
+  bizyearse(dates, curd, cal)
 }
 
 #' @export
 bizyearse.Date <- function(dates, curd, cal=bizdays.options$get('default.calendar')) {
-	bizyears(dates, dates+curd, cal)
+  bizyears(dates, dates+curd, cal)
 }
