@@ -135,6 +135,33 @@ test_that('it should adjust.previous a vector of dates', {
   expect_equal(adj.dates, c(as.Date('2012-12-31'), as.Date('2013-01-02')))
 })
 
+test_that("it should move date to next business day if it is in the same month", {
+  date <- as.character(modified.following('2013-01-01', cal))
+  expect_equal(date, '2013-01-02')
+  date <- as.character(modified.following('2016-01-31', cal))
+  expect_equal(date, '2016-01-29')
+})
+
+test_that('it should modified.following a vector of dates', {
+  dates <- c(as.Date('2013-01-01'), as.Date('2016-01-31'))
+  adj.dates <- modified.following(dates, cal)
+  expect_equal(adj.dates, c(as.Date('2013-01-02'), as.Date('2016-01-29')))
+})
+
+test_that("it should move date to previous business day if it is in the same month", {
+  date <- modified.preceding('2013-01-01', cal)
+  expect_equal(as.character(date), '2013-01-02')
+  date <- modified.preceding('2016-01-31', cal)
+  expect_equal(as.character(date), '2016-01-29')
+})
+
+test_that('it should modified.preceding a vector of dates', {
+  dates <- c(as.Date('2013-01-01'), as.Date('2016-01-31'))
+  adj.dates <- modified.preceding(dates, cal)
+  expect_equal(adj.dates, c(as.Date('2013-01-02'), as.Date('2016-01-29')))
+})
+
+
 context('sequence of bizdays')
 
 test_that("it should generate a sequence of bizdays", {

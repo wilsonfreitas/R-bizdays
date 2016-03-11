@@ -224,6 +224,29 @@ following.Date <- adjust.next.Date
 #' @rdname adjust.date
 #' @export
 #' @examples
+#' modified.following("2016-01-31", cal)
+modified.following <- function(dates, cal=bizdays.options$get('default.calendar')) UseMethod("modified.following")
+
+#' @export
+modified.following.default <- function(dates, cal=bizdays.options$get('default.calendar')) {
+  dates <- as.Date(dates)
+  modified.following(dates, cal)
+}
+
+#' @export
+modified.following.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
+  if ( is.null(cal) )
+    stop('Given calendar is NULL.')
+  if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
+    stop('Given date out of range.')
+  dates <- as.integer(dates)
+  modified(dates, cal$adjust.next, cal$adjust.previous)
+}
+
+
+#' @rdname adjust.date
+#' @export
+#' @examples
 #' adjust.previous("2013-01-01", cal)
 adjust.previous <- function(dates, cal=bizdays.options$get('default.calendar')) UseMethod("adjust.previous")
 
@@ -254,6 +277,36 @@ preceding.default <- adjust.previous.default
 
 #' @export
 preceding.Date <- adjust.previous.Date
+
+
+#' @rdname adjust.date
+#' @export
+#' @examples
+#' modified.preceding("2016-01-01", cal)
+modified.preceding <- function(dates, cal=bizdays.options$get('default.calendar')) UseMethod("modified.preceding")
+
+#' @export
+modified.preceding.default <- function(dates, cal=bizdays.options$get('default.calendar')) {
+  dates <- as.Date(dates)
+  modified.preceding(dates, cal)
+}
+
+#' @export
+modified.preceding.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
+  if ( is.null(cal) )
+    stop('Given calendar is NULL.')
+  if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
+    stop('Given date out of range.')
+  dates <- as.integer(dates)
+  modified(dates, cal$adjust.previous, cal$adjust.next)
+}
+
+modified <- function(dates, move1, move2) {
+  dtx <- as.Date(move1(dates), origin='1970-01-01')
+  idx <- format(dtx, '%m') != format(as.Date(dates, origin='1970-01-01'), '%m')
+  dtx[idx] <- as.Date(move2(dates[idx]), origin='1970-01-01')
+  dtx
+}
 
 
 #' Computes business days between two dates.
