@@ -60,8 +60,7 @@ offset.default <- add.bizdays.default
 
 #' @export
 add.bizdays.Date <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
-  if ( is.null(cal) )
-    stop('Given calendar is NULL.')
+  cal <- check_calendar(cal)
   if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
     stop('Given date out of range.')
   dates <- cal$adjust.from(dates, cal)

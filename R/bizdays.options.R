@@ -25,6 +25,9 @@ new_defaults <- function(value=list()) {
     if (length(dots) == 0) return()
     if (is.null(names(dots)) && length(dots) == 1 && is.list(dots[[1]]))
       if (length(dots <- dots[[1]]) == 0) return()
+    if (!is.null(dots[['default.calendar']]) && is(dots[['default.calendar']], 'character')) {
+      dots[['default.calendar']] <- calendars()[[dots[['default.calendar']]]]
+    }
     defaults <<- merge(dots)
     invisible(NULL)
   }
@@ -65,5 +68,14 @@ new_defaults <- function(value=list()) {
 #' 
 #' @export
 bizdays.options <- new_defaults()
-bizdays.options$set(default.calendar=Calendar(name="Actual/365", dib=365))
+
+(function() {
+  Calendar(name="Actual/365", dib=365)
+  Calendar(name="Actual/360", dib=360)
+  .localenv <- new.env()
+  data("holidaysANBIMA", envir=.localenv)
+  Calendar(.localenv$holidaysANBIMA, weekdays=c('saturday', 'sunday'), name="Business/252 ANBIMA", dib=252)
+})()
+
+bizdays.options$set(default.calendar='Actual/365')
 

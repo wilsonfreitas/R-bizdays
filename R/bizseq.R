@@ -36,8 +36,7 @@ bizseq.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
   to <- as.Date(to)
   # ---
   to <- as.Date(to)
-  if ( is.null(cal) )
-    stop('Given calendar is NULL.')
+  cal <- check_calendar(cal)
   if ( ! any(from >= cal$start.date & from <= cal$end.date) )
     stop('Given date out of range.')
   if ( ! any(to >= cal$start.date & to <= cal$end.date) )

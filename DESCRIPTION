@@ -11,14 +11,14 @@ Suggests:
     knitr
 Collate:
     'R-bizdays-package.r'
+    'datasets.R'
     'calendar.R'
     'adjust.date.R'
-    'bizdays.R'
     'bizdays.options.R'
     'bizseq.R'
-    'datasets.R'
     'is.bizday.R'
     'offset.R'
+    'bizdays.R'
 Depends:
     R (>= 2.15)
 License: MIT + file LICENSE

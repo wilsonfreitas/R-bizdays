@@ -41,8 +41,7 @@ adjust.next.default <- function(dates, cal=bizdays.options$get('default.calendar
 
 #' @export
 adjust.next.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
-  if ( is.null(cal) )
-    stop('Given calendar is NULL.')
+  cal <- check_calendar(cal)
   if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
     stop('Given date out of range.')
   dates <- as.integer(dates)
@@ -70,8 +69,7 @@ modified.following.default <- function(dates, cal=bizdays.options$get('default.c
 
 #' @export
 modified.following.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
-  if ( is.null(cal) )
-    stop('Given calendar is NULL.')
+  cal <- check_calendar(cal)
   if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
     stop('Given date out of range.')
   dates <- as.integer(dates)
@@ -99,8 +97,7 @@ adjust.previous.default <- function(dates, cal=bizdays.options$get('default.cale
 
 #' @export
 adjust.previous.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
-  if ( is.null(cal) )
-    stop('Given calendar is NULL.')
+  cal <- check_calendar(cal)
   if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
     stop('Given date out of range.')
   dates <- as.integer(dates)
@@ -128,8 +125,7 @@ modified.preceding.default <- function(dates, cal=bizdays.options$get('default.c
 
 #' @export
 modified.preceding.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
-  if ( is.null(cal) )
-    stop('Given calendar is NULL.')
+  cal <- check_calendar(cal)
   if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
     stop('Given date out of range.')
   dates <- as.integer(dates)

@@ -64,7 +64,7 @@ test_that('it should bizyears dates', {
 
 test_that('it should raise an error while bizyears dates', {
   cal <- Calendar()
-  expect_error(bizyears('2013-01-02', '2013-01-03', cal), 'NULL dib')
+  expect_error(bizyears('2013-01-02', '2013-01-03', cal), 'days-in-base .dib. undefined')
 })
 
 context('bizdays and current days equivalence')

@@ -148,6 +148,8 @@ Calendar <- function (holidays=integer(0),
     n.bizdays[which(index.bizdays - ref == n)]
   }
   class(that) <- 'Calendar'
+  if (!is.null(that$name))
+    .CALENDAR_REGISTER[[that$name]] <- that
   return(that)
 }
 
@@ -163,4 +165,29 @@ print.Calendar <- function(x, ...) {
   invisible(x)
 }
 
+.CALENDAR_REGISTER <- new.env()
+class(.CALENDAR_REGISTER) <- 'CalendarRegister'
 
+print.CalendarRegister <- function(x, ...) {
+  cat('Calendars:', '\n')
+  for (n in names(.CALENDAR_REGISTER))
+    cat(n, '\n')
+  invisible(.CALENDAR_REGISTER)
+}
+
+calendars <- function() {
+  .CALENDAR_REGISTER
+}
+
+check_calendar <- function(cal) {
+  if ( is.null(cal) )
+    stop('Given calendar is NULL.')
+  if ( is(cal, 'character') ) {
+    if ( is.null(calendars()[[cal]]) )
+      stop('Invalid calendar name: ', cal)
+    calendars()[[cal]]
+  } else if ( is(cal, 'Calendar') )
+    cal
+  else
+    stop('Invalid argument')
+}

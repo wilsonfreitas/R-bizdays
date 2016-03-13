@@ -62,8 +62,7 @@ bizdays.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) 
   to <- as.Date(to)
   # ---
   if (all(is.na(to))) return( rep(NA, max(length(to), length(from))) )
-  if ( is.null(cal) )
-    stop('Given calendar is NULL.')
+  cal <- check_calendar(cal)
   if ( ! any(from >= cal$start.date & from <= cal$end.date) )
     stop('Given date out of range.')
   if ( ! any(to >= cal$start.date & to <= cal$end.date) )
@@ -207,10 +206,9 @@ bizyears.default <- function(from, to, cal=bizdays.options$get('default.calendar
 
 #' @export
 bizyears.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
-  if ( is.null(cal) )
-    stop('Given calendar is NULL.')
+  cal <- check_calendar(cal)
   if (is.null(cal$dib))
-    stop('NULL dib')
+    stop('days-in-base (dib) undefined')
   to <- as.Date(to)
   bizdays(from, to, cal)/cal$dib
 }

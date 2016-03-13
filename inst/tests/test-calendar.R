@@ -217,3 +217,4 @@ test_that('it should pass NULL calendar', {
   expect_error(bizseq('2013-01-01', '2013-01-10', NULL), 'Given calendar is NULL')
   expect_error(offset('2013-01-10', 30, NULL), 'Given calendar is NULL')
 })
+

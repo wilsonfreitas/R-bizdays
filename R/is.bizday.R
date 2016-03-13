@@ -39,8 +39,7 @@ is.bizday.default <- function(dates, cal=bizdays.options$get('default.calendar')
 
 #' @export
 is.bizday.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
-  if ( is.null(cal) )
-    stop('Given calendar is NULL.')
+  cal <- check_calendar(cal)
   if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
     stop('Given date out of range.')
   cal$is.bizday(as.integer(dates))
