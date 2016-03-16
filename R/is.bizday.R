@@ -17,7 +17,6 @@
 #' \code{logical} objects informing that given dates are or are not business days.
 #' 
 #' @examples
-#' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"))
 #' 
 #' is.bizday("2013-01-02", cal)

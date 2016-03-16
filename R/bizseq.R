@@ -18,7 +18,6 @@
 #' objects with ISO formatted dates.
 #' 
 #' @examples
-#' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"))
 #' bizseq("2013-01-02", "2013-01-31", cal)
 #' 

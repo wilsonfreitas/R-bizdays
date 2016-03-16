@@ -31,7 +31,6 @@
 #' @name offset
 #' 
 #' @examples
-#' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"))
 #' 
 #' offset("2013-01-02", 5, cal)

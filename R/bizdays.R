@@ -36,7 +36,6 @@
 #' \code{\link{bizyears}} for business days values in years.
 #' 
 #' @examples
-#' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"))
 #' 
 #' bizdays("2013-01-02", "2013-01-31", cal)
@@ -126,7 +125,6 @@ bizdays.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) 
 #' \code{\link{bizyearse}} for business days in years.
 #' 
 #' @examples
-#' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"), dib=252)
 #' bizdayse("2013-01-02", 3, cal)
 #' 
@@ -191,7 +189,6 @@ bizdayse.Date <- function(dates, curd, cal=bizdays.options$get('default.calendar
 #' \code{\link{bizdays}} for business days.
 #' 
 #' @examples
-#' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"), dib=252)
 #' bizyears("2013-01-02", "2013-01-31", cal)
 #' 
@@ -242,7 +239,6 @@ bizyears.Date <- function(from, to, cal=bizdays.options$get('default.calendar'))
 #' \code{\link{bizdayse}} for business days.
 #' 
 #' @examples
-#' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"), dib=252)
 #' bizyearse("2013-01-02", 3, cal)
 #' 

@@ -22,7 +22,6 @@ NULL
 #' @rdname adjust.date
 #' @export
 #' @examples
-#' data(holidaysANBIMA)
 #' cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"))
 #' adjust.next("2013-01-01", cal)
 adjust.next <- function(dates, cal=bizdays.options$get('default.calendar')) UseMethod("adjust.next")
