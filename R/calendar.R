@@ -190,20 +190,23 @@ print.CalendarRegister <- function(x, ...) {
   invisible(.CALENDAR_REGISTER)
 }
 
-#' @title Returns the calendars register
+#' @title Calendars register
 #' 
 #' @description
-#' Returns the environment like object which represents the calendars register.
+#' Every named calendar (that has the \code{name} argument defined) is store
+#' into an internal register.
+#' The idea behind this register is allowing calendars to be accessed by its names.
+#' 
+#' @param cals character vector of calendars names
 #' 
 #' @details
+#' \code{calendar} returns the object which represents the calendars register.
 #' Since the register inherits from \code{environment}, the calendars are 
 #' retrieved with the \code{[[} operator.
-#' But it has its own \code{print} generic which lists all registered calendars
-#' at the console.
+#' But the register object has its own \code{print} generic which helps listing 
+#' all registered calendars.
 #' 
-#' @return
-#' An object that inherits from \code{environment}.
-#' 
+#' Calendars can be removed with \code{remove.calendars}.
 #' 
 #' @name calendar-register
 NULL
