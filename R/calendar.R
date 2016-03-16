@@ -52,17 +52,31 @@
 #' \code{Calendar} doesn't have to be named, but it helps identifying the calendars once many are instantiated.
 #' You name a \code{Calendar} by setting the argument \code{name}.
 #' 
+#' @section Calendars register:
+#' 
+#' Every named calendar is stored in a register so that it can be retrieved by 
+#' its name (in \code{calendars}).
+#' bizdays' methods also accept the calendar's name on their \code{cal} argument.
+#' Given that, naming calendars is strongly recommended.
+#' 
+#' @seealso
+#' \code{\link{calendars}}, \code{\link{bizdays}}, \code{\link{bizyears}}.
+#' 
 #' @export
 #' @examples
 #' # holidays has iso-formated dates
-#' data(holidaysANBIMA)
 #' cal <- Calendar(name="ANBIMA", holidays=holidaysANBIMA,
 #'                 weekdays=c("saturday", "sunday"), dib=252)
+#' 
 #' # ACTUAL calendar
 #' cal <- Calendar(name="Actual", dib=365)
 #' # unnamed calendars have NULL names
 #' cal <- Calendar(start.date="1976-07-12", end.date="2013-10-28")
 #' is.null(cal$name) # TRUE
+#' 
+#' # named calendars can be accessed by its name
+#' cal <- Calendar(name="Actual")
+#' bizdays('2016-01-01', '2016-03-14', 'Actual')
 Calendar <- function (holidays=integer(0),
                       start.date=NULL, end.date=NULL, name=NULL,
                       weekdays=NULL, dib=NULL, adjust.from=adjust.next,
@@ -168,6 +182,7 @@ print.Calendar <- function(x, ...) {
 .CALENDAR_REGISTER <- new.env()
 class(.CALENDAR_REGISTER) <- 'CalendarRegister'
 
+#' @export
 print.CalendarRegister <- function(x, ...) {
   cat('Calendars:', '\n')
   for (n in names(.CALENDAR_REGISTER))
@@ -175,8 +190,39 @@ print.CalendarRegister <- function(x, ...) {
   invisible(.CALENDAR_REGISTER)
 }
 
+#' @title Returns the calendars register
+#' 
+#' @description
+#' Returns the environment like object which represents the calendars register.
+#' 
+#' @details
+#' Since the register inherits from \code{environment}, the calendars are 
+#' retrieved with the \code{[[} operator.
+#' But it has its own \code{print} generic which lists all registered calendars
+#' at the console.
+#' 
+#' @return
+#' An object that inherits from \code{environment}.
+#' 
+#' 
+#' @name calendar-register
+NULL
+
+#' @export
+#' @rdname calendar-register
+#' @examples
+#' # ACTUAL calendar
+#' cal <- Calendar(name="Actual", dib=365)
+#' cal <- calendars()[["Actual"]]
+#' remove.calendars("Actual")
 calendars <- function() {
   .CALENDAR_REGISTER
+}
+
+#' @export
+#' @rdname calendar-register
+remove.calendars <- function(cals) {
+  remove(list=cals, envir=.CALENDAR_REGISTER)
 }
 
 check_calendar <- function(cal) {
