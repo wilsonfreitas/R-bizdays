@@ -162,8 +162,6 @@ Calendar <- function (holidays=integer(0),
     n.bizdays[which(index.bizdays - ref == n)]
   }
   class(that) <- 'Calendar'
-  if (!is.null(that$name))
-    .CALENDAR_REGISTER[[that$name]] <- that
   return(that)
 }
 
@@ -226,6 +224,20 @@ calendars <- function() {
 #' @rdname calendar-register
 remove.calendars <- function(cals) {
   remove(list=cals, envir=.CALENDAR_REGISTER)
+}
+
+#' @export
+#' @rdname calendar-register
+create.calendar <- function(name,
+                            holidays=integer(0),
+                            weekdays=NULL, dib=NULL, 
+                            start.date=NULL, end.date=NULL,
+                            adjust.from=adjust.next, adjust.to=adjust.previous) {
+  cal <- Calendar(holidays=holidays, weekdays=weekdays, dib=dib, name=name,
+                  start.date=start.date, end.date=end.date,
+                  adjust.from=adjust.from, adjust.to=adjust.to)
+  .CALENDAR_REGISTER[[cal$name]] <- cal
+  invisible(cal)
 }
 
 check_calendar <- function(cal) {

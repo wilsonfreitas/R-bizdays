@@ -19,6 +19,7 @@ Collate:
     'is.bizday.R'
     'offset.R'
     'bizdays.R'
+    'create-calendars.R'
 Depends:
     R (>= 2.15)
 License: MIT + file LICENSE

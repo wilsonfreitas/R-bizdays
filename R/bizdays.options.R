@@ -69,13 +69,3 @@ new_defaults <- function(value=list()) {
 #' @export
 bizdays.options <- new_defaults()
 
-(function() {
-  Calendar(name="Actual/365", dib=365)
-  Calendar(name="Actual/360", dib=360)
-  .localenv <- new.env()
-  data("holidaysANBIMA", envir=.localenv)
-  Calendar(.localenv$holidaysANBIMA, weekdays=c('saturday', 'sunday'), name="Business/252 ANBIMA", dib=252)
-})()
-
-bizdays.options$set(default.calendar='Actual/365')
-
