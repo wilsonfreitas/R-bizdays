@@ -1,19 +1,18 @@
 
-#' @title Creates a calendar
+#' @title Creates calendars
 #' 
 #' @description
-#' The \code{Calendar} stores all information necessary to compute business days.
-#' This works like a helper class for many of \code{bizdays}' methods.
+#' \code{create.calendar} creates calendars and stores them in the calendar register.
 #' 
+#' @param name calendar's name. This is used to retrieve calendars from register.
 #' @param holidays a vector of Dates which contains the holidays
-#' @param start.date the date which the calendar starts
-#' @param end.date the date which the calendar ends
-#' @param name calendar's name
 #' @param weekdays a character vector which defines the weekdays to be used as
 #' non-working days (defaults to \code{NULL} which represents an actual 
 #' calendar). It accepts: \code{sunday}, \code{monday}, \code{thuesday}, 
 #' \code{wednesday}, \code{thursday}, \code{friday}, \code{saturday}. 
 #' Defining the weekend as nonworking days is \code{weekdays=c("saturday", "sunday")}.
+#' @param start.date the date which the calendar starts
+#' @param end.date the date which the calendar ends
 #' @param dib a single numeric variable which indicates the amount of days
 #' within a year (\code{dib} stands for days in base).
 #' @param adjust.from is a function to be used with the \code{bizdays}'s \code{from} argument.
@@ -49,8 +48,6 @@
 #' The default behavior, setting \code{adjust.from=adjust.previous} and \code{adjust.to=adjust.next},
 #' works like Excel's function NETWORKDAYS, since that is fairly used by a great number of practitioners.
 #' 
-#' \code{Calendar} doesn't have to be named, but it helps identifying the calendars once many are instantiated.
-#' You name a \code{Calendar} by setting the argument \code{name}.
 #' 
 #' @section Calendars register:
 #' 
@@ -62,20 +59,18 @@
 #' @seealso
 #' \code{\link{calendars}}, \code{\link{bizdays}}, \code{\link{bizyears}}.
 #' 
+#' @name calendar-class
+#' 
 #' @export
 #' @examples
-#' # holidays has iso-formated dates
-#' cal <- Calendar(name="ANBIMA", holidays=holidaysANBIMA,
-#'                 weekdays=c("saturday", "sunday"), dib=252)
+#' # ANBIMA's calendar (from Brazil)
+#' cal <- create.calendar("ANBIMA", holidays=holidaysANBIMA, weekdays=c("saturday", "sunday"), dib=252)
 #' 
 #' # ACTUAL calendar
-#' cal <- Calendar(name="Actual", dib=365)
-#' # unnamed calendars have NULL names
-#' cal <- Calendar(start.date="1976-07-12", end.date="2013-10-28")
-#' is.null(cal$name) # TRUE
+#' cal <- create.calendar("Actual", dib=365)
 #' 
 #' # named calendars can be accessed by its name
-#' cal <- Calendar(name="Actual")
+#' create.calendar(name="Actual")
 #' bizdays('2016-01-01', '2016-03-14', 'Actual')
 Calendar <- function (holidays=integer(0),
                       start.date=NULL, end.date=NULL, name=NULL,
@@ -166,6 +161,20 @@ Calendar <- function (holidays=integer(0),
 }
 
 #' @export
+#' @rdname calendar-class
+create.calendar <- function(name,
+                            holidays=integer(0),
+                            weekdays=NULL, dib=NULL, 
+                            start.date=NULL, end.date=NULL,
+                            adjust.from=adjust.next, adjust.to=adjust.previous) {
+  cal <- Calendar(holidays=holidays, weekdays=weekdays, dib=dib, name=name,
+                  start.date=start.date, end.date=end.date,
+                  adjust.from=adjust.from, adjust.to=adjust.to)
+  .CALENDAR_REGISTER[[cal$name]] <- cal
+  invisible(cal)
+}
+
+#' @export
 print.Calendar <- function(x, ...) {
   cal <- x
   cat('Calendar:', cal$name,
@@ -191,8 +200,7 @@ print.CalendarRegister <- function(x, ...) {
 #' @title Calendars register
 #' 
 #' @description
-#' Every named calendar (that has the \code{name} argument defined) is store
-#' into an internal register.
+#' Every calendar created with \code{create.calendar} is stored in the calendar register.
 #' The idea behind this register is allowing calendars to be accessed by its names.
 #' 
 #' @param cals character vector of calendars names
@@ -204,7 +212,7 @@ print.CalendarRegister <- function(x, ...) {
 #' But the register object has its own \code{print} generic which helps listing 
 #' all registered calendars.
 #' 
-#' Calendars can be removed with \code{remove.calendars}.
+#' \code{remove.calendars} remove calendars from the register.
 #' 
 #' @name calendar-register
 NULL
@@ -213,7 +221,7 @@ NULL
 #' @rdname calendar-register
 #' @examples
 #' # ACTUAL calendar
-#' cal <- Calendar(name="Actual", dib=365)
+#' cal <- create.calendar("Actual", dib=365)
 #' cal <- calendars()[["Actual"]]
 #' remove.calendars("Actual")
 calendars <- function() {
@@ -224,20 +232,6 @@ calendars <- function() {
 #' @rdname calendar-register
 remove.calendars <- function(cals) {
   remove(list=cals, envir=.CALENDAR_REGISTER)
-}
-
-#' @export
-#' @rdname calendar-register
-create.calendar <- function(name,
-                            holidays=integer(0),
-                            weekdays=NULL, dib=NULL, 
-                            start.date=NULL, end.date=NULL,
-                            adjust.from=adjust.next, adjust.to=adjust.previous) {
-  cal <- Calendar(holidays=holidays, weekdays=weekdays, dib=dib, name=name,
-                  start.date=start.date, end.date=end.date,
-                  adjust.from=adjust.from, adjust.to=adjust.to)
-  .CALENDAR_REGISTER[[cal$name]] <- cal
-  invisible(cal)
 }
 
 check_calendar <- function(cal) {
