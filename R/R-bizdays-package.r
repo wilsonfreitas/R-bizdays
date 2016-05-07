@@ -30,7 +30,5 @@
 #' \url{http://cran.r-project.org/web/views/Finance.html}
 #' 
 #' @name bizdays-package
-#' @import RQuantLib
-#' @import timeDate
 #' @docType package
 NULL
