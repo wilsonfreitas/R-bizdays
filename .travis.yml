@@ -6,6 +6,7 @@ before_install:
   - ./travis-tool.sh bootstrap
 
 install:
+  - export _R_CHECK_FORCE_SUGGESTS_=FALSE
   - ./travis-tool.sh install_deps
 
 script: ./travis-tool.sh run_tests
