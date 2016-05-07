@@ -192,8 +192,8 @@ class(.CALENDAR_REGISTER) <- 'CalendarRegister'
 #' @export
 print.CalendarRegister <- function(x, ...) {
   cat('Calendars:', '\n')
-  for (n in names(.CALENDAR_REGISTER))
-    cat(n, '\n')
+  cat(paste(sort(names(.CALENDAR_REGISTER)), collapse=', '))
+  cat('\n')
   invisible(.CALENDAR_REGISTER)
 }
 
