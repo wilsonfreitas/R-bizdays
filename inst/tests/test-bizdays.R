@@ -26,7 +26,7 @@ test_that('it should bizdays a set of dates', {
 })
 
 test_that('it should return negative bizdays', {
-  cal <- Calendar(holidaysANBIMA, weekdays=c('saturday', 'sunday'))
+  cal <- Calendar_(holidaysANBIMA, weekdays=c('saturday', 'sunday'))
   expect_equal(bizdays('2014-07-12', '2013-07-12', cal), -251)
   expect_equal(
     bizdays(c('2013-08-21', '2013-01-31', '2013-01-01'), c('2013-08-24', '2013-01-01', '2014-01-01'), cal),
@@ -56,21 +56,21 @@ test_that('it should bizdays all NA values', {
 context('bizyears')
 
 test_that('it should bizyears dates', {
-  cal <- Calendar(dib=365)
+  cal <- Calendar_(dib=365)
   expect_equal(bizyears('2013-01-02', '2013-01-03', cal), 1/365)
-  cal <- Calendar(holidaysANBIMA, dib=252, weekdays=c('saturday', 'sunday'))
+  cal <- Calendar_(holidaysANBIMA, dib=252, weekdays=c('saturday', 'sunday'))
   expect_equal(bizyears('2013-08-21', '2013-08-24', cal), 2/252)
 })
 
 test_that('it should raise an error while bizyears dates', {
-  cal <- Calendar()
+  cal <- Calendar_()
   expect_error(bizyears('2013-01-02', '2013-01-03', cal), 'days-in-base .dib. undefined')
 })
 
 context('bizdays and current days equivalence')
 
 test_that('it should compute the business days equivalent to current days', {
-  cal <- Calendar(holidaysANBIMA, dib=252, weekdays=c('saturday', 'sunday'))
+  cal <- Calendar_(holidaysANBIMA, dib=252, weekdays=c('saturday', 'sunday'))
   expect_equal(bizdayse('2013-08-21', 3, cal), 2)
   expect_equal(bizyearse('2013-08-21', 3, cal), 2/252)
 })

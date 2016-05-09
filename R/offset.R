@@ -5,7 +5,7 @@
 #' 
 #' @param dates dates to be offset
 #' @param n the amount of business days to offset
-#' @param cal an instance of \code{Calendar}
+#' @param cal the calendar's name
 #' 
 #' @details
 #' The argument \code{n} accepts a sequence of integers and if its length
@@ -31,12 +31,12 @@
 #' @name offset
 #' 
 #' @examples
-#' cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"))
+#' create.calendar("ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
 #' 
-#' offset("2013-01-02", 5, cal)
+#' offset("2013-01-02", 5, "ANBIMA")
 #' 
 #' # Once you have a default calendar set, cal does not need to be provided
-#' bizdays.options$set(default.calendar=cal)
+#' bizdays.options$set(default.calendar="ANBIMA")
 #' 
 #' dates <- seq(as.Date("2013-01-01"), as.Date("2013-01-05"), by="day")
 #' offset(dates, 1)

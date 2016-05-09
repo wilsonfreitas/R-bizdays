@@ -62,8 +62,8 @@ new_defaults <- function(value=list()) {
 #' }
 #' 
 #' @examples
-#' cal <- Calendar(name="Actual/365", dib=365)
-#' bizdays.options$set(default.calendar=cal)
+#' create.calendar(name="actual")
+#' bizdays.options$set(default.calendar="actual")
 #' bizdays("2013-07-12", "2013-07-22")
 #' 
 #' @export

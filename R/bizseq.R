@@ -4,7 +4,7 @@
 #'
 #' @param from the initial date
 #' @param to the final date (must be greater than \code{from})
-#' @param cal an instance of \code{Calendar}
+#' @param cal the calendar's name
 #' 
 #' @return
 #' A vector of \code{Date} objects that are business days according to the
@@ -18,8 +18,8 @@
 #' objects with ISO formatted dates.
 #' 
 #' @examples
-#' cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"))
-#' bizseq("2013-01-02", "2013-01-31", cal)
+#' create.calendar("ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
+#' bizseq("2013-01-02", "2013-01-31", "ANBIMA")
 #' 
 #' @export
 bizseq <- function(from, to, cal=bizdays.options$get('default.calendar')) UseMethod('bizseq')

@@ -72,10 +72,18 @@
 #' # named calendars can be accessed by its name
 #' create.calendar(name="Actual")
 #' bizdays('2016-01-01', '2016-03-14', 'Actual')
-Calendar <- function (holidays=integer(0),
-                      start.date=NULL, end.date=NULL, name=NULL,
-                      weekdays=NULL, dib=NULL, adjust.from=adjust.next,
-                      adjust.to=adjust.previous) {
+Calendar <- function(holidays=integer(0),
+                     start.date=NULL, end.date=NULL, name=NULL,
+                     weekdays=NULL, dib=NULL, adjust.from=adjust.next,
+                     adjust.to=adjust.previous) {
+  warning('This function will be deprecated, use create.calendar instead.')
+  Calendar_(holidays, start.date, end.date, name, weekdays, dib, adjust.from, adjust.to)
+}
+
+Calendar_ <- function (holidays=integer(0),
+                       start.date=NULL, end.date=NULL, name=NULL,
+                       weekdays=NULL, dib=NULL, adjust.from=adjust.next,
+                       adjust.to=adjust.previous) {
   
   if (length(holidays) != 0 && all(is.null(weekdays)))
     warning('You provided holidays without set weekdays.\n',
@@ -167,7 +175,7 @@ create.calendar <- function(name,
                             weekdays=NULL, dib=NULL, 
                             start.date=NULL, end.date=NULL,
                             adjust.from=adjust.next, adjust.to=adjust.previous) {
-  cal <- Calendar(holidays=holidays, weekdays=weekdays, dib=dib, name=name,
+  cal <- Calendar_(holidays=holidays, weekdays=weekdays, dib=dib, name=name,
                   start.date=start.date, end.date=end.date,
                   adjust.from=adjust.from, adjust.to=adjust.to)
   .CALENDAR_REGISTER[[cal$name]] <- cal
