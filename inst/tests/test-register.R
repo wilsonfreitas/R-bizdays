@@ -33,7 +33,7 @@ test_that('it should call calendar\'s methods with calendar\'s name', {
 test_that('it should set default calendar with calendar\'s name', {
   cal <- create.calendar("actual-calendar")
   bizdays.options$set(default.calendar='actual-calendar')
-  expect_is(bizdays.options$get('default.calendar'), 'Calendar')
+  expect_is(bizdays.options$get('default.calendar'), 'character')
   expect_output(bizdays.options$get('default.calendar'), 'actual-calendar')
 })
 
