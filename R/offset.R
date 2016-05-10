@@ -42,11 +42,11 @@
 #' offset(dates, 1)
 #' 
 #' @export
-offset <- function(dates, n, cal=bizdays.options$get('default.calendar')) UseMethod('add.bizdays')
+offset <- function(dates, n, cal) UseMethod('add.bizdays')
 
 #' @rdname offset
 #' @export
-add.bizdays <- function(dates, n, cal=bizdays.options$get('default.calendar')) UseMethod('add.bizdays')
+add.bizdays <- function(dates, n, cal) UseMethod('add.bizdays')
 
 #' @export
 add.bizdays.default <- function(dates, n, cal=bizdays.options$get('default.calendar')) {

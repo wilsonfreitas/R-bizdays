@@ -22,7 +22,7 @@
 #' bizseq("2013-01-02", "2013-01-31", "ANBIMA")
 #' 
 #' @export
-bizseq <- function(from, to, cal=bizdays.options$get('default.calendar')) UseMethod('bizseq')
+bizseq <- function(from, to, cal) UseMethod('bizseq')
 
 #' @export
 bizseq.default <- function(from, to, cal=bizdays.options$get('default.calendar')) {

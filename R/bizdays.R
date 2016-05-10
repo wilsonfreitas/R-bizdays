@@ -48,7 +48,7 @@
 #' bizdays(dates, "2014-01-31")
 #' 
 #' @export
-bizdays <- function(from, to, cal=bizdays.options$get('default.calendar')) UseMethod('bizdays')
+bizdays <- function(from, to, cal) UseMethod('bizdays')
 
 #' @export
 bizdays.default <- function(from, to, cal=bizdays.options$get('default.calendar')) {
@@ -129,7 +129,7 @@ bizdays.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) 
 #' bizdayse("2013-01-02", 3, "ANBIMA")
 #' 
 #' @export
-bizdayse <- function(dates, curd, cal=bizdays.options$get('default.calendar')) UseMethod('bizdayse')
+bizdayse <- function(dates, curd, cal) UseMethod('bizdayse')
 
 #' @export
 bizdayse.default <- function(dates, curd, cal=bizdays.options$get('default.calendar')) {
@@ -193,7 +193,7 @@ bizdayse.Date <- function(dates, curd, cal=bizdays.options$get('default.calendar
 #' bizyears("2013-01-02", "2013-01-31", "ANBIMA")
 #' 
 #' @export
-bizyears <- function(from, to, cal=bizdays.options$get('default.calendar')) UseMethod('bizyears')
+bizyears <- function(from, to, cal) UseMethod('bizyears')
 
 #' @export
 bizyears.default <- function(from, to, cal=bizdays.options$get('default.calendar')) {
@@ -243,7 +243,7 @@ bizyears.Date <- function(from, to, cal=bizdays.options$get('default.calendar'))
 #' bizyearse("2013-01-02", 3, "ANBIMA")
 #' 
 #' @export
-bizyearse <- function(dates, curd, cal=bizdays.options$get('default.calendar')) UseMethod('bizyearse')
+bizyearse <- function(dates, curd, cal) UseMethod('bizyearse')
 
 #' @export
 bizyearse.default <- function(dates, curd, cal=bizdays.options$get('default.calendar')) {

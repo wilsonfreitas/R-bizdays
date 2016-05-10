@@ -24,13 +24,13 @@ NULL
 #' @examples
 #' create.calendar("ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
 #' adjust.next("2013-01-01", "ANBIMA")
-adjust.next <- function(dates, cal=bizdays.options$get('default.calendar')) UseMethod("adjust.next")
+adjust.next <- function(dates, cal) UseMethod("adjust.next")
 
 #' @rdname adjust.date
 #' @export
 #' @examples
 #' following("2013-01-01", cal)
-following <- function(dates, cal=bizdays.options$get('default.calendar')) UseMethod("following")
+following <- function(dates, cal) UseMethod("following")
 
 #' @export
 adjust.next.default <- function(dates, cal=bizdays.options$get('default.calendar')) {
@@ -58,7 +58,7 @@ following.Date <- adjust.next.Date
 #' @export
 #' @examples
 #' modified.following("2016-01-31", cal)
-modified.following <- function(dates, cal=bizdays.options$get('default.calendar')) UseMethod("modified.following")
+modified.following <- function(dates, cal) UseMethod("modified.following")
 
 #' @export
 modified.following.default <- function(dates, cal=bizdays.options$get('default.calendar')) {
@@ -80,13 +80,13 @@ modified.following.Date <- function(dates, cal=bizdays.options$get('default.cale
 #' @export
 #' @examples
 #' adjust.previous("2013-01-01", cal)
-adjust.previous <- function(dates, cal=bizdays.options$get('default.calendar')) UseMethod("adjust.previous")
+adjust.previous <- function(dates, cal) UseMethod("adjust.previous")
 
 #' @rdname adjust.date
 #' @export
 #' @examples
 #' preceding("2013-01-01", cal)
-preceding <- function(dates, cal=bizdays.options$get('default.calendar')) UseMethod("preceding")
+preceding <- function(dates, cal) UseMethod("preceding")
 
 #' @export
 adjust.previous.default <- function(dates, cal=bizdays.options$get('default.calendar')) {
@@ -114,7 +114,7 @@ preceding.Date <- adjust.previous.Date
 #' @export
 #' @examples
 #' modified.preceding("2016-01-01", cal)
-modified.preceding <- function(dates, cal=bizdays.options$get('default.calendar')) UseMethod("modified.preceding")
+modified.preceding <- function(dates, cal) UseMethod("modified.preceding")
 
 #' @export
 modified.preceding.default <- function(dates, cal=bizdays.options$get('default.calendar')) {

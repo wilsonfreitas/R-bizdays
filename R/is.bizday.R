@@ -28,7 +28,7 @@
 #' is.bizday(dates)
 #' 
 #' @export
-is.bizday <- function(dates, cal=bizdays.options$get('default.calendar')) UseMethod("is.bizday")
+is.bizday <- function(dates, cal) UseMethod("is.bizday")
 
 #' @export
 is.bizday.default <- function(dates, cal=bizdays.options$get('default.calendar')) {
