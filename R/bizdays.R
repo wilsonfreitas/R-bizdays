@@ -36,12 +36,11 @@
 #' \code{\link{bizyears}} for business days values in years.
 #' 
 #' @examples
-#' create.calendar("ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
-#' 
-#' bizdays("2013-01-02", "2013-01-31", "ANBIMA")
+#' create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
+#' bizdays("2013-01-02", "2013-01-31", "Brazil/ANBIMA")
 #' 
 #' # Once you have a default calendar set, cal does not need to be provided
-#' bizdays.options$set(default.calendar="ANBIMA")
+#' bizdays.options$set(default.calendar="Brazil/ANBIMA")
 #' bizdays("2013-01-02", "2013-01-31")
 #' 
 #' dates <- bizseq("2013-01-01", "2013-01-10")
@@ -125,8 +124,8 @@ bizdays.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) 
 #' \code{\link{bizyearse}} for business days in years.
 #' 
 #' @examples
-#' create.calendar("ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
-#' bizdayse("2013-01-02", 3, "ANBIMA")
+#' create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
+#' bizdayse("2013-01-02", 3, "Brazil/ANBIMA")
 #' 
 #' @export
 bizdayse <- function(dates, curd, cal) UseMethod('bizdayse')
@@ -152,8 +151,8 @@ bizdayse.Date <- function(dates, curd, cal=bizdays.options$get('default.calendar
 #' \code{dib} attribute. This is equivalent to
 #' 
 #' \preformatted{
-#' create.calendar("ANBIMA", holidays, weekdays=c("saturday", "sunday"))
-#' bizdays("2013-01-02", "2013-01-31", "ANBIMA")
+#' create.calendar("BizdaysCalendar", holidays, weekdays=c("saturday", "sunday"))
+#' bizdays("2013-01-02", "2013-01-31", "BizdaysCalendar")
 #' }
 #' 
 #' @param from the initial dates
@@ -189,8 +188,8 @@ bizdayse.Date <- function(dates, curd, cal=bizdays.options$get('default.calendar
 #' \code{\link{bizdays}} for business days.
 #' 
 #' @examples
-#' create.calendar("ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
-#' bizyears("2013-01-02", "2013-01-31", "ANBIMA")
+#' create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"), dib=252)
+#' bizyears("2013-01-02", "2013-01-31", "Brazil/ANBIMA")
 #' 
 #' @export
 bizyears <- function(from, to, cal) UseMethod('bizyears')
@@ -239,8 +238,8 @@ bizyears.Date <- function(from, to, cal=bizdays.options$get('default.calendar'))
 #' \code{\link{bizdayse}} for business days.
 #' 
 #' @examples
-#' create.calendar("ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
-#' bizyearse("2013-01-02", 3, "ANBIMA")
+#' create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"), dib=252)
+#' bizyearse("2013-01-02", 3, "Brazil/ANBIMA")
 #' 
 #' @export
 bizyearse <- function(dates, curd, cal) UseMethod('bizyearse')

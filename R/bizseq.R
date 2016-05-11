@@ -18,8 +18,8 @@
 #' objects with ISO formatted dates.
 #' 
 #' @examples
-#' create.calendar("ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
-#' bizseq("2013-01-02", "2013-01-31", "ANBIMA")
+#' create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
+#' bizseq("2013-01-02", "2013-01-31", "Brazil/ANBIMA")
 #' 
 #' @export
 bizseq <- function(from, to, cal) UseMethod('bizseq')

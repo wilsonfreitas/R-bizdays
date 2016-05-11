@@ -1,14 +1,11 @@
 
 # Registering calendars
 
-# RQuantLib Calendars
-# Argentina, Australia, Brazil, Canada and Canada/Settlement, Canada/TSX, China, CzechRepublic, Denmark, Finland, Germany and Germany/FrankfurtStockExchange, Germany/Settlement, Germany/Xetra, Germany/Eurex, HongKong, Hungary, Iceland, India, Indonesia, Italy and Italy/Settlement, Italy/Exchange, Japan, Mexico, NewZealand, Norway, Poland, Russia, SaudiArabia, Singapore, Slovakia, SouthAfrica, SouthKorea, SouthKorea/KRX, Sweden, Switzerland, Taiwan, Turkey, Ukraine, UnitedKingdom and UnitedKingdom/Settlement, UnitedKingdom/Exchange, UnitedKingdom/Metals, UnitedStates and UnitedStates/Settlement, UnitedStates/NYSE, UnitedStates/GovernmentBond, UnitedStates/NERC and WeekendsOnly
-
 local({
   create.calendar("actual")
   localenv <- new.env()
   data("holidaysANBIMA", envir=localenv)
-  create.calendar("ANBIMA", localenv$holidaysANBIMA, weekdays=c('saturday', 'sunday'))
+  create.calendar("Brazil/ANBIMA", localenv$holidaysANBIMA, weekdays=c('saturday', 'sunday'))
   create.calendar("weekends", weekdays=c('saturday', 'sunday'))
   bizdays.options$set(default.calendar='actual')
 })

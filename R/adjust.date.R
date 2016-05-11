@@ -22,8 +22,8 @@ NULL
 #' @rdname adjust.date
 #' @export
 #' @examples
-#' create.calendar("ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
-#' adjust.next("2013-01-01", "ANBIMA")
+#' cal <- create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
+#' adjust.next("2013-01-01", "Brazil/ANBIMA")
 adjust.next <- function(dates, cal) UseMethod("adjust.next")
 
 #' @rdname adjust.date
