@@ -28,7 +28,7 @@ all registered calendars.
 }
 \examples{
 # ACTUAL calendar
-cal <- create.calendar("Actual", dib=365)
+cal <- create.calendar("Actual")
 cal <- calendars()[["Actual"]]
 remove.calendars("Actual")
 }

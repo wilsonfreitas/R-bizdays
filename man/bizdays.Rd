@@ -4,14 +4,14 @@
 \alias{bizdays}
 \title{Computes business days between two dates.}
 \usage{
-bizdays(from, to, cal = bizdays.options$get("default.calendar"))
+bizdays(from, to, cal)
 }
 \arguments{
 \item{from}{the initial dates}
 
 \item{to}{the final dates}
 
-\item{cal}{an instance of \code{Calendar}}
+\item{cal}{the calendar's name}
 }
 \value{
 \code{integer} objects representing the amount of business days.
@@ -48,12 +48,11 @@ A common and useful setting is \code{adjust.to=adjust.next} which moves
 expiring maturities to the next business day, once it is not.
 }
 \examples{
-cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"))
-
-bizdays("2013-01-02", "2013-01-31", cal)
+create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
+bizdays("2013-01-02", "2013-01-31", "Brazil/ANBIMA")
 
 # Once you have a default calendar set, cal does not need to be provided
-bizdays.options$set(default.calendar=cal)
+bizdays.options$set(default.calendar="Brazil/ANBIMA")
 bizdays("2013-01-02", "2013-01-31")
 
 dates <- bizseq("2013-01-01", "2013-01-10")

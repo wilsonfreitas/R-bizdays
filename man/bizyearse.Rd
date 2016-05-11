@@ -4,7 +4,7 @@
 \alias{bizyearse}
 \title{Business days and current days equivalence in years}
 \usage{
-bizyearse(dates, curd, cal = bizdays.options$get("default.calendar"))
+bizyearse(dates, curd, cal)
 }
 \arguments{
 \item{dates}{the initial dates}
@@ -37,8 +37,8 @@ numbers can be provided and once those vectors differs in length the recycle
 rule is applied.
 }
 \examples{
-cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"), dib=252)
-bizyearse("2013-01-02", 3, cal)
+create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"), dib=252)
+bizyearse("2013-01-02", 3, "Brazil/ANBIMA")
 
 }
 \seealso{

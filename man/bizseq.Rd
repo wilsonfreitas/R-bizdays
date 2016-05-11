@@ -4,14 +4,14 @@
 \alias{bizseq}
 \title{Create a sequence of business days}
 \usage{
-bizseq(from, to, cal = bizdays.options$get("default.calendar"))
+bizseq(from, to, cal)
 }
 \arguments{
 \item{from}{the initial date}
 
 \item{to}{the final date (must be greater than \code{from})}
 
-\item{cal}{an instance of \code{Calendar}}
+\item{cal}{the calendar's name}
 }
 \value{
 A vector of \code{Date} objects that are business days according to the
@@ -29,8 +29,8 @@ object that returns a valid \code{Date} object when passed through
 objects with ISO formatted dates.
 }
 \examples{
-cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"))
-bizseq("2013-01-02", "2013-01-31", cal)
+create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
+bizseq("2013-01-02", "2013-01-31", "Brazil/ANBIMA")
 
 }
 

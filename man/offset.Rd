@@ -5,16 +5,16 @@
 \alias{offset}
 \title{Offsets the given \code{dates} by \code{n} business days}
 \usage{
-offset(dates, n, cal = bizdays.options$get("default.calendar"))
+offset(dates, n, cal)
 
-add.bizdays(dates, n, cal = bizdays.options$get("default.calendar"))
+add.bizdays(dates, n, cal)
 }
 \arguments{
 \item{dates}{dates to be offset}
 
 \item{n}{the amount of business days to offset}
 
-\item{cal}{an instance of \code{Calendar}}
+\item{cal}{the calendar's name}
 }
 \value{
 \code{Date} objects offset by the amount of days defined.
@@ -45,12 +45,11 @@ numbers can be provided and once those vectors differs in length the recycle
 rule is applied.
 }
 \examples{
-cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"))
-
-offset("2013-01-02", 5, cal)
+create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
+offset("2013-01-02", 5, "Brazil/ANBIMA")
 
 # Once you have a default calendar set, cal does not need to be provided
-bizdays.options$set(default.calendar=cal)
+bizdays.options$set(default.calendar="Brazil/ANBIMA")
 
 dates <- seq(as.Date("2013-01-01"), as.Date("2013-01-05"), by="day")
 offset(dates, 1)

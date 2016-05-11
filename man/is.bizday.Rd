@@ -4,12 +4,12 @@
 \alias{is.bizday}
 \title{Checks if the given dates are business days.}
 \usage{
-is.bizday(dates, cal = bizdays.options$get("default.calendar"))
+is.bizday(dates, cal)
 }
 \arguments{
 \item{dates}{dates to be checked}
 
-\item{cal}{an instance of \code{Calendar}}
+\item{cal}{the calendar's name}
 }
 \value{
 \code{logical} objects informing that given dates are or are not business days.
@@ -27,12 +27,11 @@ object that returns a valid \code{Date} object when passed through
 objects with ISO formatted dates.
 }
 \examples{
-cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"))
-
-is.bizday("2013-01-02", cal)
+create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
+is.bizday("2013-01-02", "Brazil/ANBIMA")
 
 # Once you have a default calendar set, cal does not need to be provided
-bizdays.options$set(default.calendar=cal)
+bizdays.options$set(default.calendar="Brazil/ANBIMA")
 
 dates <- seq(as.Date("2013-01-01"), as.Date("2013-01-05"), by="day")
 is.bizday(dates)

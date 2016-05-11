@@ -4,14 +4,14 @@
 \alias{bizyears}
 \title{Computes business days between two dates in years}
 \usage{
-bizyears(from, to, cal = bizdays.options$get("default.calendar"))
+bizyears(from, to, cal)
 }
 \arguments{
 \item{from}{the initial dates}
 
 \item{to}{the final dates}
 
-\item{cal}{an instance of \code{Calendar}}
+\item{cal}{the calendar's name}
 }
 \value{
 \code{numeric} objects representing the amount of business days in years.
@@ -25,8 +25,8 @@ The business days are converted to years by a division by \code{Calendar}'s
 \code{dib} attribute. This is equivalent to
 
 \preformatted{
-cal <- Calendar(holidays, weekdays=c("saturday", "sunday"), dib=252)
-bizdays("2013-01-02", "2013-01-31", cal)/cal$dib
+create.calendar("BizdaysCalendar", holidays, weekdays=c("saturday", "sunday"))
+bizdays("2013-01-02", "2013-01-31", "BizdaysCalendar")
 }
 }
 \section{Date types accepted}{
@@ -57,8 +57,8 @@ A common and useful setting is \code{adjust.to=adjust.next} which moves
 expiring maturities to the next business day, once it is not.
 }
 \examples{
-cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"), dib=252)
-bizyears("2013-01-02", "2013-01-31", cal)
+create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"), dib=252)
+bizyears("2013-01-02", "2013-01-31", "Brazil/ANBIMA")
 
 }
 \seealso{

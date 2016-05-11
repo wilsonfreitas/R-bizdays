@@ -4,14 +4,14 @@
 \alias{bizdayse}
 \title{Business days and current days equivalence}
 \usage{
-bizdayse(dates, curd, cal = bizdays.options$get("default.calendar"))
+bizdayse(dates, curd, cal)
 }
 \arguments{
 \item{dates}{the reference dates}
 
 \item{curd}{the amount of current days}
 
-\item{cal}{an instance of \code{Calendar}}
+\item{cal}{the calendar's name}
 }
 \value{
 An \code{integer} representing an amount of business days.
@@ -51,8 +51,8 @@ numbers can be provided and once those vectors differs in length the recycle
 rule is applied.
 }
 \examples{
-cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"), dib=252)
-bizdayse("2013-01-02", 3, cal)
+create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
+bizdayse("2013-01-02", 3, "Brazil/ANBIMA")
 
 }
 \seealso{

@@ -79,10 +79,10 @@ Given that, naming calendars is strongly recommended.
 }
 \examples{
 # ANBIMA's calendar (from Brazil)
-cal <- create.calendar("ANBIMA", holidays=holidaysANBIMA, weekdays=c("saturday", "sunday"), dib=252)
+cal <- create.calendar("Brazil/ANBIMA", holidays=holidaysANBIMA, weekdays=c("saturday", "sunday"))
 
 # ACTUAL calendar
-cal <- create.calendar("Actual", dib=365)
+cal <- create.calendar("Actual")
 
 # named calendars can be accessed by its name
 create.calendar(name="Actual")

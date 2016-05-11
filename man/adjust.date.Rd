@@ -10,17 +10,17 @@
 \alias{preceding}
 \title{Adjusts the given dates to the next/previous business day}
 \usage{
-adjust.next(dates, cal = bizdays.options$get("default.calendar"))
+adjust.next(dates, cal)
 
-following(dates, cal = bizdays.options$get("default.calendar"))
+following(dates, cal)
 
-modified.following(dates, cal = bizdays.options$get("default.calendar"))
+modified.following(dates, cal)
 
-adjust.previous(dates, cal = bizdays.options$get("default.calendar"))
+adjust.previous(dates, cal)
 
-preceding(dates, cal = bizdays.options$get("default.calendar"))
+preceding(dates, cal)
 
-modified.preceding(dates, cal = bizdays.options$get("default.calendar"))
+modified.preceding(dates, cal)
 }
 \arguments{
 \item{dates}{dates to be adjusted}
@@ -43,8 +43,8 @@ object that returns a valid \code{Date} object when passed through
 objects with ISO formatted dates.
 }
 \examples{
-cal <- Calendar(holidaysANBIMA, weekdays=c("saturday", "sunday"))
-adjust.next("2013-01-01", cal)
+cal <- create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
+adjust.next("2013-01-01", "Brazil/ANBIMA")
 following("2013-01-01", cal)
 modified.following("2016-01-31", cal)
 adjust.previous("2013-01-01", cal)
