@@ -13,8 +13,6 @@
 #' Defining the weekend as nonworking days is \code{weekdays=c("saturday", "sunday")}.
 #' @param start.date the date which the calendar starts
 #' @param end.date the date which the calendar ends
-#' @param dib a single numeric variable which indicates the amount of days
-#' within a year (\code{dib} stands for days in base).
 #' @param adjust.from is a function to be used with the \code{bizdays}'s \code{from} argument.
 #' That function adjusts the argument if it is a nonworking day according to calendar.
 #' @param adjust.to is a function to be used with the \code{bizdays}'s \code{to} argument.
@@ -32,15 +30,11 @@
 #' \code{sunday}, \code{monday}, \code{thuesday}, \code{wednesday}, \code{thursday},
 #' \code{friday}, \code{saturday}).
 #' This argument defaults to \code{NULL} because the default intended behavior for 
-#' \code{Calendar} returns an \emph{actual} calendar, so calling \code{Calendar(dib=365)} 
-#' returns a \emph{actual/365} calendar and \code{Calendar(dib=360)} and \emph{actual/360}
+#' \code{create.calendar} returns an \emph{actual} calendar, so calling \code{create.calendar(name="xxx")} 
+#' returns a \emph{actual} calendar named \emph{xxx}.
 #' (for more calendars see \href{http://en.wikipedia.org/wiki/Day_count_convention}{Day Count Convention})
 #' To define the weekend as the nonworking weekdays one could simply
 #' use \code{weekdays=c("saturday", "sunday")}.
-#' 
-#' \code{dib} reffers to \emph{days in base} and represents the amount of days within a year.
-#' That is necessary for defining Day Count Conventions and for accounting annualized periods 
-#' (see \code{\link{bizyears}}).
 #' 
 #' The arguments \code{adjust.from} and \code{adjust.to} are used to adjust \code{bizdays}' arguments
 #' \code{from} and \code{to}, respectively.
@@ -57,7 +51,7 @@
 #' Given that, naming calendars is strongly recommended.
 #' 
 #' @seealso
-#' \code{\link{calendars}}, \code{\link{bizdays}}, \code{\link{bizyears}}.
+#' \code{\link{calendars}}, \code{\link{bizdays}}
 #' 
 #' @name calendar-class
 #' 
@@ -74,15 +68,15 @@
 #' bizdays('2016-01-01', '2016-03-14', 'Actual')
 Calendar <- function(holidays=integer(0),
                      start.date=NULL, end.date=NULL, name=NULL,
-                     weekdays=NULL, dib=NULL, adjust.from=adjust.next,
+                     weekdays=NULL, adjust.from=adjust.next,
                      adjust.to=adjust.previous) {
   warning('This function will be deprecated, use create.calendar instead.')
-  Calendar_(holidays, start.date, end.date, name, weekdays, dib, adjust.from, adjust.to)
+  Calendar_(holidays, start.date, end.date, name, weekdays, adjust.from, adjust.to)
 }
 
 Calendar_ <- function (holidays=integer(0),
                        start.date=NULL, end.date=NULL, name=NULL,
-                       weekdays=NULL, dib=NULL, adjust.from=adjust.next,
+                       weekdays=NULL, adjust.from=adjust.next,
                        adjust.to=adjust.previous) {
   
   if (length(holidays) != 0 && all(is.null(weekdays)))
@@ -92,8 +86,6 @@ Calendar_ <- function (holidays=integer(0),
   # adjust functions
   that$adjust.from <- adjust.from
   that$adjust.to <- adjust.to
-  # dib
-  that$dib <- dib
   # weekdays
   weekdays_codes <- list(monday=4, tuesday=5, wednesday=6, thursday=0,
                          friday=1, saturday=2, sunday=3)
@@ -172,10 +164,10 @@ Calendar_ <- function (holidays=integer(0),
 #' @rdname calendar-class
 create.calendar <- function(name,
                             holidays=integer(0),
-                            weekdays=NULL, dib=NULL, 
+                            weekdays=NULL, 
                             start.date=NULL, end.date=NULL,
                             adjust.from=adjust.next, adjust.to=adjust.previous) {
-  cal <- Calendar_(holidays=holidays, weekdays=weekdays, dib=dib, name=name,
+  cal <- Calendar_(holidays=holidays, weekdays=weekdays, name=name,
                   start.date=start.date, end.date=end.date,
                   adjust.from=adjust.from, adjust.to=adjust.to)
   .CALENDAR_REGISTER[[cal$name]] <- cal
@@ -189,7 +181,6 @@ print.Calendar <- function(x, ...) {
       '\nRange:', format(as.Date(cal$start.date, origin='1970-01-01'), '%Y-%m-%d'),
       'to', format(as.Date(cal$end.date, origin='1970-01-01'), '%Y-%m-%d'),
       '\nweekdays:', cal$weekdays,
-      '\ndib:', cal$dib,
       '\n')
   invisible(x)
 }

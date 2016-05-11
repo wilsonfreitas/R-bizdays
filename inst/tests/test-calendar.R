@@ -212,7 +212,6 @@ test_that('it should pass NULL calendar', {
   expect_error(adjust.next(as.Date('2013-01-01'), NULL), 'Given calendar is NULL')
   expect_error(preceding(as.Date('2013-01-01'), NULL), 'Given calendar is NULL')
   expect_error(bizdays('2013-08-13', '2025-01-02', NULL), 'Given calendar is NULL')
-  expect_error(bizyears('2013-08-13', '2025-01-02', NULL), 'Given calendar is NULL')
   expect_error(is.bizday('2013-08-13', NULL), 'Given calendar is NULL')
   expect_error(bizseq('2013-01-01', '2013-01-10', NULL), 'Given calendar is NULL')
   expect_error(offset('2013-01-10', 30, NULL), 'Given calendar is NULL')

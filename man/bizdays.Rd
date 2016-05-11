@@ -59,7 +59,4 @@ dates <- bizseq("2013-01-01", "2013-01-10")
 bizdays(dates, "2014-01-31")
 
 }
-\seealso{
-\code{\link{bizyears}} for business days values in years.
-}
 

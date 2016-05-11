@@ -54,8 +54,7 @@ new_defaults <- function(value=list()) {
 #' \itemize{
 #' \item{\code{default.calendar}: }{the default calendar to be used with the
 #' functions: \code{bizdays}, \code{bizdayse}, \code{adjust.next},
-#' \code{adjust.previous}, \code{is.bizday}, \code{bizseq}, \code{offset},
-#' \code{bizyears}, \code{bizyearse}}
+#' \code{adjust.previous}, \code{is.bizday}, \code{bizseq}, \code{offset}.}
 #' }
 #' 
 #' @examples

@@ -32,9 +32,6 @@
 #' @return
 #' \code{integer} objects representing the amount of business days.
 #' 
-#' @seealso
-#' \code{\link{bizyears}} for business days values in years.
-#' 
 #' @examples
 #' create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
 #' bizdays("2013-01-02", "2013-01-31", "Brazil/ANBIMA")
@@ -120,9 +117,6 @@ bizdays.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) 
 #' numbers can be provided and once those vectors differs in length the recycle
 #' rule is applied.
 #' 
-#' @seealso
-#' \code{\link{bizyearse}} for business days in years.
-#' 
 #' @examples
 #' create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
 #' bizdayse("2013-01-02", 3, "Brazil/ANBIMA")
@@ -141,116 +135,3 @@ bizdayse.Date <- function(dates, curd, cal=bizdays.options$get('default.calendar
   bizdays(dates, dates+curd, cal)
 }
 
-#' Computes business days between two dates in years
-#'
-#' Returns the business days between 2 dates in years taking into account the
-#' provided \code{Calendar} (or \code{bizdays.options$get("default.calendar")}).
-#' 
-#' @details
-#' The business days are converted to years by a division by \code{Calendar}'s
-#' \code{dib} attribute. This is equivalent to
-#' 
-#' \preformatted{
-#' create.calendar("BizdaysCalendar", holidays, weekdays=c("saturday", "sunday"))
-#' bizdays("2013-01-02", "2013-01-31", "BizdaysCalendar")
-#' }
-#' 
-#' @param from the initial dates
-#' @param to the final dates
-#' @param cal the calendar's name
-#' 
-#' @return
-#' \code{numeric} objects representing the amount of business days in years.
-#' 
-#' @section Date types accepted:
-#' 
-#' The arguments \code{from} and \code{to} accept \code{Date} objects and any
-#' object that returns a valid \code{Date} object when passed through
-#' \code{as.Date}, which include all \code{POSIX*} classes and \code{character}
-#' objects with ISO formatted dates.
-#' 
-#' @section Recycle rule:
-#' 
-#' These arguments handle the recycle rule so vectors of dates can be provided
-#' and once those vectors differs in length the recycle rule is applied.
-#' 
-#' @section Date adjustment:
-#' 
-#' \code{from} and \code{to} are adjusted when nonworking dates are
-#' provided. Since \code{bizdays} function returns the amount of business days
-#' between 2 dates, it must start and end in business days. 
-#' The default behavior, that is defined in \code{Calendar}'s instantiation with
-#' \code{adjust.from} and \code{adjust.to}, reproduces the Excel's NETWORKDAYS.
-#' A common and useful setting is \code{adjust.to=adjust.next} which moves
-#' expiring maturities to the next business day, once it is not.
-#' 
-#' @seealso
-#' \code{\link{bizdays}} for business days.
-#' 
-#' @examples
-#' create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"), dib=252)
-#' bizyears("2013-01-02", "2013-01-31", "Brazil/ANBIMA")
-#' 
-#' @export
-bizyears <- function(from, to, cal) UseMethod('bizyears')
-
-#' @export
-bizyears.default <- function(from, to, cal=bizdays.options$get('default.calendar')) {
-  from <- as.Date(from)
-  bizyears(from, to, cal)
-}
-
-#' @export
-bizyears.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
-  cal <- check_calendar(cal)
-  if (is.null(cal$dib))
-    stop('days-in-base (dib) undefined')
-  to <- as.Date(to)
-  bizdays(from, to, cal)/cal$dib
-}
-
-#' Business days and current days equivalence in years
-#' 
-#' \code{bizyearse} is a counterparty of \code{bizdayse} which returns the
-#' amount of business days in years.
-#' 
-#' @param dates the initial dates
-#' @param curd the amount of current days
-#' @param cal an instance of \code{Calendar}
-#' 
-#' @return
-#' \code{numeric} objects representing the amount of business days in years.
-#' 
-#' @section Date types accepted:
-#' 
-#' The argument \code{dates} accepts \code{Date} objects and any
-#' object that returns a valid \code{Date} object when passed through
-#' \code{as.Date}, which include all \code{POSIX*} classes and \code{character}
-#' objects with ISO formatted dates.
-#' 
-#' @section Recycle rule:
-#' 
-#' These arguments handle the recycle rule so a vector of dates and a vector of
-#' numbers can be provided and once those vectors differs in length the recycle
-#' rule is applied.
-#' 
-#' @seealso
-#' \code{\link{bizdayse}} for business days.
-#' 
-#' @examples
-#' create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"), dib=252)
-#' bizyearse("2013-01-02", 3, "Brazil/ANBIMA")
-#' 
-#' @export
-bizyearse <- function(dates, curd, cal) UseMethod('bizyearse')
-
-#' @export
-bizyearse.default <- function(dates, curd, cal=bizdays.options$get('default.calendar')) {
-  dates <- as.Date(dates)
-  bizyearse(dates, curd, cal)
-}
-
-#' @export
-bizyearse.Date <- function(dates, curd, cal=bizdays.options$get('default.calendar')) {
-  bizyears(dates, dates+curd, cal)
-}

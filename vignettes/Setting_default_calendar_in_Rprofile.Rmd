@@ -16,7 +16,7 @@ Since I am always using `holidaysANBIMA` holidays I create and set the default c
 
 ```{r, message=FALSE}
 library(bizdays)
-cal <- Calendar(holidays=holidaysANBIMA, name='ANBIMA', weekdays=c('saturday', 'sunday'), dib=252)
+cal <- Calendar(holidays=holidaysANBIMA, name='ANBIMA', weekdays=c('saturday', 'sunday'))
 bizdays.options$set(default.calendar=cal)
 ```
 
@@ -32,7 +32,6 @@ bizdays(from_dates, to_dates)
 And it works with any of `bizdays` functions:
 
 - `bizdays`, `bizdayse`
-- `bizyears`, `bizyearse`
 - `adjust.next`, `adjust.previous`
 - `bizseq`
 - `is.bizday`

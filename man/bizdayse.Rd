@@ -55,7 +55,4 @@ create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"
 bizdayse("2013-01-02", 3, "Brazil/ANBIMA")
 
 }
-\seealso{
-\code{\link{bizyearse}} for business days in years.
-}
 

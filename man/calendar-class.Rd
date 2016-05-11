@@ -7,10 +7,10 @@
 \title{Creates calendars}
 \usage{
 Calendar(holidays = integer(0), start.date = NULL, end.date = NULL,
-  name = NULL, weekdays = NULL, dib = NULL, adjust.from = adjust.next,
+  name = NULL, weekdays = NULL, adjust.from = adjust.next,
   adjust.to = adjust.previous)
 
-create.calendar(name, holidays = integer(0), weekdays = NULL, dib = NULL,
+create.calendar(name, holidays = integer(0), weekdays = NULL,
   start.date = NULL, end.date = NULL, adjust.from = adjust.next,
   adjust.to = adjust.previous)
 }
@@ -28,9 +28,6 @@ non-working days (defaults to \code{NULL} which represents an actual
 calendar). It accepts: \code{sunday}, \code{monday}, \code{thuesday}, 
 \code{wednesday}, \code{thursday}, \code{friday}, \code{saturday}. 
 Defining the weekend as nonworking days is \code{weekdays=c("saturday", "sunday")}.}
-
-\item{dib}{a single numeric variable which indicates the amount of days
-within a year (\code{dib} stands for days in base).}
 
 \item{adjust.from}{is a function to be used with the \code{bizdays}'s \code{from} argument.
 That function adjusts the argument if it is a nonworking day according to calendar.}
@@ -53,15 +50,11 @@ it differently.
 \code{sunday}, \code{monday}, \code{thuesday}, \code{wednesday}, \code{thursday},
 \code{friday}, \code{saturday}).
 This argument defaults to \code{NULL} because the default intended behavior for 
-\code{Calendar} returns an \emph{actual} calendar, so calling \code{Calendar(dib=365)} 
-returns a \emph{actual/365} calendar and \code{Calendar(dib=360)} and \emph{actual/360}
+\code{create.calendar} returns an \emph{actual} calendar, so calling \code{create.calendar(name="xxx")} 
+returns a \emph{actual} calendar named \emph{xxx}.
 (for more calendars see \href{http://en.wikipedia.org/wiki/Day_count_convention}{Day Count Convention})
 To define the weekend as the nonworking weekdays one could simply
 use \code{weekdays=c("saturday", "sunday")}.
-
-\code{dib} reffers to \emph{days in base} and represents the amount of days within a year.
-That is necessary for defining Day Count Conventions and for accounting annualized periods 
-(see \code{\link{bizyears}}).
 
 The arguments \code{adjust.from} and \code{adjust.to} are used to adjust \code{bizdays}' arguments
 \code{from} and \code{to}, respectively.
@@ -89,6 +82,6 @@ create.calendar(name="Actual")
 bizdays('2016-01-01', '2016-03-14', 'Actual')
 }
 \seealso{
-\code{\link{calendars}}, \code{\link{bizdays}}, \code{\link{bizyears}}.
+\code{\link{calendars}}, \code{\link{bizdays}}
 }
 
