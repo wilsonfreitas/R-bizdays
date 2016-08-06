@@ -133,7 +133,7 @@ load_quantlib_calendars <- function(ql_calendars=NULL, from, to) {
   for (cal in ql_calendars) {
     cal_name <- paste0("QuantLib/", cal)
     holidays_ <- RQuantLib::getHolidayList("Brazil", as.Date(from), as.Date(to))
-    create.calendar(holidays_, weekdays=c('saturday', 'sunday'), name=cal_name)
+    create.calendar(holidays_, weekdays=c('saturday', 'sunday'), name=cal_name, start.date=from, end.date=to)
     message("Calendar ", cal_name, " loaded")
   }
 }
