@@ -208,7 +208,7 @@ print.CalendarRegister <- function(x, ...) {
 #' @param cals character vector of calendars names
 #' 
 #' @details
-#' \code{calendar} returns the object which represents the calendars register.
+#' \code{calendars} returns the object which represents the calendars register.
 #' Since the register inherits from \code{environment}, the calendars are 
 #' retrieved with the \code{[[} operator.
 #' But the register object has its own \code{print} generic which helps listing 
