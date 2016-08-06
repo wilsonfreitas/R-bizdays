@@ -1,15 +1,12 @@
-language: c
+language: r
+cache: packages
+sudo: false
+r:
+  - oldrel
+  - release
 
-before_install:
-  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-  - chmod 755 ./travis-tool.sh
-  - ./travis-tool.sh bootstrap
+addons:
+  apt:
+    packages:
+      - libquantlib-1.2
 
-install:
-  - export _R_CHECK_FORCE_SUGGESTS_=FALSE
-  - ./travis-tool.sh install_deps
-
-script: ./travis-tool.sh run_tests
-
-after_failure:
-  - ./travis-tool.sh dump_logs
