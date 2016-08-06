@@ -55,7 +55,6 @@
 #' 
 #' @name calendar-class
 #' 
-#' @export
 #' @examples
 #' # ANBIMA's calendar (from Brazil)
 #' cal <- create.calendar("Brazil/ANBIMA", holidays=holidaysANBIMA, weekdays=c("saturday", "sunday"))
@@ -66,6 +65,10 @@
 #' # named calendars can be accessed by its name
 #' create.calendar(name="Actual")
 #' bizdays('2016-01-01', '2016-03-14', 'Actual')
+NULL
+
+#' @export
+#' @rdname calendar-class
 Calendar <- function(holidays=integer(0),
                      start.date=NULL, end.date=NULL, name=NULL,
                      weekdays=NULL, adjust.from=adjust.next,
