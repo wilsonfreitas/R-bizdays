@@ -1,3 +1,106 @@
+#' Calendars from other packages
+#' 
+#' The packages RQuantLib and timeDate (Rmetrics) have functions to compute business days between 2 dates according to a pre-defined calendar.
+#' bizdays creates calendars based on these functions.
+#' 
+#' @param ql_calendars (QuantLib only) A character vector with the names of QuantLib's calendars. This parameter defaults to NULL, which loads all calendars.
+#' @param from (QuantLib only) the start date
+#' @param to (QuantLib only) the end date
+#' @param year (timeDate Rmetrics only) a vector with years to create the calendars.
+#' 
+#' @details
+#' To load QuantLib's calendars use \code{load_quantlib_calendars} defining which
+#' calendar has to be loaded by its name and the range of dates the calendar has to handle.
+#' All QuantLib calendars have the \code{QuantLib} preffix.
+#' 
+#' To load Rmetrics' calendars use \code{load_rmetrics_calendars} defining the 
+#' years the calendar has to handle.
+#' All Rmetrics calendars have the \code{Rmetrics} preffix.
+#' 
+#' @section List of calendars:
+#' 
+#' QuantLib Calendars:
+#' 
+#' \itemize{
+#' \item QuantLib/Argentina
+#' \item QuantLib/Australia
+#' \item QuantLib/Brazil
+#' \item QuantLib/Canada
+#' \item QuantLib/Canada/Settlement
+#' \item QuantLib/Canada/TSX
+#' \item QuantLib/China
+#' \item QuantLib/CzechRepublic
+#' \item QuantLib/Denmark
+#' \item QuantLib/Finland
+#' \item QuantLib/Germany
+#' \item QuantLib/Germany/FrankfurtStockExchange
+#' \item QuantLib/Germany/Settlement
+#' \item QuantLib/Germany/Xetra
+#' \item QuantLib/Germany/Eurex
+#' \item QuantLib/HongKong
+#' \item QuantLib/Hungary
+#' \item QuantLib/Iceland
+#' \item QuantLib/India
+#' \item QuantLib/Indonesia
+#' \item QuantLib/Italy
+#' \item QuantLib/Italy/Settlement
+#' \item QuantLib/Italy/Exchange
+#' \item QuantLib/Japan
+#' \item QuantLib/Mexico
+#' \item QuantLib/NewZealand
+#' \item QuantLib/Norway
+#' \item QuantLib/Poland
+#' \item QuantLib/Russia
+#' \item QuantLib/SaudiArabia
+#' \item QuantLib/Singapore
+#' \item QuantLib/Slovakia
+#' \item QuantLib/SouthAfrica
+#' \item QuantLib/SouthKorea
+#' \item QuantLib/SouthKorea/KRX
+#' \item QuantLib/Sweden
+#' \item QuantLib/Switzerland
+#' \item QuantLib/Taiwan
+#' \item QuantLib/Turkey
+#' \item QuantLib/Ukraine
+#' \item QuantLib/UnitedKingdom
+#' \item QuantLib/UnitedKingdom/Settlement
+#' \item QuantLib/UnitedKingdom/Exchange
+#' \item QuantLib/UnitedKingdom/Metals
+#' \item QuantLib/UnitedStates
+#' \item QuantLib/UnitedStates/Settlement
+#' \item QuantLib/UnitedStates/NYSE
+#' \item QuantLib/UnitedStates/GovernmentBond
+#' \item QuantLib/UnitedStates/NERC
+#' }
+#' 
+#' Rmetrics Calendars:
+#' 
+#' \itemize{
+#' \item Calendar Rmetrics/LONDON
+#' \item Calendar Rmetrics/NERC
+#' \item Calendar Rmetrics/NYSE
+#' \item Calendar Rmetrics/TSX
+#' \item Calendar Rmetrics/ZURICH
+#' }
+#' 
+#' @name other-calendars
+#' @examples 
+#' # loading Argentina calendar
+#' load_quantlib_calendars('Argentina', from='2000-01-01', to='2078-12-31')
+#' bizdays('2016-01-01', '2016-03-14', 'QuantLib/Argentina')
+#' # loading 2 calendars
+#' load_quantlib_calendars(c('UnitedStates/NYSE', 'UnitedKingdom/Settlement'),
+#'                         from='2000-01-01', to='2078-12-31')
+#' bizdays('2016-01-01', '2016-03-14', 'QuantLib/UnitedStates/NYSE')
+#' # loading all QuantLib's 49 calendars (takes a few seconds)
+#' load_quantlib_calendars(from='2000-01-01', to='2078-12-31')
+#' bizdays('2016-01-01', '2016-03-14', 'QuantLib/Brazil')
+#' 
+#' # loading all Rmetrics calendar 
+#' load_rmetrics_calendars(2000:2078)
+#' bizdays('2016-01-01', '2016-03-14', 'Rmetrics/NERC')
+#' bizdays('2016-01-01', '2016-03-14', 'Rmetrics/NYSE')
+NULL
 
 # Registering calendars
 
@@ -10,6 +113,7 @@ local({
   bizdays.options$set(default.calendar='actual')
 })
 
+#' @rdname other-calendars
 #' @export
 load_quantlib_calendars <- function(ql_calendars=NULL, from, to) {
   if (is.null(ql_calendars))
@@ -34,6 +138,7 @@ load_quantlib_calendars <- function(ql_calendars=NULL, from, to) {
   }
 }
 
+#' @rdname other-calendars
 #' @export
 load_rmetrics_calendars <- function(year) {
   holidays_ <- as.Date(timeDate::holidayLONDON(year))
