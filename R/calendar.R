@@ -169,7 +169,7 @@ create.calendar <- function(name,
                             holidays=integer(0),
                             weekdays=NULL, 
                             start.date=NULL, end.date=NULL,
-                            adjust.from=adjust.next, adjust.to=adjust.previous) {
+                            adjust.from=adjust.none, adjust.to=adjust.none) {
   cal <- Calendar_(holidays=holidays, weekdays=weekdays, name=name,
                   start.date=start.date, end.date=end.date,
                   adjust.from=adjust.from, adjust.to=adjust.to)

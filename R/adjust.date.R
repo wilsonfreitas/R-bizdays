@@ -48,6 +48,9 @@ adjust.next.Date <- function(dates, cal=bizdays.options$get('default.calendar'))
 }
 
 #' @export
+adjust.none <- function(dates, cal) dates
+
+#' @export
 following.default <- adjust.next.default
 
 #' @export
