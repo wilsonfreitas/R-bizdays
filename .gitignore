@@ -4,3 +4,5 @@
 *.Rproj
 .Rapp.history
 bizyears.R
+travis-ci-legacy.yml
+chineseNewYearDays.cal
