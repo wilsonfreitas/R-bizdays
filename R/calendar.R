@@ -53,7 +53,7 @@
 #' @seealso
 #' \code{\link{calendars}}, \code{\link{bizdays}}
 #' 
-#' @name calendar-class
+#' @name create.calendar
 #' 
 #' @examples
 #' # ANBIMA's calendar (from Brazil)
@@ -68,7 +68,7 @@
 NULL
 
 #' @export
-#' @rdname calendar-class
+#' @rdname create.calendar
 Calendar <- function(holidays=integer(0),
                      start.date=NULL, end.date=NULL, name=NULL,
                      weekdays=NULL, adjust.from=adjust.next,
@@ -164,7 +164,7 @@ Calendar_ <- function (holidays=integer(0),
 }
 
 #' @export
-#' @rdname calendar-class
+#' @rdname create.calendar
 create.calendar <- function(name,
                             holidays=integer(0),
                             weekdays=NULL, 
@@ -226,6 +226,8 @@ NULL
 #' cal <- create.calendar("Actual")
 #' cal <- calendars()[["Actual"]]
 #' remove.calendars("Actual")
+#' # lists registered calendars
+#' calendars()
 calendars <- function() {
   .CALENDAR_REGISTER
 }

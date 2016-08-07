@@ -18,7 +18,7 @@ Every calendar created with \code{create.calendar} is stored in the calendar reg
 The idea behind this register is allowing calendars to be accessed by its names.
 }
 \details{
-\code{calendar} returns the object which represents the calendars register.
+\code{calendars} returns the object which represents the calendars register.
 Since the register inherits from \code{environment}, the calendars are 
 retrieved with the \code{[[} operator.
 But the register object has its own \code{print} generic which helps listing 
@@ -31,5 +31,7 @@ all registered calendars.
 cal <- create.calendar("Actual")
 cal <- calendars()[["Actual"]]
 remove.calendars("Actual")
+# lists registered calendars
+calendars()
 }
 
