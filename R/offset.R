@@ -31,13 +31,15 @@
 #' @name offset
 #' 
 #' @examples
-#' create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
+#' create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"),
+#'                 adjust.from=adjust.next, adjust.to=adjust.previous)
 #' offset("2013-01-02", 5, "Brazil/ANBIMA")
 #' 
 #' # Once you have a default calendar set, cal does not need to be provided
 #' bizdays.options$set(default.calendar="Brazil/ANBIMA")
 #' 
 #' dates <- seq(as.Date("2013-01-01"), as.Date("2013-01-05"), by="day")
+#' is.bizday(dates)
 #' offset(dates, 1)
 #' 
 #' @export
@@ -61,12 +63,15 @@ add.bizdays.Date <- function(dates, n, cal=bizdays.options$get('default.calendar
   cal <- check_calendar(cal)
   if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
     stop('Given date out of range.')
-  dates <- cal$adjust.from(dates, cal)
+  # dates <- cal$adjust.from(dates, cal)
   dates <- as.integer(dates)
-  dates <- apply(cbind(dates, n), 1, function(x) cal$add(x[1], x[2]))
+  dates <- apply(cbind(dates, n), 1, function(x) {
+    r <- cal$add(x[1], x[2])
+    if ( length(r) ) r else NA
+  })
   dates <- as.Date(dates, origin='1970-01-01')
-  if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
-    stop('Dates out of range')
+  # if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
+  #   stop('Dates out of range')
   dates
 }
 
