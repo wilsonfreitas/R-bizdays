@@ -47,6 +47,7 @@ adjust.next.Date <- function(dates, cal=bizdays.options$get('default.calendar'))
   as.Date(cal$adjust.next(dates), origin='1970-01-01')
 }
 
+#' @rdname adjust.date
 #' @export
 adjust.none <- function(dates, cal) dates
 
