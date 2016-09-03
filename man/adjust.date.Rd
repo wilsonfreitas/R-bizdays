@@ -3,6 +3,7 @@
 \name{adjust.date}
 \alias{adjust.date}
 \alias{adjust.next}
+\alias{adjust.none}
 \alias{adjust.previous}
 \alias{following}
 \alias{modified.following}
@@ -13,6 +14,8 @@
 adjust.next(dates, cal)
 
 following(dates, cal)
+
+adjust.none(dates, cal)
 
 modified.following(dates, cal)
 

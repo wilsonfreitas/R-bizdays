@@ -1,3 +1,21 @@
+Changes in Version 1.0.0
+
+  * Calendar's dib argument, bizyears and bizyearse were removed
+
+  * Load calendars from RQuantLib and timeDate (Rmetrics) packages
+  
+  * create.calendar function, Calendar have been deprecated and will be removed (not exported) soon.
+  
+  * Updated LICENSE file
+  
+  * bizdays accepts from > to arguments returning negative values in such cases
+  
+  * new following and preceding functions equal adjust.next and adjust.previous
+  
+  * new modified.following and modified.preceding functions
+  
+  * new calendar register: calendars must be created with create.calendar and are referenced by its name in bizdays methods.
+
 Changes in Version 0.2.2
 
   * Calendar accepts POSIX* in holidays

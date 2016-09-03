@@ -1,0 +1,92 @@
+---
+title: "Creating Calendars"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Creating Calendars}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+# Creating a calendars
+
+Use `create.calendar` with your list of holidays.
+
+```{r, echo=FALSE}
+holidays <- holidaysANBIMA
+```
+
+```{r, message=FALSE}
+create.calendar(name='MyCalendar', holidays=holidays, weekdays=c('sunday', 'saturday'),
+                adjust.from=adjust.next, adjust.to=adjust.previous)
+```
+
+what should be considered:
+
+- calendar name: the calendar must be named `MyCalendar`. The calendar name is used in all `bizdays` functions to specify which calendar has to be used.
+- list of holidays: the argument `holidays` is a vector of dates (mostly used R's date-time objects: `Date`, `POSIX.ct` and `POSIX.lt`) or a character vector with and ISO formatted date (`"1976-07-12"`).
+- weekdays: weekdays to be treated as nonworking days (usually weekends).
+- date adjustment: the `bizdays` function has `from` and `to` arguments that define the interval which the amount of days has to be computed. Once `from` falls in a nonworking day it is moved to the first working day after it. Similarly, `to` is adjusted to the first working day before this date.
+
+Now you can call bizdays functions passing the calendar name.
+
+```{r}
+is.bizday('2016-07-12', 'MyCalendar')
+following('2016-09-07', 'MyCalendar')
+bizdays('2016-07-12', '2016-10-16', 'MyCalendar')
+```
+
+Of course you can assign the calendar to a variable directly and pass this variable to bizdays functions
+
+```{r}
+cal <- create.calendar(name='MyCalendar', holidays=holidays, weekdays=c('sunday', 'saturday'),
+                       adjust.from=adjust.next, adjust.to=adjust.previous)
+is.bizday('2016-07-12', cal)
+```
+
+But this is not expected to work that way.
+
+> #### Why define weekdays?
+> 
+> I am frequently asked *Why do I have to define weekdays?* or even *Shouldn't it be `weekenddays` instead?*.
+> 
+> The reason I created `weekdays`:
+> I want to provide a way to compute business days accordingly to any definition or satisfying any needs.
+> In my world, the financial industry, weekends are nonworking days, but for those who work with events, for example, mondays migth be nonworking days.
+> 
+> `weekdays` defaults to `NULL` because I wanted the `Calendar()` call returned an [Actual](http://en.wikipedia.org/wiki/Day_count_convention#Actual_methods) calendar.
+
+## Skiping weekends only (defining weekends as nonworking days)
+
+You can define whatever calendar you want, for example, a calendar without holidays where only weekdays are nonworking days.
+
+```{r, message=FALSE}
+create.calendar(name='WeekendsOnly', weekdays=c('sunday', 'saturday'))
+```
+
+define only `weekdays` to weekend days.
+
+```{r}
+from_dates <- '2013-01-01'
+to_dates <- seq(as.Date('2013-12-31'), as.Date('2020-12-31'), by='years')
+bizdays(from_dates, to_dates, 'WeekendsOnly')
+```
+
+## Skiping mondays (defining mondays as nonworking days)
+
+```{r}
+create.calendar(name='EveryMonday', weekdays='monday')
+from_dates <- '2013-01-01'
+to_dates <- seq(as.Date('2013-12-31'), as.Date('2020-12-31'), by='years')
+bizdays(from_dates, to_dates, 'EveryMonday')
+```
+
+## Skip nothing (formal current days calendar)
+
+```{r}
+create.calendar(name='Actual')
+from_dates <- '2013-01-01'
+to_dates <- seq(as.Date('2013-12-31'), as.Date('2020-12-31'), by='years')
+bizdays(from_dates, to_dates, 'Actual')
+```
+

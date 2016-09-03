@@ -16,8 +16,8 @@ Since I am always using `holidaysANBIMA` holidays I create and set the default c
 
 ```{r, message=FALSE}
 library(bizdays)
-cal <- Calendar(holidays=holidaysANBIMA, name='ANBIMA', weekdays=c('saturday', 'sunday'))
-bizdays.options$set(default.calendar=cal)
+create.calendar(name='ANBIMA', holidays=holidaysANBIMA, weekdays=c('saturday', 'sunday'))
+bizdays.options$set(default.calendar='ANBIMA')
 ```
 
 If you put these 3 lines of code at the end of your `.Rprofile` you don't have to instantiate the calendar every time you use `bizdays`.
@@ -33,6 +33,8 @@ And it works with any of `bizdays` functions:
 
 - `bizdays`, `bizdayse`
 - `adjust.next`, `adjust.previous`
+- `following`, `preceding`
+- `modified.following`, `modified.preceding`
 - `bizseq`
 - `is.bizday`
 - `offset`, `add.bizdays`
