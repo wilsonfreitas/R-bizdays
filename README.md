@@ -1,10 +1,10 @@
 
-# [R-bizdays](http://cran.r-project.org/web/packages/bizdays/index.html)
+# [R-bizdays]( https://cran.r-project.org/package=pkgname)
 
 [![Build Status](https://travis-ci.org/wilsonfreitas/R-bizdays.svg?branch=master)](https://travis-ci.org/wilsonfreitas/R-bizdays)
-[![Downloads](http://cranlogs.r-pkg.org/badges/bizdays?color=brightgreen)](http://cran.r-project.org/web/packages/bizdays/index.html)
+[![Downloads](http://cranlogs.r-pkg.org/badges/bizdays?color=brightgreen)]( https://cran.r-project.org/package=pkgname)
 
-[cran-bizdays]: http://cran.r-project.org/web/packages/bizdays/index.html
+[cran-bizdays]:  https://cran.r-project.org/package=pkgname
 [ANBIMA]: http://portal.anbima.com.br/Pages/home.aspx
 
 **bizdays** computes business days between dates based on collections of nonworking days and nonworking weekdays (usually weekends).
