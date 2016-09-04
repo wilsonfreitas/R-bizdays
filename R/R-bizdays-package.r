@@ -31,4 +31,6 @@
 #' 
 #' @name bizdays-package
 #' @docType package
+#' 
+#' @importFrom methods is
 NULL

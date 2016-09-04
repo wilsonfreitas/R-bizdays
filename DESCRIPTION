@@ -8,6 +8,7 @@ Maintainer: Wilson Freitas <wilson.freitas@gmail.com>
 URL: https://github.com/wilsonfreitas/R-bizdays
 VignetteBuilder: knitr
 Suggests: RQuantLib, timeDate, knitr
+Imports: methods
 Collate:
     'R-bizdays-package.r'
     'datasets.R'
