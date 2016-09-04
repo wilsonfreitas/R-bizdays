@@ -13,6 +13,7 @@ vignette: >
 Use `create.calendar` with your list of holidays.
 
 ```{r, echo=FALSE}
+library(bizdays)
 holidays <- holidaysANBIMA
 ```
 
