@@ -28,9 +28,4 @@ handle the recycle rule.
 \author{
 Wilson Freitas
 }
-\seealso{
-CRAN Task View: Empirical Finance
-
-\url{http://cran.r-project.org/web/views/Finance.html}
-}
 
