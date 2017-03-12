@@ -63,15 +63,11 @@ add.bizdays.Date <- function(dates, n, cal=bizdays.options$get('default.calendar
   cal <- check_calendar(cal)
   if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
     stop('Given date out of range.')
-  # dates <- cal$adjust.from(dates, cal)
   dates <- as.integer(dates)
-  dates <- apply(cbind(dates, n), 1, function(x) {
-    r <- cal$add(x[1], x[2])
-    if ( length(r) ) r else NA
-  })
+  n <- if (length(dates) > length(n)) rep_len(n, length(dates)) else n
+  dates <- if (length(dates) < length(n)) rep_len(dates, length(n)) else dates
+  dates <- cal$add(dates, n)
   dates <- as.Date(dates, origin='1970-01-01')
-  # if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
-  #   stop('Dates out of range')
   dates
 }
 
