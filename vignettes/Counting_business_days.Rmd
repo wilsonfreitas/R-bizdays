@@ -1,0 +1,110 @@
+---
+title: "Counting business days"
+author: "Wilson Freitas"
+date: "12/03/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## How to count business days
+
+That might sounds as a very simple task: count the number of business days between two dates.
+Unfortunately this is not, mainly because you must define at first what has to be put inside, for example, let's consider the following list of dates
+
+- 2017-01-24 - Tuesday
+- 2017-01-25 - Wednesday (holiday)
+- 2017-01-26 - Thursday
+
+<!-- - 2017-01-27 - Friday -->
+<!-- - 2017-01-28 - Saturday -->
+<!-- - 2017-01-29 - Sunday -->
+<!-- - 2017-01-30 - Monday -->
+
+There are two business days and one holiday between.
+To compute the number of business days between Tuesday and Thurday there are the following options:
+
+- include Tuesday and exclude Thursday equals to one business day
+- exclude Tuesday and include Thursday equals to one business day
+- include Tuesday and include Thursday equals to two business days
+
+which one is correct?
+I'd say all, or none, depends on what you want.
+
+Because of situations like these I decided to address this issue explaining how bizdays compute business days and how it can be configured to give the results users are looking for.
+
+## How bizdays counts business days
+
+To compute the number of business days between two dates with effectively and with a good performance, `bizdays` creates an index where the business days contribute with 1 unit and the nonworking dates contribute with 0 units.
+The index is a cumulative sum of each contribution starting on the first date of the defined calendar, actually, that's the reason why a start date must be provided at the calendar creation.
+
+The figure below shows a representation of the index
+
+![bizdays index](bizdays_index.png "bizdays index")
+
+The blue boxes are working days and the gree ones are nonworking days.
+As we can see, from Tuesday to Monday we have 7 days (one week), starting at 1 and ending up at 7 in the current days index (that is represented by the `actual` calendar).
+In the business days index the counting starts at 1 and ends up at 4 and 4 is the total number of business days shown.
+
+Let's create a calendar in `bizdays` to with these dates.
+
+```{r message=FALSE, warning=FALSE}
+library(bizdays)
+
+create.calendar(name = "example1", weekdays = c("saturday", "sunday"), start.date = "2017-01-24", end.date = "2017-01-30", holidays = "2017-01-25")
+calendars() # to list all calendars
+```
+
+Calling the `bizdays` function to compute the business days from 2017-01-24 to 2017-01-25, which is a holiday results in:
+
+```{r}
+bizdays("2017-01-24", "2017-01-25", "example1")
+```
+
+what indicates that the two dates share the same index.
+Moving further one date 
+
+```{r}
+bizdays("2017-01-24", "2017-01-26", "example1")
+```
+
+we have the expected result that is one business day.
+And using the other dates we see that the results represent well the way the index was built.
+
+Unfortunately, for financial calculations of business days is fairly common (at least in Brazil) that:
+
+- if the `from` date is nonworking day you must move to the previous business date
+- if the `to` date is nonworking day you must move it to the next business date
+
+Whenever you try to compute the number of business days between to business days you will find no reason to get worried, but if the date interval starts or ends in some nonworking day, then this opens space for discussion.
+
+That's why the arguments `adjust_from` and `adjust_to` have been created, to execute a date adjustment of the arguments `from` and `to` according to users needs.
+These arguments can be set with one of these three functions:
+
+- `adjust_none`: the default value, does not execute date adjustment
+- `adjust_previous`: move the date for the previous business day if it is nonworking day
+- `adjust_next`: move the date for the next business day if it is nonworking day
+
+Let's continue the exercise by creating a second calendar `example2` introducing the date adjustment according to Brazilian rules.
+
+```{r}
+create.calendar(name = "example2", weekdays = c("saturday", "sunday"), start.date = "2017-01-24", end.date = "2017-01-30", holidays = "2017-01-25", adjust.from = adjust.previous, adjust.to = adjust.next)
+calendars() # to list all calendars
+```
+
+Running the business days calculations with the new calendar for the same dates used before `bizdays` returns
+
+```{r}
+bizdays("2017-01-24", c("2017-01-25", "2017-01-26"), "example2")
+```
+
+and now can be seen that the result has changed and following the definition of `example2` calendar the nonworking day has been moved to its next business day.
+Another example, executing `bizdays` starting at the holiday 2017-01-25
+
+```{r}
+bizdays("2017-01-25", c("2017-01-25", "2017-01-26"), "example2")
+```
+
+this is completely nonsense, but this is what was defined.
