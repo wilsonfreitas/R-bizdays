@@ -156,8 +156,15 @@ Calendar_ <- function (holidays=integer(0),
   }
   # add
   that$add <- function(date, n) {
-    ref <- index.bizdays[which(date == n.bizdays)]
-    n.bizdays[which(index.bizdays - ref == n)]
+    # this if statment is necessary to do a date adjustment for nonbizdays
+    if (! that$is.bizday(date)) {
+      if (n == 0) return(date)
+      # if date is not bizday the negative offset must be adjusted because
+      # nonbizdays share the index with its previous bizday
+      n <- if (n < 0) n + 1 else n
+    }
+    ref <- index[date == n.dates]
+    n.bizdays[index.bizdays == (ref + n)]
   }
   class(that) <- 'Calendar'
   return(that)
