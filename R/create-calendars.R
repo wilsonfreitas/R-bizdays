@@ -123,6 +123,10 @@ local({
 #' @rdname other-calendars
 #' @export
 load_quantlib_calendars <- function(ql_calendars=NULL, from, to) {
+  if (!requireNamespace("RQuantLib", quietly = TRUE)) {
+    stop("RQuantLib needed for this function to work. Please install it.",
+         call. = FALSE)
+  }
   if (is.null(ql_calendars))
     ql_calendars <- c("Argentina", "Australia", "Brazil", "Canada",
                       "Canada/Settlement", "Canada/TSX", "China", "CzechRepublic",
@@ -150,6 +154,10 @@ load_quantlib_calendars <- function(ql_calendars=NULL, from, to) {
 #' @rdname other-calendars
 #' @export
 load_rmetrics_calendars <- function(year) {
+  if (!requireNamespace("timeDate", quietly = TRUE)) {
+    stop("timeDate needed for this function to work. Please install it.",
+         call. = FALSE)
+  }
   holidays_ <- as.Date(timeDate::holidayLONDON(year))
   cal_name <- "Rmetrics/LONDON"
   create.calendar(holidays_, weekdays=c('saturday', 'sunday'), name=cal_name,
