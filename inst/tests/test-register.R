@@ -9,7 +9,7 @@ test_that('it should list calendars thru register', {
   expect_equal(length(calendars()), l)
   cal <- create.calendar('try-ANBIMA', holidaysANBIMA, weekdays=c('saturday', 'sunday'))
   expect_equal(length(calendars()), l+1)
-  expect_output(calendars(), 'try-ANBIMA')
+  expect_true('try-ANBIMA' %in% ls(calendars()))
 })
 
 test_that('it should retrieve registered calendars', {
@@ -34,7 +34,7 @@ test_that('it should set default calendar with calendar\'s name', {
   cal <- create.calendar("actual-calendar")
   bizdays.options$set(default.calendar='actual-calendar')
   expect_is(bizdays.options$get('default.calendar'), 'character')
-  expect_output(bizdays.options$get('default.calendar'), 'actual-calendar')
+  expect_equal(bizdays.options$get('default.calendar'), 'actual-calendar')
 })
 
 test_that('it should remove a calendar', {
@@ -42,4 +42,11 @@ test_that('it should remove a calendar', {
   expect_false( is.null(calendars()[["actual"]]) )
   remove.calendars("actual")
   expect_true( is.null(calendars()[["actual"]]) )
+})
+
+test_that("it should check if a calendar exists", {
+  create.calendar("actual")
+  expect_true(has.calendar("actual"))
+  expect_false(has.calendar("nama"))
+  expect_equal(has.calendar(c("actual", "weekends", "nama")), c(TRUE, TRUE, FALSE))
 })

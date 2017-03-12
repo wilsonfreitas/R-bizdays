@@ -250,3 +250,9 @@ check_calendar <- function(cal) {
   else
     stop('Invalid argument')
 }
+
+#' @export
+#' @rdname calendar-register
+has.calendar <- function(cals) {
+  cals %in% ls(.CALENDAR_REGISTER)
+}
