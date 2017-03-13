@@ -34,4 +34,3 @@ bizdays("2013-07-12", "2013-07-22")
 
 }
 \keyword{datasets}
-

@@ -4,11 +4,14 @@
 \alias{calendar-register}
 \alias{calendars}
 \alias{remove.calendars}
+\alias{has.calendar}
 \title{Calendars register}
 \usage{
 calendars()
 
 remove.calendars(cals)
+
+has.calendar(cals)
 }
 \arguments{
 \item{cals}{character vector of calendars names}
@@ -34,4 +37,3 @@ remove.calendars("Actual")
 # lists registered calendars
 calendars()
 }
-

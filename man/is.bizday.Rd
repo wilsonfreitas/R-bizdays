@@ -26,6 +26,7 @@ object that returns a valid \code{Date} object when passed through
 \code{as.Date}, which include all \code{POSIX*} classes and \code{character}
 objects with ISO formatted dates.
 }
+
 \examples{
 create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
 is.bizday("2013-01-02", "Brazil/ANBIMA")
@@ -37,4 +38,3 @@ dates <- seq(as.Date("2013-01-01"), as.Date("2013-01-05"), by="day")
 is.bizday(dates)
 
 }
-

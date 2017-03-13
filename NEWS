@@ -1,3 +1,15 @@
+Changes in Version 1.0.2
+
+  * Added has.calendar function to check if a calendar exists
+  
+  * Implemented requireNamespace check for Suggedted packages: RQuantLib and timeDate
+  
+  * offset function has been changed to spot returning NA when called with nonworking days
+  
+  * offset function has been vectorized
+  
+  * New vignette to explain bizdays index: Counting business days
+
 Changes in Version 1.0.1
 
   * Minor changes to achieve conformity with CRAN policies

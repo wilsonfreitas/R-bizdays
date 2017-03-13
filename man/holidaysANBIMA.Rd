@@ -10,4 +10,3 @@ A dataset containing the list of holidays delivered by ANBIMA
 (www.anbima.com.br).
 }
 \keyword{datasets}
-

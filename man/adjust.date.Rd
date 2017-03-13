@@ -3,12 +3,12 @@
 \name{adjust.date}
 \alias{adjust.date}
 \alias{adjust.next}
-\alias{adjust.none}
-\alias{adjust.previous}
 \alias{following}
+\alias{adjust.none}
 \alias{modified.following}
-\alias{modified.preceding}
+\alias{adjust.previous}
 \alias{preceding}
+\alias{modified.preceding}
 \title{Adjusts the given dates to the next/previous business day}
 \usage{
 adjust.next(dates, cal)
@@ -45,6 +45,7 @@ object that returns a valid \code{Date} object when passed through
 \code{as.Date}, which include all \code{POSIX*} classes and \code{character}
 objects with ISO formatted dates.
 }
+
 \examples{
 cal <- create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
 adjust.next("2013-01-01", "Brazil/ANBIMA")
@@ -54,4 +55,3 @@ adjust.previous("2013-01-01", cal)
 preceding("2013-01-01", cal)
 modified.preceding("2016-01-01", cal)
 }
-

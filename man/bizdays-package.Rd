@@ -28,4 +28,3 @@ handle the recycle rule.
 \author{
 Wilson Freitas
 }
-

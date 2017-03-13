@@ -28,9 +28,9 @@ object that returns a valid \code{Date} object when passed through
 \code{as.Date}, which include all \code{POSIX*} classes and \code{character}
 objects with ISO formatted dates.
 }
+
 \examples{
 create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
 bizseq("2013-01-02", "2013-01-31", "Brazil/ANBIMA")
 
 }
-

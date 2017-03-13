@@ -50,9 +50,9 @@ These arguments handle the recycle rule so a vector of dates and a vector of
 numbers can be provided and once those vectors differs in length the recycle
 rule is applied.
 }
+
 \examples{
 create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
 bizdayse("2013-01-02", 3, "Brazil/ANBIMA")
 
 }
-

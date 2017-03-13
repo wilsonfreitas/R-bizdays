@@ -1,8 +1,12 @@
 ---
 title: "Counting business days"
 author: "Wilson Freitas"
-date: "12/03/2017"
-output: html_document
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Counting business days}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
 ---
 
 ```{r setup, include=FALSE}

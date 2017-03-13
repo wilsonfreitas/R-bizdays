@@ -47,6 +47,7 @@ The default behavior, that is defined in \code{Calendar}'s instantiation with
 A common and useful setting is \code{adjust.to=adjust.next} which moves
 expiring maturities to the next business day, once it is not.
 }
+
 \examples{
 create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
 bizdays("2013-01-02", "2013-01-31", "Brazil/ANBIMA")
@@ -59,4 +60,3 @@ dates <- bizseq("2013-01-01", "2013-01-10")
 bizdays(dates, "2014-01-31")
 
 }
-
