@@ -8,5 +8,7 @@ r:
 addons:
   apt:
     packages:
-      - libquantlib-1.2
+      - libquantlib0-dev
+      - libboost-dev
+      - libboost-test-dev
 
