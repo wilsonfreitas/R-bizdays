@@ -201,11 +201,10 @@ test_that('it should warn for bad settings', {
 context('POSIX* holidays')
 
 test_that('it should create a calendar with POSIX holidays', {
-  library(lubridate)
-  cal <- Calendar_(ymd(c("1970-01-01", "2015-05-14", "2015-05-25", "2037-12-31")),
-                  weekdays=c("saturday","sunday"))
-  x <- ymd("2015-04-13 UTC", "2015-05-11 UTC", "2015-05-25 UTC")
-  y <- ymd("2015-04-17 UTC", "2015-05-15 UTC", "2015-05-29 UTC")
+  dates <- as.POSIXct(c("1970-01-01", "2015-05-14", "2015-05-25", "2037-12-31"), tz = "UTC")
+  cal <- Calendar_(dates, weekdays=c("saturday","sunday"))
+  x <- as.POSIXct(c("2015-04-13", "2015-05-11", "2015-05-25"), tz = "UTC")
+  y <- as.POSIXct(c("2015-04-17", "2015-05-15", "2015-05-29"), tz = "UTC")
   expect_equal(bizdays(x, y, cal), c(4, 3, 3))
 })
 
