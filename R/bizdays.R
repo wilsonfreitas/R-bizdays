@@ -65,6 +65,10 @@ bizdays.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) 
   lengths <- c(length(from), length(to))
   if (max(lengths) %% min(lengths) != 0)
     stop("from's length must be multiple of to's length and vice-versa.")
+  if (length(from) > length(to))
+    to <- as.Date(rep_len(to, length(from)), origin = "1970-01-01")
+  else if (length(from) < length(to))
+    from <- as.Date(rep_len(from, length(to)), origin = "1970-01-01")
   idx <- from > to
   idx[is.na(idx)] <- FALSE
   new.from <- from

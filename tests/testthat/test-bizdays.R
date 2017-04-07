@@ -36,6 +36,8 @@ test_that('it should return negative bizdays', {
     bizdays(c('2013-08-21', '2013-01-31', '2013-01-01'), c(NA, '2013-01-01', '2014-01-01'), cal),
     c(NA, -21, 252)
   )
+  cal <- calendars()[["actual"]]
+  expect_equal(bizdays(Sys.Date(), Sys.Date()+c(2, -1, 1, 1)), c(2, -1, 1, 1))
 })
 
 context('handling NA values')
