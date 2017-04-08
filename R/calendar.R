@@ -77,6 +77,11 @@ Calendar <- function(holidays=integer(0),
   Calendar_(holidays, start.date, end.date, name, weekdays, adjust.from, adjust.to)
 }
 
+rev_index <- function(idx) {
+  ridx <- rev(idx)
+  rev(sum(idx) + as.integer(ridx[1]) - cumsum(ridx))
+}
+
 Calendar_ <- function (holidays=integer(0),
                        start.date=NULL, end.date=NULL, name=NULL,
                        weekdays=NULL, adjust.from=adjust.next,
@@ -126,12 +131,22 @@ Calendar_ <- function (holidays=integer(0),
   # bizdays and index
   n.bizdays <- n.dates[.is.bizday]
   index.bizdays <- seq_along(n.bizdays)
-  index <- cumsum(.is.bizday)
+  index <- cumsum(.is.bizday)     # forward index - the index
+  rindex <- rev_index(.is.bizday) # backward index - the reverse index
   # bizdays
   that$bizdays <- function(from, to) {
-    from.idx <- index[match(from, n.dates)]
-    to.idx <- index[match(to, n.dates)]
-    to.idx - from.idx
+    m_from <- match(from, n.dates)
+    m_to <- match(to, n.dates)
+    # dif from index
+    from.idx <- index[m_from]
+    to.idx <- index[m_to]
+    dif <- to.idx - from.idx
+    # dif from reverse index
+    from.ridx <- rindex[m_from]
+    to.ridx <- rindex[m_to]
+    rdif <- to.ridx - from.ridx
+    # min is the solution
+    pmin(dif, rdif)
   }
   # adjust.next and adjust.previous
   .adjust <- function(dates, offset) {
