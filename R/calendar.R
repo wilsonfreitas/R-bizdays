@@ -78,8 +78,9 @@ Calendar <- function(holidays=integer(0),
 }
 
 rev_index <- function(idx) {
-  ridx <- rev(idx)
-  rev(sum(idx) + as.integer(ridx[1]) - cumsum(ridx))
+  ridx <- cumsum(idx) + 1 - as.integer(idx)
+  ridx[ridx > sum(idx)] <- sum(idx)
+  ridx
 }
 
 Calendar_ <- function (holidays=integer(0),
@@ -171,18 +172,15 @@ Calendar_ <- function (holidays=integer(0),
   }
   # add
   that$add <- function(date, n) {
-    # these statments are necessary to do a date adjustment for nonbizdays
-    # if date is not bizday the negative offset must be adjusted because
-    # nonbizdays share the index with its previous bizday
-    ix <- ! that$is.bizday(date)
-    .n <- n
-    n[ix] <- ifelse(n[ix] < 0, n[ix] + 1, n[ix])
-    ref <- index[match(date, n.dates)]
-    .date <- n.bizdays[match((ref + n), index.bizdays)]
+    ix <- n > 0
+    ref <- integer(length(n))
+    ref[ix] <- index[match(date[ix], n.dates)]    # index for positive offsets
+    ref[!ix] <- rindex[match(date[!ix], n.dates)] # reverse index for negative offsets
+    .date <- n.bizdays[match(ref + n, index.bizdays)]
     # this is ugly and a post calculation correction
     # if the offset amount is 0 the given date must be returned
-    # this is not happen for nonbusiness days
-    .date[.n == 0] <- date[.n == 0]
+    # this doesn't happen for nonbusiness days
+    .date[n == 0] <- date[n == 0]
     .date
   }
   class(that) <- 'Calendar'
