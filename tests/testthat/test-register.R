@@ -46,7 +46,7 @@ test_that('it should remove a calendar', {
 
 test_that("it should check if a calendar exists", {
   create.calendar("actual")
-  expect_true(has.calendar("actual"))
-  expect_false(has.calendar("nama"))
-  expect_equal(has.calendar(c("actual", "weekends", "nama")), c(TRUE, TRUE, FALSE))
+  expect_true(has.calendars("actual"))
+  expect_false(has.calendars("nama"))
+  expect_equal(has.calendars(c("actual", "weekends", "nama")), c(TRUE, TRUE, FALSE))
 })

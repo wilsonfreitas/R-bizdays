@@ -278,7 +278,7 @@ check_calendar <- function(cal) {
 #' @export
 #' @rdname calendar-register
 #' @examples
-#' has.calendar(c("actual", "weekends"))
-has.calendar <- function(cals) {
+#' has.calendars(c("actual", "weekends"))
+has.calendars <- function(cals) {
   cals %in% ls(.CALENDAR_REGISTER)
 }
