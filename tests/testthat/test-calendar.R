@@ -221,56 +221,61 @@ test_that('it should pass NULL calendar', {
 
 context("load calendars from other packages")
 
-test_that('it should check if QuantLib calendars have been loaded', {
-  expect_null( calendars()[['QuantLib/UnitedStates/NYSE']] )
-  expect_null( calendars()[['QuantLib/Argentina']] )
+if (requireNamespace("RQuantLib", quietly = TRUE)) {
+  test_that('it should check if QuantLib calendars have been loaded', {
+    expect_null( calendars()[['QuantLib/UnitedStates/NYSE']] )
+    expect_null( calendars()[['QuantLib/Argentina']] )
+    
+    load_quantlib_calendars(c('Argentina', 'UnitedStates/NYSE'), '2016-01-01', '2016-12-31')
+    
+    expect_true( ! is.null(calendars()[['QuantLib/UnitedStates/NYSE']]) )
+    expect_true( ! is.null(calendars()[['QuantLib/Argentina']]) )
+    
+    expect_null( calendars()[['QuantLib/UnitedStates/NERC']] )
+  })
   
-  load_quantlib_calendars(c('Argentina', 'UnitedStates/NYSE'), '2016-01-01', '2016-12-31')
   
-  expect_true( ! is.null(calendars()[['QuantLib/UnitedStates/NYSE']]) )
-  expect_true( ! is.null(calendars()[['QuantLib/Argentina']]) )
+  test_that('it should check if QuantLib calendars behave correctly', {
+    load_quantlib_calendars(c('Argentina', 'UnitedStates/NYSE'), '2016-01-01', '2016-12-31')
+    
+    ql_bd <- RQuantLib::businessDaysBetween('Argentina', as.Date('2016-01-01'), as.Date('2016-07-12'))
+    expect_equal(bizdays('2016-01-01', '2016-07-12', 'QuantLib/Argentina'), ql_bd)
+    
+    ql_bd <- RQuantLib::businessDaysBetween('Argentina', as.Date('2016-01-01'), as.Date('2016-07-10'))
+    expect_equal(bizdays('2016-01-01', '2016-07-10', 'QuantLib/Argentina'), ql_bd)
+    
+    ql_bd <- RQuantLib::businessDaysBetween('UnitedStates/NYSE', as.Date('2016-01-01'), as.Date('2016-07-10'))
+    expect_equal(bizdays('2016-01-01', '2016-07-10', 'QuantLib/UnitedStates/NYSE'), ql_bd)
+  })
   
-  expect_null( calendars()[['QuantLib/UnitedStates/NERC']] )
-})
+}
 
-
-test_that('it should check if QuantLib calendars behave correctly', {
-  load_quantlib_calendars(c('Argentina', 'UnitedStates/NYSE'), '2016-01-01', '2016-12-31')
+if (requireNamespace("timeDate", quietly = TRUE)) {
+  test_that('it should check if Rmetrics calendars have been loaded', {
+    expect_null( calendars()[['Rmetrics/LONDON']] )
+    expect_null( calendars()[['Rmetrics/NYSE']] )
+    
+    load_rmetrics_calendars(2016)
+    
+    expect_true( ! is.null(calendars()[['Rmetrics/LONDON']]) )
+    expect_true( ! is.null(calendars()[['Rmetrics/NYSE']]) )
+  })
   
-  ql_bd <- RQuantLib::businessDaysBetween('Argentina', as.Date('2016-01-01'), as.Date('2016-07-12'))
-  expect_equal(bizdays('2016-01-01', '2016-07-12', 'QuantLib/Argentina'), ql_bd)
+  test_that('it should check if QuantLib calendars behave correctly', {
+    load_rmetrics_calendars(2016)
+    
+    expect_equal(is.bizday('2016-01-01', 'Rmetrics/LONDON'),
+                 as.logical(timeDate::isBizday(timeDate::timeDate('2016-01-01'), timeDate::holidayLONDON(2016)))
+    )
+    
+    expect_equal(is.bizday('2016-07-10', 'Rmetrics/LONDON'),
+                 as.logical(timeDate::isBizday(timeDate::timeDate('2016-01-10'), timeDate::holidayLONDON(2016)))
+    )
+    
+    expect_equal(is.bizday('2016-07-12', 'Rmetrics/LONDON'),
+                 as.logical(timeDate::isBizday(timeDate::timeDate('2016-01-12'), timeDate::holidayLONDON(2016)))
+    )
+  })
   
-  ql_bd <- RQuantLib::businessDaysBetween('Argentina', as.Date('2016-01-01'), as.Date('2016-07-10'))
-  expect_equal(bizdays('2016-01-01', '2016-07-10', 'QuantLib/Argentina'), ql_bd)
-  
-  ql_bd <- RQuantLib::businessDaysBetween('UnitedStates/NYSE', as.Date('2016-01-01'), as.Date('2016-07-10'))
-  expect_equal(bizdays('2016-01-01', '2016-07-10', 'QuantLib/UnitedStates/NYSE'), ql_bd)
-})
-
-
-test_that('it should check if Rmetrics calendars have been loaded', {
-  expect_null( calendars()[['Rmetrics/LONDON']] )
-  expect_null( calendars()[['Rmetrics/NYSE']] )
-  
-  load_rmetrics_calendars(2016)
-  
-  expect_true( ! is.null(calendars()[['Rmetrics/LONDON']]) )
-  expect_true( ! is.null(calendars()[['Rmetrics/NYSE']]) )
-})
-
-test_that('it should check if QuantLib calendars behave correctly', {
-  load_rmetrics_calendars(2016)
-  
-  expect_equal(is.bizday('2016-01-01', 'Rmetrics/LONDON'),
-               as.logical(timeDate::isBizday(timeDate::timeDate('2016-01-01'), timeDate::holidayLONDON(2016)))
-  )
-
-  expect_equal(is.bizday('2016-07-10', 'Rmetrics/LONDON'),
-               as.logical(timeDate::isBizday(timeDate::timeDate('2016-01-10'), timeDate::holidayLONDON(2016)))
-  )
-
-  expect_equal(is.bizday('2016-07-12', 'Rmetrics/LONDON'),
-               as.logical(timeDate::isBizday(timeDate::timeDate('2016-01-12'), timeDate::holidayLONDON(2016)))
-  )
-})
+}
 
