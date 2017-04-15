@@ -1,3 +1,7 @@
+Changes in Version 1.0.3
+
+  * Implemented check in tests for suggested packages: RQuantLib and timeDate (issue #56).
+
 Changes in Version 1.0.2
 
   * Implemented the double index strategy to avoid inconsistencies in business days counting (issue #54)
