@@ -279,3 +279,14 @@ if (requireNamespace("timeDate", quietly = TRUE)) {
   
 }
 
+context("bizdiff")
+
+test_that("it should compute bizdays between dates in a vector", {
+  dates <- c("2017-05-10", "2017-05-12", "2017-05-17")
+  expect_equal(bizdiff(dates, "Brazil/ANBIMA"), c(2, 3))
+})
+
+test_that("it should return an empty vector for a single element vector", {
+  expect_equal(bizdiff("2017-01-02", "Brazil/ANBIMA"), numeric())
+})
+
