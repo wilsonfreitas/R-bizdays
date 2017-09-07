@@ -158,33 +158,43 @@ load_rmetrics_calendars <- function(year) {
     stop("timeDate needed for this function to work. Please install it.",
          call. = FALSE)
   }
+  # get first and last given years to create start and end dates
+  fl_year <- range(year)
+  start_date <- as.Date(paste0(fl_year[1], "-01-01"))
+  end_date <- as.Date(paste0(fl_year[2], "-12-31"))
+  
   holidays_ <- as.Date(timeDate::holidayLONDON(year))
   cal_name <- "Rmetrics/LONDON"
   create.calendar(holidays_, weekdays=c('saturday', 'sunday'), name=cal_name,
-                  adjust.from=adjust.next, adjust.to=adjust.previous)
+                  adjust.from=adjust.next, adjust.to=adjust.previous,
+                  start.date = start_date, end.date = end_date)
   message("Calendar ", cal_name, " loaded")
   
   holidays_ <- as.Date(timeDate::holidayNERC(year))
   cal_name <- "Rmetrics/NERC"
   create.calendar(holidays_, weekdays=c('saturday', 'sunday'), name=cal_name,
-                  adjust.from=adjust.next, adjust.to=adjust.previous)
+                  adjust.from=adjust.next, adjust.to=adjust.previous,
+                  start.date = start_date, end.date = end_date)
   message("Calendar ", cal_name, " loaded")
   
   holidays_ <- as.Date(timeDate::holidayNYSE(year))
   cal_name <- "Rmetrics/NYSE"
   create.calendar(holidays_, weekdays=c('saturday', 'sunday'), name=cal_name,
-                  adjust.from=adjust.next, adjust.to=adjust.previous)
+                  adjust.from=adjust.next, adjust.to=adjust.previous,
+                  start.date = start_date, end.date = end_date)
   message("Calendar ", cal_name, " loaded")
   
   holidays_ <- as.Date(timeDate::holidayTSX(year))
   cal_name <- "Rmetrics/TSX"
   create.calendar(holidays_, weekdays=c('saturday', 'sunday'), name=cal_name,
-                  adjust.from=adjust.next, adjust.to=adjust.previous)
+                  adjust.from=adjust.next, adjust.to=adjust.previous,
+                  start.date = start_date, end.date = end_date)
   message("Calendar ", cal_name, " loaded")
   
   holidays_ <- as.Date(timeDate::holidayZURICH(year))
   cal_name <- "Rmetrics/ZURICH"
   create.calendar(holidays_, weekdays=c('saturday', 'sunday'), name=cal_name,
-                  adjust.from=adjust.next, adjust.to=adjust.previous)
+                  adjust.from=adjust.next, adjust.to=adjust.previous,
+                  start.date = start_date, end.date = end_date)
   message("Calendar ", cal_name, " loaded")
 }

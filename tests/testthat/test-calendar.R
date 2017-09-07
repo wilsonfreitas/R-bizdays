@@ -275,6 +275,19 @@ if (requireNamespace("timeDate", quietly = TRUE)) {
     expect_equal(is.bizday('2016-07-12', 'Rmetrics/LONDON'),
                  as.logical(timeDate::isBizday(timeDate::timeDate('2016-01-12'), timeDate::holidayLONDON(2016)))
     )
+    
+    expect_equal(is.bizday('2016-12-31', 'Rmetrics/LONDON'),
+                 as.logical(timeDate::isBizday(timeDate::timeDate('2016-12-31'), timeDate::holidayLONDON(2016)))
+    )
+    
+    load_rmetrics_calendars(2017)
+    expect_equal(is.bizday('2017-01-01', 'Rmetrics/LONDON'),
+                 as.logical(timeDate::isBizday(timeDate::timeDate('2017-01-01'), timeDate::holidayLONDON(2017)))
+    )
+    
+    expect_equal(is.bizday('2017-12-31', 'Rmetrics/LONDON'),
+                 as.logical(timeDate::isBizday(timeDate::timeDate('2017-12-31'), timeDate::holidayLONDON(2017)))
+    )
   })
   
 }
