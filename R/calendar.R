@@ -104,7 +104,8 @@ Calendar_ <- function (holidays=integer(0),
   # name
   that$name <- name
   # dates and holidays
-  n.holidays <- as.integer(as.Date(holidays, origin='1970-01-01'))
+  that$holidays <- as.Date(holidays, origin='1970-01-01')
+  n.holidays <- as.integer(that$holidays)
   # start.date and end.date
   .has_holidays <- length(holidays) != 0
   if (is.null(start.date)) {
@@ -199,6 +200,47 @@ create.calendar <- function(name,
                   adjust.from=adjust.from, adjust.to=adjust.to)
   .CALENDAR_REGISTER[[cal$name]] <- cal
   invisible(cal)
+}
+
+#' @title Calendar's holidays and weekdays
+#' 
+#' @description
+#' Returns calendar's list of holidays and weekdays
+#' 
+#' @param cal character with calendar name or the calendar object
+#' @param x character with calendar name or the calendar object
+#' 
+#' @name calendar-holidays-weekdays
+#' 
+#' @examples
+#' holidays("actual")
+#' weekdays("actual")
+NULL
+
+#' @export
+#' @rdname calendar-holidays-weekdays
+holidays <- function(cal) UseMethod('holidays')
+
+#' @export
+#' @rdname calendar-holidays-weekdays
+holidays.Calendar <- function(cal=bizdays.options$get('default.calendar')) cal$holidays
+
+#' @export
+#' @rdname calendar-holidays-weekdays
+holidays.character <- function(cal=bizdays.options$get('default.calendar')) {
+  cal <- calendars()[[cal]]
+  holidays(cal)
+}
+
+#' @export
+#' @rdname calendar-holidays-weekdays
+weekdays.Calendar <- function(x, ...) x$weekdays
+
+#' @export
+#' @rdname calendar-holidays-weekdays
+weekdays.character <- function(x, ...) {
+  cal <- calendars()[[x]]
+  weekdays(cal)
 }
 
 #' @export
