@@ -223,13 +223,33 @@ holidays <- function(cal) UseMethod('holidays')
 
 #' @export
 #' @rdname calendar-holidays-weekdays
-holidays.Calendar <- function(cal=bizdays.options$get('default.calendar')) cal$holidays
+holidays.default <- function(cal) {
+  if (missing(cal))
+    cal <- bizdays.options$get('default.calendar')
+  else
+    stop("Invalid calendar: ", cal)
+  holidays(cal)
+}
 
 #' @export
 #' @rdname calendar-holidays-weekdays
-holidays.character <- function(cal=bizdays.options$get('default.calendar')) {
+holidays.Calendar <- function(cal) cal$holidays
+
+#' @export
+#' @rdname calendar-holidays-weekdays
+holidays.character <- function(cal) {
   cal <- calendars()[[cal]]
   holidays(cal)
+}
+
+#' @export
+#' @rdname calendar-holidays-weekdays
+weekdays.default <- function(x, ...) {
+  if (missing(x))
+    x <- bizdays.options$get('default.calendar')
+  else
+    stop("Invalid calendar: ", x)
+  weekdays(x)
 }
 
 #' @export
