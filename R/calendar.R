@@ -215,6 +215,9 @@ create.calendar <- function(name,
 #' @examples
 #' holidays("actual")
 #' weekdays("actual")
+#' # empty calls return the default calendar attributes
+#' holidays()
+#' weekdays()
 NULL
 
 #' @export
