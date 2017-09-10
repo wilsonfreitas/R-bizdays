@@ -28,4 +28,5 @@
 #' @docType package
 #' 
 #' @importFrom methods is
+#' @importFrom utils head, tail
 NULL

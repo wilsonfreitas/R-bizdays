@@ -36,5 +36,5 @@ bizdiff.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
     stop('Given date out of range.')
   if (length(dates) <= 1)
     return(numeric(0))
-  bizdays(head(dates, -1), tail(dates, -1), cal)
+  bizdays(utils::head(dates, -1), utils::tail(dates, -1), cal)
 }
