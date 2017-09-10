@@ -209,6 +209,7 @@ create.calendar <- function(name,
 #' 
 #' @param cal character with calendar name or the calendar object
 #' @param x character with calendar name or the calendar object
+#' @param ... unused argument (this exists to keep compliance with \code{weekdays} generic)
 #' 
 #' @name calendar-holidays-weekdays
 #' 
