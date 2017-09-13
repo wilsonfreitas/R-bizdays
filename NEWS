@@ -1,3 +1,11 @@
+Changes in Version 1.0.4
+
+  * Implemented bizdiff function (issue #57).
+  
+  * Defined start and end dates for Rmetrics calendars (issue #60)
+  
+  * Implemented new Calendar methods: holidays and weekdays (issue #61)
+
 Changes in Version 1.0.3
 
   * Implemented check in tests for suggested packages: RQuantLib and timeDate (issue #56).
