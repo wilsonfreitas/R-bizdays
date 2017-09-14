@@ -5,7 +5,7 @@
 [![Downloads](http://cranlogs.r-pkg.org/badges/bizdays?color=brightgreen)]( https://cran.r-project.org/package=bizdays)
 
 [cran-bizdays]:  https://cran.r-project.org/package=bizdays
-[ANBIMA]: http://portal.anbima.com.br/Pages/home.aspx
+[ANBIMA]: http://www.anbima.com.br
 
 **bizdays** computes business days between dates based on collections of nonworking days and nonworking weekdays (usually weekends).
 It also helps with other issues related to business days calculations like check whether a date is a business day, offset a date by a number of business days, adjust dates for the next or previous business day, create generators of business days sequences, and much more.
