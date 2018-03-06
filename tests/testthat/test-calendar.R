@@ -89,6 +89,13 @@ test_that('it should create a business Calendar: Brazil\'s ANBIMA', {
   expect_equal(bizdays('2013-08-13', '2025-01-02', cal), 2861)
 })
 
+test_that('it should work with unordered calendars', {
+  data(holidaysANBIMA)
+  cal1 <- Calendar_(holidaysANBIMA, weekdays=c('saturday', 'sunday'))
+  cal2 <- Calendar_(sample(holidaysANBIMA), weekdays=c('saturday', 'sunday'))
+  expect_equal(bizdays('2013-07-12', '2014-07-12', cal1), bizdays('2013-07-12', '2014-07-12', cal2))
+})
+
 context('check whether or not a date is a business day')
 
 test_that("is business day", {
