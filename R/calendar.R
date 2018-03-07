@@ -17,6 +17,10 @@
 #' That function adjusts the argument if it is a nonworking day according to calendar.
 #' @param adjust.to is a function to be used with the \code{bizdays}'s \code{to} argument.
 #' See also \code{adjust.from}.
+#' @param financial is a logical argument that defaults to TRUE.
+#' This argument defines the calendar as a financial or a non financial calendar.
+#' Financial calendars don't consider the ending business day when counting working days in \code{bizdays}.
+#' \code{bizdays} calls for non financial calendars are greater than financial calendars calls by one day.
 #' 
 #' @details
 #' The arguments \code{start.date} and \code{end.date} can be set but once they aren't and \code{holidays}
