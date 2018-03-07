@@ -86,12 +86,14 @@ rev_index <- function(idx) {
 Calendar_ <- function (holidays=integer(0),
                        start.date=NULL, end.date=NULL, name=NULL,
                        weekdays=NULL, adjust.from=adjust.next,
-                       adjust.to=adjust.previous) {
+                       adjust.to=adjust.previous, financial = TRUE) {
   
   if (length(holidays) != 0 && all(is.null(weekdays)))
     warning('You provided holidays without set weekdays.\n',
             'That setup leads to inconsistencies!')
   that <- list()
+  # financial argument
+  that$financial <- financial
   # adjust functions
   that$adjust.from <- adjust.from
   that$adjust.to <- adjust.to
@@ -194,10 +196,12 @@ create.calendar <- function(name,
                             holidays=integer(0),
                             weekdays=NULL, 
                             start.date=NULL, end.date=NULL,
-                            adjust.from=adjust.none, adjust.to=adjust.none) {
+                            adjust.from=adjust.none, adjust.to=adjust.none,
+                            financial=TRUE) {
   cal <- Calendar_(holidays=holidays, weekdays=weekdays, name=name,
                   start.date=start.date, end.date=end.date,
-                  adjust.from=adjust.from, adjust.to=adjust.to)
+                  adjust.from=adjust.from, adjust.to=adjust.to,
+                  financial=financial)
   .CALENDAR_REGISTER[[cal$name]] <- cal
   invisible(cal)
 }
