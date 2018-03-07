@@ -67,16 +67,6 @@
 #' bizdays('2016-01-01', '2016-03-14', 'Actual')
 NULL
 
-#' @export
-#' @rdname create.calendar
-Calendar <- function(holidays=integer(0),
-                     start.date=NULL, end.date=NULL, name=NULL,
-                     weekdays=NULL, adjust.from=adjust.next,
-                     adjust.to=adjust.previous) {
-  warning('This function will be deprecated, use create.calendar instead.')
-  Calendar_(holidays, start.date, end.date, name, weekdays, adjust.from, adjust.to)
-}
-
 rev_index <- function(idx) {
   ridx <- cumsum(idx) + 1 - as.integer(idx)
   ridx[ridx > sum(idx)] <- sum(idx)
