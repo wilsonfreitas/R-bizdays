@@ -196,6 +196,8 @@ create.calendar <- function(name,
                   start.date=start.date, end.date=end.date,
                   adjust.from=adjust.from, adjust.to=adjust.to,
                   financial=financial)
+  cal$adjust.from_label = deparse(substitute(adjust.from))
+  cal$adjust.to_label = deparse(substitute(adjust.to))
   .CALENDAR_REGISTER[[cal$name]] <- cal
   invisible(cal)
 }
@@ -268,11 +270,18 @@ weekdays.character <- function(x, ...) {
 #' @export
 print.Calendar <- function(x, ...) {
   cal <- x
-  cat('Calendar:', cal$name,
-      '\nRange:', format(as.Date(cal$start.date, origin='1970-01-01'), '%Y-%m-%d'),
-      'to', format(as.Date(cal$end.date, origin='1970-01-01'), '%Y-%m-%d'),
-      '\nweekdays:', cal$weekdays,
-      '\n')
+  lab_holidays = paste0(length(cal$holidays), ' holidays')
+  lab_weekdays_1 = if (length(cal$weekdays)) paste0('(', paste(cal$weekdays, collapse = ', '), ')') else ''
+  lab_weekdays = paste0(length(cal$weekdays), ' weekdays ', lab_weekdays_1)
+  lab_financial = if (cal$financial) 'financial' else 'non financial'
+  cat(cal$name, lab_financial, 'calendar', '\n ',
+      lab_holidays, '\n ',
+      lab_weekdays, '\n ',
+      'range from', format(as.Date(cal$start.date, origin='1970-01-01'), '%Y-%m-%d'),
+      'to', format(as.Date(cal$end.date, origin='1970-01-01'), '%Y-%m-%d'), '\n')
+  cat('bizdays arguments adjust\n',
+      sprintf(' %-6s%s', 'from:', cal$adjust.from_label), '\n',
+      sprintf(' %-6s%s', 'to:', cal$adjust.to_label), '\n')
   invisible(x)
 }
 
