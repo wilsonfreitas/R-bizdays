@@ -1,7 +1,8 @@
 
 # [R-bizdays]( https://cran.r-project.org/package=bizdays)
 
-[![Build Status](https://travis-ci.org/wilsonfreitas/R-bizdays.svg?branch=master)](https://travis-ci.org/wilsonfreitas/R-bizdays)
+[![Travis build status](https://travis-ci.org/wilsonfreitas/R-bizdays.svg?branch=master)](https://travis-ci.org/wilsonfreitas/R-bizdays)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/wilsonfreitas/R-bizdays?branch=master&svg=true)](https://ci.appveyor.com/project/wilsonfreitas/R-bizdays)
 [![Downloads](http://cranlogs.r-pkg.org/badges/bizdays?color=brightgreen)]( https://cran.r-project.org/package=bizdays)
 
 [cran-bizdays]:  https://cran.r-project.org/package=bizdays
