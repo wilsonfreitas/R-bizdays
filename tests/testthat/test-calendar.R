@@ -89,6 +89,72 @@ test_that('it should create a business Calendar: Brazil\'s ANBIMA', {
   expect_equal(bizdays('2013-08-13', '2025-01-02', cal), 2861)
 })
 
+test_that('it should work with unordered calendars', {
+  data(holidaysANBIMA)
+  cal1 <- Calendar_(holidaysANBIMA, weekdays=c('saturday', 'sunday'))
+  cal2 <- Calendar_(sample(holidaysANBIMA), weekdays=c('saturday', 'sunday'))
+  expect_equal(bizdays('2013-07-12', '2014-07-12', cal1), bizdays('2013-07-12', '2014-07-12', cal2))
+})
+
+test_that('it should check consistency', {
+  hd<- as.Date( c(
+    "2017-01-02", # New Year's Day
+    "2017-01-16", # Birthday of Martin Luther King, Jr.
+    "2017-02-20", # Washington's Birthday
+    "2017-05-29", # Memorial Day
+    "2017-07-04", # Independence Day
+    "2017-09-04", # Labor Day
+    "2017-10-09", # Columbus Day
+    "2017-11-10", # Veterans Day
+    "2017-11-23", # Thanksgiving Day
+    "2017-12-25" # Christmas Day
+  ), format = "%Y-%m-%d",tz="CST6CDT")
+  create.calendar("USA2017", holidays=hd, start.date='2017-01-01',
+                  end.date='2017-12-31', weekdays=c("saturday", "sunday"),
+                  financial = TRUE)
+  
+  # both from and to are non bizdays
+  expect_equal(bizdays("2017-09-04","2017-09-08","USA2017"),
+               bizdays("2017-09-04","2017-09-09","USA2017"))
+  # from is non bizdays
+  expect_equal(bizdays("2017-09-04","2017-09-08","USA2017"),
+               bizdays("2017-09-05","2017-09-08","USA2017"))
+  # to is non bizdays
+  expect_equal(bizdays("2017-09-05","2017-09-09","USA2017"),
+               bizdays("2017-09-05","2017-09-08","USA2017"))
+})
+
+test_that('it should create non financial calendars', {
+  create.calendar(name = "test", weekdays=c('saturday', 'sunday'), financial = FALSE)
+  expect_equal(bizdays('2018-03-02', '2018-03-05', "test"), 2)
+  #
+  hd<- as.Date( c(
+    "2017-01-02", # New Year's Day
+    "2017-01-16", # Birthday of Martin Luther King, Jr.
+    "2017-02-20", # Washington's Birthday
+    "2017-05-29", # Memorial Day
+    "2017-07-04", # Independence Day
+    "2017-09-04", # Labor Day
+    "2017-10-09", # Columbus Day
+    "2017-11-10", # Veterans Day
+    "2017-11-23", # Thanksgiving Day
+    "2017-12-25" # Christmas Day
+  ), format = "%Y-%m-%d",tz="CST6CDT")
+  create.calendar("USA2017", holidays=hd, start.date='2017-01-01',
+                  end.date='2017-12-31', weekdays=c("saturday", "sunday"),
+                  financial = FALSE)
+  
+  # both from and to are non bizdays
+  expect_equal(bizdays("2017-09-04","2017-09-08","USA2017"),
+               bizdays("2017-09-04","2017-09-09","USA2017"))
+  # from is non bizdays
+  expect_equal(bizdays("2017-09-04","2017-09-08","USA2017"),
+               bizdays("2017-09-05","2017-09-08","USA2017"))
+  # to is non bizdays
+  expect_equal(bizdays("2017-09-05","2017-09-09","USA2017"),
+               bizdays("2017-09-05","2017-09-08","USA2017"))
+})
+
 context('check whether or not a date is a business day')
 
 test_that("is business day", {

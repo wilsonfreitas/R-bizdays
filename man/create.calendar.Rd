@@ -2,26 +2,17 @@
 % Please edit documentation in R/calendar.R
 \name{create.calendar}
 \alias{create.calendar}
-\alias{Calendar}
 \alias{create.calendar}
 \title{Creates calendars}
 \usage{
-Calendar(holidays = integer(0), start.date = NULL, end.date = NULL,
-  name = NULL, weekdays = NULL, adjust.from = adjust.next,
-  adjust.to = adjust.previous)
-
 create.calendar(name, holidays = integer(0), weekdays = NULL,
   start.date = NULL, end.date = NULL, adjust.from = adjust.none,
-  adjust.to = adjust.none)
+  adjust.to = adjust.none, financial = TRUE)
 }
 \arguments{
-\item{holidays}{a vector of Dates which contains the holidays}
-
-\item{start.date}{the date which the calendar starts}
-
-\item{end.date}{the date which the calendar ends}
-
 \item{name}{calendar's name. This is used to retrieve calendars from register.}
+
+\item{holidays}{a vector of Dates which contains the holidays}
 
 \item{weekdays}{a character vector which defines the weekdays to be used as
 non-working days (defaults to \code{NULL} which represents an actual 
@@ -29,11 +20,20 @@ calendar). It accepts: \code{sunday}, \code{monday}, \code{thuesday},
 \code{wednesday}, \code{thursday}, \code{friday}, \code{saturday}. 
 Defining the weekend as nonworking days is \code{weekdays=c("saturday", "sunday")}.}
 
+\item{start.date}{the date which the calendar starts}
+
+\item{end.date}{the date which the calendar ends}
+
 \item{adjust.from}{is a function to be used with the \code{bizdays}'s \code{from} argument.
 That function adjusts the argument if it is a nonworking day according to calendar.}
 
 \item{adjust.to}{is a function to be used with the \code{bizdays}'s \code{to} argument.
 See also \code{adjust.from}.}
+
+\item{financial}{is a logical argument that defaults to TRUE.
+This argument defines the calendar as a financial or a non financial calendar.
+Financial calendars don't consider the ending business day when counting working days in \code{bizdays}.
+\code{bizdays} calls for non financial calendars are greater than financial calendars calls by one day.}
 }
 \description{
 \code{create.calendar} creates calendars and stores them in the calendar register.

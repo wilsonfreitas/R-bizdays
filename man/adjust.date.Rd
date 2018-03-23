@@ -34,8 +34,17 @@ modified.preceding(dates, cal)
 \code{Date} objects adjusted accordingly.
 }
 \description{
-If the given dates are business days it returns the given dates, but once it
-is not, it returns the next/previous business days.
+Rolls the given date to the next or previous business day, unless it is a business day.
+}
+\details{
+\code{adjust.next} and \code{following} return the next business day if the given date
+is not a business day.
+\code{adjust.previous} and \code{preceding} are similar, but return the previous 
+business day.
+\code{modified.following} rolls the given date to the next business day, unless 
+it happens in the next month, in this case it returns the previous business day.
+\code{modified.preceding} is similar to \code{modified.following}, but rolls the given 
+date to the previous business day.
 }
 \section{Date types accepted}{
 
