@@ -13,26 +13,26 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## How bizdays counts business days
+## How bizdays counts business days?
 
-To compute the number of business days between two dates effectively and with a good performance, `bizdays` creates two indexes where business days contribute with one unit and nonworking dates contribute with zero units.
-These two indexes, called forward and backward, are contructed by labeling the business days and extending those labels to nonworking days.
-Let's consider a sequence with all dates of a range.
-If the business days are filtered into a new sequence, each business day has an identification number which is its position in that sequence.
-Taking these identification numbers to the original sequence of dates, the nonworking dates don't have such a number, so they use the identification number of its business day neighbor.
-To fulfil the nonworking days in the forward index the nonworking days the number of its left neighbor is used, and the backward index uses the right neighbor's number.
-Doing this way, every business day has the same identification number in both indexes.
-
-The figure below shows a representation of these indexes
+To compute the number of business days between two dates effectively and with a good performance, `bizdays` creates two indexes.
+The two indexes are called forward and backward.
+These indexes associate a number to each date from the calendar's `start_date` up to its `end_date`.
+In the forward index, the first business day is 1, the second is 2 and so on.
+The backward index starts in the end with the last business day equals 1 and goes increasing towards the begining.
+This works fine in financial calculations because between two consecutive business days we have 1 day, in both indexes.
+The non business days are gaps and they share the index with their business days neighbors, see the figure below.
+The blue boxes are working days and the green ones nonworking days.
 
 ![bizdays index](bizdays_index.png "bizdays index")
 
-The blue boxes are working days and the green ones nonworking days.
-As we can see, from Tuesday to Monday we have 7 days (one week), starting at 1 and ending up at 7 in the current days index (which is represented by the `actual` calendar).
-In the business days indexes the counting starts at 1 and ends up at 4 and 4 is the total number of business days shown.
-The differences appear in the business days indexes, where the nonworking days share the index with its business days neighbors, as explained.
+Differently we can imagine that each business day in the sequence of dates of the calendar contributes with 1 and the non business days with 0.
+The forward index does an accumulated sum starting from the begining and the backward does the same starting in the end.
 
-To compute the number of business days between two dates bizdays subtracts the index values associated with the given dates in each index and take its minimum.
+As we can see in the figure above, from Tuesday to Monday we have 7 days (one week), starting at 1 and ending up at 7 in the current days index (which is represented by the `actual` calendar).
+In the business days indexes the counting starts at 1 and ends up at 4 and 4 is the total number of business days shown.
+
+To compute the number of business days between two dates bizdays subtracts the index values associated with the given dates in each index and take the minimum.
 This is done to avoid having incorrect business days calculations in situations where the arguments `from` and `to` are given nonworking days.
 
 Let's create a calendar with these dates to illustrate.
