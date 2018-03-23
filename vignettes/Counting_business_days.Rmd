@@ -32,16 +32,16 @@ The forward index does an accumulated sum starting from the begining and the bac
 As we can see in the figure above, from Tuesday to Monday we have 7 days (one week), starting at 1 and ending up at 7 in the current days index (which is represented by the `actual` calendar).
 In the business days indexes the counting starts at 1 and ends up at 4 and 4 is the total number of business days shown.
 
-To compute the number of business days between two dates bizdays subtracts the index values associated with the given dates in each index and take the minimum.
-This is done to avoid having incorrect business days calculations in situations where the arguments `from` and `to` are given nonworking days.
+To compute the number of business days between two dates bizdays uses these two indexes to handle the different situations where the arguments `from` and `to` are given nonworking days.
 
-Let's create a calendar with these dates to illustrate.
+Let's create a calendar a non financial calendar with these dates to illustrate.
 
 ```{r message=FALSE, warning=FALSE}
 library(bizdays)
 
-create.calendar(name = "example1", weekdays = c("saturday", "sunday"), start.date = "2017-01-24", end.date = "2017-01-30", holidays = "2017-01-25")
-calendars() # to list all calendars
+create.calendar(name = "example1", weekdays = c("saturday", "sunday"), start.date = "2017-01-24", end.date = "2017-01-30", holidays = "2017-01-25", financial = FALSE)
+
+calendars()[["example1"]] # view the calendar
 ```
 
 Calling the `bizdays` function to compute the business days from 2017-01-24 to 2017-01-26 results in:
@@ -50,35 +50,89 @@ Calling the `bizdays` function to compute the business days from 2017-01-24 to 2
 bizdays("2017-01-24", "2017-01-26", "example1")
 ```
 
-one business day which is the difference of index values, but the interval (2017-01-24, 2017-01-26) has two business days.
-Another example, starting and ending up at the holiday, we get
+2 business days that is the amount of business days in the given interval.
+
+In another example, starting and ending up at the holiday, we get
 
 ```{r}
 bizdays("2017-01-24", "2017-01-25", "example1")
 bizdays("2017-01-25", "2017-01-26", "example1")
 ```
 
+as expected it returns 1 in both cases.
+And also if you offset the date `2017-01-25` by one business day, you end up in one of its neighbors.
+
+```{r}
+offset("2017-01-25", c(-1, 1), "example1")
+```
+
+In the situations where both, `from` and `to`, are non business days, we get:
 
 ```{r}
 bizdays("2017-01-25", "2017-01-28", "example1")
+bizdays("2017-01-25", "2017-01-29", "example1")
 ```
+
+which is also correct because we have two business days into these intervals.
+
+The devil is when we work with financial calendars.
+These examples give unexpected results.
+Let's create a financial calendar with the same dates.
+
+```{r message=FALSE, warning=FALSE}
+create.calendar(name = "example2", weekdays = c("saturday", "sunday"), start.date = "2017-01-24", end.date = "2017-01-30", holidays = "2017-01-25", financial = TRUE)
+
+calendars()[["example2"]] # view the calendar
+```
+
+All strange situations appear when non business days are passed as arguments to `bizdays` and `offset` functions.
+In the first example above, where we count the number of business days in the interval (2017-01-25, 2017-01-26).
 
 ```{r}
-offset("2017-01-25", 1, "example1")
+bizdays("2017-01-25", "2017-01-26", "example2")
 ```
 
+The result is 0 indicating that we don't have one business day to compound an interest rate.
+On the other hand, if we offset the non business day 2017-01-25 by one we have
 
-This result happens because of the two indexes, if we consider only one index these function calls would return different results.
+```{r}
+offset("2017-01-25", 1, "example2")
+```
 
-`bizdays` doesn't return the number of business days in a interval, it returns the jumps between business days into the interval.
-This is the way days are counted in the financial insdustry to compound interest rates, for example.
-`bizdays` calculations are straighforward when the arguments `from` and `to` are business days, and if any of these arguments are passed nonworking days the result might be unexpected.
-To work around this situation we have the arguments `adjust_from` and `adjust_to` on `create.calendar`.
-These have been created, to execute a date adjustment of the arguments `from` and `to` according to users needs.
+which might sound non sense, given that `bizdays` returns 0.
+But, the non sense here is the use of non business days as arguments when working with financial calendars.
+To handle this situation I suggest the functions `preceding` (or `adjust_previous`) and `following` (or `adjust_next`).
+These functions move the given date to the previous (or next) business date, if it is not a business day, otherwise the given date is returned.
+In the example above we can use `preceding`.
+
+```{r}
+prev_date = preceding("2017-01-25", "example2")
+prev_date
+bizdays(prev_date, "2017-01-26", "example2")
+offset(prev_date, 1, "example2")
+```
+
+If you don't want to call these functions every time you call `bizdays`, you can set the arguments `adjust_from` and `adjust_to` on `create.calendar`.
+These arguments have been created, to execute a date adjustment of the arguments `from` and `to` according to users needs.
 These arguments can be set with one of these three functions:
 
-- `adjust_none`: the default value, does not execute date adjustment
-- `adjust_previous`: move the date for the previous business day if it is nonworking day
-- `adjust_next`: move the date for the next business day if it is nonworking day
+- `adjust_none`: does not execute date adjustment, this is the default value
+- `preceding` or `adjust_previous`: move the date for the previous business day if it is nonworking day
+- `following` or `adjust_next`: move the date for the next business day if it is nonworking day
 
-So the user can have more control on the resutls.
+In our third example, let's set these arguments
+
+```{r message=FALSE, warning=FALSE}
+create.calendar(name = "example3", weekdays = c("saturday", "sunday"), start.date = "2017-01-24", end.date = "2017-01-30", holidays = "2017-01-25", financial = TRUE, adjust.from = preceding, adjust.to = following)
+
+calendars()[["example3"]] # view the calendar
+```
+
+we have 
+
+```{r}
+bizdays("2017-01-25", "2017-01-26", "example3")
+offset("2017-01-25", 1, "example3")
+```
+
+as expected.
