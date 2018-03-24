@@ -1,3 +1,13 @@
+Changes in Verson 1.0.5
+
+  * New vignette "Financial and non financial calendars"
+
+  * Improved Calendar's print method, now it is more informative (issue #68)
+
+  * Introduced the financial argument to create.calendar. It allows to create non financial calendars (issue #62)
+  
+  * Removed the old calendars construction: the Calendar function
+
 Changes in Version 1.0.4
 
   * Implemented bizdiff function (issue #57).
