@@ -1,5 +1,7 @@
 Changes in Verson 1.0.5
 
+  * Implemented bizdays optimisations (issue #70)
+
   * New vignette "Financial and non financial calendars"
 
   * Improved Calendar's print method, now it is more informative (issue #68)
