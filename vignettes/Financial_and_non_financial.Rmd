@@ -6,7 +6,7 @@ output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Financial and non financial calendars}
   %\VignetteEngine{knitr::rmarkdown}
-  \usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
@@ -33,7 +33,7 @@ This works fine in financial calculations because between two consecutive busine
 The non business days are gaps and they share the index with their business days neighbors, see the figure below.
 The blue boxes are working days and the green ones nonworking days.
 
-![bizdays index](bizdays_index.png "bizdays index")
+![bizdays index](figures/bizdays_index.png "bizdays index")
 
 Differently we can imagine that each business day in the sequence of dates of the calendar contributes with 1 and the non business days with 0.
 The forward index does an accumulated sum starting from the begining and the backward does the same starting in the end.
