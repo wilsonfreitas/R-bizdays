@@ -9,3 +9,4 @@ travis-ci-legacy.yml
 vignettes/Counting_business_days.Rmd
 vignettes/bizdays_index.png
 ^appveyor\.yml$
+^codecov\.yml$

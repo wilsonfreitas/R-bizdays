@@ -4,6 +4,7 @@
 [![Travis build status](https://travis-ci.org/wilsonfreitas/R-bizdays.svg?branch=master)](https://travis-ci.org/wilsonfreitas/R-bizdays)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/wilsonfreitas/R-bizdays?branch=master&svg=true)](https://ci.appveyor.com/project/wilsonfreitas/R-bizdays)
 [![Downloads](http://cranlogs.r-pkg.org/badges/bizdays?color=brightgreen)]( https://cran.r-project.org/package=bizdays)
+[![Coverage status](https://codecov.io/gh/wilsonfreitas/R-bizdays/branch/master/graph/badge.svg)](https://codecov.io/github/wilsonfreitas/R-bizdays?branch=master)
 
 [cran-bizdays]:  https://cran.r-project.org/package=bizdays
 [ANBIMA]: http://www.anbima.com.br
