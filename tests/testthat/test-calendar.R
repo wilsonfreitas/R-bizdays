@@ -44,7 +44,7 @@ test_that('it should create an Actual Calendar', {
   expect_equal(bizdays('2013-01-02', '2013-02-03', cal), difference)
 })
 
-test_that('it should create a business Calendar: Brazil\'s ANBIMA', {
+test_that("it should create a business Calendar: Brazil's ANBIMA", {
   data(holidaysANBIMA)
   cal <- Calendar_(holidaysANBIMA, weekdays = c('saturday', 'sunday'))
   expect_equal(bizdays('2013-07-12', '2014-07-12', cal), 251)

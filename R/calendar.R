@@ -117,20 +117,18 @@ Calendar_ <- function (holidays=integer(0),
   that$start.date <- start.date
   that$end.date <- end.date
   # dates
-  n.dates <- as.integer(seq(from = start.date, to = end.date, by='day'))
+  n.dates <- as.integer(seq(from = start.date, to = end.date, by = 'day'))
   # is bizday?
-  .is.bizday <- vapply(n.dates, function(.) {
-    wday <- . %% 7
-    ! ( wday %in% wdays || . %in% n.holidays)
-  }, logical(1))
+  .aux <- function(.) ! ( (. %% 7) %in% wdays || . %in% n.holidays)
+  is.bizday_ <- vapply(n.dates, .aux, logical(1))
   that$is.bizday <- function(date) {
-    .is.bizday[match(date, n.dates)]
+    is.bizday_[match(date, n.dates)]
   }
   # bizdays and index
-  n.bizdays <- n.dates[.is.bizday]
+  n.bizdays <- n.dates[is.bizday_]
   index.bizdays <- seq_along(n.bizdays)
-  index <- cumsum(.is.bizday)     # forward index - the index
-  rindex <- rev_index(.is.bizday) # backward index - the reverse index
+  index <- cumsum(is.bizday_)     # forward index - the index
+  rindex <- rev_index(is.bizday_) # backward index - the reverse index
   # bizdays
   that$bizdays <- function(from, to) {
     m_from <- match(from, n.dates)
@@ -148,11 +146,11 @@ Calendar_ <- function (holidays=integer(0),
   }
   # adjust.next and adjust.previous
   .adjust <- function(dates, offset) {
-    idx <- .is.bizday[match(dates, n.dates)]
+    idx <- is.bizday_[match(dates, n.dates)]
     idx[is.na(idx)] <- TRUE
     while ( ! all(idx) ) {
       dates[!idx] <- dates[!idx] + offset
-      idx <- .is.bizday[match(dates, n.dates)]
+      idx <- is.bizday_[match(dates, n.dates)]
       idx[is.na(idx)] <- TRUE
     }
     dates
