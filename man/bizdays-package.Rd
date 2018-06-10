@@ -7,7 +7,7 @@
 \description{
 In many countries the standard approach to price derivatives and fixed income
 instruments involves the use of business days. In Brazil, for example, the
-great majority of financial insturments are priced on business days counting
+great majority of financial instruments are priced on business days counting
 rules. Given that the use of business days is somehow vital to handle many
 tasks. That's the reason why \code{bizdays} came up, to make these tasks easier.
 Excel's NETWORKDAYS is fairly at hand and once you have a list of
@@ -17,7 +17,7 @@ things happen.
 
 Although R's users have similar feature in packages like \code{RQuantLib} and
 \code{timeDate} it doesn't come for free. Users have to do some stackoverflow
-in order to get this task accomplished. \code{bizdays} is a tiny package dramactically
+in order to get this task accomplished. \code{bizdays} is a tiny package dramatically
 focused on that simple task: support calculations involving business days for 
 a given list of holidays.
 

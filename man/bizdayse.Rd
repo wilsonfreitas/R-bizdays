@@ -31,7 +31,8 @@ This is equivalent to
 refdate <- Sys.Date()
 curd <- 10
 newdate <- refdate + 10 # offset refdate by 10 days
-bizdays(refdate, newdate) # bizdayse(refdate, 10)
+# this is equals to bizdayse(refdate, 10)
+bizdays(refdate, newdate)
 }
 }
 \section{Date types accepted}{

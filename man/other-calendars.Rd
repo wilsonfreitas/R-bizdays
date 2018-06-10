@@ -11,26 +11,32 @@ load_quantlib_calendars(ql_calendars = NULL, from, to)
 load_rmetrics_calendars(year)
 }
 \arguments{
-\item{ql_calendars}{(QuantLib only) A character vector with the names of QuantLib's calendars. This parameter defaults to NULL, which loads all calendars.}
+\item{ql_calendars}{(QuantLib only) A character vector with the names of 
+QuantLib's calendars. This parameter defaults to NULL, which loads all 
+calendars.}
 
 \item{from}{(QuantLib only) the start date}
 
 \item{to}{(QuantLib only) the end date}
 
-\item{year}{(timeDate Rmetrics only) a vector with years to create the calendars.}
+\item{year}{(timeDate Rmetrics only) a vector with years to create the 
+calendars.}
 }
 \description{
-The packages RQuantLib and timeDate (Rmetrics) have functions to compute business days between 2 dates according to a pre-defined calendar.
+The packages RQuantLib and timeDate (Rmetrics) have functions to compute 
+business days between 2 dates according to a predefined calendar.
 bizdays creates calendars based on these functions.
 }
 \details{
-To load QuantLib's calendars use \code{load_quantlib_calendars} defining which
-calendar has to be loaded by its name and the range of dates the calendar has to handle.
-All QuantLib calendars have the \code{QuantLib} preffix.
+To load QuantLib's calendars use \code{load_quantlib_calendars} defining 
+which
+calendar has to be loaded by its name and the range of dates the calendar 
+has to handle.
+All QuantLib calendars have the \code{QuantLib} prefix.
 
 To load Rmetrics' calendars use \code{load_rmetrics_calendars} defining the 
 years the calendar has to handle.
-All Rmetrics calendars have the \code{Rmetrics} preffix.
+All Rmetrics calendars have the \code{Rmetrics} prefix.
 }
 \section{List of calendars}{
 
