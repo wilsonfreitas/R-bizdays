@@ -25,13 +25,15 @@
 bizseq <- function(from, to, cal) UseMethod('bizseq')
 
 #' @export
-bizseq.default <- function(from, to, cal=bizdays.options$get('default.calendar')) {
+bizseq.default <- function(from, to,
+                           cal = bizdays.options$get('default.calendar')) {
   from <- as.Date(from)
   bizseq(from, to, cal)
 }
 
 #' @export
-bizseq.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
+bizseq.Date <- function(from, to,
+                        cal = bizdays.options$get('default.calendar')) {
   to <- as.Date(to)
   cal <- check_calendar(cal)
   if ( ! any(from >= cal$start.date & from <= cal$end.date) )
@@ -42,6 +44,5 @@ bizseq.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
     stop('All from dates must be greater than all to dates.')
   from <- as.integer(from)
   to <- as.integer(to)
-  as.Date(cal$seq(from, to), origin='1970-01-01')
+  as.Date(cal$seq(from, to), origin = '1970-01-01')
 }
-

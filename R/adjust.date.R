@@ -43,18 +43,20 @@ adjust.next <- function(dates, cal) UseMethod("adjust.next")
 following <- function(dates, cal) UseMethod("following")
 
 #' @export
-adjust.next.default <- function(dates, cal=bizdays.options$get('default.calendar')) {
+adjust.next.default <- function(dates,
+                                cal = bizdays.options$get('default.calendar')) {
   dates <- as.Date(dates)
   adjust.next(dates, cal)
 }
 
 #' @export
-adjust.next.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
+adjust.next.Date <- function(dates,
+                             cal = bizdays.options$get('default.calendar')) {
   cal <- check_calendar(cal)
   if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
     stop('Given date out of range.')
   dates <- as.integer(dates)
-  as.Date(cal$adjust.next(dates), origin='1970-01-01')
+  as.Date(cal$adjust.next(dates), origin = '1970-01-01')
 }
 
 #' @rdname adjust.date
@@ -75,13 +77,17 @@ following.Date <- adjust.next.Date
 modified.following <- function(dates, cal) UseMethod("modified.following")
 
 #' @export
-modified.following.default <- function(dates, cal=bizdays.options$get('default.calendar')) {
+modified.following.default <- function(dates,
+                                       cal = bizdays.options$get(
+                                         'default.calendar')) {
   dates <- as.Date(dates)
   modified.following(dates, cal)
 }
 
 #' @export
-modified.following.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
+modified.following.Date <- function(dates,
+                                    cal = bizdays.options$get(
+                                      'default.calendar')) {
   cal <- check_calendar(cal)
   if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
     stop('Given date out of range.')
@@ -103,18 +109,22 @@ adjust.previous <- function(dates, cal) UseMethod("adjust.previous")
 preceding <- function(dates, cal) UseMethod("preceding")
 
 #' @export
-adjust.previous.default <- function(dates, cal=bizdays.options$get('default.calendar')) {
+adjust.previous.default <- function(dates,
+                                    cal = bizdays.options$get(
+                                      'default.calendar')) {
   dates <- as.Date(dates)
   adjust.previous(dates, cal)
 }
 
 #' @export
-adjust.previous.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
+adjust.previous.Date <- function(dates,
+                                 cal = bizdays.options$get(
+                                   'default.calendar')) {
   cal <- check_calendar(cal)
   if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
     stop('Given date out of range.')
   dates <- as.integer(dates)
-  as.Date(cal$adjust.previous(dates), origin='1970-01-01')
+  as.Date(cal$adjust.previous(dates), origin = '1970-01-01')
 }
 
 #' @export
@@ -131,13 +141,17 @@ preceding.Date <- adjust.previous.Date
 modified.preceding <- function(dates, cal) UseMethod("modified.preceding")
 
 #' @export
-modified.preceding.default <- function(dates, cal=bizdays.options$get('default.calendar')) {
+modified.preceding.default <- function(dates,
+                                       cal = bizdays.options$get(
+                                         'default.calendar')) {
   dates <- as.Date(dates)
   modified.preceding(dates, cal)
 }
 
 #' @export
-modified.preceding.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
+modified.preceding.Date <- function(dates,
+                                    cal = bizdays.options$get(
+                                      'default.calendar')) {
   cal <- check_calendar(cal)
   if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
     stop('Given date out of range.')
@@ -146,9 +160,9 @@ modified.preceding.Date <- function(dates, cal=bizdays.options$get('default.cale
 }
 
 modified <- function(dates, move1, move2) {
-  dtx <- as.Date(move1(dates), origin='1970-01-01')
-  idx <- format(dtx, '%m') != format(as.Date(dates, origin='1970-01-01'), '%m')
-  dtx[idx] <- as.Date(move2(dates[idx]), origin='1970-01-01')
+  dtx <- as.Date(move1(dates), origin = '1970-01-01')
+  idx <- format(dtx, '%m') != format(as.Date(dates, origin = '1970-01-01'),
+                                     '%m')
+  dtx[idx] <- as.Date(move2(dates[idx]), origin = '1970-01-01')
   dtx
 }
-

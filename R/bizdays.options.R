@@ -1,13 +1,13 @@
 # merge elements of y into x with the same names
-merge_list = function(x, y) {
-  x[names(y)] = y
+merge_list <- function(x, y) {
+  x[names(y)] <- y
   x
 }
 
 # new_defaults - creates a settings object
 new_defaults <- function(value=list()) {
   defaults <- value
-  
+
   get <- function(name, default=FALSE, drop=TRUE) {
     if (default)
       defaults <- value  # this is only a local version
@@ -30,8 +30,8 @@ new_defaults <- function(value=list()) {
   }
   merge <- function(values) merge_list(defaults, values)
   restore <- function(target = value) defaults <<- target
-  
-  list(get=get, set=set, merge=merge, restore=restore)
+
+  list(get = get, set = set, merge = merge, restore = restore)
 }
 
 #' bizdays' options
@@ -64,4 +64,3 @@ new_defaults <- function(value=list()) {
 #' 
 #' @export
 bizdays.options <- new_defaults()
-

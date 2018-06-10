@@ -8,4 +8,3 @@
 #' @format a vector with \code{Date} objects that represent holidays
 #' @name holidaysANBIMA
 NULL
-
