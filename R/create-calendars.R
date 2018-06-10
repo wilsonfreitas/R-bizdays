@@ -1,7 +1,7 @@
 #' Calendars from other packages
 #' 
 #' The packages RQuantLib and timeDate (Rmetrics) have functions to compute 
-#' business days between 2 dates according to a pre-defined calendar.
+#' business days between 2 dates according to a predefined calendar.
 #' bizdays creates calendars based on these functions.
 #' 
 #' @param ql_calendars (QuantLib only) A character vector with the names of 
@@ -17,11 +17,11 @@
 #' which
 #' calendar has to be loaded by its name and the range of dates the calendar 
 #' has to handle.
-#' All QuantLib calendars have the \code{QuantLib} preffix.
+#' All QuantLib calendars have the \code{QuantLib} prefix.
 #' 
 #' To load Rmetrics' calendars use \code{load_rmetrics_calendars} defining the 
 #' years the calendar has to handle.
-#' All Rmetrics calendars have the \code{Rmetrics} preffix.
+#' All Rmetrics calendars have the \code{Rmetrics} prefix.
 #' 
 #' @section List of calendars:
 #' 
