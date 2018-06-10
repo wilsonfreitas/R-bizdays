@@ -47,13 +47,15 @@
 bizdays <- function(from, to, cal) UseMethod('bizdays')
 
 #' @export
-bizdays.default <- function(from, to, cal=bizdays.options$get('default.calendar')) {
+bizdays.default <- function(from, to,
+                            cal = bizdays.options$get('default.calendar')) {
   from <- as.Date(from)
   bizdays(from, to, cal)
 }
 
 #' @export
-bizdays.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) {
+bizdays.Date <- function(from, to,
+                         cal = bizdays.options$get('default.calendar')) {
   to <- as.Date(to)
   # ---
   if (all(is.na(to))) return( rep(NA, max(length(to), length(from))) )
@@ -79,7 +81,8 @@ bizdays.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) 
   new.to <- cal$adjust.to(new.to, cal)
   bdays <- cal$bizdays(as.integer(new.from), as.integer(new.to))
   bdays[idx] <- -bdays[idx]
-  adj_vec <- as.integer( !(cal$is.bizday(as.integer(new.from)) | cal$is.bizday(as.integer(new.to))) )
+  adj_vec <- as.integer( !(cal$is.bizday(as.integer(new.from)) |
+                             cal$is.bizday(as.integer(new.to))) )
   bdays <- bdays - adj_vec
   if (cal$financial)
     bdays
@@ -110,7 +113,8 @@ bizdays.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) 
 #' refdate <- Sys.Date()
 #' curd <- 10
 #' newdate <- refdate + 10 # offset refdate by 10 days
-#' bizdays(refdate, newdate) # bizdayse(refdate, 10)
+#' # this is equals to bizdayse(refdate, 10)
+#' bizdays(refdate, newdate)
 #' }
 #' 
 #' @section Date types accepted:
@@ -134,13 +138,14 @@ bizdays.Date <- function(from, to, cal=bizdays.options$get('default.calendar')) 
 bizdayse <- function(dates, curd, cal) UseMethod('bizdayse')
 
 #' @export
-bizdayse.default <- function(dates, curd, cal=bizdays.options$get('default.calendar')) {
+bizdayse.default <- function(dates, curd,
+                             cal = bizdays.options$get('default.calendar')) {
   dates <- as.Date(dates)
   bizdayse(dates, curd, cal)
 }
 
 #' @export
-bizdayse.Date <- function(dates, curd, cal=bizdays.options$get('default.calendar')) {
-  bizdays(dates, dates+curd, cal)
+bizdayse.Date <- function(dates, curd,
+                          cal = bizdays.options$get('default.calendar')) {
+  bizdays(dates, dates + curd, cal)
 }
-

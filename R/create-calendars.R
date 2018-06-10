@@ -1,16 +1,22 @@
 #' Calendars from other packages
 #' 
-#' The packages RQuantLib and timeDate (Rmetrics) have functions to compute business days between 2 dates according to a pre-defined calendar.
+#' The packages RQuantLib and timeDate (Rmetrics) have functions to compute 
+#' business days between 2 dates according to a pre-defined calendar.
 #' bizdays creates calendars based on these functions.
 #' 
-#' @param ql_calendars (QuantLib only) A character vector with the names of QuantLib's calendars. This parameter defaults to NULL, which loads all calendars.
+#' @param ql_calendars (QuantLib only) A character vector with the names of 
+#' QuantLib's calendars. This parameter defaults to NULL, which loads all 
+#' calendars.
 #' @param from (QuantLib only) the start date
 #' @param to (QuantLib only) the end date
-#' @param year (timeDate Rmetrics only) a vector with years to create the calendars.
+#' @param year (timeDate Rmetrics only) a vector with years to create the 
+#' calendars.
 #' 
 #' @details
-#' To load QuantLib's calendars use \code{load_quantlib_calendars} defining which
-#' calendar has to be loaded by its name and the range of dates the calendar has to handle.
+#' To load QuantLib's calendars use \code{load_quantlib_calendars} defining 
+#' which
+#' calendar has to be loaded by its name and the range of dates the calendar 
+#' has to handle.
 #' All QuantLib calendars have the \code{QuantLib} preffix.
 #' 
 #' To load Rmetrics' calendars use \code{load_rmetrics_calendars} defining the 
@@ -111,42 +117,50 @@ NULL
 local({
   create.calendar("actual")
   localenv <- new.env()
-  data("holidaysANBIMA", envir=localenv)
+  data("holidaysANBIMA", envir = localenv)
   create.calendar("Brazil/ANBIMA", localenv$holidaysANBIMA,
-                  weekdays=c('saturday', 'sunday'),
-                  adjust.from=adjust.next, adjust.to=adjust.previous)
-  create.calendar("weekends", weekdays=c('saturday', 'sunday'),
-                  adjust.from=adjust.next, adjust.to=adjust.previous)
-  bizdays.options$set(default.calendar='actual')
+                  weekdays = c('saturday', 'sunday'),
+                  adjust.from = adjust.next, adjust.to = adjust.previous)
+  create.calendar("weekends", weekdays = c('saturday', 'sunday'),
+                  adjust.from = adjust.next, adjust.to = adjust.previous)
+  bizdays.options$set(default.calendar = 'actual')
 })
 
 #' @rdname other-calendars
 #' @export
-load_quantlib_calendars <- function(ql_calendars=NULL, from, to) {
+load_quantlib_calendars <- function(ql_calendars = NULL, from, to) {
   if (!requireNamespace("RQuantLib", quietly = TRUE)) {
     stop("RQuantLib needed for this function to work. Please install it.",
          call. = FALSE)
   }
   if (is.null(ql_calendars))
     ql_calendars <- c("Argentina", "Australia", "Brazil", "Canada",
-                      "Canada/Settlement", "Canada/TSX", "China", "CzechRepublic",
+                      "Canada/Settlement", "Canada/TSX", "China",
+                      "CzechRepublic",
                       "Denmark", "Finland", "Germany",
                       "Germany/FrankfurtStockExchange", "Germany/Settlement",
                       "Germany/Xetra", "Germany/Eurex", "HongKong", "Hungary",
-                      "Iceland", "India", "Indonesia", "Italy", "Italy/Settlement",
-                      "Italy/Exchange", "Japan", "Mexico", "NewZealand", "Norway",
-                      "Poland", "Russia", "SaudiArabia", "Singapore", "Slovakia",
+                      "Iceland", "India", "Indonesia", "Italy",
+                      "Italy/Settlement",
+                      "Italy/Exchange", "Japan", "Mexico", "NewZealand",
+                      "Norway",
+                      "Poland", "Russia", "SaudiArabia", "Singapore",
+                      "Slovakia",
                       "SouthAfrica", "SouthKorea", "SouthKorea/KRX", "Sweden",
-                      "Switzerland", "Taiwan", "Turkey", "Ukraine", "UnitedKingdom",
+                      "Switzerland", "Taiwan", "Turkey", "Ukraine",
+                      "UnitedKingdom",
                       "UnitedKingdom/Settlement", "UnitedKingdom/Exchange",
-                      "UnitedKingdom/Metals", "UnitedStates", "UnitedStates/Settlement",
-                      "UnitedStates/NYSE", "UnitedStates/GovernmentBond", "UnitedStates/NERC")
+                      "UnitedKingdom/Metals", "UnitedStates",
+                      "UnitedStates/Settlement",
+                      "UnitedStates/NYSE", "UnitedStates/GovernmentBond",
+                      "UnitedStates/NERC")
   for (cal in ql_calendars) {
     cal_name <- paste0("QuantLib/", cal)
     holidays_ <- RQuantLib::getHolidayList(cal, as.Date(from), as.Date(to))
-    create.calendar(holidays_, weekdays=c('saturday', 'sunday'), name=cal_name,
-                    start.date=from, end.date=to,
-                    adjust.from=adjust.next, adjust.to=adjust.next)
+    create.calendar(holidays_, weekdays = c('saturday', 'sunday'),
+                    name = cal_name,
+                    start.date = from, end.date = to,
+                    adjust.from = adjust.next, adjust.to = adjust.next)
     message("Calendar ", cal_name, " loaded")
   }
 }
@@ -162,39 +176,44 @@ load_rmetrics_calendars <- function(year) {
   fl_year <- range(year)
   start_date <- as.Date(paste0(fl_year[1], "-01-01"))
   end_date <- as.Date(paste0(fl_year[2], "-12-31"))
-  
+
   holidays_ <- as.Date(timeDate::holidayLONDON(year))
   cal_name <- "Rmetrics/LONDON"
-  create.calendar(holidays_, weekdays=c('saturday', 'sunday'), name=cal_name,
-                  adjust.from=adjust.next, adjust.to=adjust.previous,
+  create.calendar(holidays_, weekdays = c('saturday', 'sunday'),
+                  name = cal_name,
+                  adjust.from = adjust.next, adjust.to = adjust.previous,
                   start.date = start_date, end.date = end_date)
   message("Calendar ", cal_name, " loaded")
-  
+
   holidays_ <- as.Date(timeDate::holidayNERC(year))
   cal_name <- "Rmetrics/NERC"
-  create.calendar(holidays_, weekdays=c('saturday', 'sunday'), name=cal_name,
-                  adjust.from=adjust.next, adjust.to=adjust.previous,
+  create.calendar(holidays_, weekdays = c('saturday', 'sunday'),
+                  name = cal_name,
+                  adjust.from = adjust.next, adjust.to = adjust.previous,
                   start.date = start_date, end.date = end_date)
   message("Calendar ", cal_name, " loaded")
-  
+
   holidays_ <- as.Date(timeDate::holidayNYSE(year))
   cal_name <- "Rmetrics/NYSE"
-  create.calendar(holidays_, weekdays=c('saturday', 'sunday'), name=cal_name,
-                  adjust.from=adjust.next, adjust.to=adjust.previous,
+  create.calendar(holidays_, weekdays = c('saturday', 'sunday'),
+                  name = cal_name,
+                  adjust.from = adjust.next, adjust.to = adjust.previous,
                   start.date = start_date, end.date = end_date)
   message("Calendar ", cal_name, " loaded")
-  
+
   holidays_ <- as.Date(timeDate::holidayTSX(year))
   cal_name <- "Rmetrics/TSX"
-  create.calendar(holidays_, weekdays=c('saturday', 'sunday'), name=cal_name,
-                  adjust.from=adjust.next, adjust.to=adjust.previous,
+  create.calendar(holidays_, weekdays = c('saturday', 'sunday'),
+                  name = cal_name,
+                  adjust.from = adjust.next, adjust.to = adjust.previous,
                   start.date = start_date, end.date = end_date)
   message("Calendar ", cal_name, " loaded")
-  
+
   holidays_ <- as.Date(timeDate::holidayZURICH(year))
   cal_name <- "Rmetrics/ZURICH"
-  create.calendar(holidays_, weekdays=c('saturday', 'sunday'), name=cal_name,
-                  adjust.from=adjust.next, adjust.to=adjust.previous,
+  create.calendar(holidays_, weekdays = c('saturday', 'sunday'),
+                  name = cal_name,
+                  adjust.from = adjust.next, adjust.to = adjust.previous,
                   start.date = start_date, end.date = end_date)
   message("Calendar ", cal_name, " loaded")
 }

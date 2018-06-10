@@ -24,13 +24,14 @@
 bizdiff <- function(dates, cal) UseMethod('bizdiff')
 
 #' @export
-bizdiff.default <- function(dates, cal=bizdays.options$get('default.calendar')) {
+bizdiff.default <- function(dates,
+                            cal = bizdays.options$get('default.calendar')) {
   dates <- as.Date(dates)
   bizdiff(dates, cal)
 }
 
 #' @export
-bizdiff.Date <- function(dates, cal=bizdays.options$get('default.calendar')) {
+bizdiff.Date <- function(dates, cal = bizdays.options$get('default.calendar')) {
   cal <- check_calendar(cal)
   if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
     stop('Given date out of range.')

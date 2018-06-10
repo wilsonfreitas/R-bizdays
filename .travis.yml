@@ -8,3 +8,5 @@ addons:
       - libboost-dev
       - libboost-test-dev
 
+after_success:
+  - Rscript -e 'covr::codecov()'

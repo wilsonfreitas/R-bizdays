@@ -50,7 +50,8 @@ offset <- function(dates, n, cal) UseMethod('add.bizdays')
 add.bizdays <- function(dates, n, cal) UseMethod('add.bizdays')
 
 #' @export
-add.bizdays.default <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
+add.bizdays.default <- function(dates, n,
+                                cal = bizdays.options$get('default.calendar')) {
   dates <- as.Date(dates)
   add.bizdays(dates, n, cal)
 }
@@ -59,7 +60,8 @@ add.bizdays.default <- function(dates, n, cal=bizdays.options$get('default.calen
 offset.default <- add.bizdays.default
 
 #' @export
-add.bizdays.Date <- function(dates, n, cal=bizdays.options$get('default.calendar')) {
+add.bizdays.Date <- function(dates, n,
+                             cal = bizdays.options$get('default.calendar')) {
   cal <- check_calendar(cal)
   if ( ! any(dates >= cal$start.date & dates <= cal$end.date) )
     stop('Given date out of range.')
@@ -67,11 +69,9 @@ add.bizdays.Date <- function(dates, n, cal=bizdays.options$get('default.calendar
   n <- if (length(dates) > length(n)) rep_len(n, length(dates)) else n
   dates <- if (length(dates) < length(n)) rep_len(dates, length(n)) else dates
   dates <- cal$add(dates, n)
-  dates <- as.Date(dates, origin='1970-01-01')
+  dates <- as.Date(dates, origin = '1970-01-01')
   dates
 }
 
 #' @export
 offset.Date <- add.bizdays.Date
-
-
