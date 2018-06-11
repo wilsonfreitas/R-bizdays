@@ -235,6 +235,13 @@ test_that('it should modified.preceding a vector of dates', {
   expect_equal(adj.dates, c(as.Date('2013-01-02'), as.Date('2016-01-29')))
 })
 
+test_that("it should return the function name for adjust functions", {
+  expect_equal(adjust_name(adjust.none), "adjust.none")
+  expect_equal(adjust_name(adjust.next), "adjust.next")
+  expect_equal(adjust_name(following), "adjust.next")
+  expect_equal(adjust_name(adjust.previous), "adjust.previous")
+  expect_equal(adjust_name(preceding), "adjust.previous")
+})
 
 context('sequence of bizdays')
 

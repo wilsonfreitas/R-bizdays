@@ -183,6 +183,24 @@ Calendar_ <- function (holidays=integer(0),
   return(that)
 }
 
+compare_functions <- function(x, y) {
+  r <- all.equal.language(x, y)
+  if (is.character(r))
+    FALSE
+  else
+    r
+}
+
+adjust_name <- function(x) {
+  if (compare_functions(x, adjust.next) || compare_functions(x, following)) {
+    "adjust.next"
+  } else if (compare_functions(x, adjust.previous) || compare_functions(x, preceding)) {
+    "adjust.previous"
+  } else if (compare_functions(x, adjust.none)) {
+    "adjust.none"
+  }
+}
+
 #' @export
 #' @rdname create.calendar
 create.calendar <- function(name,
@@ -195,8 +213,8 @@ create.calendar <- function(name,
                   start.date = start.date, end.date = end.date,
                   adjust.from = adjust.from, adjust.to = adjust.to,
                   financial = financial)
-  cal$adjust.from_label <- deparse(substitute(adjust.from))
-  cal$adjust.to_label <- deparse(substitute(adjust.to))
+  cal$adjust.from_label <- adjust_name(adjust.from)
+  cal$adjust.to_label <- adjust_name(adjust.to)
   .CALENDAR_REGISTER[[cal$name]] <- cal
   invisible(cal)
 }
