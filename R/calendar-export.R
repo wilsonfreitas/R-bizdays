@@ -8,7 +8,9 @@ handle_adjust <- function(x) {
   switch (x,
           adjust.next = "following",
           adjust.previous = "preceding",
-          adjust.none = NULL
+          adjust.none = NULL,
+          none = NULL,
+          x # preceding or following
   )
 }
 
