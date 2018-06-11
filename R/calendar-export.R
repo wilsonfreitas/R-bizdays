@@ -59,5 +59,3 @@ load_calendar <- function(con) {
   )
   invisible(cal)
 }
-
-print(load_calendar("inst/extdata/weekends.json"))
