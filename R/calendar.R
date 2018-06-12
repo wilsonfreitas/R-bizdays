@@ -184,11 +184,7 @@ Calendar_ <- function (holidays=integer(0),
 }
 
 compare_functions <- function(x, y) {
-  r <- all.equal.language(x, y)
-  if (is.character(r))
-    FALSE
-  else
-    r
+  isTRUE(all.equal.language(x, y))
 }
 
 adjust_name <- function(x) {

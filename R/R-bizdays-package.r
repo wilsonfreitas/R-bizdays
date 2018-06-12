@@ -29,4 +29,5 @@
 #' 
 #' @importFrom methods is
 #' @importFrom utils head tail
+#' @importFrom jsonlite toJSON fromJSON
 NULL
