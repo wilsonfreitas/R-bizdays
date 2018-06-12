@@ -427,9 +427,8 @@ test_that("it should export a calendar", {
   "financial": true
 }
 '
-  cal <- calendars()[["actual"]]
   con <- tempfile(fileext = ".json")
-  save_calendar(cal, con)
+  save_calendar("actual", con)
   expect_equal(cnt, readChar(con, 1024*1024))
 })
 
