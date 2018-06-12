@@ -1,9 +1,4 @@
 
-cleanup_cal_list <- function(x) {
-  x <- Filter(length, x)
-  Filter(Negate(is.null), x)
-}
-
 handle_adjust <- function(x) {
   switch (x,
           adjust.next = "following",
@@ -23,7 +18,8 @@ cal2list <- function(cal) {
     adjust.from = handle_adjust(cal$adjust.from_label),
     adjust.to = handle_adjust(cal$adjust.to_label)
   )
-  cleanup_cal_list(cal_list)
+  cal_list <- Filter(length, cal_list)
+  Filter(Negate(is.null), cal_list)
 }
 
 #' @export
