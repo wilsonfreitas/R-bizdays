@@ -1,3 +1,7 @@
+Changes in Verson 1.0.6
+
+  * Import and export calendars (issue #25)
+  
 Changes in Verson 1.0.5
 
   * Implemented bizdays optimisations (issue #70)
