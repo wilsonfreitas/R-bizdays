@@ -13,7 +13,7 @@ Suggests:
     knitr,
     testthat,
     covr
-Imports: methods, utils
+Imports: methods, utils, jsonlite
 Collate:
     'R-bizdays-package.r'
     'datasets.R'
@@ -26,6 +26,7 @@ Collate:
     'bizdiff.R'
     'bizdays.R'
     'create-calendars.R'
+    'calendar-export.R'
 Depends:
     R (>= 2.15)
 License: MIT + file LICENSE

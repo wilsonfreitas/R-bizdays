@@ -235,6 +235,13 @@ test_that('it should modified.preceding a vector of dates', {
   expect_equal(adj.dates, c(as.Date('2013-01-02'), as.Date('2016-01-29')))
 })
 
+test_that("it should return the function name for adjust functions", {
+  expect_equal(adjust_name(adjust.none), "none")
+  expect_equal(adjust_name(adjust.next), "following")
+  expect_equal(adjust_name(following), "following")
+  expect_equal(adjust_name(adjust.previous), "preceding")
+  expect_equal(adjust_name(preceding), "preceding")
+})
 
 context('sequence of bizdays')
 
@@ -398,4 +405,45 @@ test_that("it should compute bizdays between dates in a vector", {
 
 test_that("it should return an empty vector for a single element vector", {
   expect_equal(bizdiff("2017-01-02", "Brazil/ANBIMA"), numeric())
+})
+
+context("import and export calendar")
+
+test_that("it should export a calendar", {
+  cnt <- '{
+  "name": "weekends",
+  "weekdays": ["saturday", "sunday"],
+  "financial": true,
+  "adjust.from": "following",
+  "adjust.to": "preceding"
+}
+'
+  cal <- calendars()[["weekends"]]
+  con <- tempfile(fileext = ".json")
+  save_calendar(cal, con)
+  expect_equal(cnt, readChar(con, 1024*1024))
+  cnt <- '{
+  "name": "actual",
+  "financial": true
+}
+'
+  con <- tempfile(fileext = ".json")
+  save_calendar("actual", con)
+  expect_equal(cnt, readChar(con, 1024*1024))
+})
+
+test_that("it should import a calendar", {
+  cnt <- '{
+  "name": "weekends",
+  "weekdays": ["saturday", "sunday"],
+  "financial": true,
+  "adjust.from": "following",
+  "adjust.to": "preceding"
+}
+'
+  cal <- load_calendar(cnt)
+  expect_is(cal, "Calendar")
+  expect_equal(cal$name, "weekends")
+  expect_equal(cal$financial, TRUE)
+  expect_equal(cal$weekdays, c("saturday", "sunday"))
 })
