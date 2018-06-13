@@ -421,7 +421,7 @@ test_that("it should export a calendar", {
   cal <- calendars()[["weekends"]]
   con <- tempfile(fileext = ".json")
   save_calendar(cal, con)
-  expect_equal(cnt, readChar(con, 1024*1024))
+  expect_equal(cnt, gsub("\r", "", readChar(con, 1024*1024)))
   cnt <- '{
   "name": "actual",
   "financial": true
@@ -429,7 +429,7 @@ test_that("it should export a calendar", {
 '
   con <- tempfile(fileext = ".json")
   save_calendar("actual", con)
-  expect_equal(cnt, readChar(con, 1024*1024))
+  expect_equal(cnt, gsub("\r", "", readChar(con, 1024*1024)))
 })
 
 test_that("it should import a calendar", {
