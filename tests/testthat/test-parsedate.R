@@ -49,7 +49,7 @@ test_that("it should create a year-month reference", {
   rrr <- ref(as.Date("2018-01-01"), "year")
   expect_is(rrr, "ref")
   expect_false(rrr$by_month)
-  expect_equal(rrr$year_month, cbind(year = 2018, month = 1))
+  expect_equal(rrr$year_month, cbind(year = 2018))
   expect_equal(rrr$dates, as.Date("2018-01-01"))
   expect_error(ref(as.Date("2018-01-01"), "day"))
   rrr <- ref(c(as.Date("2018-01-01"), as.Date("2018-02-01")), "month")
@@ -57,6 +57,18 @@ test_that("it should create a year-month reference", {
   expect_true(rrr$by_month)
   expect_equal(rrr$year_month, cbind(year = 2018, month = c(1, 2)))
   expect_equal(rrr$dates, c(as.Date("2018-01-01"), as.Date("2018-02-01")))
+  rrr <- ref("2018-01")
+  expect_is(rrr, "ref")
+  expect_true(rrr$by_month)
+  expect_equal(rrr$year_month, cbind(year = 2018, month = 1))
+  rrr <- ref("2018")
+  expect_is(rrr, "ref")
+  expect_false(rrr$by_month)
+  expect_equal(rrr$year_month, cbind(year = 2018))
+  rrr <- ref(2018)
+  expect_is(rrr, "ref")
+  expect_false(rrr$by_month)
+  expect_equal(rrr$year_month, cbind(year = 2018))
 })
 
 test_that("it should get the nth day by the reference", {
@@ -82,4 +94,5 @@ test_that("it should get the nth day by the reference", {
 # 
 # getdate("", ref) # month
 # 
-# last, first, second, third, 1st, 2nd, 3rd, [n]th : day, bizday, weekdays (sun, mon, tue, wed, thu, fri, and sat)
+# last, first, second, third, 1st, 2nd, 3rd, [n]th : day, bizday,
+#   weekdays (sun, mon, tue, wed, thu, fri, and sat)

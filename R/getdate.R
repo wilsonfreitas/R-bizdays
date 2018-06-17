@@ -9,10 +9,49 @@ ref <- function(x, ...) UseMethod("ref")
 #' @export
 ref.Date <- function(x, ym = c("month", "year"), ...) {
   ym = match.arg(ym)
+  that <- if (ym == "month") {
+    list(
+      dates = x,
+      by_month = TRUE,
+      year_month = cbind(year = YEAR(x), month = MONTH(x))
+    )
+  } else {
+    list(
+      dates = x,
+      by_month = FALSE,
+      year_month = cbind(year = YEAR(x))
+    )
+  }
+  structure(that, class = "ref")
+}
+
+#' @export
+ref.character <- function(x, ...) {
+  if (length(x) > 1)
+    stop("Invalid ref length > 1")
+  that <- if (grepl("^(\\d{4})-(\\d{2})$", x)) {
+    mx <- regmatches(x, regexec("^(\\d{4})-(\\d{2})$", x))[[1]]
+    list(
+      by_month = TRUE,
+      year_month = cbind(year = as.integer(mx[2]), month = as.integer(mx[3]))
+    )
+  } else if (grepl("^(\\d{4})$", x)) {
+    mx <- regmatches(x, regexec("^(\\d{4})$", x))[[1]]
+    list(
+      by_month = FALSE,
+      year_month = cbind(year = as.integer(mx[2]))
+    )
+  }
+  structure(that, class = "ref")
+}
+
+#' @export
+ref.numeric <- function(x, ...) {
+  if (length(x) > 1)
+    stop("Invalid ref length > 1")
   that <- list(
-    dates = x,
-    by_month = (ym == "month"),
-    year_month = cbind(year = YEAR(x), month = MONTH(x))
+    by_month = FALSE,
+    year_month = cbind(year = x)
   )
   structure(that, class = "ref")
 }
