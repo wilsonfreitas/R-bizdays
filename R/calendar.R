@@ -117,7 +117,8 @@ Calendar_ <- function (holidays=integer(0),
   that$start.date <- start.date
   that$end.date <- end.date
   # dates
-  n.dates <- as.integer(seq(from = start.date, to = end.date, by = 'day'))
+  d.dates <- seq(from = start.date, to = end.date, by = 'day')
+  n.dates <- as.integer(d.dates)
   # is bizday?
   .aux <- function(.) ! ( (. %% 7) %in% wdays || . %in% n.holidays)
   is.bizday_ <- vapply(n.dates, .aux, logical(1))
@@ -129,6 +130,14 @@ Calendar_ <- function (holidays=integer(0),
   index.bizdays <- seq_along(n.bizdays)
   index <- cumsum(is.bizday_)     # forward index - the index
   rindex <- rev_index(is.bizday_) # backward index - the reverse index
+  # dates table
+  dates.table <- cbind(
+    dates = n.dates,
+    year = as.integer(format(d.dates, "%Y")),
+    month = as.integer(format(d.dates, "%m")),
+    is_bizday = as.integer(is.bizday_)
+  )
+  that$dates.table <- dates.table
   # bizdays
   that$bizdays <- function(from, to) {
     m_from <- match(from, n.dates)
