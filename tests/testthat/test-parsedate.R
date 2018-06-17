@@ -11,6 +11,7 @@ test_that("it should return a date accordingly the given date reference", {
   expect_equal(dx, as.Date("2018-01-02"))
   dx <- getdate("last bizday", rrr, "Brazil/ANBIMA")
   expect_equal(dx, as.Date("2018-01-31"))
+  expect_error(getdate("last xxx", rrr, "actual"))
 })
 
 test_that("it should return a date accordingly the given dates reference", {
