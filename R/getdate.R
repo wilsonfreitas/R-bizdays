@@ -27,28 +27,29 @@ ref.Date <- function(x, ym = c("month", "year"), ...) {
 
 #' @export
 ref.character <- function(x, ...) {
-  if (length(x) > 1)
-    stop("Invalid ref length > 1")
-  that <- if (grepl("^(\\d{4})-(\\d{2})$", x)) {
-    mx <- regmatches(x, regexec("^(\\d{4})-(\\d{2})$", x))[[1]]
+  that <- if (all(grepl("^(\\d{4})-(\\d{2})$", x))) {
+    mx <- regmatches(x, regexec("^(\\d{4})-(\\d{2})$", x))
+    mx <- do.call(rbind, mx)
     list(
       by_month = TRUE,
-      year_month = cbind(year = as.integer(mx[2]), month = as.integer(mx[3]))
+      year_month = cbind(year = as.integer(mx[,2]), month = as.integer(mx[,3]))
     )
-  } else if (grepl("^(\\d{4})$", x)) {
-    mx <- regmatches(x, regexec("^(\\d{4})$", x))[[1]]
+  } else if (all(grepl("^(\\d{4})$", x))) {
+    mx <- regmatches(x, regexec("^(\\d{4})$", x))
+    mx <- do.call(rbind, mx)
     list(
       by_month = FALSE,
-      year_month = cbind(year = as.integer(mx[2]))
+      year_month = cbind(year = as.integer(mx[,2]))
     )
-  }
+  } else if (all(grepl("^\\d{4}-\\d{2}-\\d{2}$", x))) {
+    do.call(ref.Date, append(list(...), list(x = as.Date(x))))
+  } else
+    stop("Invalid character ref ", x)
   structure(that, class = "ref")
 }
 
 #' @export
 ref.numeric <- function(x, ...) {
-  if (length(x) > 1)
-    stop("Invalid ref length > 1")
   that <- list(
     by_month = FALSE,
     year_month = cbind(year = x)

@@ -11,6 +11,12 @@ test_that("it should return a date accordingly the given date reference", {
   expect_equal(dx, as.Date("2018-01-02"))
   dx <- getdate("last bizday", rrr, "Brazil/ANBIMA")
   expect_equal(dx, as.Date("2018-01-31"))
+  dx <- getdate("last bizday", ref(2018), "Brazil/ANBIMA")
+  expect_equal(dx, as.Date("2018-12-31"))
+  dx <- getdate("last bizday", ref(2017:2018), "Brazil/ANBIMA")
+  expect_equal(dx, as.Date(c("2017-12-29", "2018-12-31")))
+  dx <- getdate("last bizday", ref(c("2017-01", "2018-01")), "Brazil/ANBIMA")
+  expect_equal(dx, as.Date(c("2017-01-31", "2018-01-31")))
   expect_error(getdate("last xxx", rrr, "actual"))
 })
 
@@ -69,6 +75,11 @@ test_that("it should create a year-month reference", {
   expect_is(rrr, "ref")
   expect_false(rrr$by_month)
   expect_equal(rrr$year_month, cbind(year = 2018))
+  rrr <- ref(2010:2018)
+  expect_equal(rrr$year_month, cbind(year = 2010:2018))
+  rrr <- ref("2018-01-01", ym = "month")
+  expect_true(rrr$by_month)
+  expect_equal(rrr$year_month, cbind(year = 2018, month = 1))
 })
 
 test_that("it should get the nth day by the reference", {
