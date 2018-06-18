@@ -111,10 +111,6 @@ getdate <- function(expr, ref, cal = bizdays.options$get("default.calendar")) {
     as.Date(unlist(date_res), origin = as.Date("1970-01-01"))
   } else
     stop("Invalid expr", expr)
-  #   getnthbizday_(n, year, month, cal)
   # else if (tok[2] %in% self.WEEKDAYS)
   #   getnthweekday_(n, tok[2], year, month, cal)
-  # else
-  #   stop("Invalid day", tok[2])
-  # as.Date("2018-01-01")
 }
