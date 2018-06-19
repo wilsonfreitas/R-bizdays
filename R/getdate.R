@@ -94,6 +94,21 @@ getnthday_ <- function(pos, ref, cal, ref_pos = 1, use_bizday = FALSE) {
   unname(res)
 }
 
+getnthweekday_ <- function(pos, ref, cal, wday, ref_pos = 1) {
+  ix <- if (ref$by_month) {
+    ix_ <- cal$dates.table[,"month"] == ref$year_month[ref_pos, "month"] &
+      cal$dates.table[,"year"] == ref$year_month[ref_pos, "year"]
+    ix_ & cal$dates.table[,"weekday"] == wday
+  } else {
+    ix_ <- cal$dates.table[,"year"] == ref$year_month[ref_pos, "year"]
+    ix_ & cal$dates.table[,"weekday"] == wday
+  }
+  x <- cal$dates.table[ix,]
+  pos <- if (pos < 0) NROW(x) else pos
+  res <- as.Date(x[pos,"dates"], origin = as.Date("1970-01-01"))
+  unname(res)
+}
+
 #' @export
 getdate <- function(expr, ref, cal = bizdays.options$get("default.calendar")) {
   cal <- check_calendar(cal)
@@ -109,8 +124,13 @@ getdate <- function(expr, ref, cal = bizdays.options$get("default.calendar")) {
     date_res <- lapply(seq_len(NROW(ref$year_month)),
                        function(x) getnthday_(n, ref, cal, x, TRUE))
     as.Date(unlist(date_res), origin = as.Date("1970-01-01"))
+  } else if (tok[2] %in% WEEKDAYS) {
+    wday <- which(tok[2] == WEEKDAYS)
+    date_res <- lapply(seq_len(NROW(ref$year_month)),
+                       function(x) getnthweekday_(n, ref, cal, wday, x))
+    as.Date(unlist(date_res), origin = as.Date("1970-01-01"))
   } else
     stop("Invalid expr", expr)
-  # else if (tok[2] %in% self.WEEKDAYS)
-  #   getnthweekday_(n, tok[2], year, month, cal)
 }
+
+WEEKDAYS <- c("thu", "fri", "sat", "sun", "mon", "tue", "wed")

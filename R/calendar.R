@@ -135,7 +135,8 @@ Calendar_ <- function (holidays=integer(0),
     dates = n.dates,
     year = as.integer(format(d.dates, "%Y")),
     month = as.integer(format(d.dates, "%m")),
-    is_bizday = as.integer(is.bizday_)
+    is_bizday = as.integer(is.bizday_),
+    weekday = (n.dates %% 7) + 1
   )
   that$dates.table <- dates.table
   # bizdays

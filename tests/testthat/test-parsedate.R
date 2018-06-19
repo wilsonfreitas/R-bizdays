@@ -17,6 +17,8 @@ test_that("it should return a date accordingly the given date reference", {
   expect_equal(dx, as.Date(c("2017-12-29", "2018-12-31")))
   dx <- getdate("last bizday", ref(c("2017-01", "2018-01")), "Brazil/ANBIMA")
   expect_equal(dx, as.Date(c("2017-01-31", "2018-01-31")))
+  dx <- getdate("first wed", ref(2018), "actual")
+  expect_equal(dx, as.Date("2018-01-03"))
   expect_error(getdate("last xxx", rrr, "actual"))
 })
 
