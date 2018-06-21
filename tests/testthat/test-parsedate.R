@@ -90,22 +90,8 @@ test_that("it should get the nth day by the reference", {
   expect_equal(getnthday_(1, rrr, cal), as.Date("2018-01-01"))
   expect_equal(getnthday_(-1, rrr, cal), as.Date("2018-01-31"))
   cal <- calendars()[["Brazil/ANBIMA"]]
-  expect_equal(getnthday_(1, rrr, cal, use_bizday = TRUE), as.Date("2018-01-02"))
-  expect_equal(getnthday_(-1, rrr, cal, use_bizday = TRUE), as.Date("2018-01-31"))
+  expect_equal(getnthday_(1, rrr, cal, use_bizday = TRUE),
+               as.Date("2018-01-02"))
+  expect_equal(getnthday_(-1, rrr, cal, use_bizday = TRUE),
+               as.Date("2018-01-31"))
 })
-
-# getdate("", Date)         # day
-# getdate("", "YYYY-MM-DD") # day
-# next, this, last : weekdays (sun, mon, tue, wed, thu, fri, and sat), day, bizday
-# 
-# date-time reference
-# ref(Date, context = "month") # month
-# ref("YYYY-MM")               # month
-# ref(Date, context = "year")  # year
-# ref("YYYY")                  # year
-# ref(YYYY)                    # year
-# 
-# getdate("", ref) # month
-# 
-# last, first, second, third, 1st, 2nd, 3rd, [n]th : day, bizday,
-#   weekdays (sun, mon, tue, wed, thu, fri, and sat)

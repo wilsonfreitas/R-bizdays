@@ -200,7 +200,8 @@ compare_functions <- function(x, y) {
 adjust_name <- function(x) {
   if (compare_functions(x, adjust.next) || compare_functions(x, following)) {
     "following"
-  } else if (compare_functions(x, adjust.previous) || compare_functions(x, preceding)) {
+  } else if (compare_functions(x, adjust.previous) ||
+             compare_functions(x, preceding)) {
     "preceding"
   } else if (compare_functions(x, adjust.none)) {
     "none"

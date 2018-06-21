@@ -8,7 +8,7 @@ ref <- function(x, ...) UseMethod("ref")
 
 #' @export
 ref.Date <- function(x, ym = c("month", "year"), ...) {
-  ym = match.arg(ym)
+  ym <- match.arg(ym)
   that <- if (ym == "month") {
     list(
       dates = x,
@@ -32,14 +32,15 @@ ref.character <- function(x, ...) {
     mx <- do.call(rbind, mx)
     list(
       by_month = TRUE,
-      year_month = cbind(year = as.integer(mx[,2]), month = as.integer(mx[,3]))
+      year_month = cbind(year = as.integer(mx[, 2]),
+                         month = as.integer(mx[, 3]))
     )
   } else if (all(grepl("^(\\d{4})$", x))) {
     mx <- regmatches(x, regexec("^(\\d{4})$", x))
     mx <- do.call(rbind, mx)
     list(
       by_month = FALSE,
-      year_month = cbind(year = as.integer(mx[,2]))
+      year_month = cbind(year = as.integer(mx[, 2]))
     )
   } else if (all(grepl("^\\d{4}-\\d{2}-\\d{2}$", x))) {
     do.call(ref.Date, append(list(...), list(x = as.Date(x))))
@@ -81,31 +82,31 @@ getnth_ <- function(x) {
 
 getnthday_ <- function(pos, ref, cal, ref_pos = 1, use_bizday = FALSE) {
   ix <- if (ref$by_month) {
-    ix_ <- cal$dates.table[,"month"] == ref$year_month[ref_pos, "month"] &
-      cal$dates.table[,"year"] == ref$year_month[ref_pos, "year"]
-    if (use_bizday) ix_ & cal$dates.table[,"is_bizday"] == 1 else ix_
+    ix_ <- cal$dates.table[, "month"] == ref$year_month[ref_pos, "month"] &
+      cal$dates.table[, "year"] == ref$year_month[ref_pos, "year"]
+    if (use_bizday) ix_ & cal$dates.table[, "is_bizday"] == 1 else ix_
   } else {
-    ix_ <- cal$dates.table[,"year"] == ref$year_month[ref_pos, "year"]
-    if (use_bizday) ix_ & cal$dates.table[,"is_bizday"] == 1 else ix_
+    ix_ <- cal$dates.table[, "year"] == ref$year_month[ref_pos, "year"]
+    if (use_bizday) ix_ & cal$dates.table[, "is_bizday"] == 1 else ix_
   }
-  x <- cal$dates.table[ix,]
+  x <- cal$dates.table[ix, ]
   pos <- if (pos < 0) NROW(x) else pos
-  res <- as.Date(x[pos,"dates"], origin = as.Date("1970-01-01"))
+  res <- as.Date(x[pos, "dates"], origin = as.Date("1970-01-01"))
   unname(res)
 }
 
 getnthweekday_ <- function(pos, ref, cal, wday, ref_pos = 1) {
   ix <- if (ref$by_month) {
-    ix_ <- cal$dates.table[,"month"] == ref$year_month[ref_pos, "month"] &
-      cal$dates.table[,"year"] == ref$year_month[ref_pos, "year"]
-    ix_ & cal$dates.table[,"weekday"] == wday
+    ix_ <- cal$dates.table[, "month"] == ref$year_month[ref_pos, "month"] &
+      cal$dates.table[, "year"] == ref$year_month[ref_pos, "year"]
+    ix_ & cal$dates.table[, "weekday"] == wday
   } else {
-    ix_ <- cal$dates.table[,"year"] == ref$year_month[ref_pos, "year"]
-    ix_ & cal$dates.table[,"weekday"] == wday
+    ix_ <- cal$dates.table[, "year"] == ref$year_month[ref_pos, "year"]
+    ix_ & cal$dates.table[, "weekday"] == wday
   }
-  x <- cal$dates.table[ix,]
+  x <- cal$dates.table[ix, ]
   pos <- if (pos < 0) NROW(x) else pos
-  res <- as.Date(x[pos,"dates"], origin = as.Date("1970-01-01"))
+  res <- as.Date(x[pos, "dates"], origin = as.Date("1970-01-01"))
   unname(res)
 }
 
@@ -115,7 +116,7 @@ getdate <- function(expr, ref, cal = bizdays.options$get("default.calendar")) {
   tok <- strsplit(expr, "\\s+")[[1]]
   if (length(tok) != 2)
     stop("Invalid expr", expr)
-  n = getnth_(tok[1])
+  n <- getnth_(tok[1])
   if (tok[2] == "day") {
     date_res <- lapply(seq_len(NROW(ref$year_month)),
            function(x) getnthday_(n, ref, cal, x))
