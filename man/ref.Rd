@@ -30,9 +30,9 @@ date. This is set in the argument \code{ym} that accepts \code{month} (default) 
 Details)}
 }
 \description{
-Date references are specificaly months or years to be used in 
+Date references are specifically months or years to be used in 
 \code{getdate}.
-Months and years can be specifyed directly or can be base on a given date.
+Months and years can be specified directly or can be base on a given date.
 \code{getdate} returns a date that is in the reference passed.
 }
 \examples{

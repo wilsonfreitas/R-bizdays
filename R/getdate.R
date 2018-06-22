@@ -69,9 +69,9 @@ getdate <- function(expr, ref, cal = bizdays.options$get("default.calendar")) {
 
 #' Creates date references to be used in \code{getdate}
 #' 
-#' Date references are specificaly months or years to be used in 
+#' Date references are specifically months or years to be used in 
 #' \code{getdate}.
-#' Months and years can be specifyed directly or can be base on a given date.
+#' Months and years can be specified directly or can be base on a given date.
 #' \code{getdate} returns a date that is in the reference passed.
 #' 
 #' @param x a \code{Date} vector, a character vector (specifying dates, months
