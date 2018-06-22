@@ -78,6 +78,7 @@ getdate <- function(expr, ref, cal = bizdays.options$get("default.calendar")) {
 #' or years) or a numeric vector (specifying years)
 #' @param ym a character string with the values \code{month} or \code{year} (see
 #' Details)
+#' @param ... additional arguments
 #' 
 #' If a date (\code{character} or \code{Date}) is passed to \code{ref} it has to
 #' specified whether the reference is to the month or the year of the given

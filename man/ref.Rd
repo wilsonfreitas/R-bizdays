@@ -19,13 +19,15 @@ ref(x, ...)
 \item{x}{a \code{Date} vector, a character vector (specifying dates, months
 or years) or a numeric vector (specifying years)}
 
-\item{ym}{a character string with the values \code{month} or \code{year} (see
-Details)
+\item{...}{additional arguments
 
 If a date (\code{character} or \code{Date}) is passed to \code{ref} it has to
 specified whether the reference is to the month or the year of the given
 date. This is set in the argument \code{ym} that accepts \code{month} (default) or 
 \code{year}.}
+
+\item{ym}{a character string with the values \code{month} or \code{year} (see
+Details)}
 }
 \description{
 Date references are specificaly months or years to be used in 
