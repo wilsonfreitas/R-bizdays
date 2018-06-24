@@ -1,6 +1,10 @@
 Changes in Verson 1.0.6
 
   * Import and export calendars (issue #25)
+
+  * Implemented getdate function (issue #28)
+  
+  * Renamed functions (replaced dots with _) (issue #76)
   
 Changes in Verson 1.0.5
 
