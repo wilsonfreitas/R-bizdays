@@ -338,7 +338,7 @@ print.CalendarRegister <- function(x, ...) {
 #' But the register object has its own \code{print} generic which helps listing 
 #' all registered calendars.
 #' 
-#' \code{remove.calendars} remove calendars from the register.
+#' \code{remove_calendars} remove calendars from the register.
 #' 
 #' @name calendar-register
 NULL
@@ -349,7 +349,7 @@ NULL
 #' # ACTUAL calendar
 #' cal <- create.calendar("Actual")
 #' cal <- calendars()[["Actual"]]
-#' remove.calendars("Actual")
+#' remove_calendars("Actual")
 #' # lists registered calendars
 #' calendars()
 calendars <- function() {
@@ -358,7 +358,7 @@ calendars <- function() {
 
 #' @export
 #' @rdname calendar-register
-remove.calendars <- function(cals) {
+remove_calendars <- function(cals) {
   remove(list = cals, envir = .CALENDAR_REGISTER)
 }
 
@@ -378,7 +378,7 @@ check_calendar <- function(cal) {
 #' @export
 #' @rdname calendar-register
 #' @examples
-#' has.calendars(c("actual", "weekends"))
-has.calendars <- function(cals) {
+#' has_calendars(c("actual", "weekends"))
+has_calendars <- function(cals) {
   cals %in% ls(.CALENDAR_REGISTER)
 }

@@ -3,15 +3,15 @@
 \name{calendar-register}
 \alias{calendar-register}
 \alias{calendars}
-\alias{remove.calendars}
-\alias{has.calendars}
+\alias{remove_calendars}
+\alias{has_calendars}
 \title{Calendars register}
 \usage{
 calendars()
 
-remove.calendars(cals)
+remove_calendars(cals)
 
-has.calendars(cals)
+has_calendars(cals)
 }
 \arguments{
 \item{cals}{character vector of calendars names}
@@ -27,14 +27,14 @@ retrieved with the \code{[[} operator.
 But the register object has its own \code{print} generic which helps listing 
 all registered calendars.
 
-\code{remove.calendars} remove calendars from the register.
+\code{remove_calendars} remove calendars from the register.
 }
 \examples{
 # ACTUAL calendar
 cal <- create.calendar("Actual")
 cal <- calendars()[["Actual"]]
-remove.calendars("Actual")
+remove_calendars("Actual")
 # lists registered calendars
 calendars()
-has.calendars(c("actual", "weekends"))
+has_calendars(c("actual", "weekends"))
 }

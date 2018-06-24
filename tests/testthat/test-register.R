@@ -42,14 +42,14 @@ test_that("it should set default calendar with calendar's name", {
 test_that('it should remove a calendar', {
   cal <- create.calendar("actual")
   expect_false( is.null(calendars()[["actual"]]) )
-  remove.calendars("actual")
+  remove_calendars("actual")
   expect_true( is.null(calendars()[["actual"]]) )
 })
 
 test_that("it should check if a calendar exists", {
   create.calendar("actual")
-  expect_true(has.calendars("actual"))
-  expect_false(has.calendars("nama"))
-  expect_equal(has.calendars(c("actual", "weekends", "nama")),
+  expect_true(has_calendars("actual"))
+  expect_false(has_calendars("nama"))
+  expect_equal(has_calendars(c("actual", "weekends", "nama")),
                c(TRUE, TRUE, FALSE))
 })
