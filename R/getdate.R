@@ -8,7 +8,7 @@
 #' than can be another date, a month or an year.
 #' 
 #' @param expr a character string specifying the date to be returned (see Details)
-#' @param ref a \code{ref} object (see Details)
+#' @param ref a reference which represents a month or year, where the date has to be found.
 #' @param cal the calendar's name
 #' 
 #' \code{expr} represents the day has to be returned, here it follows a few examples:
@@ -31,21 +31,19 @@
 #' }
 #' 
 #' \code{getdate} returns dates according to a reference that can be a month or
-#' an year. This reference is build with the \code{\link{ref}} object.
-#' The \code{ref} object specifies a month or an year based on a date or the month
-#' and year can be directly specified.
-#' 
-#' @seealso \code{\link{ref}}
+#' an year. This reference can be passed as a character vector representing months
+#' or years, or as a numeric vector representing years. The ISO format must be 
+#' used to represent years or months with character vectors.
 #' 
 #' @examples
-#' getdate("first day", ref("2018-01-01", ym = "month"), "actual")
-#' getdate("10th wed", ref(2018), "actual")
-#' getdate("last bizday", ref(2010:2018), "Brazil/ANBIMA")
+#' getdate("10th wed", 2018, "actual")
+#' getdate("last bizday", 2010:2018, "Brazil/ANBIMA")
 #' dts <- seq(as.Date("2018-01-01"), as.Date("2018-12-01"), "month")
-#' getdate("first bizday", ref(dts, ym = "month"), "Brazil/ANBIMA")
+#' getdate("first bizday", format(dts, "%Y-%m"), "Brazil/ANBIMA")
 #' @export
 getdate <- function(expr, ref, cal = bizdays.options$get("default.calendar")) {
   cal <- check_calendar(cal)
+  ref <- ref(ref)
   tok <- strsplit(expr, "\\s+")[[1]]
   if (length(tok) != 2)
     stop("Invalid expr", expr)
@@ -69,7 +67,7 @@ getdate <- function(expr, ref, cal = bizdays.options$get("default.calendar")) {
 
 #' Creates date references to be used in \code{getdate}
 #' 
-#' Date references are specifically months or years to be used in 
+#' Date references are specifically months or years to be used in
 #' \code{getdate}.
 #' Months and years can be specified directly or can be base on a given date.
 #' \code{getdate} returns a date that is in the reference passed.
@@ -82,7 +80,7 @@ getdate <- function(expr, ref, cal = bizdays.options$get("default.calendar")) {
 #' 
 #' If a date (\code{character} or \code{Date}) is passed to \code{ref} it has to
 #' specified whether the reference is to the month or the year of the given
-#' date. This is set in the argument \code{ym} that accepts \code{month} (default) or 
+#' date. This is set in the argument \code{ym} that accepts \code{month} (default) or
 #' \code{year}.
 #' 
 #' @examples
@@ -94,12 +92,9 @@ getdate <- function(expr, ref, cal = bizdays.options$get("default.calendar")) {
 #' ref("2018") # refers to 2018
 #' ref(2010:2018) # refers to all years from 2010 to 2018
 #' 
-#' @name ref
-#' @export
+#' @noRd
 ref <- function(x, ...) UseMethod("ref")
 
-#' @rdname ref
-#' @export
 ref.Date <- function(x, ym = c("month", "year"), ...) {
   ym <- match.arg(ym)
   that <- if (ym == "month") {
@@ -118,8 +113,6 @@ ref.Date <- function(x, ym = c("month", "year"), ...) {
   structure(that, class = "ref")
 }
 
-#' @rdname ref
-#' @export
 ref.character <- function(x, ...) {
   that <- if (all(grepl("^(\\d{4})-(\\d{2})$", x))) {
     mx <- regmatches(x, regexec("^(\\d{4})-(\\d{2})$", x))
@@ -143,8 +136,6 @@ ref.character <- function(x, ...) {
   structure(that, class = "ref")
 }
 
-#' @rdname ref
-#' @export
 ref.numeric <- function(x, ...) {
   that <- list(
     by_month = FALSE,
