@@ -1,3 +1,7 @@
+Changes in Verson 1.0.7
+
+  * Disabled removed the use of ref object as getdate argument
+
 Changes in Verson 1.0.6
 
   * Import and export calendars (issue #25)
