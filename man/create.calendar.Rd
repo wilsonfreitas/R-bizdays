@@ -2,7 +2,6 @@
 % Please edit documentation in R/calendar.R
 \name{create.calendar}
 \alias{create.calendar}
-\alias{create.calendar}
 \title{Creates calendars}
 \usage{
 create.calendar(name, holidays = integer(0), weekdays = NULL,

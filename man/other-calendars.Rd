@@ -44,6 +44,7 @@ All Rmetrics calendars have the \code{Rmetrics} prefix.
 QuantLib Calendars:
 
 \itemize{
+\item QuantLib/TARGET
 \item QuantLib/Argentina
 \item QuantLib/Australia
 \item QuantLib/Brazil
@@ -115,7 +116,7 @@ if (require("RQuantLib")) {
  load_quantlib_calendars(c('UnitedStates/NYSE', 'UnitedKingdom/Settlement'),
                          from='2016-01-01', to='2016-12-31')
  bizdays('2016-01-01', '2016-03-14', 'QuantLib/UnitedStates/NYSE')
- # loading all QuantLib's 49 calendars
+ # loading all QuantLib's 50 calendars
  load_quantlib_calendars(from='2016-01-01', to='2016-12-31')
  bizdays('2016-01-01', '2016-03-14', 'QuantLib/Brazil')
 }
