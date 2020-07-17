@@ -84,9 +84,13 @@ bizdays.Date <- function(from, to,
   adj_vec <- as.integer( !(cal$is.bizday(as.integer(new.from)) |
                              cal$is.bizday(as.integer(new.to))) )
   bdays <- bdays - adj_vec
-  if (cal$financial)
+  if (cal$financial) {
+    w <- (!cal$is.bizday(as.integer(new.from))) &
+      (!cal$is.bizday(as.integer(new.to))) &
+      bdays == -1
+    bdays[w] <- 0
     bdays
-  else
+  } else
     bdays + 1
 }
 

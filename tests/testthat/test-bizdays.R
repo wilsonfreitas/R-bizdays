@@ -38,8 +38,10 @@ test_that('it should return negative bizdays', {
             c(NA, '2013-01-01', '2014-01-01'), cal),
     c(NA, -21, 252)
   )
-  cal <- calendars()[["actual"]]
-  expect_equal(bizdays(Sys.Date(), Sys.Date() + c(2, -1, 1, 1)), c(2, -1, 1, 1))
+  cal <- Calendar_(weekdays = c('saturday', 'sunday'), adjust.from = adjust.none, adjust.to = adjust.none)
+  expect_equal(bizdays('2013-06-22', '2013-06-23', cal), 0)
+  expect_equal(bizdays('2013-06-23', '2013-06-22', cal), 0)
+  expect_equal(bizdays(Sys.Date(), Sys.Date() + c(2, -1, 1, 1), "actual"), c(2, -1, 1, 1))
 })
 
 test_that("it should compute bizdays using double index approach", {
