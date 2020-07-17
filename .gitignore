@@ -7,3 +7,4 @@ bizyears.R
 travis-ci-legacy.yml
 chineseNewYearDays.cal
 .DS_Store
+.vscode

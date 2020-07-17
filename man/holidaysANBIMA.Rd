@@ -4,7 +4,9 @@
 \name{holidaysANBIMA}
 \alias{holidaysANBIMA}
 \title{ANBIMA's holidays list}
-\format{a vector with \code{Date} objects that represent holidays}
+\format{
+a vector with \code{Date} objects that represent holidays
+}
 \description{
 A dataset containing the list of holidays delivered by ANBIMA
 (www.anbima.com.br).

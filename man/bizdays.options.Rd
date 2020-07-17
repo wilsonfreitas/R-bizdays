@@ -4,7 +4,9 @@
 \name{bizdays.options}
 \alias{bizdays.options}
 \title{bizdays' options}
-\format{A \code{list} object with \emph{methods} \code{get} and \code{set} attached to.}
+\format{
+A \code{list} object with \emph{methods} \code{get} and \code{set} attached to.
+}
 \usage{
 bizdays.options
 }

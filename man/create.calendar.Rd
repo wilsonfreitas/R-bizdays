@@ -4,9 +4,16 @@
 \alias{create.calendar}
 \title{Creates calendars}
 \usage{
-create.calendar(name, holidays = integer(0), weekdays = NULL,
-  start.date = NULL, end.date = NULL, adjust.from = adjust.none,
-  adjust.to = adjust.none, financial = TRUE)
+create.calendar(
+  name,
+  holidays = integer(0),
+  weekdays = NULL,
+  start.date = NULL,
+  end.date = NULL,
+  adjust.from = adjust.none,
+  adjust.to = adjust.none,
+  financial = TRUE
+)
 }
 \arguments{
 \item{name}{calendar's name. This is used to retrieve calendars from register.}

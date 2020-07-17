@@ -11,3 +11,4 @@ vignettes/bizdays_index.png
 ^appveyor\.yml$
 ^codecov\.yml$
 data-raw
+.vscode

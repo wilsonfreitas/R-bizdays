@@ -32,4 +32,4 @@ Depends:
     R (>= 2.15)
 License: MIT + file LICENSE
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
