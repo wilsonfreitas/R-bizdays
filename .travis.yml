@@ -1,8 +1,12 @@
 language: r
-cache: packages
+cache:
+  - packages
+  - apt: true
+
 
 addons:
   apt:
+    update: true
     packages:
       - libquantlib0-dev
       - libboost-dev
