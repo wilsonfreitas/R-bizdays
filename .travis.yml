@@ -3,6 +3,9 @@ cache:
   - packages
   - apt: true
 
+os: linux
+dist: bionic
+sudo: required
 
 addons:
   apt:
