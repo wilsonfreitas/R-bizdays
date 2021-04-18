@@ -58,7 +58,7 @@ it differently.
 This argument defaults to \code{NULL} because the default intended behavior for 
 \code{create.calendar} returns an \emph{actual} calendar, so calling \code{create.calendar(name="xxx")} 
 returns a \emph{actual} calendar named \emph{xxx}.
-(for more calendars see \href{http://en.wikipedia.org/wiki/Day_count_convention}{Day Count Convention})
+(for more calendars see \href{https://en.wikipedia.org/wiki/Day_count_convention/}{Day Count Convention})
 To define the weekend as the nonworking weekdays one could simply
 use \code{weekdays=c("saturday", "sunday")}.
 

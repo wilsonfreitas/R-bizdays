@@ -7,7 +7,7 @@
 [![Coverage status](https://codecov.io/gh/wilsonfreitas/R-bizdays/branch/master/graph/badge.svg)](https://codecov.io/github/wilsonfreitas/R-bizdays?branch=master)
 
 [cran-bizdays]:  https://cran.r-project.org/package=bizdays
-[ANBIMA]: http://www.anbima.com.br
+[ANBIMA]: https://www.anbima.com.br/
 
 **bizdays** computes business days between dates based on collections of nonworking days and nonworking weekdays (usually weekends).
 It also helps with other issues related to business days calculations like check whether a date is a business day, offset a date by a number of business days, adjust dates for the next or previous business day, create generators of business days sequences, and much more.
