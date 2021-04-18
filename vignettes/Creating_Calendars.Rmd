@@ -55,7 +55,7 @@ But this is not expected to work that way.
 > I want to provide a way to compute business days accordingly to any definition or satisfying any needs.
 > In my world, the financial industry, weekends are nonworking days, but for those who work with events, for example, mondays migth be nonworking days.
 > 
-> `weekdays` defaults to `NULL` because I wanted the `Calendar()` call returned an [Actual](http://en.wikipedia.org/wiki/Day_count_convention#Actual_methods) calendar.
+> `weekdays` defaults to `NULL` because I wanted the `Calendar()` call returned an [Actual](https://en.wikipedia.org/wiki/Day_count_convention#Actual_methods) calendar.
 
 ## Skiping weekends only (defining weekends as nonworking days)
 
