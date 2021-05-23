@@ -11,6 +11,8 @@
 #' @param to (QuantLib only) the end date
 #' @param year (timeDate Rmetrics only) a vector with years to create the 
 #' calendars.
+#' @param financial is a logical argument that defaults to TRUE.
+#' 
 #' 
 #' @details
 #' To load QuantLib's calendars use \code{load_quantlib_calendars} defining 
@@ -22,6 +24,12 @@
 #' To load Rmetrics' calendars use \code{load_rmetrics_calendars} defining the 
 #' years the calendar has to handle.
 #' All Rmetrics calendars have the \code{Rmetrics} prefix.
+#' 
+#' @section Financial calendars:
+#' 
+#' This argument defines the calendar as a financial or a non financial calendar.
+#' Financial calendars don't consider the ending business day when counting working days in \code{bizdays}.
+#' In QuantLib, Financial calendars are those that \code{includeLast} is set to \code{FALSE}.
 #' 
 #' @section List of calendars:
 #' 
@@ -129,7 +137,8 @@ local({
 
 #' @rdname other-calendars
 #' @export
-load_quantlib_calendars <- function(ql_calendars = NULL, from, to) {
+load_quantlib_calendars <- function(ql_calendars = NULL, from, to,
+                                    financial = TRUE) {
   if (!requireNamespace("RQuantLib", quietly = TRUE)) {
     stop("RQuantLib needed for this function to work. Please install it.",
          call. = FALSE)
@@ -161,14 +170,15 @@ load_quantlib_calendars <- function(ql_calendars = NULL, from, to) {
     create.calendar(holidays_, weekdays = c('saturday', 'sunday'),
                     name = cal_name,
                     start.date = from, end.date = to,
-                    adjust.from = adjust.next, adjust.to = adjust.next)
+                    adjust.from = adjust.next, adjust.to = adjust.next,
+                    financial = financial)
     message("Calendar ", cal_name, " loaded")
   }
 }
 
 #' @rdname other-calendars
 #' @export
-load_rmetrics_calendars <- function(year) {
+load_rmetrics_calendars <- function(year, financial = TRUE) {
   if (!requireNamespace("timeDate", quietly = TRUE)) {
     stop("timeDate needed for this function to work. Please install it.",
          call. = FALSE)
@@ -183,7 +193,8 @@ load_rmetrics_calendars <- function(year) {
   create.calendar(holidays_, weekdays = c('saturday', 'sunday'),
                   name = cal_name,
                   adjust.from = adjust.next, adjust.to = adjust.previous,
-                  start.date = start_date, end.date = end_date)
+                  start.date = start_date, end.date = end_date,
+                  financial = financial)
   message("Calendar ", cal_name, " loaded")
 
   holidays_ <- as.Date(timeDate::holidayNERC(year))

@@ -347,6 +347,19 @@ if (requireNamespace("RQuantLib", quietly = TRUE)) {
     expect_equal(bizdays('2016-01-01', '2016-07-10',
                          'QuantLib/UnitedStates/NYSE'), ql_bd)
   })
+  
+  test_that('it should compare bizdays calendar with RQuantLib calendars', {
+    load_quantlib_calendars('UnitedStates',
+                            from = '1996-01-01', to = '2040-12-31',
+                            financial = FALSE)
+    x <- bizdays('2020-01-01', '2020-12-31', 'QuantLib/UnitedStates')
+    y <- RQuantLib::businessDaysBetween(calendar = "UnitedStates",
+                                   from = as.Date("2020-01-01"),
+                                   to = as.Date("2020-12-31"),
+                                   includeFirst = TRUE,
+                                   includeLast = TRUE)
+    expect_equal(x, y)
+  })
 }
 
 if (requireNamespace("timeDate", quietly = TRUE)) {
