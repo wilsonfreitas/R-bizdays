@@ -8,7 +8,7 @@
 #' @param holidays a vector of Dates which contains the holidays
 #' @param weekdays a character vector which defines the weekdays to be used as
 #' non-working days (defaults to \code{NULL} which represents an actual 
-#' calendar). It accepts: \code{sunday}, \code{monday}, \code{thuesday}, 
+#' calendar). It accepts: \code{sunday}, \code{monday}, \code{tuesday}, 
 #' \code{wednesday}, \code{thursday}, \code{friday}, \code{saturday}. 
 #' Defining the weekend as nonworking days is \code{weekdays=c("saturday", "sunday")}.
 #' @param start.date the date which the calendar starts
@@ -31,7 +31,7 @@
 #' In the great majority of situations it refers to the weekend but it is also possible defining
 #' it differently.
 #' \code{weekdays} accepts a \code{character} sequence with lower case weekdays (
-#' \code{sunday}, \code{monday}, \code{thuesday}, \code{wednesday}, \code{thursday},
+#' \code{sunday}, \code{monday}, \code{tuesday}, \code{wednesday}, \code{thursday},
 #' \code{friday}, \code{saturday}).
 #' This argument defaults to \code{NULL} because the default intended behavior for 
 #' \code{create.calendar} returns an \emph{actual} calendar, so calling \code{create.calendar(name="xxx")} 
