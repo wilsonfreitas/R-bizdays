@@ -90,8 +90,11 @@ bizdays.Date <- function(from, to,
       bdays == -1
     bdays[w] <- 0
     bdays
-  } else
-    bdays + 1
+  } else {
+    bdays[!idx] <- bdays[!idx] + 1
+    bdays[idx] <- bdays[idx] - 1
+    bdays
+  }
 }
 
 #' Business days and current days equivalence

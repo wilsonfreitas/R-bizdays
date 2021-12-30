@@ -61,6 +61,13 @@ test_that("is should compute bizdays for one single day", {
   expect_equal(bizdays("2021-12-30", "2021-12-30", "actual-no-fin"), 1)
 })
 
+test_that("is should compute negative bizdays for non finacial calendars", {
+  create.calendar("actual-no-fin", financial = FALSE)
+  
+  expect_equal(-bizdays('2014-07-12', '2013-07-12', "actual-no-fin"),
+               bizdays('2013-07-12', '2014-07-12', "actual-no-fin"))
+})
+
 context('handling NA values')
 
 test_that('it should bizdays NA values', {
