@@ -54,6 +54,13 @@ test_that("it should compute bizdays using double index approach", {
   )
 })
 
+test_that("is should compute bizdays for one single day", {
+  create.calendar("actual-no-fin", financial = FALSE)
+  
+  expect_equal(bizdays("2021-12-30", "2021-12-30", "actual"), 0)
+  expect_equal(bizdays("2021-12-30", "2021-12-30", "actual-no-fin"), 1)
+})
+
 context('handling NA values')
 
 test_that('it should bizdays NA values', {
