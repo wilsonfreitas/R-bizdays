@@ -123,7 +123,7 @@ NULL
 
 # Registering calendars
 
-local({
+.onLoad <- function(libname, pkgname) {
   create.calendar("actual")
   localenv <- new.env()
   data("holidaysANBIMA", envir = localenv)
@@ -133,7 +133,7 @@ local({
   create.calendar("weekends", weekdays = c('saturday', 'sunday'),
                   adjust.from = adjust.next, adjust.to = adjust.previous)
   bizdays.options$set(default.calendar = 'actual')
-})
+}
 
 #' @rdname other-calendars
 #' @export
