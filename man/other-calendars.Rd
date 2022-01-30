@@ -6,9 +6,9 @@
 \alias{load_rmetrics_calendars}
 \title{Calendars from other packages}
 \usage{
-load_quantlib_calendars(ql_calendars = NULL, from, to)
+load_quantlib_calendars(ql_calendars = NULL, from, to, financial = TRUE)
 
-load_rmetrics_calendars(year)
+load_rmetrics_calendars(year, financial = TRUE)
 }
 \arguments{
 \item{ql_calendars}{(QuantLib only) A character vector with the names of 
@@ -18,6 +18,8 @@ calendars.}
 \item{from}{(QuantLib only) the start date}
 
 \item{to}{(QuantLib only) the end date}
+
+\item{financial}{is a logical argument that defaults to TRUE.}
 
 \item{year}{(timeDate Rmetrics only) a vector with years to create the 
 calendars.}
@@ -38,6 +40,14 @@ To load Rmetrics' calendars use \code{load_rmetrics_calendars} defining the
 years the calendar has to handle.
 All Rmetrics calendars have the \code{Rmetrics} prefix.
 }
+\section{Financial calendars}{
+
+
+This argument defines the calendar as a financial or a non financial calendar.
+Financial calendars don't consider the ending business day when counting working days in \code{bizdays}.
+In QuantLib, Financial calendars are those that \code{includeLast} is set to \code{FALSE}.
+}
+
 \section{List of calendars}{
 
 
