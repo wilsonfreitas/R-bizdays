@@ -28,6 +28,6 @@
 #' @docType package
 #' 
 #' @importFrom methods is
-#' @importFrom utils head tail
+#' @importFrom utils head tail data
 #' @importFrom jsonlite toJSON fromJSON
 NULL

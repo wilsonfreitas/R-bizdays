@@ -123,14 +123,14 @@ NULL
 
 # Registering calendars
 
-.onLoad <- function(libname, pkgname) {
+.onAttach <- function(libname, pkgname) {
   create.calendar("actual")
   localenv <- new.env()
-  data("holidaysANBIMA", envir = localenv)
+  utils::data("holidaysANBIMA", envir = localenv)
   create.calendar("Brazil/ANBIMA", localenv$holidaysANBIMA,
                   weekdays = c('saturday', 'sunday'),
                   adjust.from = adjust.next, adjust.to = adjust.previous)
-  data("holidaysB3", envir = localenv)
+  utils::data("holidaysB3", envir = localenv)
   create.calendar("Brazil/B3", localenv$holidaysB3,
                   weekdays = c('saturday', 'sunday'),
                   adjust.from = adjust.next, adjust.to = adjust.previous)
