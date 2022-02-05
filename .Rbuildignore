@@ -12,3 +12,4 @@ vignettes/bizdays_index.png
 ^codecov\.yml$
 data-raw
 .vscode
+^\.github$
