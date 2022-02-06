@@ -1,8 +1,26 @@
-Changes in Verson 1.0.7
+Changes in Version 1.0.9
+
+  * New function getbizdays which returns the number of business days for specific periods of a year or a month (issue #94)
+
+  * Use .onAttach to load build in calendars (issue #88)
+
+  * New B3 calendar with holidays up to the of 2022 (issue #93)
+  
+  * load_quantlib_calendars and load_rmetrics_calendars have a financial argument to define if the loaded calendar is a financial calendar
+  
+  * [BUG] wrong return for negative bizdays in non financial calendars (issue #92)
+
+Changes in Version 1.0.8
+
+  * Corrected typos in documentation (links formatting) in order to fulfill CRAN requirements
+
+  * Updated travis CI Yaml to avoid errors due to missing requirements
+
+Changes in Version 1.0.7
 
   * Disabled removed the use of ref object as getdate argument
 
-Changes in Verson 1.0.6
+Changes in Version 1.0.6
 
   * Import and export calendars (issue #25)
 
@@ -10,7 +28,7 @@ Changes in Verson 1.0.6
   
   * Renamed functions (replaced dots with _) (issue #76)
   
-Changes in Verson 1.0.5
+Changes in Version 1.0.5
 
   * Implemented bizdays optimisations (issue #70)
 
