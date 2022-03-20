@@ -34,16 +34,22 @@ modified.preceding(dates, cal)
 \code{Date} objects adjusted accordingly.
 }
 \description{
-Rolls the given date to the next or previous business day, unless it is a business day.
+Rolls the given date to the next or previous business day,
+unless it is a business day.
 }
 \details{
-\code{adjust.next} and \code{following} return the next business day if the given date
+\code{adjust.next} and \code{following} return the next business day if the
+given date
 is not a business day.
-\code{adjust.previous} and \code{preceding} are similar, but return the previous 
+\code{adjust.previous} and \code{preceding} are similar, but return the
+previous
 business day.
-\code{modified.following} rolls the given date to the next business day, unless 
-it happens in the next month, in this case it returns the previous business day.
-\code{modified.preceding} is similar to \code{modified.following}, but rolls the given 
+\code{modified.following} rolls the given date to the next business day,
+unless
+it happens in the next month, in this case it returns the previous business
+day.
+\code{modified.preceding} is similar to \code{modified.following}, but rolls
+the given
 date to the previous business day.
 }
 \section{Date types accepted}{
@@ -56,7 +62,9 @@ objects with ISO formatted dates.
 }
 
 \examples{
-cal <- create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
+cal <- create.calendar("Brazil/ANBIMA", holidaysANBIMA,
+  weekdays = c("saturday", "sunday")
+)
 adjust.next("2013-01-01", "Brazil/ANBIMA")
 following("2013-01-01", cal)
 modified.following("2016-01-31", cal)

@@ -41,7 +41,7 @@ and once those vectors differs in length the recycle rule is applied.
 
 \code{from} and \code{to} are adjusted when nonworking dates are
 provided. Since \code{bizdays} function returns the amount of business days
-between 2 dates, it must start and end in business days. 
+between 2 dates, it must start and end in business days.
 The default behavior, that is defined in \code{Calendar}'s instantiation with
 \code{adjust.from} and \code{adjust.to}, reproduces the Excel's NETWORKDAYS.
 A common and useful setting is \code{adjust.to=adjust.next} which moves
@@ -49,14 +49,15 @@ expiring maturities to the next business day, once it is not.
 }
 
 \examples{
-create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
+create.calendar("Brazil/ANBIMA", holidaysANBIMA,
+  weekdays = c("saturday", "sunday")
+)
 bizdays("2013-01-02", "2013-01-31", "Brazil/ANBIMA")
 
 # Once you have a default calendar set, cal does not need to be provided
-bizdays.options$set(default.calendar="Brazil/ANBIMA")
+bizdays.options$set(default.calendar = "Brazil/ANBIMA")
 bizdays("2013-01-02", "2013-01-31")
 
 dates <- bizseq("2013-01-01", "2013-01-10")
 bizdays(dates, "2014-01-31")
-
 }

@@ -30,7 +30,8 @@ holidays(cal)
 
 \item{x}{character with calendar name or the calendar object}
 
-\item{...}{unused argument (this exists to keep compliance with \code{weekdays} generic)}
+\item{...}{unused argument (this exists to keep compliance with
+\code{weekdays} generic)}
 }
 \description{
 Returns calendar's list of holidays and weekdays

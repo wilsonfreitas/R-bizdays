@@ -54,8 +54,7 @@
 #' \code{create.calendar(name="xxx")}
 #' returns a \emph{actual} calendar named \emph{xxx}.
 #' (for more calendars see
-#' \href{https://en.wikipedia.org/wiki/Day_count_convention}
-#' {Day Count Convention})
+#' \href{https://en.wikipedia.org/wiki/Day_count_convention}{Day Count Convention})
 #' To define the weekend as the nonworking weekdays one could simply
 #' use \code{weekdays=c("saturday", "sunday")}.
 #'

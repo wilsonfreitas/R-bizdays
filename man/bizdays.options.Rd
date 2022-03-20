@@ -5,23 +5,26 @@
 \alias{bizdays.options}
 \title{bizdays' options}
 \format{
-A \code{list} object with \emph{methods} \code{get} and \code{set} attached to.
+A \code{list} object with \emph{methods} \code{get} and \code{set}
+attached to.
 }
 \usage{
 bizdays.options
 }
 \description{
-\code{bizdays.options} defines option parameters used internally in \code{bizdays}.
+\code{bizdays.options} defines option parameters used internally in
+\code{bizdays}.
 }
 \details{
-Parameters are stored in \code{bizdays.options} using \code{get} and \code{set}
+Parameters are stored in \code{bizdays.options} using \code{get} and
+\code{set}
 
 \preformatted{
 bizdays.options$set(option.key=value)
 bizdays.options$get("option.key")
 }
 
-\code{bizdays} supports the following parameter: 
+\code{bizdays} supports the following parameter:
 
 \itemize{
 \item{\code{default.calendar}: }{the default calendar to be used with the
@@ -30,9 +33,8 @@ functions: \code{bizdays}, \code{bizdayse}, \code{adjust.next},
 }
 }
 \examples{
-create.calendar(name="actual")
-bizdays.options$set(default.calendar="actual")
+create.calendar(name = "actual")
+bizdays.options$set(default.calendar = "actual")
 bizdays("2013-07-12", "2013-07-22")
-
 }
 \keyword{datasets}

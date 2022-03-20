@@ -16,77 +16,102 @@ create.calendar(
 )
 }
 \arguments{
-\item{name}{calendar's name. This is used to retrieve calendars from register.}
+\item{name}{calendar's name. This is used to retrieve calendars from
+register.}
 
 \item{holidays}{a vector of Dates which contains the holidays}
 
 \item{weekdays}{a character vector which defines the weekdays to be used as
-non-working days (defaults to \code{NULL} which represents an actual 
-calendar). It accepts: \code{sunday}, \code{monday}, \code{tuesday}, 
-\code{wednesday}, \code{thursday}, \code{friday}, \code{saturday}. 
-Defining the weekend as nonworking days is \code{weekdays=c("saturday", "sunday")}.}
+non-working days (defaults to \code{NULL} which represents an actual
+calendar). It accepts: \code{sunday}, \code{monday}, \code{tuesday},
+\code{wednesday}, \code{thursday}, \code{friday}, \code{saturday}.
+Defining the weekend as nonworking days is
+\code{weekdays=c("saturday", "sunday")}.}
 
 \item{start.date}{the date which the calendar starts}
 
 \item{end.date}{the date which the calendar ends}
 
-\item{adjust.from}{is a function to be used with the \code{bizdays}'s \code{from} argument.
-That function adjusts the argument if it is a nonworking day according to calendar.}
+\item{adjust.from}{is a function to be used with the \code{bizdays}'s
+\code{from} argument.
+That function adjusts the argument if it is a nonworking
+day according to calendar.}
 
-\item{adjust.to}{is a function to be used with the \code{bizdays}'s \code{to} argument.
+\item{adjust.to}{is a function to be used with the \code{bizdays}'s
+\code{to} argument.
 See also \code{adjust.from}.}
 
 \item{financial}{is a logical argument that defaults to TRUE.
-This argument defines the calendar as a financial or a non financial calendar.
-Financial calendars don't consider the ending business day when counting working days in \code{bizdays}.
-\code{bizdays} calls for non financial calendars are greater than financial calendars calls by one day.}
+This argument defines the calendar as a financial or a non
+financial calendar.
+Financial calendars don't consider the ending business day
+when counting working days in \code{bizdays}.
+\code{bizdays} calls for non financial calendars are
+greater than financial calendars calls by one day.}
 }
 \description{
-\code{create.calendar} creates calendars and stores them in the calendar register.
+\code{create.calendar} creates calendars and stores them in the calendar
+register.
 }
 \details{
-The arguments \code{start.date} and \code{end.date} can be set but once they aren't and \code{holidays}
-is set, \code{start.date} is defined to \code{min(holidays)} and \code{end.date} to \code{max(holidays)}.
-If holidays isn't set \code{start.date} is set to \code{'1970-01-01'} and \code{end.date} to \code{'2071-01-01'}.
+The arguments \code{start.date} and \code{end.date} can be set but once
+they aren't and \code{holidays}
+is set, \code{start.date} is defined to \code{min(holidays)} and
+\code{end.date} to \code{max(holidays)}.
+If holidays isn't set \code{start.date} is set to \code{'1970-01-01'} and
+\code{end.date} to \code{'2071-01-01'}.
 
-\code{weekdays} is controversial but it is only a sequence of nonworking weekdays.
-In the great majority of situations it refers to the weekend but it is also possible defining
+\code{weekdays} is controversial but it is only a sequence of nonworking
+weekdays.
+In the great majority of situations it refers to the weekend but it is also
+possible defining
 it differently.
-\code{weekdays} accepts a \code{character} sequence with lower case weekdays (
-\code{sunday}, \code{monday}, \code{tuesday}, \code{wednesday}, \code{thursday},
-\code{friday}, \code{saturday}).
-This argument defaults to \code{NULL} because the default intended behavior for 
-\code{create.calendar} returns an \emph{actual} calendar, so calling \code{create.calendar(name="xxx")} 
+\code{weekdays} accepts a \code{character} sequence with lower case
+weekdays (
+\code{sunday}, \code{monday}, \code{tuesday}, \code{wednesday},
+\code{thursday}, \code{friday}, \code{saturday}).
+This argument defaults to \code{NULL} because the default intended behavior
+for
+\code{create.calendar} returns an \emph{actual} calendar, so calling
+\code{create.calendar(name="xxx")}
 returns a \emph{actual} calendar named \emph{xxx}.
-(for more calendars see \href{https://en.wikipedia.org/wiki/Day_count_convention}{Day Count Convention})
+(for more calendars see
+\href{https://en.wikipedia.org/wiki/Day_count_convention}{Day Count Convention})
 To define the weekend as the nonworking weekdays one could simply
 use \code{weekdays=c("saturday", "sunday")}.
 
-The arguments \code{adjust.from} and \code{adjust.to} are used to adjust \code{bizdays}' arguments
+The arguments \code{adjust.from} and \code{adjust.to} are used to adjust
+\code{bizdays}' arguments
 \code{from} and \code{to}, respectively.
 These arguments need to be adjusted when nonworking days are provided.
-The default behavior, setting \code{adjust.from=adjust.previous} and \code{adjust.to=adjust.next},
-works like Excel's function NETWORKDAYS, since that is fairly used by a great number of practitioners.
+The default behavior, setting \code{adjust.from=adjust.previous} and
+\code{adjust.to=adjust.next},
+works like Excel's function NETWORKDAYS, since that is fairly used by a
+great number of practitioners.
 }
 \section{Calendars register}{
 
 
-Every named calendar is stored in a register so that it can be retrieved by 
+Every named calendar is stored in a register so that it can be retrieved by
 its name (in \code{calendars}).
-bizdays' methods also accept the calendar's name on their \code{cal} argument.
+bizdays' methods also accept the calendar's name on their \code{cal}
+argument.
 Given that, naming calendars is strongly recommended.
 }
 
 \examples{
 # ANBIMA's calendar (from Brazil)
-cal <- create.calendar("Brazil/ANBIMA", holidays=holidaysANBIMA, weekdays=c("saturday", "sunday"))
+cal <- create.calendar("Brazil/ANBIMA",
+  holidays = holidaysANBIMA,
+  weekdays = c("saturday", "sunday")
+)
 
 # ACTUAL calendar
 cal <- create.calendar("Actual")
 
 # named calendars can be accessed by its name
-create.calendar(name="Actual")
-bizdays('2016-01-01', '2016-03-14', 'Actual')
+create.calendar(name = "Actual")
+bizdays("2016-01-01", "2016-03-14", "Actual")
 }
 \seealso{
 \code{\link{calendars}}, \code{\link{bizdays}}

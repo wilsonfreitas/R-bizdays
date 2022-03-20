@@ -30,7 +30,8 @@ objects with ISO formatted dates.
 }
 
 \examples{
-create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
+create.calendar("Brazil/ANBIMA", holidaysANBIMA,
+  weekdays = c("saturday", "sunday")
+)
 bizseq("2013-01-02", "2013-01-31", "Brazil/ANBIMA")
-
 }

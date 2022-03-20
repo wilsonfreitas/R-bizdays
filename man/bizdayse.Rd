@@ -53,7 +53,8 @@ rule is applied.
 }
 
 \examples{
-create.calendar("Brazil/ANBIMA", holidaysANBIMA, weekdays=c("saturday", "sunday"))
+create.calendar("Brazil/ANBIMA", holidaysANBIMA,
+  weekdays = c("saturday", "sunday")
+)
 bizdayse("2013-01-02", 3, "Brazil/ANBIMA")
-
 }

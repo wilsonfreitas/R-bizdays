@@ -11,8 +11,8 @@ load_quantlib_calendars(ql_calendars = NULL, from, to, financial = TRUE)
 load_rmetrics_calendars(year, financial = TRUE)
 }
 \arguments{
-\item{ql_calendars}{(QuantLib only) A character vector with the names of 
-QuantLib's calendars. This parameter defaults to NULL, which loads all 
+\item{ql_calendars}{(QuantLib only) A character vector with the names of
+QuantLib's calendars. This parameter defaults to NULL, which loads all
 calendars.}
 
 \item{from}{(QuantLib only) the start date}
@@ -21,31 +21,34 @@ calendars.}
 
 \item{financial}{is a logical argument that defaults to TRUE.}
 
-\item{year}{(timeDate Rmetrics only) a vector with years to create the 
+\item{year}{(timeDate Rmetrics only) a vector with years to create the
 calendars.}
 }
 \description{
-The packages RQuantLib and timeDate (Rmetrics) have functions to compute 
+The packages RQuantLib and timeDate (Rmetrics) have functions to compute
 business days between 2 dates according to a predefined calendar.
 bizdays creates calendars based on these functions.
 }
 \details{
-To load QuantLib's calendars use \code{load_quantlib_calendars} defining 
+To load QuantLib's calendars use \code{load_quantlib_calendars} defining
 which
-calendar has to be loaded by its name and the range of dates the calendar 
+calendar has to be loaded by its name and the range of dates the calendar
 has to handle.
 All QuantLib calendars have the \code{QuantLib} prefix.
 
-To load Rmetrics' calendars use \code{load_rmetrics_calendars} defining the 
+To load Rmetrics' calendars use \code{load_rmetrics_calendars} defining the
 years the calendar has to handle.
 All Rmetrics calendars have the \code{Rmetrics} prefix.
 }
 \section{Financial calendars}{
 
 
-This argument defines the calendar as a financial or a non financial calendar.
-Financial calendars don't consider the ending business day when counting working days in \code{bizdays}.
-In QuantLib, Financial calendars are those that \code{includeLast} is set to \code{FALSE}.
+This argument defines the calendar as a financial or a non financial
+calendar.
+Financial calendars don't consider the ending business day when counting
+working days in \code{bizdays}.
+In QuantLib, Financial calendars are those that \code{includeLast} is set
+to \code{FALSE}.
 }
 
 \section{List of calendars}{
@@ -119,22 +122,26 @@ Rmetrics Calendars:
 
 \examples{
 if (require("RQuantLib")) {
- # loading Argentina calendar
- load_quantlib_calendars('Argentina', from='2016-01-01', to='2016-12-31')
- bizdays('2016-01-01', '2016-03-14', 'QuantLib/Argentina')
- # loading 2 calendars
- load_quantlib_calendars(c('UnitedStates/NYSE', 'UnitedKingdom/Settlement'),
-                         from='2016-01-01', to='2016-12-31')
- bizdays('2016-01-01', '2016-03-14', 'QuantLib/UnitedStates/NYSE')
- # loading all QuantLib's 50 calendars
- load_quantlib_calendars(from='2016-01-01', to='2016-12-31')
- bizdays('2016-01-01', '2016-03-14', 'QuantLib/Brazil')
+  # loading Argentina calendar
+  load_quantlib_calendars("Argentina",
+    from = "2016-01-01",
+    to = "2016-12-31"
+  )
+  bizdays("2016-01-01", "2016-03-14", "QuantLib/Argentina")
+  # loading 2 calendars
+  load_quantlib_calendars(c("UnitedStates/NYSE", "UnitedKingdom/Settlement"),
+    from = "2016-01-01", to = "2016-12-31"
+  )
+  bizdays("2016-01-01", "2016-03-14", "QuantLib/UnitedStates/NYSE")
+  # loading all QuantLib's 50 calendars
+  load_quantlib_calendars(from = "2016-01-01", to = "2016-12-31")
+  bizdays("2016-01-01", "2016-03-14", "QuantLib/Brazil")
 }
 
 if (require("timeDate")) {
- # loading all Rmetrics calendar
- load_rmetrics_calendars(2016)
- bizdays('2016-01-01', '2016-03-14', 'Rmetrics/NERC')
- bizdays('2016-01-01', '2016-03-14', 'Rmetrics/NYSE')
+  # loading all Rmetrics calendar
+  load_rmetrics_calendars(2016)
+  bizdays("2016-01-01", "2016-03-14", "Rmetrics/NERC")
+  bizdays("2016-01-01", "2016-03-14", "Rmetrics/NYSE")
 }
 }

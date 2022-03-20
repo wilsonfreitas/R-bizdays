@@ -12,7 +12,7 @@ bizdiff(dates, cal)
 \item{cal}{the calendar's name}
 }
 \value{
-A `numeric` vector of length `n-1` (where `n` is the input vector length), 
+A `numeric` vector of length `n-1` (where `n` is the input vector length),
 containing the business days computed between pairs of dates.
 }
 \description{
@@ -30,5 +30,4 @@ objects with ISO formatted dates.
 \examples{
 dates <- c("2017-05-10", "2017-05-12", "2017-05-17")
 bizdiff(dates, "Brazil/ANBIMA")
-
 }

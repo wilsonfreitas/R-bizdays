@@ -15,7 +15,7 @@ to be found.}
 \code{getbizdays} returns the number of working days according to a reference
 that can be a month or an year.
 This reference can be passed as a character vector representing months
-or years, or as a numeric vector representing years. The ISO format must be 
+or years, or as a numeric vector representing years. The ISO format must be
 used to represent years or months with character vectors.}
 }
 \description{
