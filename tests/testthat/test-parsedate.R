@@ -2,15 +2,6 @@
 context("getdate")
 
 test_that("it should return a date accordingly the given date reference", {
-  # rrr <- ref(as.Date("2018-01-01"), "month")
-  # dx <- getdate("first day", rrr, "actual")
-  # expect_equal(dx, as.Date("2018-01-01"))
-  # dx <- getdate("last day", rrr, "actual")
-  # expect_equal(dx, as.Date("2018-01-31"))
-  # dx <- getdate("first bizday", rrr, "Brazil/ANBIMA")
-  # expect_equal(dx, as.Date("2018-01-02"))
-  # dx <- getdate("last bizday", rrr, "Brazil/ANBIMA")
-  # expect_equal(dx, as.Date("2018-01-31"))
   dx <- getdate("last bizday", 2018, "Brazil/ANBIMA")
   expect_equal(dx, as.Date("2018-12-31"))
   dx <- getdate("last bizday", 2017:2018, "Brazil/ANBIMA")
@@ -21,15 +12,6 @@ test_that("it should return a date accordingly the given date reference", {
   expect_equal(dx, as.Date("2018-01-03"))
   expect_error(getdate("last xxx", 2018, "actual"))
 })
-
-# test_that("it should return a date accordingly the given dates reference", {
-#   dates <- c(as.Date("2018-01-01"), as.Date("2018-02-01"))
-#   rrr <- ref(dates, "month")
-#   dx <- getdate("first day", rrr, "actual")
-#   expect_equal(dx, c(as.Date("2018-01-01"), as.Date("2018-02-01")))
-#   dx <- getdate("first bizday", rrr, "Brazil/ANBIMA")
-#   expect_equal(dx, c(as.Date("2018-01-02"), as.Date("2018-02-01")))
-# })
 
 test_that("it should convert nth to int", {
   expect_equal(nth2int("10th"), 10)
@@ -90,8 +72,12 @@ test_that("it should get the nth day by the reference", {
   expect_equal(getnthday_(1, rrr, cal), as.Date("2018-01-01"))
   expect_equal(getnthday_(-1, rrr, cal), as.Date("2018-01-31"))
   cal <- calendars()[["Brazil/ANBIMA"]]
-  expect_equal(getnthday_(1, rrr, cal, use_bizday = TRUE),
-               as.Date("2018-01-02"))
-  expect_equal(getnthday_(-1, rrr, cal, use_bizday = TRUE),
-               as.Date("2018-01-31"))
+  expect_equal(
+    getnthday_(1, rrr, cal, use_bizday = TRUE),
+    as.Date("2018-01-02")
+  )
+  expect_equal(
+    getnthday_(-1, rrr, cal, use_bizday = TRUE),
+    as.Date("2018-01-31")
+  )
 })
