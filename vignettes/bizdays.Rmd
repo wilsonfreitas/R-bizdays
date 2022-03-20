@@ -1,0 +1,105 @@
+---
+title: "Introduction to bizdays"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# Introduction
+
+`bizdays` was developed to count business days between two dates.
+This is a big issue in brazilian financial market because many financial instruments
+consider the amount of business days in their accounting rules.
+So, a typical use of the package is:
+
+```{r message=TRUE, warning=TRUE}
+library(bizdays)
+bizdays("2022-02-01", "2022-02-28", "Brazil/ANBIMA")
+```
+
+The `bizdays` function returns the amount of business days between these dates according
+to the calendar `Brazil/ANBIMA`.
+
+The calendar `Brazil/ANBIMA` is already loaded and all loaded calendars can be seen
+with `calendars()`
+
+```{r}
+calendars()
+```
+
+That lists calendars registered in the calendar register.
+Once you have a calendar registered you can simply use its name
+in the functions.
+
+```{r}
+bizdays("2022-02-01", "2022-02-28", "actual")
+```
+
+You can look specificaly at one calendar by doing
+
+```{r}
+calendars()[["Brazil/B3"]]
+```
+
+## Load calendars from other packages
+
+Calendars can be loaded from packages RQuantlib and timeDate (Rmetrics).
+
+```{r}
+load_rmetrics_calendars(2000:2030)
+calendars()
+```
+
+Once you have calendars loaded they can be directly used by its name.
+
+```{r}
+bizdays("2022-02-01", "2022-02-28", "Rmetrics/NYSE")
+```
+
+> So, unless you really need a new calendar, you don't have to create them.
+
+# Usage
+
+## Count bizdays
+
+```{r}
+bizdays("2022-02-01", "2022-02-28", "Brazil/ANBIMA")
+```
+
+```{r}
+getbizdays("2022-01", "Brazil/ANBIMA")
+```
+
+## Check bizdays
+
+```{r}
+is.bizday(c("2022-02-01", "2022-02-05"), "Brazil/ANBIMA")
+```
+
+## Fix dates
+
+```{r}
+following(c("2022-02-01", "2022-02-05"), "Brazil/ANBIMA")
+preceding(c("2022-02-01", "2022-02-05"), "Brazil/ANBIMA")
+```
+
+## Sequence of business days
+
+```{r}
+bizseq("2022-02-01", "2022-02-05", "Brazil/ANBIMA")
+```
+
+## Add business days to a date
+
+```{r}
+add.bizdays("2022-02-01", 0:5, "Brazil/ANBIMA")
+```
+
+## `getdate`
+
+```{r}
+getdate("first bizday", "2022-01", "Brazil/ANBIMA")
+```
+
+```{r}
+getdate("180th day", "2022", "Brazil/ANBIMA")
+```

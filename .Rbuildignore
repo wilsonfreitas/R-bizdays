@@ -13,3 +13,6 @@ vignettes/bizdays_index.png
 data-raw
 .vscode
 ^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
