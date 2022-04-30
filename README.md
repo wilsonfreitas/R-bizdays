@@ -1,11 +1,12 @@
 # [R-bizdays](https://cran.r-project.org/package=bizdays)
 
-[![CRAN
-status](https://www.r-pkg.org/badges/version/bizdays)](https://cran.r-project.org/package=bizdays)
+<!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/bizdays)](https://cran.r-project.org/package=bizdays)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Downloads](http://cranlogs.r-pkg.org/badges/bizdays)](https://cran.r-project.org/package=bizdays)
 [![R-CMD-check](https://github.com/wilsonfreitas/R-bizdays/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/wilsonfreitas/R-bizdays/actions/workflows/check-standard.yaml)
-[![Coverage
-status](https://codecov.io/gh/wilsonfreitas/R-bizdays/branch/master/graph/badge.svg)](https://codecov.io/github/wilsonfreitas/R-bizdays?branch=master)
+[![Coverage status](https://codecov.io/gh/wilsonfreitas/R-bizdays/branch/master/graph/badge.svg)](https://codecov.io/github/wilsonfreitas/R-bizdays?branch=master)
+<!-- badges: end -->
 
 **bizdays** computes business days between dates based on collections of
 nonworking days and nonworking weekdays (usually weekends). It also
@@ -31,10 +32,27 @@ or using `devtools`
 devtools::install_github('R-bizdays', username='wilsonfreitas')
 ```
 
-## Holidays
+## Calendars
 
-I've included a dataset called `holidaysANBIMA` containing the list of
-holidays released by [ANBIMA](https://www.anbima.com.br/), this is quite
-useful at brazilian financial market. So, if you have a specific list of
-holidays used at any market in the world, please share with me, I will
-be glad to include it in future releases.
+`bizdays` comes with these calendars already loaded:
+
+``` r
+library(bizdays)
+#> 
+#> Attaching package: 'bizdays'
+#> The following object is masked from 'package:stats':
+#> 
+#>     offset
+calendars()
+#> Calendars: 
+#> actual, Brazil/ANBIMA, Brazil/B3, weekends
+```
+
+You can simply call bizdays declaring one of these.
+
+``` r
+following("2022-01-01", "Brazil/B3")
+#> [1] "2022-01-03"
+bizdays("2022-04-01", "2022-04-29", "Brazil/ANBIMA")
+#> [1] 18
+```
