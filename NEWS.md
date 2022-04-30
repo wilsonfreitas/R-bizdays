@@ -1,3 +1,7 @@
+# bizdays 1.0.9.9999
+
+  * holidaysB3 data updated, the day 2020-07-09 has been removed, it's not a holiday.
+
 # bizdays 1.0.9
 
   * New function getbizdays which returns the number of business days for specific periods of a year or a month (issue #94)
