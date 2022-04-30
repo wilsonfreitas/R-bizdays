@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bizdays</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.9.9999</span>
       </span>
     </div>
 
@@ -91,7 +91,7 @@
 <div class="page-header"><h1 id="r-bizdays">
 <a href="https://cran.r-project.org/package=bizdays" class="external-link">R-bizdays</a><a class="anchor" aria-label="anchor" href="#r-bizdays"></a>
 </h1></div>
-
+<!-- badges: start -->
 <p><strong>bizdays</strong> computes business days between dates based on collections of nonworking days and nonworking weekdays (usually weekends). It also helps with other issues related to business days calculations like check whether a date is a business day, offset a date by a number of business days, adjust dates for the next or previous business day, create generators of business days sequences, and much more. All functions are vectorizable so that speed up the calculations for large collections of dates.</p>
 <div class="section level2">
 <h2 id="installing">Installing<a class="anchor" aria-label="anchor" href="#installing"></a>
@@ -104,9 +104,25 @@
 <code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">'R-bizdays'</span>, username<span class="op">=</span><span class="st">'wilsonfreitas'</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="holidays">Holidays<a class="anchor" aria-label="anchor" href="#holidays"></a>
+<h2 id="calendars">Calendars<a class="anchor" aria-label="anchor" href="#calendars"></a>
 </h2>
-<p>I’ve included a dataset called <code>holidaysANBIMA</code> containing the list of holidays released by <a href="https://www.anbima.com.br/" class="external-link">ANBIMA</a>, this is quite useful at brazilian financial market. So, if you have a specific list of holidays used at any market in the world, please share with me, I will be glad to include it in future releases.</p>
+<p><code>bizdays</code> comes with these calendars already loaded:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/wilsonfreitas/R-bizdays" class="external-link">bizdays</a></span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'bizdays'</span>
+<span class="co">#&gt; The following object is masked from 'package:stats':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     offset</span>
+<span class="fu"><a href="reference/calendar-register.html">calendars</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; Calendars: </span>
+<span class="co">#&gt; actual, Brazil/ANBIMA, Brazil/B3, weekends</span></code></pre></div>
+<p>You can simply call bizdays declaring one of these.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/adjust.date.html">following</a></span><span class="op">(</span><span class="st">"2022-01-01"</span>, <span class="st">"Brazil/B3"</span><span class="op">)</span>
+<span class="co">#&gt; [1] "2022-01-03"</span>
+<span class="fu"><a href="reference/bizdays.html">bizdays</a></span><span class="op">(</span><span class="st">"2022-04-01"</span>, <span class="st">"2022-04-29"</span>, <span class="st">"Brazil/ANBIMA"</span><span class="op">)</span>
+<span class="co">#&gt; [1] 18</span></code></pre></div>
 </div>
 </div>
   </div>
@@ -148,6 +164,7 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://cran.r-project.org/package=bizdays" class="external-link"><img src="https://www.r-pkg.org/badges/version/bizdays" alt="CRAN status"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
 <li><a href="https://cran.r-project.org/package=bizdays" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/bizdays" alt="Downloads"></a></li>
 <li><a href="https://github.com/wilsonfreitas/R-bizdays/actions/workflows/check-standard.yaml" class="external-link"><img src="https://github.com/wilsonfreitas/R-bizdays/actions/workflows/check-standard.yaml/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://codecov.io/github/wilsonfreitas/R-bizdays?branch=master" class="external-link"><img src="https://codecov.io/gh/wilsonfreitas/R-bizdays/branch/master/graph/badge.svg" alt="Coverage status"></a></li>
@@ -165,7 +182,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
