@@ -17,7 +17,6 @@ Suggests:
 Imports: methods, utils, jsonlite
 Collate:
     'R-bizdays-package.r'
-    'datasets.R'
     'calendar.R'
     'adjust.date.R'
     'bizdays.options.R'

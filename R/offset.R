@@ -31,14 +31,10 @@
 #' @name offset
 #'
 #' @examples
-#' create.calendar("Brazil/ANBIMA", holidaysANBIMA,
-#'   weekdays = c("saturday", "sunday"),
-#'   adjust.from = adjust.next, adjust.to = adjust.previous
-#' )
-#' offset("2013-01-02", 5, "Brazil/ANBIMA")
+#' offset("2013-01-02", 5, "actual")
 #'
 #' # Once you have a default calendar set, cal does not need to be provided
-#' bizdays.options$set(default.calendar = "Brazil/ANBIMA")
+#' bizdays.options$set(default.calendar = "actual")
 #'
 #' dates <- seq(as.Date("2013-01-01"), as.Date("2013-01-05"), by = "day")
 #' is.bizday(dates)

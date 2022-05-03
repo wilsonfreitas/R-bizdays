@@ -55,8 +55,7 @@ test_that("it should create an Actual Calendar", {
 })
 
 test_that("it should create a business Calendar: Brazil's ANBIMA", {
-  data(holidaysANBIMA)
-  cal <- Calendar_(holidaysANBIMA, weekdays = c("saturday", "sunday"))
+  cal <- calendars()[["Brazil/ANBIMA"]]
   expect_equal(bizdays("2013-07-12", "2014-07-12", cal), 251)
   expect_equal(bizdays("2013-08-21", "2013-08-24", cal), 2)
   expect_equal(bizdays("2013-01-01", "2013-01-31", cal), 21)
@@ -105,9 +104,9 @@ test_that("it should create a business Calendar: Brazil's ANBIMA", {
 })
 
 test_that("it should work with unordered calendars", {
-  data(holidaysANBIMA)
-  cal1 <- Calendar_(holidaysANBIMA, weekdays = c("saturday", "sunday"))
-  cal2 <- Calendar_(sample(holidaysANBIMA), weekdays = c("saturday", "sunday"))
+  cal <- calendars()[["Brazil/ANBIMA"]]
+  cal1 <- Calendar_(cal$holidays, weekdays = c("saturday", "sunday"))
+  cal2 <- Calendar_(sample(cal$holidays), weekdays = c("saturday", "sunday"))
   expect_equal(
     bizdays("2013-07-12", "2014-07-12", cal1),
     bizdays("2013-07-12", "2014-07-12", cal2)
@@ -195,8 +194,7 @@ test_that("it should create non financial calendars", {
 context("check whether or not a date is a business day")
 
 test_that("is business day", {
-  data(holidaysANBIMA)
-  cal <- Calendar_(holidaysANBIMA, weekdays = c("saturday", "sunday"))
+  cal <- calendars()[["Brazil/ANBIMA"]]
   expect_false(is.bizday("2013-01-01", cal))
   expect_true(is.bizday("2013-01-02", cal))
   dates <- seq(as.Date("2013-01-01"), as.Date("2013-01-05"), by = "day")
@@ -205,8 +203,7 @@ test_that("is business day", {
 
 context("adjustment of business days")
 
-data(holidaysANBIMA)
-cal <- Calendar_(holidaysANBIMA, weekdays = c("saturday", "sunday"))
+cal <- calendars()[["Brazil/ANBIMA"]]
 
 test_that("it should move date to next business day", {
   date <- as.character(adjust.next("2013-01-01", cal))
@@ -318,9 +315,9 @@ test_that("it should offset the date by n business days", {
 })
 
 test_that("it should warn for bad settings", {
-  data(holidaysANBIMA)
+  cal <- calendars()[["Brazil/ANBIMA"]]
   expect_warning(
-    Calendar_(holidaysANBIMA),
+    Calendar_(cal$holidays),
     "You provided holidays without set weekdays.
 That setup leads to inconsistencies!"
   )

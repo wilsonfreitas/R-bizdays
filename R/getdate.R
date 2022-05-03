@@ -42,9 +42,9 @@
 #'
 #' @examples
 #' getdate("10th wed", 2018, "actual")
-#' getdate("last bizday", 2010:2018, "Brazil/ANBIMA")
+#' getdate("last bizday", 2010:2018, "actual")
 #' dts <- seq(as.Date("2018-01-01"), as.Date("2018-12-01"), "month")
-#' getdate("first bizday", format(dts, "%Y-%m"), "Brazil/ANBIMA")
+#' getdate("first bizday", format(dts, "%Y-%m"), "actual")
 #' @export
 getdate <- function(expr, ref, cal = bizdays.options$get("default.calendar")) {
   cal <- check_calendar(cal)

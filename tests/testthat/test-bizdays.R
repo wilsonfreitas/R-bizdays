@@ -30,7 +30,8 @@ test_that("it should bizdays a set of dates", {
 })
 
 test_that("it should return negative bizdays", {
-  cal <- Calendar_(holidaysANBIMA, weekdays = c("saturday", "sunday"))
+  cal <- calendars()[["Brazil/ANBIMA"]]
+  cal <- Calendar_(cal$holidays, weekdays = c("saturday", "sunday"))
   expect_equal(bizdays("2014-07-12", "2013-07-12", cal), -251)
   expect_equal(
     bizdays(
@@ -113,6 +114,6 @@ test_that("it should bizdays all NA values", {
 context("bizdays and current days equivalence")
 
 test_that("it should compute the business days equivalent to current days", {
-  cal <- Calendar_(holidaysANBIMA, weekdays = c("saturday", "sunday"))
+  cal <- calendars()[["Brazil/ANBIMA"]]
   expect_equal(bizdayse("2013-08-21", 3, cal), 2)
 })

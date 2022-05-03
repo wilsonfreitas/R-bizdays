@@ -5,7 +5,8 @@ test_that("it should list calendars thru register", {
   l <- length(calendars())
   cal <- Calendar_()
   expect_equal(length(calendars()), l)
-  cal <- create.calendar("try-ANBIMA", holidaysANBIMA,
+  cal <- calendars()[["Brazil/ANBIMA"]]
+  cal <- create.calendar("try-ANBIMA", cal$holidays,
     weekdays = c("saturday", "sunday")
   )
   expect_equal(length(calendars()), l + 1)

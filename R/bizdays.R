@@ -33,13 +33,10 @@
 #' \code{integer} objects representing the amount of business days.
 #'
 #' @examples
-#' create.calendar("Brazil/ANBIMA", holidaysANBIMA,
-#'   weekdays = c("saturday", "sunday")
-#' )
-#' bizdays("2013-01-02", "2013-01-31", "Brazil/ANBIMA")
+#' bizdays("2013-01-02", "2013-01-31", "actual")
 #'
 #' # Once you have a default calendar set, cal does not need to be provided
-#' bizdays.options$set(default.calendar = "Brazil/ANBIMA")
+#' bizdays.options$set(default.calendar = "actual")
 #' bizdays("2013-01-02", "2013-01-31")
 #'
 #' dates <- bizseq("2013-01-01", "2013-01-10")
@@ -145,10 +142,7 @@ bizdays.Date <- function(from, to,
 #' rule is applied.
 #'
 #' @examples
-#' create.calendar("Brazil/ANBIMA", holidaysANBIMA,
-#'   weekdays = c("saturday", "sunday")
-#' )
-#' bizdayse("2013-01-02", 3, "Brazil/ANBIMA")
+#' bizdayse("2013-01-02", 3, "actual")
 #' @export
 bizdayse <- function(dates, curd, cal) UseMethod("bizdayse")
 

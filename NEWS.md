@@ -6,6 +6,8 @@
 
   * Depends updated to 4.0
 
+  * removed data/holidaysANBIMA.rda and data/holidaysB3.rda, calendars are loaded from JSON files
+
 # bizdays 1.0.9
 
   * New function getbizdays which returns the number of business days for specific periods of a year or a month (issue #94)

@@ -62,13 +62,10 @@ objects with ISO formatted dates.
 }
 
 \examples{
-cal <- create.calendar("Brazil/ANBIMA", holidaysANBIMA,
-  weekdays = c("saturday", "sunday")
-)
-adjust.next("2013-01-01", "Brazil/ANBIMA")
-following("2013-01-01", cal)
-modified.following("2016-01-31", cal)
-adjust.previous("2013-01-01", cal)
-preceding("2013-01-01", cal)
-modified.preceding("2016-01-01", cal)
+adjust.next("2013-01-01", "actual")
+following("2013-01-01", "actual")
+modified.following("2016-01-31", "actual")
+adjust.previous("2013-01-01", "actual")
+preceding("2013-01-01", "actual")
+modified.preceding("2016-01-01", "actual")
 }

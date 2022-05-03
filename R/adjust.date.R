@@ -38,16 +38,13 @@ NULL
 #' @rdname adjust.date
 #' @export
 #' @examples
-#' cal <- create.calendar("Brazil/ANBIMA", holidaysANBIMA,
-#'   weekdays = c("saturday", "sunday")
-#' )
-#' adjust.next("2013-01-01", "Brazil/ANBIMA")
+#' adjust.next("2013-01-01", "actual")
 adjust.next <- function(dates, cal) UseMethod("adjust.next")
 
 #' @rdname adjust.date
 #' @export
 #' @examples
-#' following("2013-01-01", cal)
+#' following("2013-01-01", "actual")
 following <- function(dates, cal) UseMethod("following")
 
 #' @export
@@ -82,7 +79,7 @@ following.Date <- adjust.next.Date
 #' @rdname adjust.date
 #' @export
 #' @examples
-#' modified.following("2016-01-31", cal)
+#' modified.following("2016-01-31", "actual")
 modified.following <- function(dates, cal) UseMethod("modified.following")
 
 #' @export
@@ -111,13 +108,13 @@ modified.following.Date <- function(dates,
 #' @rdname adjust.date
 #' @export
 #' @examples
-#' adjust.previous("2013-01-01", cal)
+#' adjust.previous("2013-01-01", "actual")
 adjust.previous <- function(dates, cal) UseMethod("adjust.previous")
 
 #' @rdname adjust.date
 #' @export
 #' @examples
-#' preceding("2013-01-01", cal)
+#' preceding("2013-01-01", "actual")
 preceding <- function(dates, cal) UseMethod("preceding")
 
 #' @export
@@ -152,7 +149,7 @@ preceding.Date <- adjust.previous.Date
 #' @rdname adjust.date
 #' @export
 #' @examples
-#' modified.preceding("2016-01-01", cal)
+#' modified.preceding("2016-01-01", "actual")
 modified.preceding <- function(dates, cal) UseMethod("modified.preceding")
 
 #' @export

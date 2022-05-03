@@ -14,12 +14,14 @@ Use `create.calendar` with your list of holidays.
 
 ```{r, echo=FALSE, message=FALSE}
 library(bizdays)
-holidays <- holidaysANBIMA
+holidays <- calendars()[["Brazil/ANBIMA"]]$holidays
 ```
 
 ```{r, message=FALSE}
-create.calendar(name='MyCalendar', holidays=holidays, weekdays=c('sunday', 'saturday'),
-                adjust.from=adjust.next, adjust.to=adjust.previous)
+create.calendar(
+  name = "MyCalendar", holidays = holidays, weekdays = c("sunday", "saturday"),
+  adjust.from = adjust.next, adjust.to = adjust.previous
+)
 ```
 
 what should be considered:
@@ -32,17 +34,19 @@ what should be considered:
 Now you can call bizdays functions passing the calendar name.
 
 ```{r}
-is.bizday('2016-07-12', 'MyCalendar')
-following('2016-09-07', 'MyCalendar')
-bizdays('2016-07-12', '2016-10-16', 'MyCalendar')
+is.bizday("2016-07-12", "MyCalendar")
+following("2016-09-07", "MyCalendar")
+bizdays("2016-07-12", "2016-10-16", "MyCalendar")
 ```
 
 Of course you can assign the calendar to a variable directly and pass this variable to bizdays functions
 
 ```{r}
-cal <- create.calendar(name='MyCalendar', holidays=holidays, weekdays=c('sunday', 'saturday'),
-                       adjust.from=adjust.next, adjust.to=adjust.previous)
-is.bizday('2016-07-12', cal)
+cal <- create.calendar(
+  name = "MyCalendar", holidays = holidays, weekdays = c("sunday", "saturday"),
+  adjust.from = adjust.next, adjust.to = adjust.previous
+)
+is.bizday("2016-07-12", cal)
 ```
 
 But this is not expected to work that way.
@@ -62,32 +66,32 @@ But this is not expected to work that way.
 You can define whatever calendar you want, for example, a calendar without holidays where only weekdays are nonworking days.
 
 ```{r, message=FALSE}
-create.calendar(name='WeekendsOnly', weekdays=c('sunday', 'saturday'))
+create.calendar(name = "WeekendsOnly", weekdays = c("sunday", "saturday"))
 ```
 
 define only `weekdays` to weekend days.
 
 ```{r}
-from_dates <- '2013-01-01'
-to_dates <- seq(as.Date('2013-12-31'), as.Date('2020-12-31'), by='years')
-bizdays(from_dates, to_dates, 'WeekendsOnly')
+from_dates <- "2013-01-01"
+to_dates <- seq(as.Date("2013-12-31"), as.Date("2020-12-31"), by = "years")
+bizdays(from_dates, to_dates, "WeekendsOnly")
 ```
 
 ## Skiping mondays (defining mondays as nonworking days)
 
 ```{r}
-create.calendar(name='EveryMonday', weekdays='monday')
-from_dates <- '2013-01-01'
-to_dates <- seq(as.Date('2013-12-31'), as.Date('2020-12-31'), by='years')
-bizdays(from_dates, to_dates, 'EveryMonday')
+create.calendar(name = "EveryMonday", weekdays = "monday")
+from_dates <- "2013-01-01"
+to_dates <- seq(as.Date("2013-12-31"), as.Date("2020-12-31"), by = "years")
+bizdays(from_dates, to_dates, "EveryMonday")
 ```
 
 ## Skip nothing (formal current days calendar)
 
 ```{r}
-create.calendar(name='Actual')
-from_dates <- '2013-01-01'
-to_dates <- seq(as.Date('2013-12-31'), as.Date('2020-12-31'), by='years')
-bizdays(from_dates, to_dates, 'Actual')
+create.calendar(name = "Actual")
+from_dates <- "2013-01-01"
+to_dates <- seq(as.Date("2013-12-31"), as.Date("2020-12-31"), by = "years")
+bizdays(from_dates, to_dates, "Actual")
 ```
 
