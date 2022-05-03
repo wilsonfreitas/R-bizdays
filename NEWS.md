@@ -2,6 +2,10 @@
 
   * holidaysB3 data updated, the day 2020-07-09 has been removed, it's not a holiday.
 
+  * load_builtin_calendars function created to load calendars: actual, Brazil/ANBIMA, Brazil/B3, weekends
+
+  * Depends updated to 4.0
+
 # bizdays 1.0.9
 
   * New function getbizdays which returns the number of business days for specific periods of a year or a month (issue #94)
