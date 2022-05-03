@@ -40,9 +40,6 @@
     <li>
       <a href="../articles/Financial_and_non_financial.html">Financial and non financial calendars</a>
     </li>
-    <li>
-      <a href="../articles/Setting_default_calendar_in_Rprofile.html">Setting default calendar in .Rprofile</a>
-    </li>
   </ul></li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -102,15 +99,13 @@ objects with ISO formatted dates.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="create.calendar.html">create.calendar</a></span><span class="op">(</span><span class="st">"Brazil/ANBIMA"</span>, <span class="va">holidaysANBIMA</span>,</span>
-<span class="r-in">  weekdays <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"saturday"</span>, <span class="st">"sunday"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="fu">bizseq</span><span class="op">(</span><span class="st">"2013-01-02"</span>, <span class="st">"2013-01-31"</span>, <span class="st">"Brazil/ANBIMA"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "2013-01-02" "2013-01-03" "2013-01-04" "2013-01-07" "2013-01-08"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "2013-01-09" "2013-01-10" "2013-01-11" "2013-01-14" "2013-01-15"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "2013-01-16" "2013-01-17" "2013-01-18" "2013-01-21" "2013-01-22"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "2013-01-23" "2013-01-24" "2013-01-25" "2013-01-28" "2013-01-29"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "2013-01-30" "2013-01-31"</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">bizseq</span><span class="op">(</span><span class="st">"2013-01-02"</span>, <span class="st">"2013-01-31"</span>, <span class="st">"actual"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "2013-01-02" "2013-01-03" "2013-01-04" "2013-01-05" "2013-01-06"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "2013-01-07" "2013-01-08" "2013-01-09" "2013-01-10" "2013-01-11"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "2013-01-12" "2013-01-13" "2013-01-14" "2013-01-15" "2013-01-16"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "2013-01-17" "2013-01-18" "2013-01-19" "2013-01-20" "2013-01-21"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "2013-01-22" "2013-01-23" "2013-01-24" "2013-01-25" "2013-01-26"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [26] "2013-01-27" "2013-01-28" "2013-01-29" "2013-01-30" "2013-01-31"</span>
 </code></pre></div>
     </div>
   </div>

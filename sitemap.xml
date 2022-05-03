@@ -13,9 +13,6 @@
     <loc>http://wilsonfreitas.github.io/R-bizdays/articles/Financial_and_non_financial.html</loc>
   </url>
   <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/articles/Setting_default_calendar_in_Rprofile.html</loc>
-  </url>
-  <url>
     <loc>http://wilsonfreitas.github.io/R-bizdays/articles/bizdays.html</loc>
   </url>
   <url>
@@ -70,16 +67,13 @@
     <loc>http://wilsonfreitas.github.io/R-bizdays/reference/getdate.html</loc>
   </url>
   <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/reference/holidaysANBIMA.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/reference/holidaysB3.html</loc>
-  </url>
-  <url>
     <loc>http://wilsonfreitas.github.io/R-bizdays/reference/index.html</loc>
   </url>
   <url>
     <loc>http://wilsonfreitas.github.io/R-bizdays/reference/is.bizday.html</loc>
+  </url>
+  <url>
+    <loc>http://wilsonfreitas.github.io/R-bizdays/reference/load_builtin_calendars.html</loc>
   </url>
   <url>
     <loc>http://wilsonfreitas.github.io/R-bizdays/reference/offset.html</loc>

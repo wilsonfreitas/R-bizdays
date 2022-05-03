@@ -4,9 +4,8 @@ pkgdown_sha: ~
 articles:
   Creating_Calendars: Creating_Calendars.html
   Financial_and_non_financial: Financial_and_non_financial.html
-  Setting_default_calendar_in_Rprofile: Setting_default_calendar_in_Rprofile.html
   bizdays: bizdays.html
-last_built: 2022-04-30T08:01Z
+last_built: 2022-05-03T23:31Z
 urls:
   reference: http://wilsonfreitas.github.io/R-bizdays/reference
   article: http://wilsonfreitas.github.io/R-bizdays/articles
