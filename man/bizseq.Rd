@@ -30,5 +30,5 @@ objects with ISO formatted dates.
 }
 
 \examples{
-bizseq("2013-01-02", "2013-01-31", "actual")
+bizseq("2013-01-02", "2013-01-31", "Brazil/ANBIMA")
 }

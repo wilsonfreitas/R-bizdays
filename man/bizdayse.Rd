@@ -53,5 +53,5 @@ rule is applied.
 }
 
 \examples{
-bizdayse("2013-01-02", 3, "actual")
+bizdayse("2013-01-02", 3, "Brazil/ANBIMA")
 }

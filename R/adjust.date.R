@@ -38,13 +38,13 @@ NULL
 #' @rdname adjust.date
 #' @export
 #' @examples
-#' adjust.next("2013-01-01", "actual")
+#' adjust.next("2013-01-01", "Brazil/ANBIMA")
 adjust.next <- function(dates, cal) UseMethod("adjust.next")
 
 #' @rdname adjust.date
 #' @export
 #' @examples
-#' following("2013-01-01", "actual")
+#' following("2013-01-01", "Brazil/ANBIMA")
 following <- function(dates, cal) UseMethod("following")
 
 #' @export
@@ -79,7 +79,7 @@ following.Date <- adjust.next.Date
 #' @rdname adjust.date
 #' @export
 #' @examples
-#' modified.following("2016-01-31", "actual")
+#' modified.following("2016-01-31", "Brazil/ANBIMA")
 modified.following <- function(dates, cal) UseMethod("modified.following")
 
 #' @export
@@ -108,13 +108,13 @@ modified.following.Date <- function(dates,
 #' @rdname adjust.date
 #' @export
 #' @examples
-#' adjust.previous("2013-01-01", "actual")
+#' adjust.previous("2013-01-01", "Brazil/ANBIMA")
 adjust.previous <- function(dates, cal) UseMethod("adjust.previous")
 
 #' @rdname adjust.date
 #' @export
 #' @examples
-#' preceding("2013-01-01", "actual")
+#' preceding("2013-01-01", "Brazil/ANBIMA")
 preceding <- function(dates, cal) UseMethod("preceding")
 
 #' @export
@@ -149,7 +149,7 @@ preceding.Date <- adjust.previous.Date
 #' @rdname adjust.date
 #' @export
 #' @examples
-#' modified.preceding("2016-01-01", "actual")
+#' modified.preceding("2016-01-01", "Brazil/ANBIMA")
 modified.preceding <- function(dates, cal) UseMethod("modified.preceding")
 
 #' @export

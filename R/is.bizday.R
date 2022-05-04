@@ -18,10 +18,10 @@
 #' days.
 #'
 #' @examples
-#' is.bizday("2013-01-02", "actual")
+#' is.bizday("2013-01-02", "Brazil/ANBIMA")
 #'
 #' # Once you have a default calendar set, cal does not need to be provided
-#' bizdays.options$set(default.calendar = "actual")
+#' bizdays.options$set(default.calendar = "Brazil/ANBIMA")
 #'
 #' dates <- seq(as.Date("2013-01-01"), as.Date("2013-01-05"), by = "day")
 #' is.bizday(dates)

@@ -62,10 +62,10 @@ objects with ISO formatted dates.
 }
 
 \examples{
-adjust.next("2013-01-01", "actual")
-following("2013-01-01", "actual")
-modified.following("2016-01-31", "actual")
-adjust.previous("2013-01-01", "actual")
-preceding("2013-01-01", "actual")
-modified.preceding("2016-01-01", "actual")
+adjust.next("2013-01-01", "Brazil/ANBIMA")
+following("2013-01-01", "Brazil/ANBIMA")
+modified.following("2016-01-31", "Brazil/ANBIMA")
+adjust.previous("2013-01-01", "Brazil/ANBIMA")
+preceding("2013-01-01", "Brazil/ANBIMA")
+modified.preceding("2016-01-01", "Brazil/ANBIMA")
 }

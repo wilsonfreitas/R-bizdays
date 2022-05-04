@@ -108,7 +108,7 @@ holidays <- as.Date(c(
   "2016-03-25", "2016-04-21", "2016-05-01", "2016-05-26", "2016-09-07",
   "2016-10-12", "2016-11-02", "2016-11-15", "2016-12-25"
 ))
-cal <- create.calendar("Brazil/ANBIMA",
+cal <- create.calendar("ANBIMA",
   holidays = holidays,
   weekdays = c("saturday", "sunday")
 )
