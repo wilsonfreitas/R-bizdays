@@ -95,17 +95,17 @@ used to represent years or months with character vectors.</p></dd>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># for years</span></span>
-<span class="r-in"><span class="fu">getbizdays</span><span class="op">(</span><span class="fl">2022</span><span class="op">:</span><span class="fl">2024</span>, <span class="st">"actual"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 365 365 366</span>
+<span class="r-in"><span class="fu">getbizdays</span><span class="op">(</span><span class="fl">2022</span><span class="op">:</span><span class="fl">2024</span>, <span class="st">"Brazil/ANBIMA"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 251 249 254</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># for months</span></span>
-<span class="r-in"><span class="fu">getbizdays</span><span class="op">(</span><span class="st">"2022-12"</span>, <span class="st">"actual"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 31</span>
+<span class="r-in"><span class="fu">getbizdays</span><span class="op">(</span><span class="st">"2022-12"</span>, <span class="st">"Brazil/ANBIMA"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 22</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># using dates as references for months</span></span>
 <span class="r-in"><span class="va">dts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2022-01-01"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2022-12-01"</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"months"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">getbizdays</span><span class="op">(</span><span class="va">dts</span>, <span class="st">"actual"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 31 28 31 30 31 30 31 31 30 31 30 31</span>
+<span class="r-in"><span class="fu">getbizdays</span><span class="op">(</span><span class="va">dts</span>, <span class="st">"Brazil/ANBIMA"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 21 19 22 19 22 21 21 23 21 20 20 22</span>
 </code></pre></div>
     </div>
   </div>

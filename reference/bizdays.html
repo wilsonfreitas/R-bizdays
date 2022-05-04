@@ -121,17 +121,17 @@ expiring maturities to the next business day, once it is not.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">bizdays</span><span class="op">(</span><span class="st">"2013-01-02"</span>, <span class="st">"2013-01-31"</span>, <span class="st">"actual"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 29</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">bizdays</span><span class="op">(</span><span class="st">"2013-01-02"</span>, <span class="st">"2013-01-31"</span>, <span class="st">"Brazil/ANBIMA"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 21</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Once you have a default calendar set, cal does not need to be provided</span></span>
-<span class="r-in"><span class="va">bizdays.options</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>default.calendar <span class="op">=</span> <span class="st">"actual"</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">bizdays.options</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>default.calendar <span class="op">=</span> <span class="st">"Brazil/ANBIMA"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">bizdays</span><span class="op">(</span><span class="st">"2013-01-02"</span>, <span class="st">"2013-01-31"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 29</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 21</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="bizseq.html">bizseq</a></span><span class="op">(</span><span class="st">"2013-01-01"</span>, <span class="st">"2013-01-10"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">bizdays</span><span class="op">(</span><span class="va">dates</span>, <span class="st">"2014-01-31"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 395 394 393 392 391 390 389 388 387 386</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 274 273 272 271 270 269 268</span>
 </code></pre></div>
     </div>
   </div>
