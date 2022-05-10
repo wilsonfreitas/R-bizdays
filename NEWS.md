@@ -1,4 +1,4 @@
-# bizdays 1.0.9.9999
+# bizdays 1.0.10
 
   * holidaysB3 data updated, the day 2020-07-09 has been removed, it's not a holiday.
 
