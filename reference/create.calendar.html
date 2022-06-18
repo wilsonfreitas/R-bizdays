@@ -88,8 +88,12 @@ register.</p>
     <dl><dt>name</dt>
 <dd><p>calendar's name. This is used to retrieve calendars from
 register.</p></dd>
+
+
 <dt>holidays</dt>
 <dd><p>a vector of Dates which contains the holidays</p></dd>
+
+
 <dt>weekdays</dt>
 <dd><p>a character vector which defines the weekdays to be used as
 non-working days (defaults to <code>NULL</code> which represents an actual
@@ -97,19 +101,29 @@ calendar). It accepts: <code>sunday</code>, <code>monday</code>, <code>tuesday</
 <code>wednesday</code>, <code>thursday</code>, <code>friday</code>, <code>saturday</code>.
 Defining the weekend as nonworking days is
 <code>weekdays=c("saturday", "sunday")</code>.</p></dd>
+
+
 <dt>start.date</dt>
 <dd><p>the date which the calendar starts</p></dd>
+
+
 <dt>end.date</dt>
 <dd><p>the date which the calendar ends</p></dd>
+
+
 <dt>adjust.from</dt>
 <dd><p>is a function to be used with the <code>bizdays</code>'s
 <code>from</code> argument.
 That function adjusts the argument if it is a nonworking
 day according to calendar.</p></dd>
+
+
 <dt>adjust.to</dt>
 <dd><p>is a function to be used with the <code>bizdays</code>'s
 <code>to</code> argument.
 See also <code>adjust.from</code>.</p></dd>
+
+
 <dt>financial</dt>
 <dd><p>is a logical argument that defaults to TRUE.
 This argument defines the calendar as a financial or a non
@@ -118,6 +132,7 @@ Financial calendars don't consider the ending business day
 when counting working days in <code>bizdays</code>.
 <code>bizdays</code> calls for non financial calendars are
 greater than financial calendars calls by one day.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -206,7 +221,7 @@ Given that, naming calendars is strongly recommended.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>
