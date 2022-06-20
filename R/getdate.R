@@ -55,9 +55,9 @@ getdate <- function(expr, ref, cal = bizdays.options$get("default.calendar")) {
   }
   n <- getnth_(tok[1])
   if (tok[2] == "day") {
-    getnthday(ref, n, cal$dates.table, FALSE)
+    getnthday(ref, n, cal, FALSE)
   } else if (tok[2] == "bizday") {
-    getnthday(ref, n, cal$dates.table, TRUE)
+    getnthday(ref, n, cal, TRUE)
   } else if (tok[2] %in% WEEKDAYS) {
     wday <- which(tok[2] == WEEKDAYS)
     getnthweekday(ref, n, cal$dates.table, wday)
@@ -79,15 +79,9 @@ getdate <- function(expr, ref, cal = bizdays.options$get("default.calendar")) {
 #' Details)
 #' @param ... additional arguments
 #'
-#' If a date (\code{character} or \code{Date}) is passed to \code{ref} it has to
-#' specified whether the reference is to the month or the year of the given
-#' date. This is set in the argument \code{ym} that accepts \code{month}
-#' (default) or \code{year}.
-#'
 #' @examples
-#' ref(as.Date("2018-01-01"), "month") # refers to 2018-01
-#' ref("2018-01-01", "month") # refers to 2018-01
-#' ref("2018-01-01", "year") # refers to 2018
+#' ref(as.Date("2018-01-01")) # refers to 2018-01-01
+#' ref("2018-01-01") # refers to 2018-01-01
 #'
 #' ref(c("2018-01", "2018-02")) # refers to 2018-01 and 2018-02
 #' ref("2018") # refers to 2018
@@ -95,13 +89,8 @@ getdate <- function(expr, ref, cal = bizdays.options$get("default.calendar")) {
 #' @noRd
 ref <- function(x, ...) UseMethod("ref")
 
-ref.Date <- function(x, ym = c("month", "year"), ...) {
-  ym <- match.arg(ym)
-  if (ym == "month") {
-    ref_by_month(year = YEAR(x), month = MONTH(x))
-  } else {
-    ref_by_year(year = YEAR(x))
-  }
+ref.Date <- function(x, ...) {
+  ref_by_day(x)
 }
 
 ref.character <- function(x, ...) {
@@ -114,7 +103,7 @@ ref.character <- function(x, ...) {
     mx <- do.call(rbind, mx)
     ref_by_year(as.integer(mx[, 2]))
   } else if (all(grepl("^\\d{4}-\\d{2}-\\d{2}$", x))) {
-    do.call(ref.Date, append(list(...), list(x = as.Date(x))))
+    ref_by_day(as.Date(x))
   } else {
     stop("Invalid character ref ", x)
   }
@@ -147,6 +136,14 @@ ref_by_month <- function(year, month) {
   structure(that, class = c("ref", "by_month"))
 }
 
+ref_by_day <- function(dates) {
+  that <- list(
+    by_month = FALSE,
+    dates = dates
+  )
+  structure(that, class = c("ref", "by_day"))
+}
+
 MONTH <- function(x) as.integer(format(x, "%m"))
 
 YEAR <- function(x) as.integer(format(x, "%Y"))
@@ -162,6 +159,7 @@ nth2int <- function(x) {
 
 getnth_ <- function(x) {
   switch(x,
+    `next` = 1,
     first = 1,
     second = 2,
     third = 3,
@@ -177,8 +175,17 @@ getnthday <- function(ref, ...) {
   UseMethod("getnthday")
 }
 
-getnthday.by_month <- function(ref, pos, cal_table, use_bizday = FALSE) {
+getnthday.by_day <- function(ref, pos, cal, use_bizday = FALSE) {
+  if (use_bizday) {
+    add.bizdays(ref$dates, pos, cal)
+  } else {
+    add.bizdays(ref$dates, pos, "actual")
+  }
+}
+
+getnthday.by_month <- function(ref, pos, cal, use_bizday = FALSE) {
   ym_table <- unique(ref$ref_table)
+  cal_table <- cal$dates.table
 
   date_res <- lapply(
     seq_len(NROW(ym_table)),
@@ -206,8 +213,9 @@ getnthday.by_month <- function(ref, pos, cal_table, use_bizday = FALSE) {
   as.Date(dates, origin = as.Date("1970-01-01"))
 }
 
-getnthday.by_year <- function(ref, pos, cal_table, use_bizday = FALSE) {
+getnthday.by_year <- function(ref, pos, cal, use_bizday = FALSE) {
   ym_table <- unique(ref$ref_table)
+  cal_table <- cal$dates.table
 
   date_res <- lapply(
     seq_len(NROW(ym_table)),

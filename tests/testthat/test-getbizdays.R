@@ -18,13 +18,13 @@ test_that("getbizdays works with year-month", {
 })
 
 test_that("getbizdays works with dates", {
-  dc <- getbizdays("2022-12-02", "actual")
+  dc <- getbizdays("2022-12", "actual")
   expect_equal(dc, 31)
 
-  dc <- getbizdays(as.Date("2022-12-02"), "actual")
+  dc <- getbizdays("2022-12", "actual")
   expect_equal(dc, 31)
 
   dts <- seq(as.Date("2022-01-01"), as.Date("2022-12-01"), by = "months")
-  dc <- getbizdays(dts, "actual")
+  dc <- getbizdays(format(dts, "%Y-%m"), "actual")
   expect_equal(dc, c(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31))
 })
