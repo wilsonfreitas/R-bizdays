@@ -45,6 +45,8 @@
 #' getdate("last bizday", 2010:2018, "Brazil/ANBIMA")
 #' dts <- seq(as.Date("2018-01-01"), as.Date("2018-12-01"), "month")
 #' getdate("first bizday", format(dts, "%Y-%m"), "Brazil/ANBIMA")
+#' getdate("last bizday", Sys.Date(), "Brazil/ANBIMA")
+#' getdate("next bizday", Sys.Date(), "Brazil/ANBIMA")
 #' @export
 getdate <- function(expr, ref, cal = bizdays.options$get("default.calendar")) {
   cal <- check_calendar(cal)
