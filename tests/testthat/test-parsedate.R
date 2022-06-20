@@ -62,15 +62,15 @@ test_that("it should create a year-month reference", {
 test_that("it should get the nth day by the reference", {
   rrr <- ref("2018-01")
   cal <- calendars()[["actual"]]
-  expect_equal(getnthday(rrr, 1, cal), as.Date("2018-01-01"))
-  expect_equal(getnthday(rrr, -1, cal), as.Date("2018-01-31"))
+  expect_equal(getnthday(rrr, 1, FALSE, cal), as.Date("2018-01-01"))
+  expect_equal(getnthday(rrr, -1, FALSE, cal), as.Date("2018-01-31"))
   cal <- calendars()[["Brazil/ANBIMA"]]
   expect_equal(
-    getnthday(rrr, 1, cal, use_bizday = TRUE),
+    getnthday(rrr, 1, TRUE, cal),
     as.Date("2018-01-02")
   )
   expect_equal(
-    getnthday(rrr, -1, cal, use_bizday = TRUE),
+    getnthday(rrr, -1, TRUE, cal),
     as.Date("2018-01-31")
   )
 })

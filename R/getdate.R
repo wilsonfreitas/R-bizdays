@@ -57,12 +57,12 @@ getdate <- function(expr, ref, cal = bizdays.options$get("default.calendar")) {
   }
   n <- getnth_(tok[1])
   if (tok[2] == "day") {
-    getnthday(ref, n, cal, FALSE)
+    getnthday(ref, n, FALSE, cal)
   } else if (tok[2] == "bizday") {
-    getnthday(ref, n, cal, TRUE)
+    getnthday(ref, n, TRUE, cal)
   } else if (tok[2] %in% WEEKDAYS) {
     wday <- which(tok[2] == WEEKDAYS)
-    getnthweekday(ref, n, cal$dates.table, wday)
+    getnthweekday(ref, n, wday, cal)
   } else {
     stop("Invalid expr", expr)
   }
@@ -173,7 +173,7 @@ getnthday <- function(ref, ...) {
   UseMethod("getnthday")
 }
 
-getnthday.by_day <- function(ref, pos, cal, use_bizday = FALSE) {
+getnthday.by_day <- function(ref, pos, use_bizday, cal) {
   if (use_bizday) {
     add.bizdays(ref$dates, pos, cal)
   } else {
@@ -181,7 +181,7 @@ getnthday.by_day <- function(ref, pos, cal, use_bizday = FALSE) {
   }
 }
 
-getnthday.by_month <- function(ref, pos, cal, use_bizday = FALSE) {
+getnthday.by_month <- function(ref, pos, use_bizday, cal) {
   ym_table <- unique(ref$ref_table)
   cal_table <- cal$dates.table
 
@@ -211,7 +211,7 @@ getnthday.by_month <- function(ref, pos, cal, use_bizday = FALSE) {
   as.Date(dates, origin = as.Date("1970-01-01"))
 }
 
-getnthday.by_year <- function(ref, pos, cal, use_bizday = FALSE) {
+getnthday.by_year <- function(ref, pos, use_bizday, cal) {
   ym_table <- unique(ref$ref_table)
   cal_table <- cal$dates.table
 
@@ -244,8 +244,9 @@ getnthweekday <- function(ref, ...) {
   UseMethod("getnthweekday")
 }
 
-getnthweekday.by_month <- function(ref, pos, cal_table, wday) {
+getnthweekday.by_month <- function(ref, pos, wday, cal) {
   ym_table <- unique(ref$ref_table)
+  cal_table <- cal$dates.table
 
   date_res <- lapply(
     seq_len(NROW(ym_table)),
@@ -273,8 +274,9 @@ getnthweekday.by_month <- function(ref, pos, cal_table, wday) {
   as.Date(dates, origin = as.Date("1970-01-01"))
 }
 
-getnthweekday.by_year <- function(ref, pos, cal_table, wday) {
+getnthweekday.by_year <- function(ref, pos, wday, cal) {
   ym_table <- unique(ref$ref_table)
+  cal_table <- cal$dates.table
 
   date_res <- lapply(
     seq_len(NROW(ym_table)),
