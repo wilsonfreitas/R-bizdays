@@ -111,7 +111,6 @@ ref.character <- function(x, ...) {
 
 ref.numeric <- function(x, ...) {
   that <- list(
-    by_month = FALSE,
     ref_table = cbind(year = x)
   )
   structure(that, class = c("ref", "by_year"))
@@ -119,7 +118,6 @@ ref.numeric <- function(x, ...) {
 
 ref_by_year <- function(year) {
   that <- list(
-    by_month = FALSE,
     ref_table = cbind(year = year)
   )
   structure(that, class = c("ref", "by_year"))
@@ -127,7 +125,6 @@ ref_by_year <- function(year) {
 
 ref_by_month <- function(year, month) {
   that <- list(
-    by_month = TRUE,
     ref_table = cbind(
       year = year,
       month = month
@@ -138,7 +135,6 @@ ref_by_month <- function(year, month) {
 
 ref_by_day <- function(dates) {
   that <- list(
-    by_month = FALSE,
     dates = dates
   )
   structure(that, class = c("ref", "by_day"))
