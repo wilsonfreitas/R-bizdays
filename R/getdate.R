@@ -47,6 +47,11 @@
 #' getdate("first bizday", format(dts, "%Y-%m"), "Brazil/ANBIMA")
 #' getdate("last bizday", Sys.Date(), "Brazil/ANBIMA")
 #' getdate("next bizday", Sys.Date(), "Brazil/ANBIMA")
+#' getdate("2nd wed", Sys.Date())
+#' getdate("next wed", Sys.Date())
+#' getdate("last wed", Sys.Date())
+#' getdate("next mon", Sys.Date())
+#' getdate("last mon", Sys.Date())
 #' @export
 getdate <- function(expr, ref, cal = bizdays.options$get("default.calendar")) {
   cal <- check_calendar(cal)
@@ -242,6 +247,42 @@ getnthday.by_year <- function(ref, pos, use_bizday, cal) {
 
 getnthweekday <- function(ref, ...) {
   UseMethod("getnthweekday")
+}
+
+getnthweekday.by_day <- function(ref, pos, wday, cal) {
+  ym_table <- unique(ref$dates)
+  cal_table <- cal$dates.table
+
+  date_res <- lapply(
+    seq_along(ym_table),
+    function(x) {
+      n_date <- as.integer(ym_table[x])
+      cur_wday <- (n_date %% 7) + 1
+      ix_date <- which(cal_table[, "dates"] == n_date)
+      delta <- abs(cur_wday - wday)
+
+      pos <- if (pos > 0) {
+        if (delta == 0 & pos == 1) {
+          ix_date + 7
+        } else {
+          ix_date + (pos - 1) * 7 + delta
+        }
+      } else {
+        ix_date - (pos + 1) * 7 - (7 - delta)
+      }
+      date <- unname(cal_table[pos, "dates"])
+
+      idx <- ref$dates == ym_table[x]
+      list(date = date, index = idx)
+    }
+  )
+
+  dates <- integer(length(ref$dates))
+  for (res in date_res) {
+    dates[res$index] <- res$date
+  }
+
+  as.Date(dates, origin = as.Date("1970-01-01"))
 }
 
 getnthweekday.by_month <- function(ref, pos, wday, cal) {
