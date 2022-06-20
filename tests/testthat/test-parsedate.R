@@ -35,18 +35,15 @@ test_that("it should create a year-month reference", {
   expect_is(rrr, "ref")
   expect_true(rrr$by_month)
   expect_equal(rrr$year_month, cbind(year = 2018, month = 1))
-  expect_equal(rrr$dates, as.Date("2018-01-01"))
   rrr <- ref(as.Date("2018-01-01"), "year")
   expect_is(rrr, "ref")
   expect_false(rrr$by_month)
   expect_equal(rrr$year_month, cbind(year = 2018))
-  expect_equal(rrr$dates, as.Date("2018-01-01"))
   expect_error(ref(as.Date("2018-01-01"), "day"))
   rrr <- ref(c(as.Date("2018-01-01"), as.Date("2018-02-01")), "month")
   expect_is(rrr, "ref")
   expect_true(rrr$by_month)
   expect_equal(rrr$year_month, cbind(year = 2018, month = c(1, 2)))
-  expect_equal(rrr$dates, c(as.Date("2018-01-01"), as.Date("2018-02-01")))
   rrr <- ref("2018-01")
   expect_is(rrr, "ref")
   expect_true(rrr$by_month)
@@ -69,15 +66,15 @@ test_that("it should create a year-month reference", {
 test_that("it should get the nth day by the reference", {
   rrr <- ref(as.Date("2018-01-01"), "month")
   cal <- calendars()[["actual"]]
-  expect_equal(getnthday_(1, rrr, cal), as.Date("2018-01-01"))
-  expect_equal(getnthday_(-1, rrr, cal), as.Date("2018-01-31"))
+  expect_equal(getnthday(rrr, 1, cal$dates.table), as.Date("2018-01-01"))
+  expect_equal(getnthday(rrr, -1, cal$dates.table), as.Date("2018-01-31"))
   cal <- calendars()[["Brazil/ANBIMA"]]
   expect_equal(
-    getnthday_(1, rrr, cal, use_bizday = TRUE),
+    getnthday(rrr, 1, cal$dates.table, use_bizday = TRUE),
     as.Date("2018-01-02")
   )
   expect_equal(
-    getnthday_(-1, rrr, cal, use_bizday = TRUE),
+    getnthday(rrr, -1, cal$dates.table, use_bizday = TRUE),
     as.Date("2018-01-31")
   )
 })
