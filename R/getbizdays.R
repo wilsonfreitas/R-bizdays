@@ -31,7 +31,7 @@ getbizdays <- function(ref, cal = bizdays.options$get("default.calendar")) {
   ref <- ref(ref)
 
   bizdays_ <- lapply(
-    seq_len(NROW(ref$year_month)),
+    seq_len(NROW(ref$ref_table)),
     function(x) count_bizdays_(ref, cal, x)
   )
   unlist(bizdays_)
@@ -39,10 +39,10 @@ getbizdays <- function(ref, cal = bizdays.options$get("default.calendar")) {
 
 count_bizdays_ <- function(ref, cal, ref_pos) {
   ix <- if (ref$by_month) {
-    cal$dates.table[, "month"] == ref$year_month[ref_pos, "month"] &
-      cal$dates.table[, "year"] == ref$year_month[ref_pos, "year"]
+    cal$dates.table[, "month"] == ref$ref_table[ref_pos, "month"] &
+      cal$dates.table[, "year"] == ref$ref_table[ref_pos, "year"]
   } else {
-    cal$dates.table[, "year"] == ref$year_month[ref_pos, "year"]
+    cal$dates.table[, "year"] == ref$ref_table[ref_pos, "year"]
   }
   sum(cal$dates.table[ix, "is_bizday"])
 }

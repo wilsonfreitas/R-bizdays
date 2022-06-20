@@ -123,7 +123,7 @@ ref.character <- function(x, ...) {
 ref.numeric <- function(x, ...) {
   that <- list(
     by_month = FALSE,
-    year_month = cbind(year = x)
+    ref_table = cbind(year = x)
   )
   structure(that, class = c("ref", "by_year"))
 }
@@ -131,7 +131,7 @@ ref.numeric <- function(x, ...) {
 ref_by_year <- function(year) {
   that <- list(
     by_month = FALSE,
-    year_month = cbind(year = year)
+    ref_table = cbind(year = year)
   )
   structure(that, class = c("ref", "by_year"))
 }
@@ -139,7 +139,7 @@ ref_by_year <- function(year) {
 ref_by_month <- function(year, month) {
   that <- list(
     by_month = TRUE,
-    year_month = cbind(
+    ref_table = cbind(
       year = year,
       month = month
     )
@@ -178,7 +178,7 @@ getnthday <- function(ref, ...) {
 }
 
 getnthday.by_month <- function(ref, pos, cal_table, use_bizday = FALSE) {
-  ym_table <- unique(ref$year_month)
+  ym_table <- unique(ref$ref_table)
 
   date_res <- lapply(
     seq_len(NROW(ym_table)),
@@ -193,12 +193,12 @@ getnthday.by_month <- function(ref, pos, cal_table, use_bizday = FALSE) {
       pos <- if (pos < 0) NROW(sel_range) else pos
       date <- unname(sel_range[pos, "dates"])
 
-      idx <- ref$year_month[, "year"] == year & ref$year_month[, "month"] == month
+      idx <- ref$ref_table[, "year"] == year & ref$ref_table[, "month"] == month
       list(date = date, index = idx)
     }
   )
 
-  dates <- integer(NROW(ref$year_month))
+  dates <- integer(NROW(ref$ref_table))
   for (res in date_res) {
     dates[res$index] <- res$date
   }
@@ -207,7 +207,7 @@ getnthday.by_month <- function(ref, pos, cal_table, use_bizday = FALSE) {
 }
 
 getnthday.by_year <- function(ref, pos, cal_table, use_bizday = FALSE) {
-  ym_table <- unique(ref$year_month)
+  ym_table <- unique(ref$ref_table)
 
   date_res <- lapply(
     seq_len(NROW(ym_table)),
@@ -221,12 +221,12 @@ getnthday.by_year <- function(ref, pos, cal_table, use_bizday = FALSE) {
       pos <- if (pos < 0) NROW(sel_range) else pos
       date <- unname(sel_range[pos, "dates"])
 
-      idx <- ref$year_month[, "year"] == year
+      idx <- ref$ref_table[, "year"] == year
       list(date = date, index = idx)
     }
   )
 
-  dates <- integer(NROW(ref$year_month))
+  dates <- integer(NROW(ref$ref_table))
   for (res in date_res) {
     dates[res$index] <- res$date
   }
@@ -239,7 +239,7 @@ getnthweekday <- function(ref, ...) {
 }
 
 getnthweekday.by_month <- function(ref, pos, cal_table, wday) {
-  ym_table <- unique(ref$year_month)
+  ym_table <- unique(ref$ref_table)
 
   date_res <- lapply(
     seq_len(NROW(ym_table)),
@@ -254,12 +254,12 @@ getnthweekday.by_month <- function(ref, pos, cal_table, wday) {
       pos <- if (pos < 0) NROW(sel_range) else pos
       date <- unname(sel_range[pos, "dates"])
 
-      idx <- ref$year_month[, "year"] == year & ref$year_month[, "month"] == month
+      idx <- ref$ref_table[, "year"] == year & ref$ref_table[, "month"] == month
       list(date = date, index = idx)
     }
   )
 
-  dates <- integer(NROW(ref$year_month))
+  dates <- integer(NROW(ref$ref_table))
   for (res in date_res) {
     dates[res$index] <- res$date
   }
@@ -268,7 +268,7 @@ getnthweekday.by_month <- function(ref, pos, cal_table, wday) {
 }
 
 getnthweekday.by_year <- function(ref, pos, cal_table, wday) {
-  ym_table <- unique(ref$year_month)
+  ym_table <- unique(ref$ref_table)
 
   date_res <- lapply(
     seq_len(NROW(ym_table)),
@@ -282,12 +282,12 @@ getnthweekday.by_year <- function(ref, pos, cal_table, wday) {
       pos <- if (pos < 0) NROW(sel_range) else pos
       date <- unname(sel_range[pos, "dates"])
 
-      idx <- ref$year_month[, "year"] == year
+      idx <- ref$ref_table[, "year"] == year
       list(date = date, index = idx)
     }
   )
 
-  dates <- integer(NROW(ref$year_month))
+  dates <- integer(NROW(ref$ref_table))
   for (res in date_res) {
     dates[res$index] <- res$date
   }
