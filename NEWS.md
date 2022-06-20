@@ -1,3 +1,11 @@
+# bizdays 1.0.11
+
+  * improved getdate to use a day as reference and allows expressions like:
+    `getdate("last bizday", Sys.Date(), "Brazil/ANBIMA")`,
+    `getdate("next wed", Sys.Date())`, ...(issue #28)
+
+  * organized `ref` code to avoid duplicate code
+
 # bizdays 1.0.10
 
   * holidaysB3 data updated, the day 2020-07-09 has been removed, it's not a holiday.

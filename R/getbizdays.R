@@ -22,27 +22,29 @@
 #' # for months
 #' getbizdays("2022-12", "Brazil/ANBIMA")
 #'
-#' # using dates as references for months
-#' dts <- seq(as.Date("2022-01-01"), as.Date("2022-12-01"), by = "months")
-#' getbizdays(dts, "Brazil/ANBIMA")
 #' @export
 getbizdays <- function(ref, cal = bizdays.options$get("default.calendar")) {
   cal <- check_calendar(cal)
   ref <- ref(ref)
 
   bizdays_ <- lapply(
-    seq_len(NROW(ref$year_month)),
-    function(x) count_bizdays_(ref, cal, x)
+    seq_len(NROW(ref$ref_table)),
+    function(x) count_bizdays(ref, cal, x)
   )
   unlist(bizdays_)
 }
 
-count_bizdays_ <- function(ref, cal, ref_pos) {
-  ix <- if (ref$by_month) {
-    cal$dates.table[, "month"] == ref$year_month[ref_pos, "month"] &
-      cal$dates.table[, "year"] == ref$year_month[ref_pos, "year"]
-  } else {
-    cal$dates.table[, "year"] == ref$year_month[ref_pos, "year"]
-  }
+count_bizdays <- function(x, ...) {
+  UseMethod("count_bizdays")
+}
+
+count_bizdays.by_month <- function(ref, cal, ref_pos) {
+  ix <- cal$dates.table[, "month"] == ref$ref_table[ref_pos, "month"] &
+    cal$dates.table[, "year"] == ref$ref_table[ref_pos, "year"]
+  sum(cal$dates.table[ix, "is_bizday"])
+}
+
+count_bizdays.by_year <- function(ref, cal, ref_pos) {
+  ix <- cal$dates.table[, "year"] == ref$ref_table[ref_pos, "year"]
   sum(cal$dates.table[ix, "is_bizday"])
 }
