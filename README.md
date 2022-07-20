@@ -1,4 +1,4 @@
-# [R-bizdays](https://cran.r-project.org/package=bizdays)
+# [R-bizdays](https://cran.r-project.org/package=bizdays) <img src="man/figures/logo.png" align="right" width="120" />
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/bizdays)](https://cran.r-project.org/package=bizdays)
