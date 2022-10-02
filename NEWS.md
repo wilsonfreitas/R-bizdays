@@ -1,3 +1,7 @@
+# bizdays 1.0.12
+
+  * added new calendar `Brazil/BMF` which extends `Brazil/ANBIMA` starting at 1990-01-01 and is based on the trading days observed in future contracts.
+
 # bizdays 1.0.11
 
   * improved getdate to use a day as reference and allows expressions like:
