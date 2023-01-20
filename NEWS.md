@@ -1,3 +1,7 @@
+# bizdays 1.0.13
+
+  * B3 Calendar updated: included 2023 holidays
+
 # bizdays 1.0.12
 
   * added new calendar `Brazil/BMF` which extends `Brazil/ANBIMA` starting at 1990-01-01 and is based on the trading days observed in future contracts.
