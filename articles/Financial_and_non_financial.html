@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bizdays</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.13</span>
       </span>
     </div>
 
@@ -88,13 +88,14 @@
 
       
 
-      </header><script src="Financial_and_non_financial_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Financial and non financial calendars</h1>
-                        <h4 data-toc-skip class="author">Wilson Freitas</h4>
+                        <h4 data-toc-skip class="author">Wilson
+Freitas</h4>
             
-            <h4 data-toc-skip class="date">2022-10-02</h4>
+            <h4 data-toc-skip class="date">2023-01-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/wilsonfreitas/R-bizdays/blob/HEAD/vignettes/Financial_and_non_financial.Rmd" class="external-link"><code>vignettes/Financial_and_non_financial.Rmd</code></a></small>
       <div class="hidden name"><code>Financial_and_non_financial.Rmd</code></div>
@@ -106,23 +107,51 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p><code>bizdays</code> users usually argue me out of inconsistencies between <code>bizdays</code> and <code>offset</code> functions. These inconsistencies appear every time a non business day is used as argument of one of these funcions. This might sound strange, but this is the expected behavior for these functions. To handle that I introduced the ability to create financial and non financial calendars. This vignette shows that the pointed inconsistencies only appears when we work with financial calendars and explains what to do in such situations. It also illustrates how the business days are counted.</p>
+<p><code>bizdays</code> users usually argue me out of inconsistencies
+between <code>bizdays</code> and <code>offset</code> functions. These
+inconsistencies appear every time a non business day is used as argument
+of one of these funcions. This might sound strange, but this is the
+expected behavior for these functions. To handle that I introduced the
+ability to create financial and non financial calendars. This vignette
+shows that the pointed inconsistencies only appears when we work with
+financial calendars and explains what to do in such situations. It also
+illustrates how the business days are counted.</p>
 </div>
 <div class="section level2">
 <h2 id="how-bizdays-counts-business-days">How bizdays counts business days?<a class="anchor" aria-label="anchor" href="#how-bizdays-counts-business-days"></a>
 </h2>
-<p>To compute the number of business days between two dates effectively and with a good performance, <code>bizdays</code> creates two indexes. The two indexes are called forward and backward. These indexes associate a number to each date from the calendar’s <code>start_date</code> up to its <code>end_date</code>. In the forward index, the first business day is 1, the second is 2 and so on. The backward index starts in the end with the last business day equals 1 and goes increasing towards the begining. This works fine in financial calculations because between two consecutive business days we have 1 day, in both indexes. The non business days are gaps and they share the index with their business days neighbors, see the figure below. The blue boxes are working days and the green ones nonworking days.</p>
+<p>To compute the number of business days between two dates effectively
+and with a good performance, <code>bizdays</code> creates two indexes.
+The two indexes are called forward and backward. These indexes associate
+a number to each date from the calendar’s <code>start_date</code> up to
+its <code>end_date</code>. In the forward index, the first business day
+is 1, the second is 2 and so on. The backward index starts in the end
+with the last business day equals 1 and goes increasing towards the
+begining. This works fine in financial calculations because between two
+consecutive business days we have 1 day, in both indexes. The non
+business days are gaps and they share the index with their business days
+neighbors, see the figure below. The blue boxes are working days and the
+green ones nonworking days.</p>
 <div class="figure">
 <img src="figures/bizdays_index.png" title="bizdays index" alt=""><p class="caption">bizdays index</p>
 </div>
-<p>Differently we can imagine that each business day in the sequence of dates of the calendar contributes with 1 and the non business days with 0. The forward index does an accumulated sum starting from the begining and the backward does the same starting in the end.</p>
-<p>As we can see in the figure above, from Tuesday to Monday we have 7 days (one week), starting at 1 and ending up at 7 in the current days index. In the business days indexes the counting starts at 1 and ends up at 4 and 4 is the total number of business days shown.</p>
-<p>To compute the number of business days between two dates bizdays uses these two indexes to handle the different situations where the arguments <code>from</code> and <code>to</code> are nonworking days.</p>
+<p>Differently we can imagine that each business day in the sequence of
+dates of the calendar contributes with 1 and the non business days with
+0. The forward index does an accumulated sum starting from the begining
+and the backward does the same starting in the end.</p>
+<p>As we can see in the figure above, from Tuesday to Monday we have 7
+days (one week), starting at 1 and ending up at 7 in the current days
+index. In the business days indexes the counting starts at 1 and ends up
+at 4 and 4 is the total number of business days shown.</p>
+<p>To compute the number of business days between two dates bizdays uses
+these two indexes to handle the different situations where the arguments
+<code>from</code> and <code>to</code> are nonworking days.</p>
 </div>
 <div class="section level2">
 <h2 id="creating-non-financial-calendars">Creating non financial calendars<a class="anchor" aria-label="anchor" href="#creating-non-financial-calendars"></a>
 </h2>
-<p>Let’s create a calendar a non financial calendar with these dates to illustrate.</p>
+<p>Let’s create a calendar a non financial calendar with these dates to
+illustrate.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/wilsonfreitas/R-bizdays" class="external-link">bizdays</a></span><span class="op">)</span></span>
 <span></span>
@@ -136,11 +165,13 @@
 <span><span class="co">## bizdays arguments adjust</span></span>
 <span><span class="co">##   from: none </span></span>
 <span><span class="co">##   to:   none</span></span></code></pre>
-<p>Calling the <code>bizdays</code> function to compute the business days from 2017-01-24 to 2017-01-26 results in:</p>
+<p>Calling the <code>bizdays</code> function to compute the business
+days from 2017-01-24 to 2017-01-26 results in:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bizdays.html">bizdays</a></span><span class="op">(</span><span class="st">"2017-01-24"</span>, <span class="st">"2017-01-26"</span>, <span class="st">"example1"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 2</span></span></code></pre>
-<p>2 business days that is the amount of business days in the given interval.</p>
+<p>2 business days that is the amount of business days in the given
+interval.</p>
 <p>In another example, starting and ending up at the holiday, we get</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bizdays.html">bizdays</a></span><span class="op">(</span><span class="st">"2017-01-24"</span>, <span class="st">"2017-01-25"</span>, <span class="st">"example1"</span><span class="op">)</span></span></code></pre></div>
@@ -148,23 +179,29 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bizdays.html">bizdays</a></span><span class="op">(</span><span class="st">"2017-01-25"</span>, <span class="st">"2017-01-26"</span>, <span class="st">"example1"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 1</span></span></code></pre>
-<p>as expected it returns 1 in both cases. And also if you offset the date <code>2017-01-25</code> by one business day, you end up in one of its neighbors.</p>
+<p>as expected it returns 1 in both cases. And also if you offset the
+date <code>2017-01-25</code> by one business day, you end up in one of
+its neighbors.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/offset.html">offset</a></span><span class="op">(</span><span class="st">"2017-01-25"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, <span class="st">"example1"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "2017-01-24" "2017-01-26"</span></span></code></pre>
-<p>In the situations where both, <code>from</code> and <code>to</code>, are non business days, we get:</p>
+<p>In the situations where both, <code>from</code> and <code>to</code>,
+are non business days, we get:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bizdays.html">bizdays</a></span><span class="op">(</span><span class="st">"2017-01-25"</span>, <span class="st">"2017-01-28"</span>, <span class="st">"example1"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 2</span></span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bizdays.html">bizdays</a></span><span class="op">(</span><span class="st">"2017-01-25"</span>, <span class="st">"2017-01-29"</span>, <span class="st">"example1"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 2</span></span></code></pre>
-<p>which is also correct because we have two business days into these intervals.</p>
+<p>which is also correct because we have two business days into these
+intervals.</p>
 </div>
 <div class="section level2">
 <h2 id="creating-financial-calendars">Creating financial calendars<a class="anchor" aria-label="anchor" href="#creating-financial-calendars"></a>
 </h2>
-<p>The devil is in the financial calendars. These examples give unexpected results. Let’s create a financial calendar with the same dates.</p>
+<p>The devil is in the financial calendars. These examples give
+unexpected results. Let’s create a financial calendar with the same
+dates.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/create.calendar.html">create.calendar</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"example2"</span>, weekdays <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"saturday"</span>, <span class="st">"sunday"</span><span class="op">)</span>, start.date <span class="op">=</span> <span class="st">"2017-01-24"</span>, end.date <span class="op">=</span> <span class="st">"2017-01-30"</span>, holidays <span class="op">=</span> <span class="st">"2017-01-25"</span>, financial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
@@ -176,15 +213,27 @@
 <span><span class="co">## bizdays arguments adjust</span></span>
 <span><span class="co">##   from: none </span></span>
 <span><span class="co">##   to:   none</span></span></code></pre>
-<p>All strange situations appear when non business days are passed as arguments to <code>bizdays</code> and <code>offset</code> function. In the first example above, where we count the number of business days in the interval (2017-01-25, 2017-01-26).</p>
+<p>All strange situations appear when non business days are passed as
+arguments to <code>bizdays</code> and <code>offset</code> function. In
+the first example above, where we count the number of business days in
+the interval (2017-01-25, 2017-01-26).</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bizdays.html">bizdays</a></span><span class="op">(</span><span class="st">"2017-01-25"</span>, <span class="st">"2017-01-26"</span>, <span class="st">"example2"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0</span></span></code></pre>
-<p>The result is 0 indicating that we don’t have one business day to compound an interest rate. On the other hand, if we offset the non business day 2017-01-25 by one we have</p>
+<p>The result is 0 indicating that we don’t have one business day to
+compound an interest rate. On the other hand, if we offset the non
+business day 2017-01-25 by one we have</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/offset.html">offset</a></span><span class="op">(</span><span class="st">"2017-01-25"</span>, <span class="fl">1</span>, <span class="st">"example2"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "2017-01-26"</span></span></code></pre>
-<p>which might sound non sense, given that <code>bizdays</code> returns 0. But, the non sense is the use of non business days as arguments while working with financial calendars. To handle this situation I suggest the functions <code>preceding</code> (or <code>adjust_previous</code>) and <code>following</code> (or <code>adjust_next</code>). These functions move the given date to the previous (or next) business date, if it is not a business day, otherwise the given date is returned. In the example above we can use <code>preceding</code>.</p>
+<p>which might sound non sense, given that <code>bizdays</code> returns
+0. But, the non sense is the use of non business days as arguments while
+working with financial calendars. To handle this situation I suggest the
+functions <code>preceding</code> (or <code>adjust_previous</code>) and
+<code>following</code> (or <code>adjust_next</code>). These functions
+move the given date to the previous (or next) business date, if it is
+not a business day, otherwise the given date is returned. In the example
+above we can use <code>preceding</code>.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">prev_date</span> <span class="op">=</span> <span class="fu"><a href="../reference/adjust.date.html">preceding</a></span><span class="op">(</span><span class="st">"2017-01-25"</span>, <span class="st">"example2"</span><span class="op">)</span></span>
 <span><span class="va">prev_date</span></span></code></pre></div>
@@ -195,14 +244,23 @@
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/offset.html">offset</a></span><span class="op">(</span><span class="va">prev_date</span>, <span class="fl">1</span>, <span class="st">"example2"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "2017-01-26"</span></span></code></pre>
-<p>If you don’t want to call these functions every time you call <code>bizdays</code>, you can set the arguments <code>adjust_from</code> and <code>adjust_to</code> on <code>create.calendar</code>. These arguments have been created, to execute a date adjustment of the arguments <code>from</code> and <code>to</code> according to users needs. These arguments must be set with one of these three functions:</p>
+<p>If you don’t want to call these functions every time you call
+<code>bizdays</code>, you can set the arguments <code>adjust_from</code>
+and <code>adjust_to</code> on <code>create.calendar</code>. These
+arguments have been created, to execute a date adjustment of the
+arguments <code>from</code> and <code>to</code> according to users
+needs. These arguments must be set with one of these three
+functions:</p>
 <ul>
 <li>
-<code>adjust_none</code>: does not execute date adjustment, this is the default value</li>
+<code>adjust_none</code>: does not execute date adjustment, this is
+the default value</li>
 <li>
-<code>preceding</code> or <code>adjust_previous</code>: move the date for the previous business day if it is nonworking day</li>
+<code>preceding</code> or <code>adjust_previous</code>: move the
+date for the previous business day if it is nonworking day</li>
 <li>
-<code>following</code> or <code>adjust_next</code>: move the date for the next business day if it is nonworking day</li>
+<code>following</code> or <code>adjust_next</code>: move the date
+for the next business day if it is nonworking day</li>
 </ul>
 <p>In our third example, let’s set these arguments</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
@@ -244,7 +302,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

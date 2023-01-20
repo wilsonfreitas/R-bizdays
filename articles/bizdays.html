@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bizdays</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.13</span>
       </span>
     </div>
 
@@ -88,12 +88,12 @@
 
       
 
-      </header><script src="bizdays_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to bizdays</h1>
             
-            <h4 data-toc-skip class="date">2022-10-02</h4>
+            <h4 data-toc-skip class="date">2023-01-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/wilsonfreitas/R-bizdays/blob/HEAD/vignettes/bizdays.Rmd" class="external-link"><code>vignettes/bizdays.Rmd</code></a></small>
       <div class="hidden name"><code>bizdays.Rmd</code></div>
@@ -105,7 +105,10 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p><code>bizdays</code> was developed to count business days between two dates. This is a big issue in brazilian financial market because many financial instruments consider the amount of business days in their accounting rules. So, a typical use of the package is:</p>
+<p><code>bizdays</code> was developed to count business days between two
+dates. This is a big issue in brazilian financial market because many
+financial instruments consider the amount of business days in their
+accounting rules. So, a typical use of the package is:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/wilsonfreitas/R-bizdays" class="external-link">bizdays</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
@@ -116,13 +119,18 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bizdays.html">bizdays</a></span><span class="op">(</span><span class="st">"2022-02-01"</span>, <span class="st">"2022-02-28"</span>, <span class="st">"Brazil/ANBIMA"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 18</span></span></code></pre>
-<p>The <code>bizdays</code> function returns the amount of business days between these dates according to the calendar <code>Brazil/ANBIMA</code>.</p>
-<p>The calendar <code>Brazil/ANBIMA</code> is already loaded and all loaded calendars can be seen with <code><a href="../reference/calendar-register.html">calendars()</a></code></p>
+<p>The <code>bizdays</code> function returns the amount of business days
+between these dates according to the calendar
+<code>Brazil/ANBIMA</code>.</p>
+<p>The calendar <code>Brazil/ANBIMA</code> is already loaded and all
+loaded calendars can be seen with <code><a href="../reference/calendar-register.html">calendars()</a></code></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/calendar-register.html">calendars</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Calendars: </span></span>
 <span><span class="co">## actual, Brazil/ANBIMA, Brazil/B3, Brazil/BMF, weekends</span></span></code></pre>
-<p>That lists calendars registered in the calendar register. Once you have a calendar registered you can simply use its name in the functions.</p>
+<p>That lists calendars registered in the calendar register. Once you
+have a calendar registered you can simply use its name in the
+functions.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bizdays.html">bizdays</a></span><span class="op">(</span><span class="st">"2022-02-01"</span>, <span class="st">"2022-02-28"</span>, <span class="st">"actual"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 27</span></span></code></pre>
@@ -130,16 +138,17 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/calendar-register.html">calendars</a></span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="st">"Brazil/B3"</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## Brazil/B3 financial calendar </span></span>
-<span><span class="co">##   380 holidays </span></span>
+<span><span class="co">##   394 holidays </span></span>
 <span><span class="co">##   2 weekdays (saturday, sunday) </span></span>
-<span><span class="co">##   range from 2000-01-01 to 2022-12-30 </span></span>
+<span><span class="co">##   range from 2000-01-01 to 2023-12-29 </span></span>
 <span><span class="co">## bizdays arguments adjust</span></span>
 <span><span class="co">##   from: following </span></span>
 <span><span class="co">##   to:   preceding</span></span></code></pre>
 <div class="section level3">
 <h3 id="load-calendars-from-other-packages">Load calendars from other packages<a class="anchor" aria-label="anchor" href="#load-calendars-from-other-packages"></a>
 </h3>
-<p>Calendars can be loaded from packages RQuantlib and timeDate (Rmetrics).</p>
+<p>Calendars can be loaded from packages RQuantlib and timeDate
+(Rmetrics).</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/other-calendars.html">load_rmetrics_calendars</a></span><span class="op">(</span><span class="fl">2000</span><span class="op">:</span><span class="fl">2030</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Calendar Rmetrics/LONDON loaded</span></span></code></pre>
@@ -151,12 +160,14 @@
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/calendar-register.html">calendars</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Calendars: </span></span>
 <span><span class="co">## actual, Brazil/ANBIMA, Brazil/B3, Brazil/BMF, Rmetrics/LONDON, Rmetrics/NERC, Rmetrics/NYSE, Rmetrics/TSX, Rmetrics/ZURICH, weekends</span></span></code></pre>
-<p>Once you have calendars loaded they can be directly used by its name.</p>
+<p>Once you have calendars loaded they can be directly used by its
+name.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bizdays.html">bizdays</a></span><span class="op">(</span><span class="st">"2022-02-01"</span>, <span class="st">"2022-02-28"</span>, <span class="st">"Rmetrics/NYSE"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 18</span></span></code></pre>
 <blockquote>
-<p>So, unless you really need a new calendar, you don’t have to create them.</p>
+<p>So, unless you really need a new calendar, you don’t have to create
+them.</p>
 </blockquote>
 </div>
 </div>
@@ -236,7 +247,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

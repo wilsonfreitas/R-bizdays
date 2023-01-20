@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bizdays</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.13</span>
       </span>
     </div>
 
@@ -88,12 +88,12 @@
 
       
 
-      </header><script src="Creating_Calendars_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Creating Calendars</h1>
             
-            <h4 data-toc-skip class="date">2022-10-02</h4>
+            <h4 data-toc-skip class="date">2023-01-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/wilsonfreitas/R-bizdays/blob/HEAD/vignettes/Creating_Calendars.Rmd" class="external-link"><code>vignettes/Creating_Calendars.Rmd</code></a></small>
       <div class="hidden name"><code>Creating_Calendars.Rmd</code></div>
@@ -113,10 +113,21 @@
 <span><span class="op">)</span></span></code></pre></div>
 <p>what should be considered:</p>
 <ul>
-<li>calendar name: the calendar must be named <code>MyCalendar</code>. The calendar name is used in all <code>bizdays</code> functions to specify which calendar has to be used.</li>
-<li>list of holidays: the argument <code>holidays</code> is a vector of dates (mostly used R’s date-time objects: <code>Date</code>, <code>POSIX.ct</code> and <code>POSIX.lt</code>) or a character vector with and ISO formatted date (<code>"1976-07-12"</code>).</li>
-<li>weekdays: weekdays to be treated as nonworking days (usually weekends).</li>
-<li>date adjustment: the <code>bizdays</code> function has <code>from</code> and <code>to</code> arguments that define the interval which the amount of days has to be computed. Once <code>from</code> falls in a nonworking day it is moved to the first working day after it. Similarly, <code>to</code> is adjusted to the first working day before this date.</li>
+<li>calendar name: the calendar must be named <code>MyCalendar</code>.
+The calendar name is used in all <code>bizdays</code> functions to
+specify which calendar has to be used.</li>
+<li>list of holidays: the argument <code>holidays</code> is a vector of
+dates (mostly used R’s date-time objects: <code>Date</code>,
+<code>POSIX.ct</code> and <code>POSIX.lt</code>) or a character vector
+with and ISO formatted date (<code>"1976-07-12"</code>).</li>
+<li>weekdays: weekdays to be treated as nonworking days (usually
+weekends).</li>
+<li>date adjustment: the <code>bizdays</code> function has
+<code>from</code> and <code>to</code> arguments that define the interval
+which the amount of days has to be computed. Once <code>from</code>
+falls in a nonworking day it is moved to the first working day after it.
+Similarly, <code>to</code> is adjusted to the first working day before
+this date.</li>
 </ul>
 <p>Now you can call bizdays functions passing the calendar name.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -128,7 +139,8 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bizdays.html">bizdays</a></span><span class="op">(</span><span class="st">"2016-07-12"</span>, <span class="st">"2016-10-16"</span>, <span class="st">"MyCalendar"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 66</span></span></code></pre>
-<p>Of course you can assign the calendar to a variable directly and pass this variable to bizdays functions</p>
+<p>Of course you can assign the calendar to a variable directly and pass
+this variable to bizdays functions</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cal</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create.calendar.html">create.calendar</a></span><span class="op">(</span></span>
 <span>  name <span class="op">=</span> <span class="st">"MyCalendar"</span>, holidays <span class="op">=</span> <span class="va">holidays</span>, weekdays <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sunday"</span>, <span class="st">"saturday"</span><span class="op">)</span>,</span>
@@ -139,14 +151,22 @@
 <p>But this is not expected to work that way.</p>
 <blockquote>
 <h5 id="why-define-weekdays">Why define weekdays?</h5>
-<p>I am frequently asked <em>Why do I have to define weekdays?</em> or even <em>Shouldn’t it be <code>weekenddays</code> instead?</em>.</p>
-<p>The reason I created <code>weekdays</code>: I want to provide a way to compute business days accordingly to any definition or satisfying any needs. In my world, the financial industry, weekends are nonworking days, but for those who work with events, for example, mondays migth be nonworking days.</p>
-<p><code>weekdays</code> defaults to <code>NULL</code> because I wanted the <code>Calendar()</code> call returned an <a href="https://en.wikipedia.org/wiki/Day_count_convention#Actual_methods" class="external-link">Actual</a> calendar.</p>
+<p>I am frequently asked <em>Why do I have to define weekdays?</em> or
+even <em>Shouldn’t it be <code>weekenddays</code> instead?</em>.</p>
+<p>The reason I created <code>weekdays</code>: I want to provide a way
+to compute business days accordingly to any definition or satisfying any
+needs. In my world, the financial industry, weekends are nonworking
+days, but for those who work with events, for example, mondays migth be
+nonworking days.</p>
+<p><code>weekdays</code> defaults to <code>NULL</code> because I wanted
+the <code>Calendar()</code> call returned an <a href="https://en.wikipedia.org/wiki/Day_count_convention#Actual_methods" class="external-link">Actual</a>
+calendar.</p>
 </blockquote>
 <div class="section level3">
 <h3 id="skiping-weekends-only-defining-weekends-as-nonworking-days">Skiping weekends only (defining weekends as nonworking days)<a class="anchor" aria-label="anchor" href="#skiping-weekends-only-defining-weekends-as-nonworking-days"></a>
 </h3>
-<p>You can define whatever calendar you want, for example, a calendar without holidays where only weekdays are nonworking days.</p>
+<p>You can define whatever calendar you want, for example, a calendar
+without holidays where only weekdays are nonworking days.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/create.calendar.html">create.calendar</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"WeekendsOnly"</span>, weekdays <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sunday"</span>, <span class="st">"saturday"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>define only <code>weekdays</code> to weekend days.</p>
@@ -196,7 +216,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
