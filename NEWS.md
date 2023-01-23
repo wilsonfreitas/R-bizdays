@@ -1,6 +1,14 @@
+# bizdays 1.0.14
+
+  * `Brazil/BMF` Calendar updated: corrected holidays in the period between 1990-2000
+
+  * `Brazil/B3` Calendar updated: added holidays in the period between 1990-2000
+
+  * added more tests to `getbizdays`
+
 # bizdays 1.0.13
 
-  * B3 Calendar updated: included 2023 holidays
+  * `Brazil/B3` Calendar updated: included 2023 holidays
 
 # bizdays 1.0.12
 
