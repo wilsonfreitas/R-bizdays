@@ -97,8 +97,18 @@ date has to be found.</p></dd>
 
 
 <dt>cal</dt>
-<dd><p>the calendar's name</p>
-<p><code>expr</code> represents the day has to be returned, here it follows a few
+<dd><p>the calendar's name</p></dd>
+
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>a vector of dates according to a reference (month or year)</p>
+    </div>
+    <div id="details">
+    <h2>Details</h2>
+    <p><code>expr</code> represents the day has to be returned, here it follows a few
 examples:</p><ul><li><p><code>"second day"</code></p></li>
 <li><p><code>"10th bizday"</code></p></li>
 <li><p><code>"3rd wed"</code></p></li>
@@ -114,9 +124,8 @@ examples:</p><ul><li><p><code>"second day"</code></p></li>
 an year. This reference can be passed as a character vector representing
 months or years, or as a numeric vector representing years.
 The ISO format must be used to represent years or months with character
-vectors.</p></dd>
-
-</dl></div>
+vectors.</p>
+    </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
@@ -131,19 +140,19 @@ vectors.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "2018-06-01" "2018-07-02" "2018-08-01" "2018-09-03" "2018-10-01"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [11] "2018-11-01" "2018-12-03"</span>
 <span class="r-in"><span><span class="fu">getdate</span><span class="op">(</span><span class="st">"last bizday"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"Brazil/ANBIMA"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2023-01-20"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2023-03-24"</span>
 <span class="r-in"><span><span class="fu">getdate</span><span class="op">(</span><span class="st">"next bizday"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"Brazil/ANBIMA"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2023-01-24"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2023-03-27"</span>
 <span class="r-in"><span><span class="fu">getdate</span><span class="op">(</span><span class="st">"2nd wed"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2023-02-01"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2023-04-05"</span>
 <span class="r-in"><span><span class="fu">getdate</span><span class="op">(</span><span class="st">"next wed"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2023-01-25"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2023-03-29"</span>
 <span class="r-in"><span><span class="fu">getdate</span><span class="op">(</span><span class="st">"last wed"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2023-01-18"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2023-03-22"</span>
 <span class="r-in"><span><span class="fu">getdate</span><span class="op">(</span><span class="st">"next mon"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2023-01-30"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2023-03-27"</span>
 <span class="r-in"><span><span class="fu">getdate</span><span class="op">(</span><span class="st">"last mon"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2023-01-16"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2023-03-20"</span>
 </code></pre></div>
     </div>
   </div>
