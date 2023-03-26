@@ -13,8 +13,21 @@ getdate(expr, ref, cal = bizdays.options$get("default.calendar"))
 \item{ref}{a reference which represents a month or year, where the
 date has to be found.}
 
-\item{cal}{the calendar's name
-
+\item{cal}{the calendar's name}
+}
+\value{
+a vector of dates according to a reference (month or year)
+}
+\description{
+Imagine you have one date and want the first or last day of this date's
+month.
+For example, you have the date 2018-02-01 and want the last day of its month.
+You have to check whether or not its year is a leap year, and this sounds a
+tough task.
+\code{getdate} helps with returning specific dates according to a reference
+than can be another date, a month or an year.
+}
+\details{
 \code{expr} represents the day has to be returned, here it follows a few
 examples:
 \itemize{
@@ -39,16 +52,7 @@ examples:
 an year. This reference can be passed as a character vector representing
 months or years, or as a numeric vector representing years.
 The ISO format must be used to represent years or months with character
-vectors.}
-}
-\description{
-Imagine you have one date and want the first or last day of this date's
-month.
-For example, you have the date 2018-02-01 and want the last day of its month.
-You have to check whether or not its year is a leap year, and this sounds a
-tough task.
-\code{getdate} helps with returning specific dates according to a reference
-than can be another date, a month or an year.
+vectors.
 }
 \examples{
 getdate("10th wed", 2018, "Brazil/ANBIMA")
