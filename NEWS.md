@@ -1,3 +1,9 @@
+# bizdays 1.0.15
+
+  * `Brazil/BMF` Calendar updated: addition of November 20th holiday from 2024 ahead.
+  
+  * `Brazil/ANBIMA` Calendar updated: addition of November 20th holiday from 2024 ahead.
+
 # bizdays 1.0.14
 
   * `Brazil/BMF` Calendar updated: corrected holidays in the period between 1990-2000
