@@ -100,7 +100,7 @@ test_that("it should create a business Calendar: Brazil's ANBIMA", {
   expect_equal(bizdays("2013-08-13", "2022-07-01", cal), 2231)
   expect_equal(bizdays("2013-08-13", "2023-01-02", cal), 2358)
   expect_equal(bizdays("2013-08-13", "2024-01-02", cal), 2607)
-  expect_equal(bizdays("2013-08-13", "2025-01-02", cal), 2861)
+  expect_equal(bizdays("2013-08-13", "2025-01-02", cal), 2860)
 })
 
 test_that("it should work with unordered calendars", {
