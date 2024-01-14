@@ -83,7 +83,9 @@ test_that("massive test with getbizdays Brazil/B3 calendar", {
   colnames(business_days_by_month) <- 1:12
   diffs <- business_days_by_month
   for (year in rownames(business_days_by_month)) {
-    ref <- paste0(year, "-", stringr::str_pad(1:12, 2, pad = "0"))
+    x <- paste0("0", 1:12)
+    months <- substring(x, nchar(x) - 1, nchar(x))
+    ref <- paste0(year, "-", months)
     bdbm <- getbizdays(ref, "Brazil/B3")
     diffs[year,] <- bdbm - business_days_by_month[year,]
   }

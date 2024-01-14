@@ -13,8 +13,7 @@ Suggests:
     knitr,
     testthat,
     covr,
-    rmarkdown,
-    stringr
+    rmarkdown
 Imports: methods, utils, jsonlite
 Collate:
     'R-bizdays-package.r'
