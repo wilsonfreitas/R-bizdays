@@ -38,13 +38,13 @@ count_bizdays <- function(x, cal, ref_pos) {
   UseMethod("count_bizdays")
 }
 
-count_bizdays.by_month <- function(ref, cal, ref_pos) {
-  ix <- cal$dates.table[, "month"] == ref$ref_table[ref_pos, "month"] &
-    cal$dates.table[, "year"] == ref$ref_table[ref_pos, "year"]
+count_bizdays.by_month <- function(x, cal, ref_pos) {
+  ix <- cal$dates.table[, "month"] == x$ref_table[ref_pos, "month"] &
+    cal$dates.table[, "year"] == x$ref_table[ref_pos, "year"]
   sum(cal$dates.table[ix, "is_bizday"])
 }
 
-count_bizdays.by_year <- function(ref, cal, ref_pos) {
-  ix <- cal$dates.table[, "year"] == ref$ref_table[ref_pos, "year"]
+count_bizdays.by_year <- function(x, cal, ref_pos) {
+  ix <- cal$dates.table[, "year"] == x$ref_table[ref_pos, "year"]
   sum(cal$dates.table[ix, "is_bizday"])
 }
