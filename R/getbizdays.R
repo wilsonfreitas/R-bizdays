@@ -34,7 +34,7 @@ getbizdays <- function(ref, cal = bizdays.options$get("default.calendar")) {
   unlist(bizdays_)
 }
 
-count_bizdays <- function(x, ...) {
+count_bizdays <- function(x, cal, ref_pos) {
   UseMethod("count_bizdays")
 }
 

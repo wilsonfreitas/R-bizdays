@@ -178,7 +178,7 @@ getnth_ <- function(x) {
   )
 }
 
-getnthday <- function(ref, ...) {
+getnthday <- function(ref, pos, use_bizday, cal) {
   UseMethod("getnthday")
 }
 
@@ -249,7 +249,7 @@ getnthday.by_year <- function(ref, pos, use_bizday, cal) {
   as.Date(dates, origin = as.Date("1970-01-01"))
 }
 
-getnthweekday <- function(ref, ...) {
+getnthweekday <- function(ref, pos, wday, cal) {
   UseMethod("getnthweekday")
 }
 
