@@ -59,9 +59,8 @@ new_defaults <- function(value = list()) {
 #' bizdays.options$get("option.key")
 #' }
 #'
-#' \code{bizdays} supports the following parameter:
-#'
-#' \code{default.calendar} option is the default calendar to be used with the
+#' \code{bizdays} supports the option \code{default.calendar}.
+#' It defines the default calendar to be used with the
 #' functions: \code{bizdays}, \code{bizdayse}, \code{adjust.next},
 #' \code{adjust.previous}, \code{is.bizday}, \code{bizseq}, \code{offset}.
 #' 

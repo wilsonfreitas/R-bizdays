@@ -24,13 +24,10 @@ bizdays.options$set(option.key=value)
 bizdays.options$get("option.key")
 }
 
-\code{bizdays} supports the following parameter:
-
-\itemize{
-\item{\code{default.calendar}: }{the default calendar to be used with the
+\code{bizdays} supports the option \code{default.calendar}.
+It defines the default calendar to be used with the
 functions: \code{bizdays}, \code{bizdayse}, \code{adjust.next},
-\code{adjust.previous}, \code{is.bizday}, \code{bizseq}, \code{offset}.}
-}
+\code{adjust.previous}, \code{is.bizday}, \code{bizseq}, \code{offset}.
 }
 \examples{
 create.calendar(name = "actual")
