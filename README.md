@@ -5,7 +5,7 @@
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Downloads](http://cranlogs.r-pkg.org/badges/bizdays)](https://cran.r-project.org/package=bizdays)
 [![R-CMD-check](https://github.com/wilsonfreitas/R-bizdays/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/wilsonfreitas/R-bizdays/actions/workflows/check-standard.yaml)
-[![Coverage status](https://codecov.io/gh/wilsonfreitas/R-bizdays/branch/master/graph/badge.svg)](https://codecov.io/github/wilsonfreitas/R-bizdays?branch=master)
+[![Coverage status](https://codecov.io/gh/wilsonfreitas/R-bizdays/branch/master/graph/badge.svg)](https://app.codecov.io/github/wilsonfreitas/R-bizdays?branch=master)
 <!-- badges: end -->
 
 **bizdays** computes business days between dates based on collections of

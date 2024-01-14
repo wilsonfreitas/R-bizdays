@@ -61,12 +61,10 @@ new_defaults <- function(value = list()) {
 #'
 #' \code{bizdays} supports the following parameter:
 #'
-#' \itemize{
-#' \item{\code{default.calendar}: }{the default calendar to be used with the
+#' \code{default.calendar} option is the default calendar to be used with the
 #' functions: \code{bizdays}, \code{bizdayse}, \code{adjust.next},
-#' \code{adjust.previous}, \code{is.bizday}, \code{bizseq}, \code{offset}.}
-#' }
-#'
+#' \code{adjust.previous}, \code{is.bizday}, \code{bizseq}, \code{offset}.
+#' 
 #' @examples
 #' create.calendar(name = "actual")
 #' bizdays.options$set(default.calendar = "actual")
