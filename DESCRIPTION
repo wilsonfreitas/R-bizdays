@@ -5,7 +5,8 @@ Description: Business days calculations based on a list of holidays and
 Version: 1.0.15
 Author: Wilson Freitas <wilson.freitas@gmail.com>
 Maintainer: Wilson Freitas <wilson.freitas@gmail.com>
-URL: https://github.com/wilsonfreitas/R-bizdays
+URL: https://wilsonfreitas.github.io/R-bizdays/, https://github.com/wilsonfreitas/R-bizdays
+BugReports: https://github.com/wilsonfreitas/R-bizdays/issues
 VignetteBuilder: knitr
 Suggests: 
     RQuantLib,
