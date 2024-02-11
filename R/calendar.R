@@ -105,7 +105,7 @@ NULL
 
 rev_index <- function(idx) {
   ridx <- cumsum(idx) + 1 - as.integer(idx)
-  ridx[ridx > sum(idx)] <- sum(idx)
+  # ridx[ridx > sum(idx)] <- sum(idx)
   ridx
 }
 

@@ -47,16 +47,38 @@ test_that("it should return negative bizdays", {
     ),
     c(NA, -21, 252)
   )
-  cal <- Calendar_(
+  cal <- create.calendar(
+    name = "test_neg_bizdays",
+    weekdays = c("saturday", "sunday"),
+    adjust.from = adjust.none, adjust.to = adjust.none
+  )
+  expect_equal(
+    bizdays(Sys.Date(), Sys.Date() + c(2, -1, 1, 1), "actual"),
+    c(2, -1, 1, 1)
+  )
+})
+
+test_that("it should check consistency in bizdays", {
+  cal <- create.calendar(
+    name = "test_consistency",
     weekdays = c("saturday", "sunday"),
     adjust.from = adjust.none, adjust.to = adjust.none
   )
   expect_equal(bizdays("2013-06-22", "2013-06-23", cal), 0)
   expect_equal(bizdays("2013-06-23", "2013-06-22", cal), 0)
-  expect_equal(
-    bizdays(Sys.Date(), Sys.Date() + c(2, -1, 1, 1), "actual"),
-    c(2, -1, 1, 1)
-  )
+  
+  hol <- c("2024-01-01", "2024-03-29", "2024-04-01", "2024-05-06", "2024-05-27", 
+           "2024-08-26", "2024-12-25", "2024-12-26")
+  cal <- bizdays::create.calendar(name = "nursery_calendar",
+                                  holidays = hol,
+                                  weekdays = c("monday", "tuesday", "wednesday",
+                                               "saturday", "sunday"),
+                                  start.date = as.Date("2024-01-01"),
+                                  end.date = as.Date("2024-12-31"),
+                                  financial = FALSE)
+  expect_equal(bizdays("2024-12-23", "2024-12-29", cal), 1)
+  expect_equal(bizdays("2024-12-29", "2024-12-23", cal), -1)
+  expect_true(is.bizday("2024-12-27", cal))
 })
 
 test_that("it should compute bizdays using double index approach", {
