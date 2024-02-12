@@ -16,3 +16,4 @@ data-raw
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+issue_108.R
