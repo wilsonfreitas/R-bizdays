@@ -1,3 +1,7 @@
+# bizdays 1.0.16
+
+  * BUG in reverse index (issue #108)
+
 # bizdays 1.0.15
 
   * `Brazil/BMF` Calendar updated: addition of November 20th holiday from 2024 ahead.

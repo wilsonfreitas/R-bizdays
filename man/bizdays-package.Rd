@@ -26,6 +26,13 @@ business days for a given list of holidays.
 formatted character strings and all methods have support for vectorized
 operations and handle the recycle rule.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/wilsonfreitas/R-bizdays}
+}
+
+}
 \author{
 Wilson Freitas
 }
