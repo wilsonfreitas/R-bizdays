@@ -1,3 +1,7 @@
+# bizdays 1.0.17
+
+  * `Brazil/B3` Calendar updated: added holidays from 2025.
+
 # bizdays 1.0.16
 
   * BUG in reverse index (issue #108)
