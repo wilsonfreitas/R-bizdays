@@ -1,12 +1,11 @@
-pandoc: 2.19.2
-pkgdown: 2.0.7
+pandoc: 3.1.11
+pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
+  bizdays: bizdays.html
   Creating_Calendars: Creating_Calendars.html
   Financial_and_non_financial: Financial_and_non_financial.html
-  bizdays: bizdays.html
-last_built: 2024-02-12T12:23Z
+last_built: 2025-01-08T11:15Z
 urls:
   reference: http://wilsonfreitas.github.io/R-bizdays/reference
   article: http://wilsonfreitas.github.io/R-bizdays/articles
-

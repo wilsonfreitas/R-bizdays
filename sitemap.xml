@@ -1,84 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/404.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/articles/Creating_Calendars.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/articles/Financial_and_non_financial.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/articles/bizdays.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/authors.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/index.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/news/index.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/reference/adjust.date.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/reference/bizdays-package.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/reference/bizdays.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/reference/bizdays.options.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/reference/bizdayse.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/reference/bizdiff.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/reference/bizseq.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/reference/calendar-holidays-weekdays.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/reference/calendar-import-export.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/reference/calendar-register.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/reference/create.calendar.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/reference/getbizdays.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/reference/getdate.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/reference/is.bizday.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/reference/load_builtin_calendars.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/reference/offset.html</loc>
-  </url>
-  <url>
-    <loc>http://wilsonfreitas.github.io/R-bizdays/reference/other-calendars.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/404.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/LICENSE-text.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/articles/Creating_Calendars.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/articles/Financial_and_non_financial.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/articles/bizdays.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/articles/index.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/authors.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/index.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/news/index.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/reference/adjust.date.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/reference/bizdays-package.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/reference/bizdays.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/reference/bizdays.options.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/reference/bizdayse.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/reference/bizdiff.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/reference/bizseq.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/reference/calendar-holidays-weekdays.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/reference/calendar-import-export.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/reference/calendar-register.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/reference/create.calendar.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/reference/getbizdays.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/reference/getdate.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/reference/index.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/reference/is.bizday.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/reference/load_builtin_calendars.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/reference/offset.html</loc></url>
+<url><loc>http://wilsonfreitas.github.io/R-bizdays/reference/other-calendars.html</loc></url>
 </urlset>
+
