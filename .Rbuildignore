@@ -17,3 +17,4 @@ data-raw
 ^docs$
 ^pkgdown$
 issue_108.R
+^\.gitattributes$
