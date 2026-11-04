@@ -65,8 +65,9 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0.18" id="bizdays-1018">bizdays 1.0.18<a class="anchor" aria-label="anchor" href="#bizdays-1018"></a></h2>
-<ul><li>
-<code><a href="../reference/other-calendars.html">load_quantlib_calendars()</a></code> no longer loads <code>QuantLib/Italy/Exchange</code>, which was removed from recent QuantLib releases, and skips with a warning any calendar that RQuantLib does not recognise (fixes CRAN check errors).</li>
+<ul><li><p>BUG in <code><a href="../reference/getdate.html">getdate()</a></code>: <code>"next &lt;weekday&gt;"</code> and <code>"last &lt;weekday&gt;"</code> with a date reference returned the wrong weekday for 21 of the 49 (reference, target) weekday pairs (e.g. <code>"next mon"</code> from a Wednesday gave a Friday).</p></li>
+<li><p><code>Brazil/B3</code> Calendar updated: added holidays from 2026.</p></li>
+<li><p><code><a href="../reference/other-calendars.html">load_quantlib_calendars()</a></code> no longer loads <code>QuantLib/Italy/Exchange</code>, which was removed from recent QuantLib releases, and skips with a warning any calendar that RQuantLib does not recognise (fixes CRAN check errors).</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0.17" id="bizdays-1017">bizdays 1.0.17<small>2025-01-08</small><a class="anchor" aria-label="anchor" href="#bizdays-1017"></a></h2>
