@@ -427,6 +427,17 @@ if (requireNamespace("RQuantLib", quietly = TRUE)) {
     )
     expect_equal(x, y)
   })
+
+  test_that("it should skip calendars unknown to RQuantLib", {
+    expect_warning(
+      load_quantlib_calendars(c("Foo/Bar", "Argentina"),
+        from = "2016-01-01", to = "2016-12-31"
+      ),
+      "QuantLib/Foo/Bar not loaded"
+    )
+    expect_null(calendars()[["QuantLib/Foo/Bar"]])
+    expect_false(is.null(calendars()[["QuantLib/Argentina"]]))
+  })
 }
 
 if (requireNamespace("timeDate", quietly = TRUE)) {

@@ -18,3 +18,4 @@ data-raw
 ^pkgdown$
 issue_108.R
 ^\.gitattributes$
+^CLAUDE\.md$

@@ -80,7 +80,6 @@ QuantLib Calendars:
 \item QuantLib/Indonesia
 \item QuantLib/Italy
 \item QuantLib/Italy/Settlement
-\item QuantLib/Italy/Exchange
 \item QuantLib/Japan
 \item QuantLib/Mexico
 \item QuantLib/NewZealand

@@ -62,7 +62,6 @@
 #' \item QuantLib/Indonesia
 #' \item QuantLib/Italy
 #' \item QuantLib/Italy/Settlement
-#' \item QuantLib/Italy/Exchange
 #' \item QuantLib/Japan
 #' \item QuantLib/Mexico
 #' \item QuantLib/NewZealand
@@ -147,8 +146,7 @@ load_quantlib_calendars <- function(ql_calendars = NULL, from, to,
       "Germany/FrankfurtStockExchange", "Germany/Settlement",
       "Germany/Xetra", "Germany/Eurex", "HongKong", "Hungary",
       "Iceland", "India", "Indonesia", "Italy",
-      "Italy/Settlement",
-      "Italy/Exchange", "Japan", "Mexico", "NewZealand",
+      "Italy/Settlement", "Japan", "Mexico", "NewZealand",
       "Norway",
       "Poland", "Russia", "SaudiArabia", "Singapore",
       "Slovakia",
@@ -164,7 +162,17 @@ load_quantlib_calendars <- function(ql_calendars = NULL, from, to,
   }
   for (cal in ql_calendars) {
     cal_name <- paste0("QuantLib/", cal)
-    holidays_ <- RQuantLib::getHolidayList(cal, as.Date(from), as.Date(to))
+    # QuantLib drops calendars between releases (e.g. Italy/Exchange), so skip them
+    holidays_ <- tryCatch(
+      RQuantLib::getHolidayList(cal, as.Date(from), as.Date(to)),
+      error = function(e) {
+        warning("Calendar ", cal_name, " not loaded: ", conditionMessage(e),
+          call. = FALSE
+        )
+        NULL
+      }
+    )
+    if (is.null(holidays_)) next
     create.calendar(holidays_,
       weekdays = c("saturday", "sunday"),
       name = cal_name,

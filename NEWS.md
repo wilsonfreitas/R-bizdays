@@ -1,3 +1,7 @@
+# bizdays 1.0.18
+
+  * `load_quantlib_calendars()` no longer loads `QuantLib/Italy/Exchange`, which was removed from recent QuantLib releases, and skips with a warning any calendar that RQuantLib does not recognise (fixes CRAN check errors).
+
 # bizdays 1.0.17
 
   * `Brazil/B3` Calendar updated: added holidays from 2025.
