@@ -1,5 +1,7 @@
 # bizdays 1.0.18
 
+  * BUG in `getdate()`: `"next <weekday>"` and `"last <weekday>"` with a date reference returned the wrong weekday for 21 of the 49 (reference, target) weekday pairs (e.g. `"next mon"` from a Wednesday gave a Friday).
+
   * `Brazil/B3` Calendar updated: added holidays from 2026.
 
   * `load_quantlib_calendars()` no longer loads `QuantLib/Italy/Exchange`, which was removed from recent QuantLib releases, and skips with a warning any calendar that RQuantLib does not recognise (fixes CRAN check errors).

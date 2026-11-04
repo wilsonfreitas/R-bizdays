@@ -37,3 +37,22 @@ test_that("getdate by_day", {
   x <- getdate("last mon", as.Date("2022-06-20"), "Brazil/ANBIMA")
   expect_equal(x, as.Date("2022-06-13"))
 })
+
+test_that("next/last weekday works for every reference weekday", {
+  wdays <- c("sun", "mon", "tue", "wed", "thu", "fri", "sat") # POSIXlt order
+  for (ref in as.Date("2024-03-04") + 0:6) {
+    ref <- as.Date(ref, origin = "1970-01-01")
+    for (w in seq_along(wdays)) {
+      fwd <- ref + 1:7
+      bwd <- ref - 1:7
+      expect_equal(getdate(paste("next", wdays[w]), ref, "actual"),
+        fwd[as.POSIXlt(fwd)$wday == w - 1],
+        info = paste("next", wdays[w], "from", ref)
+      )
+      expect_equal(getdate(paste("last", wdays[w]), ref, "actual"),
+        bwd[as.POSIXlt(bwd)$wday == w - 1],
+        info = paste("last", wdays[w], "from", ref)
+      )
+    }
+  }
+})

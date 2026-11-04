@@ -263,7 +263,7 @@ getnthweekday.by_day <- function(ref, pos, wday, cal) {
       n_date <- as.integer(ym_table[x])
       cur_wday <- (n_date %% 7) + 1
       ix_date <- which(cal_table[, "dates"] == n_date)
-      delta <- abs(cur_wday - wday)
+      delta <- (wday - cur_wday) %% 7 # days forward to the target weekday
 
       pos <- if (pos > 0) {
         if (delta == 0 & pos == 1) {
