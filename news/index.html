@@ -64,8 +64,9 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.0.18" id="bizdays-1018">bizdays 1.0.18<a class="anchor" aria-label="anchor" href="#bizdays-1018"></a></h2>
-<ul><li><p>BUG in <code><a href="../reference/getdate.html">getdate()</a></code>: <code>"next &lt;weekday&gt;"</code> and <code>"last &lt;weekday&gt;"</code> with a date reference returned the wrong weekday for 21 of the 49 (reference, target) weekday pairs (e.g. <code>"next mon"</code> from a Wednesday gave a Friday).</p></li>
+<h2 class="page-header" data-toc-text="1.0.18" id="bizdays-1018">bizdays 1.0.18<small>2026-11-04</small><a class="anchor" aria-label="anchor" href="#bizdays-1018"></a></h2>
+<ul><li><p>BUG: <code>POSIXct</code> dates were converted to <code>Date</code> in UTC, ignoring their time zone, so a date-time near midnight or in a time zone far from UTC could become the wrong day (<a href="https://github.com/wilsonfreitas/R-bizdays/issues/109" class="external-link">#109</a>, <a href="https://github.com/wilsonfreitas/R-bizdays/issues/111" class="external-link">#111</a>).</p></li>
+<li><p>BUG in <code><a href="../reference/getdate.html">getdate()</a></code>: <code>"next &lt;weekday&gt;"</code> and <code>"last &lt;weekday&gt;"</code> with a date reference returned the wrong weekday for 21 of the 49 (reference, target) weekday pairs (e.g. <code>"next mon"</code> from a Wednesday gave a Friday).</p></li>
 <li><p><code>Brazil/B3</code> Calendar updated: added holidays from 2026.</p></li>
 <li><p><code><a href="../reference/other-calendars.html">load_quantlib_calendars()</a></code> no longer loads <code>QuantLib/Italy/Exchange</code>, which was removed from recent QuantLib releases, and skips with a warning any calendar that RQuantLib does not recognise (fixes CRAN check errors).</p></li>
 </ul></div>
