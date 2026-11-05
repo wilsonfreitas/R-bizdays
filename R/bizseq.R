@@ -25,14 +25,14 @@ bizseq <- function(from, to, cal) UseMethod("bizseq")
 #' @export
 bizseq.default <- function(from, to,
                            cal = bizdays.options$get("default.calendar")) {
-  from <- as.Date(from)
+  from <- to_date(from)
   bizseq(from, to, cal)
 }
 
 #' @export
 bizseq.Date <- function(from, to,
                         cal = bizdays.options$get("default.calendar")) {
-  to <- as.Date(to)
+  to <- to_date(to)
   cal <- check_calendar(cal)
   if (!any(from >= cal$start.date & from <= cal$end.date)) {
     stop("Given date out of range.")

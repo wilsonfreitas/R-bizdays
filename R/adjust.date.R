@@ -50,7 +50,7 @@ following <- function(dates, cal) UseMethod("following")
 #' @export
 adjust.next.default <- function(dates,
                                 cal = bizdays.options$get("default.calendar")) {
-  dates <- as.Date(dates)
+  dates <- to_date(dates)
   adjust.next(dates, cal)
 }
 
@@ -87,7 +87,7 @@ modified.following.default <- function(dates,
                                        cal = bizdays.options$get(
                                          "default.calendar"
                                        )) {
-  dates <- as.Date(dates)
+  dates <- to_date(dates)
   modified.following(dates, cal)
 }
 
@@ -122,7 +122,7 @@ adjust.previous.default <- function(dates,
                                     cal = bizdays.options$get(
                                       "default.calendar"
                                     )) {
-  dates <- as.Date(dates)
+  dates <- to_date(dates)
   adjust.previous(dates, cal)
 }
 
@@ -157,7 +157,7 @@ modified.preceding.default <- function(dates,
                                        cal = bizdays.options$get(
                                          "default.calendar"
                                        )) {
-  dates <- as.Date(dates)
+  dates <- to_date(dates)
   modified.preceding(dates, cal)
 }
 

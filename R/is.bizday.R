@@ -31,7 +31,7 @@ is.bizday <- function(dates, cal) UseMethod("is.bizday")
 #' @export
 is.bizday.default <- function(dates,
                               cal = bizdays.options$get("default.calendar")) {
-  dates <- as.Date(dates)
+  dates <- to_date(dates)
   is.bizday(dates, cal)
 }
 

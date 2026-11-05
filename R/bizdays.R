@@ -47,14 +47,14 @@ bizdays <- function(from, to, cal) UseMethod("bizdays")
 #' @export
 bizdays.default <- function(from, to,
                             cal = bizdays.options$get("default.calendar")) {
-  from <- as.Date(from)
+  from <- to_date(from)
   bizdays(from, to, cal)
 }
 
 #' @export
 bizdays.Date <- function(from, to,
                          cal = bizdays.options$get("default.calendar")) {
-  to <- as.Date(to)
+  to <- to_date(to)
   # ---
   if (all(is.na(to))) {
     return(rep(NA, max(length(to), length(from))))
@@ -150,7 +150,7 @@ bizdayse <- function(dates, curd, cal) UseMethod("bizdayse")
 #' @export
 bizdayse.default <- function(dates, curd,
                              cal = bizdays.options$get("default.calendar")) {
-  dates <- as.Date(dates)
+  dates <- to_date(dates)
   bizdayse(dates, curd, cal)
 }
 
@@ -158,4 +158,9 @@ bizdayse.default <- function(dates, curd,
 bizdayse.Date <- function(dates, curd,
                           cal = bizdays.options$get("default.calendar")) {
   bizdays(dates, dates + curd, cal)
+}
+# as.Date() converts POSIXct in UTC, ignoring its time zone (#109, #111);
+# format() uses the object's own time zone.
+to_date <- function(x) {
+  if (inherits(x, "POSIXt")) as.Date(format(x, "%Y-%m-%d")) else as.Date(x)
 }

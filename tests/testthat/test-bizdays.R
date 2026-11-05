@@ -139,3 +139,11 @@ test_that("it should compute the business days equivalent to current days", {
   cal <- calendars()[["Brazil/ANBIMA"]]
   expect_equal(bizdayse("2013-08-21", 3, cal), 2)
 })
+test_that("POSIXct dates use their own time zone (#109, #111)", {
+  sat_nz <- as.POSIXct("2025-01-04", tz = "Pacific/Auckland")
+  expect_equal(following(sat_nz, "weekends"), as.Date("2025-01-06"))
+  expect_true(!is.bizday(sat_nz, "weekends"))
+  late_sp <- as.POSIXct("2024-03-05 23:57:07", tz = "America/Sao_Paulo")
+  expect_equal(offset(late_sp, -1, "Brazil/ANBIMA"), as.Date("2024-03-04"))
+  expect_equal(bizdays(late_sp, "2024-03-06", "Brazil/ANBIMA"), 1)
+})

@@ -25,7 +25,7 @@ bizdiff <- function(dates, cal) UseMethod("bizdiff")
 #' @export
 bizdiff.default <- function(dates,
                             cal = bizdays.options$get("default.calendar")) {
-  dates <- as.Date(dates)
+  dates <- to_date(dates)
   bizdiff(dates, cal)
 }
 

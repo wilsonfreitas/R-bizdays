@@ -49,7 +49,7 @@ add.bizdays <- function(dates, n, cal) UseMethod("add.bizdays")
 #' @export
 add.bizdays.default <- function(dates, n,
                                 cal = bizdays.options$get("default.calendar")) {
-  dates <- as.Date(dates)
+  dates <- to_date(dates)
   add.bizdays(dates, n, cal)
 }
 
