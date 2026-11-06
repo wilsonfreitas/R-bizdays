@@ -1,5 +1,7 @@
 # bizdays 1.0.18
 
+  * New function `missing_bizdays()`: returns the business days missing in a sequence of dates (#67).
+
   * BUG: `POSIXct` dates were converted to `Date` in UTC, ignoring their time zone, so a date-time near midnight or in a time zone far from UTC could become the wrong day (#109, #111).
 
   * BUG in `getdate()`: `"next <weekday>"` and `"last <weekday>"` with a date reference returned the wrong weekday for 21 of the 49 (reference, target) weekday pairs (e.g. `"next mon"` from a Wednesday gave a Friday).
