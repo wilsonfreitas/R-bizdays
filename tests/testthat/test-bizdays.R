@@ -147,3 +147,22 @@ test_that("POSIXct dates use their own time zone (#109, #111)", {
   expect_equal(offset(late_sp, -1, "Brazil/ANBIMA"), as.Date("2024-03-04"))
   expect_equal(bizdays(late_sp, "2024-03-06", "Brazil/ANBIMA"), 1)
 })
+
+test_that("bizdays is 0 when no business day is in the range (#114)", {
+  cal <- "Brazil/ANBIMA"
+  expect_equal(bizdays("2024-01-06", "2024-01-07", cal), 0) # Sat -> Sun
+  expect_equal(bizdays("2024-02-10", "2024-02-13", cal), 0) # Carnival
+  expect_equal(bizdays("2024-01-07", "2024-01-06", cal), 0) # reversed
+  expect_equal(bizdayse("2024-01-06", 1, cal), 0)
+  # other ranges in the same vector are not changed
+  expect_equal(
+    bizdays(c("2024-01-06", "2024-01-05", NA), c("2024-01-07", "2024-01-08", "2024-01-08"), cal),
+    c(0, 1, NA)
+  )
+  for (fin in c(TRUE, FALSE)) {
+    create.calendar("test-114", weekdays = c("saturday", "sunday"),
+                    adjust.from = adjust.none, adjust.to = adjust.previous,
+                    financial = fin)
+    expect_equal(bizdays("2024-01-06", "2024-01-07", "test-114"), 0)
+  }
+})

@@ -24,10 +24,12 @@
 #' \code{from} and \code{to} are adjusted when nonworking dates are
 #' provided. Since \code{bizdays} function returns the amount of business days
 #' between 2 dates, it must start and end in business days.
-#' The default behavior, that is defined in \code{Calendar}'s instantiation with
-#' \code{adjust.from} and \code{adjust.to}, reproduces the Excel's NETWORKDAYS.
+#' How they are adjusted is defined by the calendar's \code{adjust.from} and
+#' \code{adjust.to} arguments (see \code{\link{create.calendar}}).
 #' A common and useful setting is \code{adjust.to=adjust.next} which moves
 #' expiring maturities to the next business day, once it is not.
+#' If there is no business day between \code{from} and \code{to}, the result
+#' is 0.
 #'
 #' @return
 #' \code{integer} objects representing the amount of business days.
@@ -83,6 +85,9 @@ bizdays.Date <- function(from, to,
   new.to[idx] <- from[idx]
   new.from <- cal$adjust.from(new.from, cal)
   new.to <- cal$adjust.to(new.to, cal)
+  # adjusted dates cross when no business day is in the range (#114)
+  empty <- new.from > new.to
+  empty[is.na(empty)] <- FALSE
   bdays <- cal$bizdays(as.integer(new.from), as.integer(new.to))
   bdays[idx] <- -bdays[idx]
   adj_vec <- as.integer(!(cal$is.bizday(as.integer(new.from)) |
@@ -94,12 +99,12 @@ bizdays.Date <- function(from, to,
       (!cal$is.bizday(as.integer(new.to))) &
       abs(bdays) == 1
     bdays[w] <- 0
-    bdays
   } else {
     bdays[!idx] <- bdays[!idx] + 1
     bdays[idx] <- bdays[idx] - 1
-    bdays
   }
+  bdays[empty] <- 0
+  bdays
 }
 
 #' Business days and current days equivalence
