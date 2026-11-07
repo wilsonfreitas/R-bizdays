@@ -42,10 +42,12 @@ and once those vectors differs in length the recycle rule is applied.
 \code{from} and \code{to} are adjusted when nonworking dates are
 provided. Since \code{bizdays} function returns the amount of business days
 between 2 dates, it must start and end in business days.
-The default behavior, that is defined in \code{Calendar}'s instantiation with
-\code{adjust.from} and \code{adjust.to}, reproduces the Excel's NETWORKDAYS.
+How they are adjusted is defined by the calendar's \code{adjust.from} and
+\code{adjust.to} arguments (see \code{\link{create.calendar}}).
 A common and useful setting is \code{adjust.to=adjust.next} which moves
 expiring maturities to the next business day, once it is not.
+If there is no business day between \code{from} and \code{to}, the result
+is 0.
 }
 
 \examples{

@@ -2,6 +2,10 @@
 
   * New function `missing_bizdays()`: returns the business days missing in a sequence of dates (#67).
 
+  * BUG: `bizdays()` returned -1 instead of 0 when both dates fall in the same non-business stretch (e.g. Saturday to Sunday) with the adjustment used by the built-in calendars (#114).
+
+  * Fixed the docs of `create.calendar()` and `bizdays()`, which described the wrong `adjust.from`/`adjust.to` defaults (#115).
+
   * BUG: `POSIXct` dates were converted to `Date` in UTC, ignoring their time zone, so a date-time near midnight or in a time zone far from UTC could become the wrong day (#109, #111).
 
   * BUG in `getdate()`: `"next <weekday>"` and `"last <weekday>"` with a date reference returned the wrong weekday for 21 of the 49 (reference, target) weekday pairs (e.g. `"next mon"` from a Wednesday gave a Friday).

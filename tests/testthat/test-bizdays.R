@@ -139,6 +139,7 @@ test_that("it should compute the business days equivalent to current days", {
   cal <- calendars()[["Brazil/ANBIMA"]]
   expect_equal(bizdayse("2013-08-21", 3, cal), 2)
 })
+
 test_that("POSIXct dates use their own time zone (#109, #111)", {
   sat_nz <- as.POSIXct("2025-01-04", tz = "Pacific/Auckland")
   expect_equal(following(sat_nz, "weekends"), as.Date("2025-01-06"))
@@ -206,4 +207,23 @@ test_that("missing_bizdays is fast on long series", {
   )[["elapsed"]]
   expect_equal(res, dates[drop])
   expect_lt(elapsed / 10, 0.5)
+})
+
+test_that("bizdays is 0 when no business day is in the range (#114)", {
+  cal <- "Brazil/ANBIMA"
+  expect_equal(bizdays("2024-01-06", "2024-01-07", cal), 0) # Sat -> Sun
+  expect_equal(bizdays("2024-02-10", "2024-02-13", cal), 0) # Carnival
+  expect_equal(bizdays("2024-01-07", "2024-01-06", cal), 0) # reversed
+  expect_equal(bizdayse("2024-01-06", 1, cal), 0)
+  # other ranges in the same vector are not changed
+  expect_equal(
+    bizdays(c("2024-01-06", "2024-01-05", NA), c("2024-01-07", "2024-01-08", "2024-01-08"), cal),
+    c(0, 1, NA)
+  )
+  for (fin in c(TRUE, FALSE)) {
+    create.calendar("test-114", weekdays = c("saturday", "sunday"),
+                    adjust.from = adjust.none, adjust.to = adjust.previous,
+                    financial = fin)
+    expect_equal(bizdays("2024-01-06", "2024-01-07", "test-114"), 0)
+  }
 })

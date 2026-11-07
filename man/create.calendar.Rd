@@ -82,12 +82,16 @@ use \code{weekdays=c("saturday", "sunday")}.
 
 The arguments \code{adjust.from} and \code{adjust.to} are used to adjust
 \code{bizdays}' arguments
-\code{from} and \code{to}, respectively.
-These arguments need to be adjusted when nonworking days are provided.
-The default behavior, setting \code{adjust.from=adjust.previous} and
-\code{adjust.to=adjust.next},
-works like Excel's function NETWORKDAYS, since that is fairly used by a
-great number of practitioners.
+\code{from} and \code{to}, respectively, when they are nonworking days.
+They accept \code{adjust.none}, \code{adjust.next} (\code{following}) and
+\code{adjust.previous} (\code{preceding}).
+The default is \code{adjust.none} for both.
+The built-in calendars (\code{Brazil/ANBIMA}, \code{Brazil/B3},
+\code{Brazil/BMF} and \code{weekends}) use \code{adjust.from=following} and
+\code{adjust.to=preceding}.
+A non financial calendar (\code{financial=FALSE}) with the default
+adjustment counts business days like Excel's function NETWORKDAYS.
+See the examples for how the adjustment changes the result.
 }
 \section{Calendars register}{
 
@@ -119,6 +123,15 @@ cal <- create.calendar("Actual")
 # named calendars can be accessed by its name
 create.calendar(name = "Actual")
 bizdays("2016-01-01", "2016-03-14", "Actual")
+
+# the adjustment matters when from or to is a nonworking day
+create.calendar("WE-none", weekdays = c("saturday", "sunday"))
+create.calendar("WE-prev",
+  weekdays = c("saturday", "sunday"),
+  adjust.from = preceding, adjust.to = preceding
+)
+bizdays("2024-01-06", "2024-01-13", "WE-none") # Sat to Sat: 4
+bizdays("2024-01-06", "2024-01-13", "WE-prev") # Fri to Fri: 5
 }
 \seealso{
 \code{\link{calendars}}, \code{\link{bizdays}}
