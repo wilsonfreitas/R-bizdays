@@ -61,6 +61,19 @@ bizdays("2022-02-01", "2022-02-28", "Rmetrics/NYSE")
 
 > So, unless you really need a new calendar, you don't have to create them.
 
+## Load public holidays from Nager.Date
+
+`load_nager_calendar()` downloads the public holidays of about 200 countries
+from [Nager.Date](https://date.nager.at) (needs internet access).
+These are public holidays, not exchange calendars.
+
+```{r, eval=FALSE}
+load_nager_calendar("US", 2020:2030)
+bizdays("2024-01-01", "2024-12-31", "Nager/US")
+# save it to use offline
+save_calendar("Nager/US", "us.json")
+```
+
 # Usage
 
 ## Count bizdays

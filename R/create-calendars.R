@@ -248,3 +248,97 @@ load_rmetrics_calendars <- function(year, financial = TRUE) {
   )
   message("Calendar ", cal_name, " loaded")
 }
+#' Calendars from the Nager.Date public holidays API
+#'
+#' Creates a calendar with the public holidays of a country downloaded from
+#' \url{https://date.nager.at}, a free API with holidays for about 200
+#' countries.
+#'
+#' @param country the country code with 2 letters (ISO 3166-1 alpha-2), like
+#'   \code{"BR"} or \code{"US"}.
+#' @param years the years to download. All years from \code{min(years)} to
+#'   \code{max(years)} are downloaded, so the calendar has no gaps.
+#' @param name the calendar's name, defaults to \code{"Nager/<country>"}.
+#' @param weekdays the nonworking weekdays (see \code{\link{create.calendar}}).
+#'   Nager.Date does not provide them, so set them for countries whose weekend
+#'   is not Saturday and Sunday.
+#' @param subdivision an optional region code, like \code{"BR-SP"} or
+#'   \code{"US-NY"}. Its regional holidays are added to the national ones.
+#' @param financial is a logical argument that defaults to TRUE
+#'   (see \code{\link{create.calendar}}).
+#'
+#' @details
+#' Only national holidays are used, plus the holidays of \code{subdivision}
+#' if given.
+#' The calendar covers from January 1st of the first year to December 31st of
+#' the last year and uses \code{adjust.from=following} and
+#' \code{adjust.to=preceding}, like the built-in calendars.
+#'
+#' These are public holidays, not exchange calendars: special market closures
+#' and half days are not included.
+#' Future years are computed from the current rules, so new holidays only
+#' appear once Nager.Date adds them.
+#'
+#' This function needs internet access. Use \code{\link{save_calendar}} to
+#' keep the calendar and \code{\link{load_calendar}} to use it offline.
+#'
+#' @return The calendar, invisibly. It is also stored in the calendar register.
+#'
+#' @seealso \code{\link{create.calendar}}, \code{\link{save_calendar}}
+#'
+#' @examples
+#' \donttest{
+#' load_nager_calendar("BR", 2024:2025)
+#' bizdays("2024-01-01", "2024-12-31", "Nager/BR")
+#' # with the holidays of the state of Sao Paulo
+#' load_nager_calendar("BR", 2024, name = "Nager/BR-SP", subdivision = "BR-SP")
+#' }
+#' @export
+load_nager_calendar <- function(country, years,
+                                name = paste0("Nager/", toupper(country)),
+                                weekdays = c("saturday", "sunday"),
+                                subdivision = NULL, financial = TRUE) {
+  if (!is.character(country) || length(country) != 1 ||
+    !grepl("^[A-Za-z]{2}$", country)) {
+    stop("country must be a 2-letter country code, like \"BR\".", call. = FALSE)
+  }
+  if (!is.numeric(years) || !length(years) || anyNA(years)) {
+    stop("years must be a vector of years without NA.", call. = FALSE)
+  }
+  country <- toupper(country)
+  years <- seq(as.integer(min(years)), as.integer(max(years)))
+  holidays_ <- lapply(years, function(year) {
+    url <- sprintf(
+      "https://date.nager.at/api/v3/PublicHolidays/%d/%s", year, country
+    )
+    # url() reports the HTTP status as a warning before failing
+    x <- tryCatch(jsonlite::fromJSON(url), warning = identity, error = identity)
+    if (inherits(x, "condition")) {
+      stop("Could not get the holidays of ", country, " in ", year,
+        " from date.nager.at: ", conditionMessage(x),
+        call. = FALSE
+      )
+    }
+    nager_holidays(x, subdivision)
+  })
+  holidays_ <- sort(unique(do.call(c, holidays_)))
+  cal <- create.calendar(name,
+    holidays = holidays_,
+    weekdays = weekdays,
+    start.date = as.Date(paste0(min(years), "-01-01")),
+    end.date = as.Date(paste0(max(years), "-12-31")),
+    adjust.from = adjust.next, adjust.to = adjust.previous,
+    financial = financial
+  )
+  message("Calendar ", name, " loaded")
+  invisible(cal)
+}
+
+# national holidays, plus the ones of subdivision, from a parsed API response
+nager_holidays <- function(x, subdivision = NULL) {
+  if (!length(x)) {
+    return(as.Date(character(0)))
+  }
+  regional <- vapply(x$counties, function(c) any(subdivision %in% c), logical(1))
+  as.Date(x$date[x$global | regional])
+}
