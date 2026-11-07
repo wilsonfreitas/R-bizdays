@@ -164,12 +164,16 @@ To define the weekend as the nonworking weekdays one could simply
 use <code>weekdays=c("saturday", "sunday")</code>.</p>
 <p>The arguments <code>adjust.from</code> and <code>adjust.to</code> are used to adjust
 <code>bizdays</code>' arguments
-<code>from</code> and <code>to</code>, respectively.
-These arguments need to be adjusted when nonworking days are provided.
-The default behavior, setting <code>adjust.from=adjust.previous</code> and
-<code>adjust.to=adjust.next</code>,
-works like Excel's function NETWORKDAYS, since that is fairly used by a
-great number of practitioners.</p>
+<code>from</code> and <code>to</code>, respectively, when they are nonworking days.
+They accept <code>adjust.none</code>, <code>adjust.next</code> (<code>following</code>) and
+<code>adjust.previous</code> (<code>preceding</code>).
+The default is <code>adjust.none</code> for both.
+The built-in calendars (<code>Brazil/ANBIMA</code>, <code>Brazil/B3</code>,
+<code>Brazil/BMF</code> and <code>weekends</code>) use <code>adjust.from=following</code> and
+<code>adjust.to=preceding</code>.
+A non financial calendar (<code>financial=FALSE</code>) with the default
+adjustment counts business days like Excel's function NETWORKDAYS.
+See the examples for how the adjustment changes the result.</p>
     </div>
     <div id="calendars-register">
     <h2>Calendars register</h2>
@@ -209,6 +213,17 @@ Given that, naming calendars is strongly recommended.</p>
 <span class="r-in"><span><span class="fu">create.calendar</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Actual"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="bizdays.html">bizdays</a></span><span class="op">(</span><span class="st">"2016-01-01"</span>, <span class="st">"2016-03-14"</span>, <span class="st">"Actual"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 73</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># the adjustment matters when from or to is a nonworking day</span></span></span>
+<span class="r-in"><span><span class="fu">create.calendar</span><span class="op">(</span><span class="st">"WE-none"</span>, weekdays <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"saturday"</span>, <span class="st">"sunday"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">create.calendar</span><span class="op">(</span><span class="st">"WE-prev"</span>,</span></span>
+<span class="r-in"><span>  weekdays <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"saturday"</span>, <span class="st">"sunday"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  adjust.from <span class="op">=</span> <span class="va">preceding</span>, adjust.to <span class="op">=</span> <span class="va">preceding</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="bizdays.html">bizdays</a></span><span class="op">(</span><span class="st">"2024-01-06"</span>, <span class="st">"2024-01-13"</span>, <span class="st">"WE-none"</span><span class="op">)</span> <span class="co"># Sat to Sat: 4</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-in"><span><span class="fu"><a href="bizdays.html">bizdays</a></span><span class="op">(</span><span class="st">"2024-01-06"</span>, <span class="st">"2024-01-13"</span>, <span class="st">"WE-prev"</span><span class="op">)</span> <span class="co"># Fri to Fri: 5</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
 </code></pre></div>
     </div>
   </div>

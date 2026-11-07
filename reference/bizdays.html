@@ -120,10 +120,12 @@ and once those vectors differs in length the recycle rule is applied.</p>
 <p><code>from</code> and <code>to</code> are adjusted when nonworking dates are
 provided. Since <code>bizdays</code> function returns the amount of business days
 between 2 dates, it must start and end in business days.
-The default behavior, that is defined in <code>Calendar</code>'s instantiation with
-<code>adjust.from</code> and <code>adjust.to</code>, reproduces the Excel's NETWORKDAYS.
+How they are adjusted is defined by the calendar's <code>adjust.from</code> and
+<code>adjust.to</code> arguments (see <code><a href="create.calendar.html">create.calendar</a></code>).
 A common and useful setting is <code>adjust.to=adjust.next</code> which moves
-expiring maturities to the next business day, once it is not.</p>
+expiring maturities to the next business day, once it is not.
+If there is no business day between <code>from</code> and <code>to</code>, the result
+is 0.</p>
     </div>
 
     <div id="ref-examples">
