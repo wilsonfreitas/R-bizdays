@@ -139,6 +139,7 @@ test_that("it should compute the business days equivalent to current days", {
   cal <- calendars()[["Brazil/ANBIMA"]]
   expect_equal(bizdayse("2013-08-21", 3, cal), 2)
 })
+
 test_that("POSIXct dates use their own time zone (#109, #111)", {
   sat_nz <- as.POSIXct("2025-01-04", tz = "Pacific/Auckland")
   expect_equal(following(sat_nz, "weekends"), as.Date("2025-01-06"))
@@ -146,6 +147,66 @@ test_that("POSIXct dates use their own time zone (#109, #111)", {
   late_sp <- as.POSIXct("2024-03-05 23:57:07", tz = "America/Sao_Paulo")
   expect_equal(offset(late_sp, -1, "Brazil/ANBIMA"), as.Date("2024-03-04"))
   expect_equal(bizdays(late_sp, "2024-03-06", "Brazil/ANBIMA"), 1)
+})
+
+context("missing_bizdays")
+
+test_that("missing_bizdays finds removed business days", {
+  cal <- "Brazil/ANBIMA"
+  dates <- bizseq("2024-01-02", "2024-01-31", cal)
+  expect_equal(missing_bizdays(dates, cal), as.Date(character(0)))
+  expect_equal(
+    missing_bizdays(dates[-c(3, 10)], cal),
+    as.Date(c("2024-01-04", "2024-01-15"))
+  )
+  # non-business days and duplicates in dates are ignored
+  expect_equal(
+    missing_bizdays(c(dates[-3], as.Date("2024-01-06"), dates[1]), cal),
+    as.Date("2024-01-04")
+  )
+  expect_equal(
+    missing_bizdays(as.character(dates[-3]), cal),
+    as.Date("2024-01-04")
+  )
+})
+
+test_that("missing_bizdays uses from and to", {
+  cal <- "Brazil/ANBIMA"
+  dates <- bizseq("2024-01-02", "2024-01-31", cal)
+  expect_equal(
+    missing_bizdays(dates, cal, to = "2024-02-02"),
+    as.Date(c("2024-02-01", "2024-02-02"))
+  )
+  expect_equal(
+    missing_bizdays(dates[-1], cal, from = "2024-01-01"),
+    as.Date("2024-01-02")
+  )
+})
+
+test_that("missing_bizdays handles empty and NA input", {
+  expect_equal(missing_bizdays(as.Date(character(0)), "weekends"),
+               as.Date(character(0)))
+  expect_equal(missing_bizdays(as.Date(NA), "weekends"), as.Date(character(0)))
+  expect_equal(
+    missing_bizdays(as.Date(c("2024-01-01", NA, "2024-01-03")), "weekends"),
+    as.Date("2024-01-02")
+  )
+  expect_error(missing_bizdays("1900-01-02", "Brazil/ANBIMA"),
+               "Given date out of range.")
+})
+
+test_that("missing_bizdays is fast on long series", {
+  skip_on_cran()
+  cal <- "Brazil/ANBIMA"
+  # every business day of the calendar's range (~19,000 dates), 1% removed
+  dates <- bizseq(calendars()[[cal]]$start.date, calendars()[[cal]]$end.date, cal)
+  set.seed(1)
+  drop <- sort(sample(seq_along(dates)[-c(1, length(dates))], length(dates) %/% 100))
+  elapsed <- system.time(
+    for (i in 1:10) res <- missing_bizdays(dates[-drop], cal)
+  )[["elapsed"]]
+  expect_equal(res, dates[drop])
+  expect_lt(elapsed / 10, 0.5)
 })
 
 test_that("bizdays is 0 when no business day is in the range (#114)", {

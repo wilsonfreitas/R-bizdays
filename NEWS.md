@@ -1,5 +1,7 @@
 # bizdays 1.0.18
 
+  * New function `missing_bizdays()`: returns the business days missing in a sequence of dates (#67).
+
   * BUG: `bizdays()` returned -1 instead of 0 when both dates fall in the same non-business stretch (e.g. Saturday to Sunday) with the adjustment used by the built-in calendars (#114).
 
   * Fixed the docs of `create.calendar()` and `bizdays()`, which described the wrong `adjust.from`/`adjust.to` defaults (#115).
