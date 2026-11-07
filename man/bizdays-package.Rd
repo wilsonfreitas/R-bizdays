@@ -29,6 +29,7 @@ operations and handle the recycle rule.
 \seealso{
 Useful links:
 \itemize{
+  \item \url{http://wilsonfreitas.github.io/R-bizdays/}
   \item \url{https://github.com/wilsonfreitas/R-bizdays}
 }
 
