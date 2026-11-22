@@ -62,7 +62,7 @@ getdate <- function(expr, ref, cal = bizdays.options$get("default.calendar")) {
   ref <- ref(ref)
   tok <- strsplit(expr, "\\s+")[[1]]
   if (length(tok) != 2) {
-    stop("Invalid expr", expr)
+    stop("Invalid expr: ", expr)
   }
   n <- getnth_(tok[1])
   if (tok[2] == "day") {
@@ -73,7 +73,7 @@ getdate <- function(expr, ref, cal = bizdays.options$get("default.calendar")) {
     wday <- which(tok[2] == WEEKDAYS)
     getnthweekday(ref, n, wday, cal)
   } else {
-    stop("Invalid expr", expr)
+    stop("Invalid expr: ", expr)
   }
 }
 
@@ -150,10 +150,6 @@ ref_by_day <- function(dates) {
   )
   structure(that, class = c("ref", "by_day"))
 }
-
-MONTH <- function(x) as.integer(format(x, "%m"))
-
-YEAR <- function(x) as.integer(format(x, "%Y"))
 
 nth2int <- function(x) {
   rx <- regexec("^(\\d+)th$", x)

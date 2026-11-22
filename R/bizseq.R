@@ -41,7 +41,7 @@ bizseq.Date <- function(from, to,
     stop("Given date out of range.")
   }
   if (!all(from <= to)) {
-    stop("All from dates must be greater than all to dates.")
+    stop("All from dates must be less than or equal to all to dates.")
   }
   from <- as.integer(from)
   to <- as.integer(to)

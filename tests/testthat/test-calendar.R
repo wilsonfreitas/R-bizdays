@@ -556,3 +556,74 @@ test_that("it should import a calendar", {
   expect_equal(cal$financial, TRUE)
   expect_equal(cal$weekdays, c("saturday", "sunday"))
 })
+context("calendar printing, accessors and errors")
+
+test_that("it should print a calendar and the register", {
+  out <- capture.output(print(calendars()[["Brazil/B3"]]))
+  expect_match(out[1], "Brazil/B3 financial calendar")
+  expect_true(any(grepl("2 weekdays \\(saturday, sunday\\)", out)))
+  expect_true(any(grepl("range from 1990-01-01 to 2079-01-01", out)))
+  expect_true(any(grepl("from: following", out)))
+  expect_true(any(grepl("to:   preceding", out)))
+
+  cal <- create.calendar("test-print", financial = FALSE)
+  out <- capture.output(print(cal))
+  expect_match(out[1], "test-print non financial calendar")
+  expect_true(any(grepl("0 weekdays", out)))
+
+  expect_output(print(calendars()), "Calendars:")
+  expect_output(print(calendars()), "Brazil/B3")
+})
+
+test_that("it should return holidays and weekdays of a calendar", {
+  cal <- calendars()[["Brazil/ANBIMA"]]
+  expect_equal(holidays("Brazil/ANBIMA"), cal$holidays)
+  expect_equal(holidays(cal), cal$holidays)
+  expect_equal(weekdays("Brazil/ANBIMA"), c("saturday", "sunday"))
+  expect_equal(weekdays(cal), c("saturday", "sunday"))
+  expect_error(holidays(1), "Invalid calendar")
+  expect_error(weekdays(1), "Invalid calendar")
+})
+
+test_that("it should raise errors for invalid calendars", {
+  expect_error(bizdays("2024-01-01", "2024-01-10", NULL), "Given calendar is NULL")
+  expect_error(bizdays("2024-01-01", "2024-01-10", "No/Calendar"), "Invalid calendar name")
+  expect_error(bizdays("2024-01-01", "2024-01-10", 1), "Invalid argument")
+})
+
+test_that("it should raise errors for dates out of the calendar range", {
+  dt <- as.Date("1980-01-01")
+  cal <- "Brazil/ANBIMA"
+  for (f in list(following, preceding, modified.following, modified.preceding)) {
+    expect_error(f(dt, cal), "Given date out of range")
+  }
+  expect_error(is.bizday(dt, cal), "Given date out of range")
+  expect_error(bizdiff(c(dt, dt + 1), cal), "Given date out of range")
+  expect_error(bizseq(dt, "2024-01-01", cal), "Given date out of range")
+  expect_error(bizseq("2024-01-01", dt, cal), "Given date out of range")
+  expect_error(
+    bizseq("2024-01-10", "2024-01-01", cal),
+    "must be less than or equal to all to dates"
+  )
+})
+
+test_that("save_calendar writes the adjust rules and load_calendar reads them", {
+  f <- tempfile(fileext = ".json")
+  on.exit(unlink(f))
+  create.calendar("test-export",
+    holidays = "2024-01-01", weekdays = c("saturday", "sunday"),
+    adjust.from = adjust.next, adjust.to = adjust.previous
+  )
+  save_calendar("test-export", f)
+  x <- jsonlite::fromJSON(f)
+  expect_equal(x$adjust.from, "following")
+  expect_equal(x$adjust.to, "preceding")
+
+  create.calendar("test-export-none")
+  save_calendar("test-export-none", f)
+  x <- jsonlite::fromJSON(f)
+  expect_null(x$adjust.from)
+  expect_null(x$adjust.to)
+  cal <- load_calendar(f)
+  expect_equal(cal$adjust.from_label, "none")
+})

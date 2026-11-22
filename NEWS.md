@@ -1,5 +1,7 @@
 # bizdays 1.0.18
 
+  * Test coverage raised from 79.7% to 96.0% (#120). Fixed two error messages found on the way: `getdate()` ("Invalid expr" had no space before the expression) and `bizseq()` (said "greater than" instead of "less than or equal to").
+
   * New function `missing_bizdays()`: returns the business days missing in a sequence of dates (#67).
 
   * BUG: `bizdays()` returned -1 instead of 0 when both dates fall in the same non-business stretch (e.g. Saturday to Sunday) with the adjustment used by the built-in calendars (#114).
