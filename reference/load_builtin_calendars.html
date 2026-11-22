@@ -78,16 +78,39 @@
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>- actual
-- weekends
-- Brazil/ANBIMA
-- Brazil/B3</p>
-<p>This function creates and registers these calendars.
+
+<ul><li><p><code>actual</code>: every day is a business day.</p></li>
+<li><p><code>weekends</code>: Saturdays and Sundays are not business days; no holidays.</p></li>
+<li><p><code>Brazil/ANBIMA</code>: Brazilian national banking holidays, from 2001 to 2079.</p></li>
+<li><p><code>Brazil/BMF</code>: the same holidays as <code>Brazil/ANBIMA</code>, but it starts in 1990.</p></li>
+<li><p><code>Brazil/B3</code>: days without a trading session at the B3 exchange, from
+1990 to 2079.</p></li>
+</ul><p>This function creates and registers these calendars.
 Once the calendars are loaded they can be used directly by their names.</p>
-<p>This function is called in package `.onAttach`, so it is not necessary to
+<p>This function is called in package <code>.onAttach</code>, so it is not necessary to
 call it directly.
 It is for internal use, package development or in situations where the
 user wants to call bizdays functions without attach the package.</p>
+    </div>
+    <div id="differences-between-brazil-b-and-brazil-bmf">
+    <h2>Differences between <code>Brazil/B3</code> and <code>Brazil/BMF</code></h2>
+
+
+<p>The two calendars have the same weekdays and settings, and every holiday of
+<code>Brazil/BMF</code> is also a holiday of <code>Brazil/B3</code>. They are equal from 1990 to
+2000. Since 2001 <code>Brazil/B3</code> has these extra days without a trading session:</p><ul><li><p>December 24th and the last weekday of the year (December 31st, or the
+Friday before it when December 31st falls on a weekend). Banks are open
+for internal work on these days, so they are business days in
+<code>Brazil/BMF</code> and <code>Brazil/ANBIMA</code>.</p></li>
+<li><p>The São Paulo holidays January 25th and July 9th, from 2001 to 2021
+(except 2020-07-09, when B3 was open). Since 2022 B3 trades on these days.</p></li>
+<li><p>November 20th (Black Consciousness Day) from 2006 to 2019, when it was a
+São Paulo city holiday only (it was not a closing day in 2020). Since 2024 it is a national holiday and it
+is in both calendars.</p></li>
+<li><p>2014-06-12, the opening day of the World Cup in São Paulo.</p></li>
+</ul><p>Up to 2027 the <code>Brazil/B3</code> holidays come from the calendars published by
+B3. After 2027 they are estimated by a rule: the <code>Brazil/ANBIMA</code> holidays
+plus December 24th and the last weekday of the year.</p>
     </div>
 
     <div id="ref-examples">
