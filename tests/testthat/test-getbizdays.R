@@ -92,3 +92,10 @@ test_that("massive test with getbizdays Brazil/B3 calendar", {
 
   expect_true(all(diffs == 0))
 })
+
+test_that("Brazil/B3 calendar goes to 2079 (#118)", {
+  expect_equal(calendars()[["Brazil/B3"]]$end.date, as.Date("2079-01-01"))
+  # 2028-12-31 is a Sunday: B3 closes on the last weekday, Friday 2028-12-29
+  expect_equal(is.bizday(as.Date(c("2027-12-24", "2027-12-31", "2028-12-29")), "Brazil/B3"), rep(FALSE, 3))
+  expect_true(is.bizday(as.Date("2028-12-28"), "Brazil/B3"))
+})
