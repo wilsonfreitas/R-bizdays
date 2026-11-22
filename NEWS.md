@@ -1,22 +1,24 @@
-# bizdays 1.0.18
-
-  * Test coverage raised from 79.7% to 96.0% (#120). Fixed two error messages found on the way: `getdate()` ("Invalid expr" had no space before the expression) and `bizseq()` (said "greater than" instead of "less than or equal to").
+# bizdays 1.0.19
 
   * New function `missing_bizdays()`: returns the business days missing in a sequence of dates (#67).
 
   * BUG: `bizdays()` returned -1 instead of 0 when both dates fall in the same non-business stretch (e.g. Saturday to Sunday) with the adjustment used by the built-in calendars (#114).
 
-  * Fixed the docs of `create.calendar()` and `bizdays()`, which described the wrong `adjust.from`/`adjust.to` defaults (#115).
-
   * BUG: `POSIXct` dates were converted to `Date` in UTC, ignoring their time zone, so a date-time near midnight or in a time zone far from UTC could become the wrong day (#109, #111).
 
-  * BUG in `getdate()`: `"next <weekday>"` and `"last <weekday>"` with a date reference returned the wrong weekday for 21 of the 49 (reference, target) weekday pairs (e.g. `"next mon"` from a Wednesday gave a Friday).
-
-  * `Brazil/B3` Calendar updated: added holidays from 2026.
+  * Fixed the docs of `create.calendar()` and `bizdays()`, which described the wrong `adjust.from`/`adjust.to` defaults (#115).
 
   * `Brazil/B3` Calendar extended to 2079, like `Brazil/ANBIMA` and `Brazil/BMF`: holidays after 2026 are the `Brazil/ANBIMA` holidays plus December 24th and the last weekday of the year (#118). The 2027 holidays match B3 Ofício Circular 057/2026-VNC.
 
   * Documented the built-in calendars in `?load_builtin_calendars`, including `Brazil/BMF` (missing from the list) and the differences between `Brazil/B3` and `Brazil/BMF`.
+
+  * Test coverage raised from 79.7% to 96.0% (#120). Fixed two error messages found on the way: `getdate()` ("Invalid expr" had no space before the expression) and `bizseq()` (said "greater than" instead of "less than or equal to").
+
+# bizdays 1.0.18
+
+  * BUG in `getdate()`: `"next <weekday>"` and `"last <weekday>"` with a date reference returned the wrong weekday for 21 of the 49 (reference, target) weekday pairs (e.g. `"next mon"` from a Wednesday gave a Friday).
+
+  * `Brazil/B3` Calendar updated: added holidays from 2026.
 
   * `load_quantlib_calendars()` no longer loads `QuantLib/Italy/Exchange`, which was removed from recent QuantLib releases, and skips with a warning any calendar that RQuantLib does not recognise (fixes CRAN check errors).
 
