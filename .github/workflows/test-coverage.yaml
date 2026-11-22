@@ -23,13 +23,26 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::covr
+          extra-packages: any::covr, any::xml2
           needs: coverage
 
-      - name: Check coverage is at least 90%
+      - name: Test coverage
         run: |
           cov <- covr::package_coverage(quiet = FALSE)
           print(cov, group = "filename")
-          pct <- covr::percent_coverage(cov)
+          covr::to_cobertura(cov)
+          writeLines(format(covr::percent_coverage(cov)), "coverage-percent.txt")
+        shell: Rscript {0}
+
+      - uses: codecov/codecov-action@v5
+        with:
+          files: ./cobertura.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+          # PRs from forks have no access to the token; do not fail them
+          fail_ci_if_error: false
+
+      - name: Check coverage is at least 90%
+        run: |
+          pct <- as.numeric(readLines("coverage-percent.txt"))
           if (pct < 90) stop(sprintf("Test coverage is %.2f%%, below the 90%% minimum.", pct))
         shell: Rscript {0}
