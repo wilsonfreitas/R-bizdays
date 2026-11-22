@@ -12,6 +12,8 @@
 
   * `Brazil/B3` Calendar updated: added holidays from 2026.
 
+  * `Brazil/B3` Calendar extended to 2079, like `Brazil/ANBIMA` and `Brazil/BMF`: holidays after 2026 are the `Brazil/ANBIMA` holidays plus December 24th and the last weekday of the year (#118).
+
   * `load_quantlib_calendars()` no longer loads `QuantLib/Italy/Exchange`, which was removed from recent QuantLib releases, and skips with a warning any calendar that RQuantLib does not recognise (fixes CRAN check errors).
 
 # bizdays 1.0.17
