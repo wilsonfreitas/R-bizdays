@@ -56,3 +56,17 @@ test_that("next/last weekday works for every reference weekday", {
     }
   }
 })
+test_that("it should get the nth weekday of a month reference", {
+  expect_equal(
+    getdate("3rd wed", c("2024-03", "2024-04"), "Brazil/ANBIMA"),
+    as.Date(c("2024-03-20", "2024-04-17"))
+  )
+  expect_equal(getdate("first mon", "2024-07", "actual"), as.Date("2024-07-01"))
+  expect_equal(getdate("last fri", "2024-03", "actual"), as.Date("2024-03-29"))
+})
+
+test_that("it should raise errors for invalid expressions and references", {
+  expect_error(getdate("first", "2024-03", "actual"), "Invalid expr: first")
+  expect_error(getdate("first foo", "2024-03", "actual"), "Invalid expr: first foo")
+  expect_error(getdate("first day", "2024/03", "actual"), "Invalid character ref")
+})

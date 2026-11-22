@@ -33,15 +33,8 @@
 #' @name calendar-import-export
 NULL
 
-handle_adjust <- function(x) {
-  switch(x,
-    adjust.next = "following",
-    adjust.previous = "preceding",
-    adjust.none = NULL,
-    none = NULL,
-    x # preceding or following
-  )
-}
+# x is the label set by adjust_name(): "following", "preceding", "none" or NULL
+handle_adjust <- function(x) if (identical(x, "none")) NULL else x
 
 cal2list <- function(cal) {
   cal_list <- list(
