@@ -1,0 +1,35 @@
+# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
+# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+name: test-coverage
+
+jobs:
+  test-coverage:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::covr
+          needs: coverage
+
+      - name: Check coverage is at least 90%
+        run: |
+          cov <- covr::package_coverage(quiet = FALSE)
+          print(cov, group = "filename")
+          pct <- covr::percent_coverage(cov)
+          if (pct < 90) stop(sprintf("Test coverage is %.2f%%, below the 90%% minimum.", pct))
+        shell: Rscript {0}
